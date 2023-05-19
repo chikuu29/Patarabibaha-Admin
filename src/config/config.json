@@ -1,0 +1,121 @@
+{
+   "appName": "Waywala",
+   "roleConfig": {
+      "admin": {
+         "accessRoutUrl":[
+            "/dash",
+            "/mycase",
+            "/kvks",
+            "/user-role",
+            "/notification",
+            "/show-medicine",
+            "/add-medicine",
+            "/case",
+            "/error-page",
+            "/landing-page",
+            "/add-cuppon-code",
+            "/market-place",
+            "/add-product",
+            "/requested-product",
+            "/product",
+            "/become-a-seller",
+            "/accounts"
+         ],
+         "sideNavConfigId": [
+            "admin-01",
+            "agri-01",
+            "ecommerce-01"
+         ],
+         "authorizationDBAcess": [
+            "agriculture_case",
+            "medicine",
+            "agriculture_case_status",
+            "Kvks_Details",
+            "admin",
+            "user",
+            "banner",
+            "agricultural_market",
+            "previous_agricultural_market",
+            "cuppon_code",
+            "e_commerce_product",
+            "becomesellercontactform",
+            "sell_buy_product_bill_details"
+         ],
+         "authorizationDBAcessForUpdate": [
+            "medicine",
+            "agriculture_case_status",
+            "Kvks_Details",
+            "medicine",
+            "banner",
+            "agricultural_market",
+            "previous_agricultural_market",
+            "cuppon_code",
+            "e_commerce_product",
+            "becomesellercontactform"
+         ],
+         "authorizationDBAcessForDelete": [
+            "admin",
+            "Kvks_Details",
+            "banner",
+            "agricultural_market",
+            "previous_agricultural_market",
+            "cuppon_code",
+            "becomesellercontactform"
+         ]
+
+      },
+      "Agriculture_Reviewer": {
+         "accessRoutUrl":[
+            "/mycase",
+            "/case",
+            "/error-page"
+         ],
+         "sideNavConfigId": [
+            "agri-01"
+         ],
+         "authorizationDBAcess": [
+            "agriculture_case",
+            "medicine",
+            "agriculture_case_status"
+
+         ],
+         "authorizationDBAcessForUpdate": [
+            "agriculture_case",
+            "agriculture_case_status"
+
+            
+         ],
+         "authorizationDBAcessForDelet": [
+            
+         ]
+      },
+      "Farmer_As_Seller": {
+         "accessRoutUrl":[
+            "/error-page",
+            "/add-product",
+            "/requested-product",
+            "/product",
+            "/accounts"
+         ],
+         "sideNavConfigId": [
+            "ecommerce-01"
+         ],
+         "authorizationDBAcess": [
+            "e_commerce_product",
+            "e_commerce_order_details",
+            "sell_buy_product_bill_details"
+            
+         ],
+         "authorizationDBAcessForUpdate": [
+            "e_commerce_product",
+            "e_commerce_order_details"
+
+            
+         ],
+         "authorizationDBAcessForDelet": [
+            "e_commerce_product"
+            
+         ]
+      }
+   }
+}
