@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,12 +9,25 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   redirectUrl: any = ''
+  // Validators.pattern("^W-([A-Z]{5,5})([@_])([0-9]{3,5})$")
+  loginForm = new FormGroup({
+    userID: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    checkme: new FormControl('', [Validators.required])
+  });
   constructor(
     private activeroute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.redirectUrl = this.activeroute.snapshot.queryParamMap.get('redirectUrl') || '/'
+  }
+
+  login(){
+
+    console.log(this.loginForm.value);
+    
+
   }
 
 }

@@ -11,6 +11,9 @@ import { AppService } from './services/app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './auth/auth.module';
 import { PagesModule } from './pages/pages.module';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -23,8 +26,11 @@ import { PagesModule } from './pages/pages.module';
     BrowserModule,
     AuthModule,
     PagesModule,
+    MaterialModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LoadingBarRouterModule,
+    NgxUiLoaderModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]
