@@ -14,6 +14,8 @@ import { PagesModule } from './pages/pages.module';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { MaterialModule } from './material/material.module';
+import { BlockUIModule } from 'ng-block-ui';
+import { BlockUiCustomTemplateComponent } from './block-ui-custom-template.component';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,15 @@ import { MaterialModule } from './material/material.module';
     HttpClientModule,
     AppRoutingModule,
     LoadingBarRouterModule,
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    BlockUIModule.forRoot(
+      {
+        template: BlockUiCustomTemplateComponent
+      }
+    )
   ],
   providers: [AppService],
+  entryComponents: [BlockUiCustomTemplateComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

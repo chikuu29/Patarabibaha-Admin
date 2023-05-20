@@ -26,6 +26,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "moment",
+              "sweetalert2",
+              "jspdf-autotable",
+              "jspdf",
+              "canvg",
+              "raf",
+              "rgbcolor"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

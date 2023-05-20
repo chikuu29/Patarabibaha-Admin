@@ -1,7 +1,7 @@
 {
-   "appName": "Waywala",
+   "appName": "Patarabibaha",
    "roleConfig": {
-      "admin": {
+      "ADMIN": {
          "accessRoutUrl":[
             "/dash",
             "/mycase",
@@ -64,57 +64,23 @@
          ]
 
       },
-      "Agriculture_Reviewer": {
+      "GEUST":{
          "accessRoutUrl":[
-            "/mycase",
-            "/case",
-            "/error-page"
+           
          ],
          "sideNavConfigId": [
-            "agri-01"
-         ],
-         "authorizationDBAcess": [
-            "agriculture_case",
-            "medicine",
-            "agriculture_case_status"
-
-         ],
-         "authorizationDBAcessForUpdate": [
-            "agriculture_case",
-            "agriculture_case_status"
-
-            
-         ],
-         "authorizationDBAcessForDelet": [
-            
-         ]
-      },
-      "Farmer_As_Seller": {
-         "accessRoutUrl":[
-            "/error-page",
-            "/add-product",
-            "/requested-product",
-            "/product",
-            "/accounts"
-         ],
-         "sideNavConfigId": [
+            "admin-01",
+            "agri-01",
             "ecommerce-01"
          ],
          "authorizationDBAcess": [
-            "e_commerce_product",
-            "e_commerce_order_details",
-            "sell_buy_product_bill_details"
             
          ],
          "authorizationDBAcessForUpdate": [
-            "e_commerce_product",
-            "e_commerce_order_details"
-
             
          ],
-         "authorizationDBAcessForDelet": [
-            "e_commerce_product"
-            
+         "authorizationDBAcessForDelete": [
+           
          ]
       }
    }
