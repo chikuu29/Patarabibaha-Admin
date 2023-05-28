@@ -52,7 +52,7 @@ export class AuthService {
     return environment.baseApiURL;
   }
   public signIn(data: any) {
-    return this.http.post(`${this.getApipath()}auth/adminlogin.php`, data)
+    return this.http.post(`${this.getApipath()}adminLogin`, data)
   }
 
   public authentication(id: string, name: string, email: string, isLogin: boolean, role: String, _refreshkey: any, expiration_date: any) {

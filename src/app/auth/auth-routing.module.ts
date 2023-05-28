@@ -7,7 +7,7 @@ import { ErrorPageComponent } from '../pages/error-page/error-page.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'sign-in',
+    redirectTo: 'landing-page',
     pathMatch: 'full'
   },
   {

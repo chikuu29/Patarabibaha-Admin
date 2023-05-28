@@ -25,17 +25,17 @@ export class AuthGuard implements CanActivate {
       map(admin => {
   
       
-        if (admin && admin.isLogin && admin.token) {
+        if (admin && admin.isLogin ) {
           const appConfig = this.appservices.getappconfig;
           let str = state.url
-          let index = str.indexOf('/', str.indexOf('/') + 1);
+          // let index = str.indexOf('/', str.indexOf('/') + 1);
           // Extract the part of the string before the second '/'
-          let result = str.substring(0, index)
-          var finalUrl=isEmpty(result)?state.url:result;
-          if (appConfig['roleConfig'][admin.role]['accessRoutUrl'].includes(finalUrl)) {
+          // let result = str.substring(0, index)
+          // var finalUrl=isEmpty(result)?state.url:result;
+          // if (appConfig['roleConfig'][admin.role]['accessRoutUrl'].includes(finalUrl)) {
             return true
-          }
-          return this._router.createUrlTree(['error-page']);
+          // }
+          // return this._router.createUrlTree(['error-page']);
         } else {
           this._router.navigate(['auth/sign-in'], { queryParams: { redirectUrl: state.url } });
           return false
