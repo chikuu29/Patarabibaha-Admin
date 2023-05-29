@@ -105,9 +105,9 @@ export class AuthService {
   }
 
   public logout() {
-    console.log(this.getAuthStatus());
+    // console.log(this.getAuthStatus());
 
-    this.http.post(`${this.getApipath()}auth/logout.php`, { "userID": this.getAuthStatus().id,'token':this.getAuthStatus()._refreshkey }).subscribe((res: any) => {
+    // this.http.post(`${this.getApipath()}auth/logout.php`, { "userID": this.getAuthStatus().id,'token':this.getAuthStatus()._refreshkey }).subscribe((res: any) => {
 
       // Swal.fire(res.message, 'Bye See You Soon', 'success').then(() => {
         this.admin.next(null);
@@ -120,10 +120,10 @@ export class AuthService {
         }
       // })
 
-    }, (error) => {
-        console.log(error);
+    // }, (error) => {
+    //     console.log(error);
         
-    })
+    // })
 
 
   }
