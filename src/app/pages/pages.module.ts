@@ -6,6 +6,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { DashBoardComponent } from './dash-board/dash-board.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { SocialmediaComponent } from './socialmedia/socialmedia.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,11 +15,14 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     PageNotFoundComponent,
     ErrorPageComponent,
     DashBoardComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SocialmediaComponent,
+   
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    FormsModule
   ]
 })
 export class PagesModule { }

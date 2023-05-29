@@ -16,6 +16,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { MaterialModule } from './material/material.module';
 import { BlockUIModule } from 'ng-block-ui';
 import { BlockUiCustomTemplateComponent } from './block-ui-custom-template.component';
+// import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { BlockUiCustomTemplateComponent } from './block-ui-custom-template.compo
     AppRoutingModule,
     LoadingBarRouterModule,
     NgxUiLoaderModule,
+    // FormsModule,
     BlockUIModule.forRoot(
       {
         template: BlockUiCustomTemplateComponent

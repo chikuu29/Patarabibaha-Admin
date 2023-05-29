@@ -58,6 +58,9 @@ export class ApiService {
   public deleteImage(apiData:any){
     return this.http.post(this.appservices.getApipath()+ `shop/delete_image.php`,apiData,{headers:this.headers})
   }
+  public socialMediaLink(apiData:any){
+    return this.http.post(this.appservices.getApipath()+ `socialMediaLink`,apiData,{headers:this.headers})
+  }
 
 
 
