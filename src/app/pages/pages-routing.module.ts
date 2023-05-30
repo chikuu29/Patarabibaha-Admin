@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SocialmediaComponent } from './socialmedia/socialmedia.component';
+import { ContryComponent } from './contry/contry.component';
+import { StateComponent } from './state/state.component';
+
 
 const routes: Routes = [
   
@@ -24,6 +27,18 @@ const routes: Routes = [
           path: 'socialmedia-page', 
           canActivate:[AuthGuard],
           component: SocialmediaComponent
+        },
+
+        {
+          path: 'country-page', 
+          canActivate:[AuthGuard],
+          component: ContryComponent
+        },
+
+        {
+          path: 'state-page', 
+          canActivate:[AuthGuard],
+          component: StateComponent
         }
         
         

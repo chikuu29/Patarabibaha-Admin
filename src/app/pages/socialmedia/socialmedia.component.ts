@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResolveEnd } from '@angular/router';
 // import { FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
@@ -19,7 +20,7 @@ export class SocialmediaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+    this.show();
   }
 
   socialMediaSubmit(){
@@ -45,6 +46,19 @@ export class SocialmediaComponent implements OnInit {
     });
   }
   show(){
+
+    this.api.getSocialMediaLink().subscribe((res:any)=>{
+      if(res.status){
+        this.fb=res.result[0].facebook_link;
+        this.tw = res.result[0].twitter_link;
+        this.wh = res.result[0].whatsapp_no ;
+        this.yo = res.result[0].youtub_link  ;
+        this.li = res.result[0].linkedin_link;
+      }
+      console.log(res);
+      
+
+    });
 
   }
 

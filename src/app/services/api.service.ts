@@ -12,7 +12,7 @@ export class ApiService {
     console.log("Calling Api Services");
     var headers = new HttpHeaders()
       .set("Authorization",this.appservices.authStatus._refreshkey)
-      .set("Access-Control-Allow-Origin", "*")
+      //.set("Access-Control-Allow-Origin", "*")
       .set("Content-Type", "application/x-www-form-urlencoded;harset=utf-8")
     this.headers = headers;
 
@@ -62,6 +62,13 @@ export class ApiService {
     return this.http.post(this.appservices.getApipath()+ `socialMediaLink`,apiData,{headers:this.headers})
   }
 
+  public getSocialMediaLink(){
+    return this.http.post(this.appservices.getApipath()+ `getsocialMediaLink`,{headers:this.headers})
+  }
+
+  public insertCountry(param:any){
+    return this.http.post(this.appservices.getApipath()+ `country`,param,{headers:this.headers})
+  }
 
 
 
