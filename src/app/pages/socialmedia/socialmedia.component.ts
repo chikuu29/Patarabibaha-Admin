@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ResolveEnd } from '@angular/router';
 // import { FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
@@ -10,11 +11,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./socialmedia.component.scss']
 })
 export class SocialmediaComponent implements OnInit {
-  fb:any;
-  tw:any ;
-  wh:any;
-  yo:any ;
-  li:any;
+  socialMediaForm= new FormGroup({
+    fb: new FormControl('', [Validators.required]),
+    tw: new FormControl('', [Validators.required, Validators.email]),
+    wh: new FormControl('', [Validators.required]),
+    yo: new FormControl('', [Validators.required]),
+    li: new FormControl('', [Validators.required]),
+  })
   constructor(
     private api:ApiService
   ) { }
@@ -24,15 +27,7 @@ export class SocialmediaComponent implements OnInit {
   }
 
   socialMediaSubmit(){
-    var apiData = {
-      "fb": this.fb,
-      "tw": this.tw,
-      "wh": this.wh,
-      "yo": this.yo,
-      "li": this.li,
-    }
-
-    this.api.socialMediaLink(apiData).subscribe((res:any)=>{
+    this.api.socialMediaLink(this.socialMediaForm.value).subscribe((res:any)=>{
       console.log(res);
       
           if(res.status){
@@ -48,12 +43,9 @@ export class SocialmediaComponent implements OnInit {
   show(){
 
     this.api.getSocialMediaLink().subscribe((res:any)=>{
+      
       if(res.status){
-        this.fb=res.result[0].facebook_link;
-        this.tw = res.result[0].twitter_link;
-        this.wh = res.result[0].whatsapp_no ;
-        this.yo = res.result[0].youtub_link  ;
-        this.li = res.result[0].linkedin_link;
+        
       }
       console.log(res);
       

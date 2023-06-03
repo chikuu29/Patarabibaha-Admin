@@ -4,7 +4,10 @@
     <app-side-nav></app-side-nav>
     <div class="container-fluid page-body-wrapper">
       <app-nav-bar></app-nav-bar>
-      <div class="main-panel">
+      <div class="main-panel ">
+        <div class="content-wrapper">
+
+
         <router-outlet></router-outlet>
         <ng-container *ngIf="false">
           <div class="content-wrapper">
@@ -677,6 +680,7 @@
           </div>
         </ng-container>
         <app-footer></app-footer>
+      </div>
       </div>
     </div>
   </div>

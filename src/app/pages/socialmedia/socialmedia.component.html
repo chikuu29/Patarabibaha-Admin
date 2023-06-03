@@ -1,24 +1,36 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Add Social Media Links</h4>
+            <!-- <p class="card-description"> Basic form elements </p> -->
+            <form [formGroup]="socialMediaForm">
+                <div class="form-group">
+                    <label >Facebook Link <i class="fa-brands fa-facebook" style="color: #0b61f4;"></i></label>
+                    <input type="text" class="form-control" formControlName="fb" placeholder="Facebook Link">
+                </div>
+                <div class="form-group">
+                    <label >Twitter Link <i class="fa-brands fa-twitter" style="color: #0b61f4;"></i></label>
+                    <input type="text" class="form-control" formControlName="tw"  placeholder="Twitter Link">
+                </div>
+                <div class="form-group">
+                    <label >Whatsapp <i class="fa-brands fa-whatsapp" style="color: #4bb823;"></i></label>
+                    <input type="text" class="form-control" formControlName="wh" placeholder="Whatsapp No">
+                </div>
+                <div class="form-group">
+                    <label >Youtube Link <i class="fa-brands fa-youtube" style="color: #f50a0a;"></i></label>
+                    <input type="text" class="form-control" formControlName="yo" placeholder="Youtube Link">
 
+                </div>
+               
+                <div class="form-group">
+                    <label >Linkedin Link <i class="fa-brands fa-linkedin" style="color: #0b61f4;"></i></label>
+                    <input type="text" class="form-control"  formControlName="li" placeholder="Linkdin Link">
+                </div>
+              
+                <button type="submit" class="btn btn-primary btn-md mr-2" (click)="socialMediaSubmit()">Submit</button>
+                <button class="btn btn-danger btn-md">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Facebook Link</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="fb" rows="4"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Twiter Link</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="tw" rows="4"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Whats app no</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="wh" rows="4"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Youtube Link</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="yo" rows="4"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Linkedin Link</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="li" rows="4"></textarea>
-    </div>
-
-    <button type="button" (click)="socialMediaSubmit()" class="btn btn-primary">Sumbit</button>
