@@ -28,13 +28,11 @@ const routes: Routes = [
           canActivate:[AuthGuard],
           component: SocialmediaComponent
         },
-
         {
           path: 'country-page', 
           canActivate:[AuthGuard],
           component: ContryComponent
         },
-
         {
           path: 'state-page', 
           canActivate:[AuthGuard],
