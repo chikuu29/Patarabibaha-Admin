@@ -16,6 +16,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { MaterialModule } from './material/material.module';
 import { BlockUIModule } from 'ng-block-ui';
 import { BlockUiCustomTemplateComponent } from './block-ui-custom-template.component';
+import { ToastrModule } from 'ngx-toastr';
 // import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -39,7 +40,8 @@ import { BlockUiCustomTemplateComponent } from './block-ui-custom-template.compo
       {
         template: BlockUiCustomTemplateComponent
       }
-    )
+    ),
+    ToastrModule.forRoot()
   ],
   providers: [AppService],
   entryComponents: [BlockUiCustomTemplateComponent],

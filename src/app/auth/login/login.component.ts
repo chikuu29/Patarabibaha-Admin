@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { AuthService } from '../auth.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private activeroute: ActivatedRoute,
     private Title: Title,
     private _auth: AuthService,
-    private _router: Router
+    private _router: Router,
+    private alert: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit {
           // console.log(res);
           // // console.log(res);
           if (res.success) {
+            this.alert.success("Login Successfull")
             // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login Successfull' })
             var expiration_date = new Date(new Date().getTime() + 86400 * 1000).toString();
             this._auth.authentication("res.id", "res.name", res.email, true, "res.role", "res.token", expiration_date);
@@ -62,7 +65,7 @@ export class LoginComponent implements OnInit {
             
             this._router.navigateByUrl(this.redirectUrl)
           } else {
-
+            this.alert.error(res.message)
             // this.messageService.add({ severity: 'error', summary: 'error', detail: res.message })
           }
 
