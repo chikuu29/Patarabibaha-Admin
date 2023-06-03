@@ -69,6 +69,10 @@ export class ApiService {
   public insertCountry(param:any){
     return this.http.post(this.appservices.getApipath()+ `country`,param,{headers:this.headers})
   }
+  public state(param:any){
+    return this.http.post(this.appservices.getApipath()+ `state`,param,{headers:this.headers})
+  }
+ 
 
 
 

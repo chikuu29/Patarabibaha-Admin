@@ -1,1 +1,102 @@
-<p>state works!</p>
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="form-inline">
+                <div class="form-group col-md-4">
+                    <label for="exampleSelectGender">COUNTRY</label>
+                    <select class="form-control" name="exampleSelectGender" [(ngModel)]="countryid" ngDefaultControl id="exampleSelectGender">
+                        <option hidden value="0">SELECT</option>
+                        <option *ngFor="let countryalldatahtml of countryalldata" [value]="countryalldatahtml.Id" >{{countryalldatahtml.country_name}}</option>
+                    </select>
+                </div>
+                <h4 class="card-title">STATE</h4>
+                <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form controls, and buttons on a single horizontal row </p> -->
+
+                <label class="sr-only" for="inlineFormInputName2">Name</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" [(ngModel)]="state"
+                    placeholder="State name">
+                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <!-- <div class="input-group-text">@</div> -->
+                    </div>
+                    <!-- <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username"> -->
+                </div>
+                <div class="form-check mx-sm-2">
+                    <!-- <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" checked> Remember me </label> -->
+                </div>
+                <button type="submit" (click)="addState()" class="btn btn-primary mb-2">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="indicatorslist">
+    <a id="deleteicon" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title=""
+      data-original-title="Delete"><i class="icon-trash-solid" ></i></a>
+       (click)="deleteAll(letterIdArray)" 
+
+    <a id="publishicon" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title=""
+      data-original-title="Publish" ><i class="icon-volume-up-solid"></i></a>
+       (click)="publishAll(letterIdArray)" 
+
+    <a id="unpublishicon" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title=""
+      data-original-title="Unpublish" ><i
+        class="icon-volume-off-solid"></i></a>
+         (click)="unpublishAll(letterIdArray)" 
+  </div> -->
+  <div class="show">
+    <p class="showchils green">publish</p>
+    <p class="showchils red">unpublish</p>
+    <p class="showchils red">delete</p>
+  </div>
+<div class="row">
+    <div class="col-lg grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <!-- <h4 class="card-title">Basic Table</h4>
+                <p class="card-description"> Add class <code>.table</code> -->
+                <!-- </p> -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" (click)="checkall($event)" class="checkbox">
+                                </th>
+                                <th>#SI</th>
+                                <th>State Nmae</th>
+                                <th>Created in</th>
+                                <th>Status</th>
+                                <th>Deleted</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let statealldatahtml of statealldata ; index as i">
+                                <th>
+                                    <input type="checkbox" class="checkbox">
+                                </th>
+                                <td>{{i+1}}</td>
+                                <td>{{statealldatahtml.state_name}}</td>
+                                <td>{{ statealldatahtml.createdon }}</td>
+                                <td>
+                                    <p class="badge badge-danger" *ngIf="statealldatahtml.status == 0">
+                                        NOT PUBLISHED
+                                    </p>
+                                    <p class="badge badge-success" *ngIf="statealldatahtml.status == 1">PUBLISHED</p>
+                                </td>
+                                <td>
+                                    <p class="badge badge-danger" *ngIf="statealldatahtml.deleted == 0">
+                                        DELETED
+                                    </p>
+                                    <p class="badge badge-success" *ngIf="statealldatahtml.deleted == 1">
+                                        PRESENT
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
