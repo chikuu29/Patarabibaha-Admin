@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseApiURL:'http://localhost:8080/'
+  baseApiURL:'https://admin.choicemarriage.com/api/'
 };
 
 /*
