@@ -11,12 +11,22 @@ const routes: Routes = [
 
   },
   {
-    path: '',
+    path: 'pages',
     canActivate: [AuthGuard],
     children: [
       {
         path: '',
         loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+      }
+    ]
+  },
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./component/component.module').then(m=>m.ComponentModule)
       }
     ]
   },

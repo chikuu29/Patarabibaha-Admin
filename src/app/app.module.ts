@@ -17,6 +17,7 @@ import { MaterialModule } from './material/material.module';
 import { BlockUIModule } from 'ng-block-ui';
 import { BlockUiCustomTemplateComponent } from './block-ui-custom-template.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ComponentModule } from './component/component.module';
 // import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     AuthModule,
     PagesModule,
+    ComponentModule,
     MaterialModule,
     HttpClientModule,
     AppRoutingModule,
