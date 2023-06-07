@@ -11,7 +11,7 @@ export class ApiService {
   constructor(private http: HttpClient,private appservices:AppService) {
     console.log("Calling Api Services");
     var headers = new HttpHeaders()
-      .set("Authorization",this.appservices.authStatus._refreshkey)
+      // .set("Authorization",this.appservices.authStatus._refreshkey)
       //.set("Access-Control-Allow-Origin", "*")
       .set("Content-Type", "application/x-www-form-urlencoded;harset=utf-8")
     this.headers = headers;
@@ -20,7 +20,7 @@ export class ApiService {
 
   }
   public getdata(apiData:any){
-    return this.http.post(this.appservices.getApipath() + 'generic/fetchdata.php', apiData, { headers: this.headers });
+    return this.http.post(this.appservices.getApipath() + 'fetch', apiData, { headers: this.headers });
   }
 
   public update(apiData:any){

@@ -1,0 +1,378 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import Swal from "sweetalert2";
+import { ApiService } from "../services/api.service";
+import { AppService } from "../services/app.service";
+
+
+@Injectable({
+    providedIn: 'root'
+})
+export class ApiParameterScript {
+
+    constructor(
+        private http: HttpClient,
+        private apiservices: ApiService,
+        private appservices: AppService
+
+    ) {
+        console.log("Calling API Parametere");
+    }
+
+
+    /**
+     * {
+            "table":"country_table",
+            "projection":["*"],
+            "whereConditions":[
+                ["country_name", "INDIA"]
+        
+          ]
+        }
+
+     * @param db 
+     * @param apiData 
+     * @returns 
+     * @author Suryanarayan Biswal
+     * @since 20-10-2022
+     */
+    public fetchdata(db: string, apiData: any) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+                apiData['table'] = db;
+                this.apiservices.getdata(apiData).subscribe((res: any) => {
+                    observer.next(res);
+                    observer.complete();
+                })
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
+
+
+    /**
+    * {
+        "data":"case_status='accepted'",
+        "db":"agriculture_case",
+        "projection":"case_id='WAC4641665460808ggggddd'",
+        "loginInfo":{
+                        "email":"cchiku1999@gmail.com",
+                            "id": "SURYA1234",
+                            "isLogin": true,
+                            "name": "SURYANARAYAN BISWAL",
+                            "role": "agri"
+                    }
+        
+        }
+
+    * @param db 
+    * @param apiData 
+    * @returns 
+    * @author Suryanarayan Biswal
+    * @since 20-10-2022
+    */
+    public updatedata(db: string, apiData: any) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+                apiData['db'] = db;
+                const appConfig = this.appservices.getappconfig;
+                const loginInfo = this.appservices.authStatus;
+                let getrole = loginInfo['role'] ? loginInfo['role'] : '';
+                let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
+                let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
+                if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
+                    apiData['loginInfo'] = loginInfo;
+                    this.apiservices.update(apiData).subscribe((res: any) => {
+                        observer.next(res);
+                        observer.complete();
+                    })
+                } else {
+                    observer.next({ "success": false, "message": "Permission Denied To Update Database" });
+                    observer.complete();
+                }
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
+
+
+    /**
+    * {
+        "data":"case_status='accepted'",
+        "db":"agriculture_case",
+        "loginInfo":{
+                        "email":"cchiku1999@gmail.com",
+                            "id": "SURYA1234",
+                            "isLogin": true,
+                            "name": "SURYANARAYAN BISWAL",
+                            "role": "agri"
+                    }
+        
+        }
+
+    * @param db 
+    * @param apiData 
+    * @returns 
+    * @author Suryanarayan Biswal
+    * @since 20-10-2022
+    */
+    public savedata(db: string, apiData: any) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+                apiData['db'] = db;
+                const appConfig = this.appservices.getappconfig;
+                const loginInfo = this.appservices.authStatus;
+                let getrole = loginInfo['role'] ? loginInfo['role'] : '';
+                let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
+                let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
+                if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
+                    apiData['loginInfo'] = loginInfo;
+                    this.apiservices.save(apiData).subscribe((res: any) => {
+                        observer.next(res);
+                        observer.complete();
+                    })
+                } else {
+                    observer.next({ "success": false, "message": "Permission Denied To Save Date" });
+                    observer.complete();
+                }
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
+
+    /**
+    * {
+       
+        "db":"agriculture_case",
+        "projection":"case_id='WAC4641665460808ggggddd'",when multidelete is false
+        "projection":"case_id",when multidelete is true
+        "data":[1,2,3],when multidelete is true
+        "multidelete":true/false
+        "loginInfo":{
+                        "email":"cchiku1999@gmail.com",
+                            "id": "SURYA1234",
+                            "isLogin": true,
+                            "name": "SURYANARAYAN BISWAL",
+                            "role": "agri"
+                    }
+        
+        }
+
+    * @param db 
+    * @param apiData 
+    * @returns 
+    * @author Suryanarayan Biswal
+    * @since 20-10-2022
+    */
+    public deletedata(db: string, apiData: any) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+                apiData['db'] = db;
+                if (apiData['multidelete'] == undefined) {
+                    apiData['multidelete'] = false
+                    apiData['data'] = ''
+                }
+                const appConfig = this.appservices.getappconfig;
+                const loginInfo = this.appservices.authStatus;
+                let getrole = loginInfo['role'] ? loginInfo['role'] : '';
+                let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
+                let outhForDelete = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForDelete'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForDelete'].includes(db) : false : false;
+                if (appConfig['roleConfig'][getrole] && (outh && outhForDelete)) {
+                    apiData['loginInfo'] = loginInfo;
+                    this.apiservices.delete(apiData).subscribe((res: any) => {
+                        observer.next(res);
+                        observer.complete();
+                    })
+                } else {
+                    observer.next({ "success": false, "message": "Permission Denied for Delete Operation" });
+                    observer.complete();
+                }
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
+
+    /**
+    * {
+        "data":"case_status='accepted'",
+        "db":"agriculture_case",
+        "projection":"case_id='WAC4641665460808ggggddd'",
+        "loginInfo":{
+                        "email":"cchiku1999@gmail.com",
+                            "id": "SURYA1234",
+                            "isLogin": true,
+                            "name": "SURYANARAYAN BISWAL",
+                            "role": "agri"
+                    }
+        
+        }
+
+    * @param db 
+    * @param apiData 
+    * @returns 
+    * @author Suryanarayan Biswal
+    * @since 01-11-2022
+    */
+    public addMedicine(db: string, apiData: any) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+                apiData['db'] = db;
+                const appConfig = this.appservices.getappconfig;
+                const loginInfo = this.appservices.authStatus;
+                let getrole = loginInfo['role'] ? loginInfo['role'] : '';
+                let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
+                let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
+                if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
+                    apiData['loginInfo'] = loginInfo;
+                    this.apiservices.addmedicine(apiData).subscribe((res: any) => {
+                        observer.next(res);
+                        observer.complete();
+                    })
+                } else {
+                    observer.next({ "success": false, "message": "Permission Denied To Update Database" });
+                    observer.complete();
+                }
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
+
+
+
+    /**
+   * {
+       "data":"case_status='accepted'",
+       "db":"agriculture_case",
+       "projection":"case_id='WAC4641665460808ggggddd'",
+       "loginInfo":{
+                       "email":"cchiku1999@gmail.com",
+                           "id": "SURYA1234",
+                           "isLogin": true,
+                           "name": "SURYANARAYAN BISWAL",
+                           "role": "agri"
+                   }
+       
+       }
+  * @param requestId ,100(For Adding New product) ,101(For Updating Product)
+   * @param db 
+   * @param apiData 
+   * @returns 
+   * @author Suryanarayan Biswal
+   * @since 01-11-2022
+   */
+    public create_Product_For_Sell(db: string, apiData: any, request_id: any) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+                // apiData['db'] = db;
+                const appConfig = this.appservices.getappconfig;
+                const loginInfo = this.appservices.authStatus;
+                let getrole = loginInfo['role'] ? loginInfo['role'] : '';
+                let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
+                let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
+                if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
+                    apiData['loginInfo'] = loginInfo;
+                    this.apiservices.requsting_E_Commerce_Product_Api(request_id, apiData).subscribe((res: any) => {
+                        observer.next(res);
+                        observer.complete();
+                    })
+                } else {
+                    observer.next({ "success": false, "message": "Permission Denied To Update Database" });
+                    observer.complete();
+                }
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
+
+    public fetchDataFormQuery(query: any) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+                // apiData['db'] = db;
+                // const appConfig = this.appservices.getappconfig;
+                // const loginInfo = this.appservices.authStatus;
+                // let getrole = loginInfo['role'] ? loginInfo['role'] : '';
+                // let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
+                // let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
+                // if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
+                //     apiData['loginInfo'] = loginInfo;
+                this.apiservices.fetchDataQueryApi(query).subscribe((res: any) => {
+                    observer.next(res);
+                    observer.complete();
+                })
+                // } else {
+                //     observer.next({ "success": false, "message": "Permission Denied To Update Database" });
+                //     observer.complete();
+                // }
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchDataFormQuery", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
+
+    /**
+       * @param FilePath 
+       * @param FileName 
+       * @returns 
+       * @author Suryanarayan Biswal
+       * @since 01-11-2022
+       */
+    public deleteImageFile(FilePath: any, FileName: any) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+                // apiData['db'] = db;
+                var apiData: any = {}
+                apiData['FilePath'] = FilePath;
+                apiData['FileName'] = FileName
+                // const appConfig = this.appservices.getappconfig;
+                const loginInfo = this.appservices.authStatus;
+                let getrole = loginInfo['role'] ? loginInfo['role'] : false;
+                // let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
+                // let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
+                if (getrole) {
+                    apiData['loginInfo'] = loginInfo;
+                    this.apiservices.deleteImage(apiData).subscribe((res: any) => {
+                        observer.next(res);
+                        observer.complete();
+                    })
+                } else {
+                    observer.next({ "success": false, "message": "Permission Denied To Update Database" });
+                    observer.complete();
+                }
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
+
+}
