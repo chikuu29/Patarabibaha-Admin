@@ -19,6 +19,7 @@ import { BlockUiCustomTemplateComponent } from './block-ui-custom-template.compo
 import { ToastrModule } from 'ngx-toastr';
 import { ComponentModule } from './component/component.module';
 // import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ComponentModule } from './component/component.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AuthModule,
     PagesModule,
     ComponentModule,
