@@ -69,5 +69,32 @@ export class StateComponent implements OnInit {
   checkall(e:any){
     let check = document.querySelectorAll('.checkbox')
   }
+  filterstate(){
+    let param = {
+      'country':this.countryid,
+      'status':22,
+    }
+    this.api.state(param).subscribe((res:any)=>{
+      if(res.status){
+        this.statealldata = res.message;
+        console.log(this.statealldata);
+      }
+    })
+  }
+  statefilter(){
+    // alert(this.countryid);
+    // alert(this.state);
+    let param = {
+      'country':this.countryid == 0 ?'':this.countryid,
+      'state':this.state,
+      'status':23,
+    }
+    this.api.state(param).subscribe((res:any)=>{
+      if(res.status){
+        this.statealldata = res.message;
+        console.log(this.statealldata);
+      }
+    })
+  }
 
 }

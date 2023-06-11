@@ -9,6 +9,7 @@ import { SocialmediaComponent } from './socialmedia/socialmedia.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StateComponent } from './state/state.component';
 import { ContryComponent } from './contry/contry.component';
+import { ZodiacsComponent } from './zodiacs/zodiacs.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ContryComponent } from './contry/contry.component';
     SocialmediaComponent,
     StateComponent,
     ContryComponent,
+    ZodiacsComponent,
    
   ],
   imports: [
