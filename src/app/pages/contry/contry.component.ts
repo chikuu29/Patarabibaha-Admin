@@ -10,6 +10,10 @@ import Swal from 'sweetalert2';
 export class ContryComponent implements OnInit {
   country:any;
   countryalldata: any;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  pageSizes = [10, 20, 50, 100, 500, 1000];
   constructor(
     private api:ApiService,
   ) { }
@@ -17,20 +21,20 @@ export class ContryComponent implements OnInit {
   ngOnInit(): void {
     this.showCountry();
   }
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1; 
+  } 
 
-  addCountry(){
+  showFilterData(){
+    // alert(this.country);
       let param = {
         'country':this.country,
-        'status':21,
+        'status':22,
       }
       this.api.insertCountry(param).subscribe((res:any)=>{
           if(res.status){
-            Swal.fire({
-              icon:'success',
-              text:res.message
-            }).then((res:any)=>{
-              location.reload();
-            })
+            this.countryalldata = res.message
           }
       })
   }

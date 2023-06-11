@@ -72,6 +72,9 @@ export class ApiService {
   public state(param:any){
     return this.http.post(this.appservices.getApipath()+ `state`,param,{headers:this.headers})
   }
+  public zodiacs(param:any){
+    return this.http.post(this.appservices.getApipath()+ `zodiacs`,param,{headers:this.headers})
+  }
  
 
 

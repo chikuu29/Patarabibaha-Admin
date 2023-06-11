@@ -5,7 +5,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SocialmediaComponent } from './socialmedia/socialmedia.component';
 import { ContryComponent } from './contry/contry.component';
 import { StateComponent } from './state/state.component';
-
+import { ZodiacsComponent } from './zodiacs/zodiacs.component';
 
 const routes: Routes = [
   
@@ -37,7 +37,12 @@ const routes: Routes = [
           path: 'state-page', 
           canActivate:[AuthGuard],
           component: StateComponent
-        }
+        },
+        {
+          path: 'zodiacs-page', 
+          canActivate:[AuthGuard],
+          component: ZodiacsComponent
+        },
         
         
         
