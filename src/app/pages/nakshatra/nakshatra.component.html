@@ -1,0 +1,86 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">RASI</h4>
+            <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form
+                controls, and buttons on a single horizontal row </p> -->
+            <div class="form-inline">
+                <label class="sr-only" for="inlineFormInputName2">Name</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
+                    (keyup)="showFilterData()" [(ngModel)]="nakshatrasearch" placeholder="Country name">
+                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                <!-- <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">@</div>
+                    </div>
+                    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
+                </div> -->
+                <div class="form-check mx-sm-2">
+                    <!-- <label class="form-check-label"> -->
+                    <!-- <input type="checkbox" class="form-check-input" checked> Remember me </label>  -->
+                </div>
+                <!-- <button type="submit" (click)="addCountry()" class="btn btn-primary mb-2">Submit</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div> Per Page: <select>
+
+        <option *ngFor="let size of pageSizes" [ngValue]="size" (change)="onTableSizeChange($event)">
+            {{ size }}
+        </option>
+    </select>
+</div> -->
+<div class="row">
+
+    <div class="col-lg grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <!-- <h4 class="card-title">Basic Table</h4>
+                <p class="card-description"> Add class <code>.table</code> -->
+                <!-- </p> -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="">
+                                </th>
+                                <th>#SI</th>
+                                <th>Nakshatra</th>
+                                <th>Created in</th>
+                                <th>Status</th>
+                                <!-- <th>Deleted</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let countryalldatahtml of nakshatra ; index as i">
+                                <th>
+                                    <input type="checkbox" class="">
+                                </th>
+                                <td>{{i+1}}</td>
+                                <td>{{ countryalldatahtml.nakshatra_name }}</td>
+                                <td>{{ countryalldatahtml.created_date_time }}</td>
+                                <td>
+                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
+                                        NOT PUBLISHED
+                                    </p>
+                                    <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
+                                </td>
+                                 <!-- <td>
+                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.deleted == 0">
+                                        DELETED
+                                    </p>
+                                    <p class="badge badge-success" *ngIf="countryalldatahtml.deleted == 1">
+                                        PRESENT
+                                    </p>
+                                </td>  -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

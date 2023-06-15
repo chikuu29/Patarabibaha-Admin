@@ -75,6 +75,14 @@ export class ApiService {
   public zodiacs(param:any){
     return this.http.post(this.appservices.getApipath()+ `zodiacs`,param,{headers:this.headers})
   }
+  public nakshatra(param:any){
+    return this.http.post(this.appservices.getApipath()+ `nakshatra`,param,{headers:this.headers})
+  }
+  
+  public annualincome(param:any){
+    return this.http.post(this.appservices.getApipath()+ `annual_income`,param,{headers:this.headers})
+  }
+  
  
 
 
