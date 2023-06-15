@@ -18,9 +18,8 @@ import { BlockUIModule } from 'ng-block-ui';
 import { BlockUiCustomTemplateComponent } from './block-ui-custom-template.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ComponentModule } from './component/component.module';
-// import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +38,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     LoadingBarRouterModule,
     NgxUiLoaderModule,
-    // FormsModule,
+    FormsModule,
+    
     BlockUIModule.forRoot(
       {
         template: BlockUiCustomTemplateComponent

@@ -77,7 +77,7 @@ export class StateComponent implements OnInit {
     this.api.state(param).subscribe((res:any)=>{
       if(res.status){
         this.statealldata = res.message;
-        console.log(this.statealldata);
+       // console.log(this.statealldata);
       }
     })
   }
@@ -92,7 +92,9 @@ export class StateComponent implements OnInit {
     this.api.state(param).subscribe((res:any)=>{
       if(res.status){
         this.statealldata = res.message;
-        console.log(this.statealldata);
+       // console.log(this.statealldata);
+      }else{
+        this.statealldata = [];
       }
     })
   }

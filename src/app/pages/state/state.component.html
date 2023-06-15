@@ -66,7 +66,7 @@
                                 </th>
                                 <th>#SI</th>
                                 <th>State Nmae</th>
-                                <th>Created in</th>
+                                <!-- <th>Created in</th> -->
                                 <th>Status</th>
                                 <!-- <th>Deleted</th> -->
                             </tr>
@@ -80,10 +80,10 @@
                                 <td>{{statealldatahtml.name}}</td>
                                 <td>{{ statealldatahtml.created_at }}</td>
                                 <td>
-                                    <p class="badge badge-danger" *ngIf="statealldatahtml.flag == 0">
+                                    <p class="badge badge-danger" *ngIf="statealldatahtml.status == 0">
                                         NOT PUBLISHED
                                     </p>
-                                    <p class="badge badge-success" *ngIf="statealldatahtml.flag == 1">PUBLISHED</p>
+                                    <p class="badge badge-success" *ngIf="statealldatahtml.status == 1">PUBLISHED</p>
                                 </td>
                                 <!-- <td>
                                     <p class="badge badge-danger" *ngIf="statealldatahtml.deleted == 0">
