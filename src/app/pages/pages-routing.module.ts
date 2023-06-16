@@ -6,6 +6,8 @@ import { SocialmediaComponent } from './socialmedia/socialmedia.component';
 import { ContryComponent } from './contry/contry.component';
 import { StateComponent } from './state/state.component';
 import { ZodiacsComponent } from './zodiacs/zodiacs.component';
+import { NakshatraComponent } from './nakshatra/nakshatra.component';
+import { AnnualincomeComponent } from './annualincome/annualincome.component';
 
 const routes: Routes = [
   
@@ -43,6 +45,24 @@ const routes: Routes = [
           canActivate:[AuthGuard],
           component: ZodiacsComponent
         },
+        {
+          path: 'nakshatra-page', 
+          canActivate:[AuthGuard],
+          component: NakshatraComponent
+        },
+        {
+          path: 'annualincome-page', 
+          canActivate:[AuthGuard],
+          component: AnnualincomeComponent
+        },
+        {
+          path: 'annualincome-page/:id', 
+          canActivate:[AuthGuard],
+          component: AnnualincomeComponent
+        },
+
+        
+        
         
         
         

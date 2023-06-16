@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StateComponent } from './state/state.component';
 import { ContryComponent } from './contry/contry.component';
 import { ZodiacsComponent } from './zodiacs/zodiacs.component';
+import { NakshatraComponent } from './nakshatra/nakshatra.component';
+import { AnnualincomeComponent } from './annualincome/annualincome.component';
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import { ZodiacsComponent } from './zodiacs/zodiacs.component';
     StateComponent,
     ContryComponent,
     ZodiacsComponent,
+    NakshatraComponent,
+    AnnualincomeComponent,
    
   ],
   imports: [
