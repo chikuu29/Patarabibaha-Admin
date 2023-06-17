@@ -1,0 +1,107 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Annual Income</h4>
+            <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form
+                controls, and buttons on a single horizontal row </p> -->
+            <div class="form-inline">
+                <label class="sr-only" for="inlineFormInputName2">Name</label>
+                <!-- <input type="text" (keyup)="search()" class="form-control mb-2 mr-sm-2" [(ngModel)]="searchincome" id="inlineFormInputName2" -->
+                     placeholder="Search Annual Income">
+                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                <!-- <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">@</div>
+                    </div>
+                    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
+                </div> -->
+                <div class="form-check mx-sm-2">
+                    <!-- <label class="form-check-label"> -->
+                    <!-- <input type="checkbox" class="form-check-input" checked> Remember me </label>  -->
+                </div>
+                <!-- <button type="submit" (click)="addCountry()" class="btn btn-primary mb-2">Submit</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-lg grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <!-- <h4 class="card-title">Basic Table</h4>
+                <p class="card-description"> Add class <code>.table</code> -->
+                <!-- </p> -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="">
+                                </th>
+                                <th>#SI</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Currency</th>
+                                <th>Discount</th>
+                                <th>Plan Validity</th>
+                                <th>Profile Count</th>
+                                <th>Message Count</th>
+                                <th>Chat Count</th>
+                                <th>Photo Count</th>
+                                <th>Contact Count</th>
+                                <th>Other Count</th>
+                                <th>Created Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                                <!-- <th>Deleted</th> -->
+                            </tr>
+                        </thead>
+                         <tbody>
+                            <tr *ngFor="let countryalldatahtml of allplandata ; index as i">
+                                <th>
+                                    <input type="checkbox" class="">
+                                </th>
+                                <td>{{i+1}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_name}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_type}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_amount}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_currency}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_dicount }}%</td>
+                                <td>{{ countryalldatahtml.membership_plan_validity_date}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_visibility}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_of_send_message}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_chating}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_no_of_photo}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_no_of_contact}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_show_contact_number_other}}</td>
+                                <td>{{ countryalldatahtml.membership_plan_created_date_time}}</td>
+                                <td>
+                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.membership_plan_status == 0">
+                                        NOT PUBLISHED
+                                    </p>
+                                    <p class="badge badge-success" *ngIf="countryalldatahtml.membership_plan_status == 1">PUBLISHED</p>
+                                </td>
+                                <td>
+                                    <button type="submit" (click)="update(countryalldatahtml.Id)" class="btn btn-primary mb-2">Edit</button>
+                                </td>
+                                <!-- <td>
+                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.deleted == 0">
+                                        DELETED
+                                    </p>
+                                    <p class="badge badge-success" *ngIf="countryalldatahtml.deleted == 1">
+                                        PRESENT
+                                    </p>
+                                </td> -->
+                            </tr>
+                        </tbody> 
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

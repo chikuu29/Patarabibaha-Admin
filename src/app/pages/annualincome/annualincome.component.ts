@@ -135,6 +135,8 @@ export class AnnualincomeComponent implements OnInit {
   update(data: any) {
     this.routerdata = data;
     this.selectaftereditclick();
+    document.getElementById('inlineFormInputName2')?.focus();
+   
     //this.router.navigate(['/annualincome-page', data])
   }
 

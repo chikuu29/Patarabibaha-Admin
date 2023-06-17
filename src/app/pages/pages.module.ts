@@ -12,6 +12,8 @@ import { ContryComponent } from './contry/contry.component';
 import { ZodiacsComponent } from './zodiacs/zodiacs.component';
 import { NakshatraComponent } from './nakshatra/nakshatra.component';
 import { AnnualincomeComponent } from './annualincome/annualincome.component';
+import { ViweplanComponent } from './viweplan/viweplan.component';
+import { AddplanComponent } from './addplan/addplan.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { AnnualincomeComponent } from './annualincome/annualincome.component';
     ZodiacsComponent,
     NakshatraComponent,
     AnnualincomeComponent,
+    ViweplanComponent,
+    AddplanComponent,
    
   ],
   imports: [

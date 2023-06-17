@@ -83,6 +83,14 @@ export class ApiService {
     return this.http.post(this.appservices.getApipath()+ `annual_income`,param,{headers:this.headers})
   }
   
+  public memberpaln(param:any){
+    return this.http.post(this.appservices.getApipath()+ `memberpaln`,param,{headers:this.headers})
+  }
+
+  public getAllData(param:any){
+    return this.http.post(this.appservices.getApipath()+ `getAllData`,param,{headers:this.headers})
+  }
+
  
 
 
