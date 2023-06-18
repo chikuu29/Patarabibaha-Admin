@@ -8,6 +8,9 @@ import { StateComponent } from './state/state.component';
 import { ZodiacsComponent } from './zodiacs/zodiacs.component';
 import { NakshatraComponent } from './nakshatra/nakshatra.component';
 import { AnnualincomeComponent } from './annualincome/annualincome.component';
+import { ViweplanComponent } from './viweplan/viweplan.component';
+import { AddplanComponent } from './addplan/addplan.component';
+
 
 const routes: Routes = [
   
@@ -56,10 +59,16 @@ const routes: Routes = [
           component: AnnualincomeComponent
         },
         {
-          path: 'annualincome-page/:id', 
+          path: 'addplan-page', 
           canActivate:[AuthGuard],
-          component: AnnualincomeComponent
+          component: AddplanComponent
         },
+        {
+          path: 'viweplan-page', 
+          canActivate:[AuthGuard],
+          component: ViweplanComponent
+        },
+        
 
         
         
