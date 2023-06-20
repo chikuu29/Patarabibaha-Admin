@@ -57,16 +57,7 @@ export class ApiParameterScript {
 
     /**
     * {
-        "data":"case_status='accepted'",
-        "db":"agriculture_case",
-        "projection":"case_id='WAC4641665460808ggggddd'",
-        "loginInfo":{
-                        "email":"cchiku1999@gmail.com",
-                            "id": "SURYA1234",
-                            "isLogin": true,
-                            "name": "SURYANARAYAN BISWAL",
-                            "role": "agri"
-                    }
+       
         
         }
 
@@ -79,22 +70,22 @@ export class ApiParameterScript {
     public updatedata(db: string, apiData: any) {
         const simpleObservable = new Observable((observer) => {
             try {
-                apiData['db'] = db;
-                const appConfig = this.appservices.getappconfig;
-                const loginInfo = this.appservices.authStatus;
-                let getrole = loginInfo['role'] ? loginInfo['role'] : '';
-                let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
-                let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
-                if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
-                    apiData['loginInfo'] = loginInfo;
-                    this.apiservices.update(apiData).subscribe((res: any) => {
-                        observer.next(res);
-                        observer.complete();
-                    })
-                } else {
-                    observer.next({ "success": false, "message": "Permission Denied To Update Database" });
+                apiData['table'] = db;
+                // const appConfig = this.appservices.getappconfig;
+                // const loginInfo = this.appservices.authStatus;
+                // let getrole = loginInfo['role'] ? loginInfo['role'] : '';
+                // let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
+                // let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
+                // if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
+                //     apiData['loginInfo'] = loginInfo;
+                this.apiservices.update(apiData).subscribe((res: any) => {
+                    observer.next(res);
                     observer.complete();
-                }
+                })
+                // } else {
+                //     observer.next({ "success": false, "message": "Permission Denied To Update Database" });
+                //     observer.complete();
+                // }
             } catch (error) {
                 console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
                 observer.next(error);
@@ -128,22 +119,22 @@ export class ApiParameterScript {
     public savedata(db: string, apiData: any) {
         const simpleObservable = new Observable((observer) => {
             try {
-                apiData['db'] = db;
-                const appConfig = this.appservices.getappconfig;
-                const loginInfo = this.appservices.authStatus;
-                let getrole = loginInfo['role'] ? loginInfo['role'] : '';
-                let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
-                let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
-                if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
-                    apiData['loginInfo'] = loginInfo;
-                    this.apiservices.save(apiData).subscribe((res: any) => {
-                        observer.next(res);
-                        observer.complete();
-                    })
-                } else {
-                    observer.next({ "success": false, "message": "Permission Denied To Save Date" });
+                apiData['table'] = db;
+                // const appConfig = this.appservices.getappconfig;
+                // const loginInfo = this.appservices.authStatus;
+                // let getrole = loginInfo['role'] ? loginInfo['role'] : '';
+                // let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
+                // let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
+                // if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
+                //     apiData['loginInfo'] = loginInfo;
+                this.apiservices.save(apiData).subscribe((res: any) => {
+                    observer.next(res);
                     observer.complete();
-                }
+                })
+                // } else {
+                //     observer.next({ "success": false, "message": "Permission Denied To Save Date" });
+                //     observer.complete();
+                // }
             } catch (error) {
                 console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
                 observer.next(error);
@@ -209,54 +200,7 @@ export class ApiParameterScript {
         return simpleObservable;
     }
 
-    /**
-    * {
-        "data":"case_status='accepted'",
-        "db":"agriculture_case",
-        "projection":"case_id='WAC4641665460808ggggddd'",
-        "loginInfo":{
-                        "email":"cchiku1999@gmail.com",
-                            "id": "SURYA1234",
-                            "isLogin": true,
-                            "name": "SURYANARAYAN BISWAL",
-                            "role": "agri"
-                    }
-        
-        }
 
-    * @param db 
-    * @param apiData 
-    * @returns 
-    * @author Suryanarayan Biswal
-    * @since 01-11-2022
-    */
-    public addMedicine(db: string, apiData: any) {
-        const simpleObservable = new Observable((observer) => {
-            try {
-                apiData['db'] = db;
-                const appConfig = this.appservices.getappconfig;
-                const loginInfo = this.appservices.authStatus;
-                let getrole = loginInfo['role'] ? loginInfo['role'] : '';
-                let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
-                let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
-                if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
-                    apiData['loginInfo'] = loginInfo;
-                    this.apiservices.addmedicine(apiData).subscribe((res: any) => {
-                        observer.next(res);
-                        observer.complete();
-                    })
-                } else {
-                    observer.next({ "success": false, "message": "Permission Denied To Update Database" });
-                    observer.complete();
-                }
-            } catch (error) {
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
-                observer.next(error);
-                observer.complete();
-            }
-        });
-        return simpleObservable;
-    }
 
 
 
@@ -366,6 +310,40 @@ export class ApiParameterScript {
                     observer.next({ "success": false, "message": "Permission Denied To Update Database" });
                     observer.complete();
                 }
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
+
+
+
+
+
+    /**
+        * {
+           
+            "user_id":''
+            
+            }
+    
+        * @param apiData 
+        * @returns 
+        * @author Suryanarayan Biswal
+        * @since 11-06-2023
+        */
+    public getprofile(apidata: any) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+
+                this.apiservices.getprofile(apidata).subscribe((res: any) => {
+                    observer.next(res);
+                    observer.complete();
+                })
+
             } catch (error) {
                 console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
                 observer.next(error);

@@ -13,7 +13,8 @@ export class ApiService {
     var headers = new HttpHeaders()
       // .set("Authorization",this.appservices.authStatus._refreshkey)
       //.set("Access-Control-Allow-Origin", "*")
-      .set("Content-Type", "application/x-www-form-urlencoded;harset=utf-8")
+      // .set("Content-Type", "application/x-www-form-urlencoded;harset=utf-8")
+      .set("Content-Type", "application/json")
     this.headers = headers;
 
  
@@ -24,12 +25,12 @@ export class ApiService {
   }
 
   public update(apiData:any){
-    return this.http.post(this.appservices.getApipath()+ 'generic/update.php',apiData,{ headers: this.headers })
+    return this.http.post(this.appservices.getApipath()+ 'update',JSON.stringify(apiData),{ headers: this.headers })
 
   }
 
   public save(apiData:any){
-    return this.http.post(this.appservices.getApipath()+ 'generic/savedata.php',apiData,{ headers: this.headers })
+    return this.http.post(this.appservices.getApipath()+ 'save',JSON.stringify(apiData),{ headers: this.headers })
   }
 
   public delete(apiData:any){
@@ -91,6 +92,11 @@ export class ApiService {
     return this.http.post(this.appservices.getApipath()+ `getAllData`,param,{headers:this.headers})
   }
 
+
+
+  public getprofile(param:any){
+    return this.http.post(this.appservices.getApipath()+ `getprofile`,JSON.stringify(param),{headers:this.headers})
+  }
  
 
 

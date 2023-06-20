@@ -20,6 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ComponentModule } from './component/component.module';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PrimengModule } from './primeng/primeng.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PagesModule,
     ComponentModule,
     MaterialModule,
+    PrimengModule,
     HttpClientModule,
     AppRoutingModule,
     LoadingBarRouterModule,
