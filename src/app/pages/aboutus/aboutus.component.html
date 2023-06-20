@@ -1,0 +1,77 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">About Us</h4>
+            <!-- <p class="card-description"> Basic form elements </p> -->
+            <form class="forms-sample" [formGroup]="privacypalicy">
+                <div class="form-group">
+                    <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+                    <textarea formControlName="privacy_policy_content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <button type="submit" (click)="submit()" class="btn btn-primary mr-2">Submit</button>
+                <button class="btn btn-dark">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-lg grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <!-- <h4 class="card-title">Basic Table</h4>
+                <p class="card-description"> Add class <code>.table</code> -->
+                <!-- </p> -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="">
+                                </th>
+                                <th>#SI</th>
+                                <th>About Us</th>
+                                <th>Created in</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                                <!-- <th>Deleted</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let countryalldatahtml of allData ; index as i">
+                                <th>
+                                    <input type="checkbox" class="">
+                                </th>
+                                <td>{{i+1}}</td>
+                                <td>{{ countryalldatahtml.about_us_content }}</td>
+                                <td>{{ countryalldatahtml.about_us_date_time }}</td>
+                                <td>
+                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
+                                        NOT PUBLISHED
+                                    </p>
+                                    <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
+                                </td>
+                                <td>
+                                    <button type="submit" (click)="update(countryalldatahtml.id)"
+                                        class="btn btn-primary mb-2">Edit</button>
+                                </td>
+                                <!-- <td>
+                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.deleted == 0">
+                                        DELETED
+                                    </p>
+                                    <p class="badge badge-success" *ngIf="countryalldatahtml.deleted == 1">
+                                        PRESENT
+                                    </p>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

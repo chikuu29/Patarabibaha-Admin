@@ -10,6 +10,11 @@ import { NakshatraComponent } from './nakshatra/nakshatra.component';
 import { AnnualincomeComponent } from './annualincome/annualincome.component';
 import { ViweplanComponent } from './viweplan/viweplan.component';
 import { AddplanComponent } from './addplan/addplan.component';
+import { CityComponent } from './city/city.component';
+import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
+import { ContactusComponent } from './contactus/contactus.component';
+import { TermandConditionComponent } from './termand-condition/termand-condition.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 
 const routes: Routes = [
@@ -67,7 +72,35 @@ const routes: Routes = [
           path: 'viweplan-page', 
           canActivate:[AuthGuard],
           component: ViweplanComponent
+        }, {
+          path: 'city-page', 
+          canActivate:[AuthGuard],
+          component: CityComponent
+        }, 
+        {
+          path: 'privacypolicy-page', 
+          canActivate:[AuthGuard],
+          component: PrivacypolicyComponent
+        }, {
+          path: 'contactus-page', 
+          canActivate:[AuthGuard],
+          component: ContactusComponent
+        }, {
+          path: 'termandcondition-page', 
+          canActivate:[AuthGuard],
+          component: TermandConditionComponent
+        }, {
+          path: 'aboutus-page', 
+          canActivate:[AuthGuard],
+          component: AboutusComponent
         },
+
+
+
+        
+        
+        
+        
         
 
         
