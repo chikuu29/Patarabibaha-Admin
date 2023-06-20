@@ -119,12 +119,12 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="product-grid4">
                         <div class="product-image4">
-                            <a href="#">
+                            <a [routerLink]="'/user/'+user.user_id">
                                 <img class="pic-1" src="https://www.w3schools.com/bootstrap4/img_avatar3.png">
                                 <img class="pic-2" src="https://www.w3schools.com/bootstrap4/img_avatar3.png">
                             </a>
                             <ul class="social">
-                                <li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                                <li><a [routerLink]="'/user/'+user.user_id" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
                             </ul>
                             <span class="product-new-label">New</span>
                             <span class="product-discount-label">10%</span>

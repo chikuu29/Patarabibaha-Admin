@@ -26,7 +26,9 @@ export class AppService {
   public getApipath() {
     return environment.baseApiURL;
   }
-
+  public getFilePath() {
+    return environment.filePath;
+  }
   get getappconfig() {
     return this.appConfig;
   }

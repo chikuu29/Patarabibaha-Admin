@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseApiURL:'http://localhost:8080/'
+  baseApiURL:'http://localhost:8080/',
+  filePath:"http://localhost/matrimonial/"
 };
 
 /*
