@@ -90,6 +90,22 @@ export class ApiService {
   public getAllData(param:any){
     return this.http.post(this.appservices.getApipath()+ `getAllData`,param,{headers:this.headers})
   }
+  public city(param:any){
+    return this.http.post(this.appservices.getApipath()+ `city`,param,{headers:this.headers})
+  }
+  public privacypolicy(param:any){
+    return this.http.post(this.appservices.getApipath()+ `privacypolicy`,param,{headers:this.headers})
+  }
+  public contactus(param:any){
+    return this.http.post(this.appservices.getApipath()+ `contactus`,param,{headers:this.headers})
+  }
+  public termandcondition(param:any){
+    return this.http.post(this.appservices.getApipath()+ `termandcondition`,param,{headers:this.headers})
+  }
+  public aboutus(param:any){
+    return this.http.post(this.appservices.getApipath()+ `aboutus`,param,{headers:this.headers})
+  }
+  
 
  
 
