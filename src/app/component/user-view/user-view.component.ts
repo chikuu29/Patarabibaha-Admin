@@ -5,9 +5,10 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
+import { ApiService } from 'src/app/services/api.service';
 import { AppService } from 'src/app/services/app.service';
 import Swal from 'sweetalert2';
-
+ApiService
 @Component({
   selector: 'app-user-view',
   templateUrl: './user-view.component.html',
@@ -659,7 +660,8 @@ export class UserViewComponent implements OnInit {
     private appservices: AppService,
     private ApiParameterScript: ApiParameterScript,
     private router:Router,
-    private _rout: ActivatedRoute
+    private _rout: ActivatedRoute ,
+    private api :ApiService
   ) { }
 
   ngOnInit(): void {
@@ -1228,30 +1230,29 @@ export class UserViewComponent implements OnInit {
 
 
 
-  activeAccount() {
+  activeAccount(data:any) {
+
+    if(data == 1){
+
+      Swal.fire({
+        text : 'plx complit'
+      })
+
+    }else if(data == 2){
+      this.blockUI.start("Please Wait...")
+     
+      let param = {
+        "id" : this.profile_id
+      }
+      this.api.userActivation(param).subscribe((res:any)=>{
+          
+      })
+  
+    }
 
 
-    this.blockUI.start("Please Wait...")
-    // var upadteData: any = {
-    //   'data': { 'user_ready_for_active_account': 1 },
-    //   "whereConditions": {
-    //     'user_id': this.profile_id
-    //   }
-    // }
-    // this.ApiParameterScript.updatedata('user_info', upadteData).subscribe((res:any)=>{
 
-    //   this.blockUI.stop()
-    //   if(res.success){
-    //       Swal.fire('Congratulations','You succesfully send a request to active your account','success').then((res:any)=>{
-    //         this.router.navigate(['/search_match']);
-    //       })
-    //   }else{
-
-    //     Swal.fire('Surry',res.message,'error')
-
-    //   }
-    // })
-
+   
 
   }
 

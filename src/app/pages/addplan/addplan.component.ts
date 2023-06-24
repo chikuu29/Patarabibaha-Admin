@@ -184,7 +184,15 @@ export class AddplanComponent implements OnInit {
       }
       console.log(param);
       this.api.memberpaln(param).subscribe((res:any)=>{
-          
+          if(res.status){
+            Swal.fire({
+              icon: 'success',
+              text: res.message,
+              background:'#191c24',
+              color:'white',
+              confirmButtonColor:'#0090e7'
+            });
+          }
       });
       
     }

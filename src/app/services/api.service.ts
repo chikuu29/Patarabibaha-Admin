@@ -106,6 +106,11 @@ export class ApiService {
   public aboutus(param:any){
     return this.http.post(this.appservices.getApipath()+ `aboutus`,param,{headers:this.headers})
   }
+
+  public userActivation(param:any){
+    return this.http.post(this.appservices.getApipath()+ `userActivation`,param,{headers:this.headers})
+  }
+  
   
 
 
