@@ -22,6 +22,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
+import { EditorModule } from 'primeng/editor';
 @NgModule({
   declarations: [],
   imports: [
@@ -47,7 +48,8 @@ import { DialogModule } from 'primeng/dialog';
     SidebarModule,
     MultiSelectModule,
     CalendarModule,
-    DialogModule
+    DialogModule,
+    EditorModule
    
   ],
   exports:[
@@ -72,7 +74,8 @@ import { DialogModule } from 'primeng/dialog';
     SidebarModule,
     MultiSelectModule,
     CalendarModule,
-    DialogModule
+    DialogModule,
+    EditorModule
   ]
 })
 export class PrimengModule { }

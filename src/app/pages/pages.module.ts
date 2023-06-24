@@ -19,6 +19,8 @@ import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component'
 import { TermandConditionComponent } from './termand-condition/termand-condition.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { ContactusComponent } from './contactus/contactus.component';
+import { PrimengModule } from '../primeng/primeng.module';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { ContactusComponent } from './contactus/contactus.component';
     CommonModule,
     PagesRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PrimengModule,
+    MaterialModule
   ]
 })
 export class PagesModule { }

@@ -1,28 +1,26 @@
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Privacy Policy</h4>
-            <!-- <p class="card-description"> Basic form elements </p> -->
-            <form class="forms-sample" [formGroup]="privacypalicy">
+                <h4 class="card-title mb-3">Privacy Policy</h4>
+                <button type="submit" (click)="public()" class="btn btn-outline-danger btn-lg mb-3 w-100">Public</button>
+
+            <form class="forms-sample" [formGroup]="privacyPolicyForm">
                 <div class="form-group">
-                    <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
-                    <textarea formControlName="privacy_policy_content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <p-editor formControlName="privacy_policy_content"  [style]="{ height: '620px' }"></p-editor>
                 </div>
-                <button type="submit" (click)="submit()" class="btn btn-primary mr-2">Submit</button>
-                <button class="btn btn-dark">Cancel</button>
             </form>
         </div>
     </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
 
     <div class="col-lg grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <!-- <h4 class="card-title">Basic Table</h4>
-                <p class="card-description"> Add class <code>.table</code> -->
-                <!-- </p> -->
+                <h4 class="card-title">Basic Table</h4>
+                <p class="card-description"> Add class <code>.table</code>
+                </p>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -35,7 +33,7 @@
                                 <th>Created in</th>
                                 <th>Status</th>
                                 <th>Action</th>
-                                <!-- <th>Deleted</th> -->
+                                <th>Deleted</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,14 +54,14 @@
                                     <button type="submit" (click)="update(countryalldatahtml.id)"
                                         class="btn btn-primary mb-2">Edit</button>
                                 </td>
-                                <!-- <td>
+                                <td>
                                     <p class="badge badge-danger" *ngIf="countryalldatahtml.deleted == 0">
                                         DELETED
                                     </p>
                                     <p class="badge badge-success" *ngIf="countryalldatahtml.deleted == 1">
                                         PRESENT
                                     </p>
-                                </td> -->
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -72,6 +70,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
