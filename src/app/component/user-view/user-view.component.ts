@@ -651,7 +651,7 @@ export class UserViewComponent implements OnInit {
   displayBasic: boolean = false
   profileImage: any
 
-  profile_id:string='';
+  profile_id: string = '';
 
 
 
@@ -659,9 +659,9 @@ export class UserViewComponent implements OnInit {
   constructor(
     private appservices: AppService,
     private ApiParameterScript: ApiParameterScript,
-    private router:Router,
-    private _rout: ActivatedRoute ,
-    private api :ApiService
+    private router: Router,
+    private _rout: ActivatedRoute,
+    private api: ApiService
   ) { }
 
   ngOnInit(): void {
@@ -672,7 +672,7 @@ export class UserViewComponent implements OnInit {
     this.blockUI.start("Loading...")
 
     this._rout.params.subscribe((res: any) => {
-      this.profile_id=res['profile_id']
+      this.profile_id = res['profile_id']
       console.log(this.profile_id);
       this.ApiParameterScript.getprofile({ userid: this.profile_id }).subscribe((res: any) => {
         console.log(res);
@@ -680,8 +680,10 @@ export class UserViewComponent implements OnInit {
         if (res.success) {
           this.userAllData = res;
 
-          this.profileDetailsForm.patchValue({profile_id:res?.user_info?.user_id
-            ,profile_name:res?.user_info?.user_fname +' '+res?.user_info?.user_lname,profile_email:res?.user_info?.user_email,profile_phone:''});
+          this.profileDetailsForm.patchValue({
+            profile_id: res?.user_info?.user_id
+            , profile_name: res?.user_info?.user_fname + ' ' + res?.user_info?.user_lname, profile_email: res?.user_info?.user_email, profile_phone: ''
+          });
           this.user_religionDetailsForm.patchValue(res['user_religion'])
           this.education_occupationDetailsForm.patchValue(res['user_education_occupations'])
           this.userAboutDetailsForm.patchValue(res['user_about'])
@@ -692,13 +694,13 @@ export class UserViewComponent implements OnInit {
           this.partnerPreferenceForm.patchValue(res['user_partnerpreference'])
           this.basicDetailsForm.patchValue(res['user_info'])
         } else {
-  
+
         }
-  
+
       })
-      
+
     })
-   
+
   }
 
   updatebasicDetailsForm() {
@@ -786,10 +788,10 @@ export class UserViewComponent implements OnInit {
     console.log("religionDetailsForm", this.education_occupationDetailsForm);
 
     if (this.education_occupationDetailsForm.valid) {
-   
+
 
       this.education_occupationDetailsForm.value['completed'] = 1
-     
+
 
       if (this.education_occupationDetailsForm.value.user_ID == '') {
         this.education_occupationDetailsForm.value['user_ID'] = this.profile_id
@@ -839,11 +841,11 @@ export class UserViewComponent implements OnInit {
     console.log(this.locationDetailsForm);
 
     if (this.locationDetailsForm.valid) {
-      
+
       this.locationDetailsForm.value['completed'] = 1
 
-     
-    
+
+
       if (this.locationDetailsForm.value.user_ID == '') {
         this.locationDetailsForm.value['user_ID'] = this.profile_id
         var saveData = {
@@ -1230,30 +1232,20 @@ export class UserViewComponent implements OnInit {
 
 
 
-  activeAccount(data:any) {
-
-    if(data == 1){
-
-      Swal.fire({
-        text : 'plx complit'
-      })
-
-    }else if(data == 2){
+  activeAccount() {
+    if (this.userAllData?.user_profile_status == 'Completed') {
       this.blockUI.start("Please Wait...")
-     
       let param = {
-        "id" : this.profile_id
+        "id": this.profile_id
       }
-      this.api.userActivation(param).subscribe((res:any)=>{
-          
+      this.api.userActivation(param).subscribe((res: any) => {
+        this.blockUI.stop()
       })
-  
+    } else {
+      Swal.fire({
+        text: 'Please Complete User Profile'
+      })
     }
-
-
-
-   
-
   }
 
 

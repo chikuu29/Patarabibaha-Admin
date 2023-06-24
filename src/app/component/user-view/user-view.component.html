@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="main-body">
-    <ng-container *ngIf="userAllData && userAllData?.user_profile_status == 'Completed'">
+    <ng-container *ngIf="userAllData && (userAllData?.user_profile_status == 'Completed' && !userAllData?.user_info?.user_membership_plan_active)">
       <div class="alert alert-warning">
         <h4 class="fw-bold text-success">
           <i class="fa-solid fa-star me-2"></i>Cangratulation
@@ -11,7 +11,22 @@
           </span>
           Click Below Button
         </p>
-        <button mat-raised-button color="accent" class="me-2 p-2 w-100 bg-success" (click)="activeAccount('2')">Approved</button>
+        <button mat-raised-button color="accent" class="me-2 p-2 w-100 bg-success" (click)="activeAccount()">Approved</button>
+
+      </div>
+    </ng-container>
+    <ng-container *ngIf="userAllData && userAllData?.user_info?.user_membership_plan_active">
+      <div class="alert alert-warning">
+        <h4 class="fw-bold text-success">
+          <i class="fa-solid fa-star me-2"></i>Cangratulation
+        </h4>
+        <p>This User Already Activated</p>
+        <!-- <p>
+          <span class="text-danger">You Just Review And Approved This User
+          </span>
+          Click Below Button
+        </p> -->
+        <!-- <button mat-raised-button color="accent" class="me-2 p-2 w-100 bg-success" (click)="activeAccount('2')">Approved</button> -->
 
       </div>
     </ng-container>
@@ -26,7 +41,7 @@
           </span>
           Click Below Button
         </p>
-        <button mat-raised-button color="accent" class="me-2 p-2 w-100" (click)="activeAccount('1')">Approved</button>
+        <button mat-raised-button color="accent" class="me-2 p-2 w-100" (click)="activeAccount()">Approved</button>
 
       </div>
     </ng-container>
