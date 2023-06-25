@@ -57,26 +57,7 @@ export class PrivacypolicyComponent implements OnInit {
         }
       })
 
-      // let param = {
-      //   'status': 1,
-      //   'privacypolicy': this.privacyPolicyForm.value.privacy_policy_content
-      // }
-      // this.api.privacypolicy(param).subscribe((res: any) => {
-      //   if (res.status) {
-      //     Swal.fire({
-      //       icon: 'success',
-      //       text: res.message
-      //     }).then((ress: any) => {
-      //       this.ngOnInit()
-      //     });
-      //   } else {
-      //     Swal.fire({
-      //       icon: 'success',
-      //       text: res.message
-      //     });
-      //   }
-      // })
-
+     
     } else {
       Swal.fire({
         icon: 'error',
