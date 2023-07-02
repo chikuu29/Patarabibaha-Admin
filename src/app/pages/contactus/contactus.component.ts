@@ -15,7 +15,7 @@ export class ContactusComponent implements OnInit {
   insert = 1;
   privacypalicy = new FormGroup({
     id: new FormControl('', []),
-    privacy_policy_content: new FormControl('', [Validators.required])
+    contact_us_content: new FormControl('', [Validators.required])
   });
   allData :any;
   updateddata: any = [];
@@ -35,7 +35,7 @@ export class ContactusComponent implements OnInit {
 
       var updateData={
         "data":{
-          "contact_us_content":this.privacypalicy.value.privacy_policy_content,
+          "contact_us_content":this.privacypalicy.value.contact_us_content,
           "contact_us_date_time":moment().toISOString()
         },
         "whereConditions": { id: this.privacypalicy.value.id }

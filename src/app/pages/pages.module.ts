@@ -21,6 +21,11 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { ContactusComponent } from './contactus/contactus.component';
 import { PrimengModule } from '../primeng/primeng.module';
 import { MaterialModule } from '../material/material.module';
+import { MothertongueComponent } from './mothertongue/mothertongue.component';
+import { HighestEducationComponent } from './highest-education/highest-education.component';
+import { AddionalEducationComponent } from './addional-education/addional-education.component';
+import { OccupationComponent } from './occupation/occupation.component';
+import { EmployredinComponent } from './employredin/employredin.component';
 
 
 @NgModule({
@@ -41,6 +46,11 @@ import { MaterialModule } from '../material/material.module';
     TermandConditionComponent,
     AboutusComponent,
     ContactusComponent,
+    MothertongueComponent,
+    HighestEducationComponent,
+    AddionalEducationComponent,
+    OccupationComponent,
+    EmployredinComponent,
    
   ],
   imports: [

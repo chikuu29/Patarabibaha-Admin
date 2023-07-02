@@ -15,102 +15,133 @@ import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component'
 import { ContactusComponent } from './contactus/contactus.component';
 import { TermandConditionComponent } from './termand-condition/termand-condition.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { MothertongueComponent } from './mothertongue/mothertongue.component';
+import { HighestEducationComponent } from './highest-education/highest-education.component';
+import { AddionalEducationComponent } from './addional-education/addional-education.component';
+import { OccupationComponent } from './occupation/occupation.component';
+import { EmployredinComponent } from './employredin/employredin.component';
 
 
 const routes: Routes = [
-  
-    {
-      path: '',
-      children: [
-        {
-          path: '', 
-          redirectTo:'landing-page',
-          pathMatch:'full'
-          // component: DashboardComponent
-        },
-        {
-          path: 'landing-page', 
-          canActivate:[AuthGuard],
-          component: LandingPageComponent
-        },
-        {
-          path: 'socialmedia-page', 
-          canActivate:[AuthGuard],
-          component: SocialmediaComponent
-        },
-        {
-          path: 'country-page', 
-          canActivate:[AuthGuard],
-          component: ContryComponent
-        },
-        {
-          path: 'state-page', 
-          canActivate:[AuthGuard],
-          component: StateComponent
-        },
-        {
-          path: 'zodiacs-page', 
-          canActivate:[AuthGuard],
-          component: ZodiacsComponent
-        },
-        {
-          path: 'nakshatra-page', 
-          canActivate:[AuthGuard],
-          component: NakshatraComponent
-        },
-        {
-          path: 'annualincome-page', 
-          canActivate:[AuthGuard],
-          component: AnnualincomeComponent
-        },
-        {
-          path: 'addplan-page', 
-          canActivate:[AuthGuard],
-          component: AddplanComponent
-        },
-        {
-          path: 'viweplan-page', 
-          canActivate:[AuthGuard],
-          component: ViweplanComponent
-        }, {
-          path: 'city-page', 
-          canActivate:[AuthGuard],
-          component: CityComponent
-        }, 
-        {
-          path: 'privacypolicy-page', 
-          canActivate:[AuthGuard],
-          component: PrivacypolicyComponent
-        }, {
-          path: 'contactus-page', 
-          canActivate:[AuthGuard],
-          component: ContactusComponent
-        }, {
-          path: 'termandcondition-page', 
-          canActivate:[AuthGuard],
-          component: TermandConditionComponent
-        }, {
-          path: 'aboutus-page', 
-          canActivate:[AuthGuard],
-          component: AboutusComponent
-        },
+
+  {
+    path: '',
+    children: [
+      {
+        path: '',
+        redirectTo: 'landing-page',
+        pathMatch: 'full'
+        // component: DashboardComponent
+      },
+      {
+        path: 'landing-page',
+        canActivate: [AuthGuard],
+        component: LandingPageComponent
+      },
+      {
+        path: 'socialmedia-page',
+        canActivate: [AuthGuard],
+        component: SocialmediaComponent
+      },
+      {
+        path: 'country-page',
+        canActivate: [AuthGuard],
+        component: ContryComponent
+      },
+      {
+        path: 'state-page',
+        canActivate: [AuthGuard],
+        component: StateComponent
+      },
+      {
+        path: 'zodiacs-page',
+        canActivate: [AuthGuard],
+        component: ZodiacsComponent
+      },
+      {
+        path: 'nakshatra-page',
+        canActivate: [AuthGuard],
+        component: NakshatraComponent
+      },
+      {
+        path: 'annualincome-page',
+        canActivate: [AuthGuard],
+        component: AnnualincomeComponent
+      },
+      {
+        path: 'addplan-page',
+        canActivate: [AuthGuard],
+        component: AddplanComponent
+      },
+      {
+        path: 'viweplan-page',
+        canActivate: [AuthGuard],
+        component: ViweplanComponent
+      }, {
+        path: 'city-page',
+        canActivate: [AuthGuard],
+        component: CityComponent
+      },
+      {
+        path: 'privacypolicy-page',
+        canActivate: [AuthGuard],
+        component: PrivacypolicyComponent
+      }, {
+        path: 'contactus-page',
+        canActivate: [AuthGuard],
+        component: ContactusComponent
+      }, {
+        path: 'termandcondition-page',
+        canActivate: [AuthGuard],
+        component: TermandConditionComponent
+      }, {
+        path: 'aboutus-page',
+        canActivate: [AuthGuard],
+        component: AboutusComponent
+      }, {
+        path: 'mother-tongue-page',
+        canActivate: [AuthGuard],
+        component: MothertongueComponent
+      }, {
+        path: 'education-page',
+        canActivate: [AuthGuard],
+        component: HighestEducationComponent
+      }, {
+        path: 'aditional-education-page',
+        canActivate: [AuthGuard],
+        component: AddionalEducationComponent
+      }, {
+        path: 'occupation-page',
+        canActivate: [AuthGuard],
+        component: OccupationComponent
+      }, {
+        path: 'employedin-page',
+        canActivate: [AuthGuard],
+        component: EmployredinComponent
+      },
 
 
 
-        
-        
-        
-        
-        
 
-        
-        
-        
-        
-        
-      ]
-    }
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ]
+  }
+
 ];
 
 @NgModule({

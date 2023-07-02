@@ -17,7 +17,7 @@ export class AboutusComponent implements OnInit {
   insert = 1;
   privacypalicy = new FormGroup({
     id: new FormControl('', []),
-    privacy_policy_content: new FormControl('', [Validators.required])
+    about_us_content: new FormControl('', [Validators.required])
   });
   allData :any;
   updateddata: any = [];
@@ -28,7 +28,10 @@ export class AboutusComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      this. getAllData();
+   
+      this.getAllData();
+  
+      
   }
   public() {
 
@@ -37,14 +40,14 @@ export class AboutusComponent implements OnInit {
 
       var updateData={
         "data":{
-          "about_us_content":this.privacypalicy.value.privacy_policy_content,
+          "about_us_content":this.privacypalicy.value.about_us_content,
           "about_us_date_time":moment().toISOString()
         },
         "whereConditions": { id: this.privacypalicy.value.id }
       }
 
       this.ApiParameter.updatedata('about_us',updateData).subscribe((res: any) => {
-        console.log(res);
+       // console.log(res);
         if (res.success) {
           Swal.fire({
             icon: 'success',
@@ -70,15 +73,14 @@ export class AboutusComponent implements OnInit {
    
   }
   getAllData() {
-
-
     this.ApiParameter.fetchdata('about_us', { "projection": ["*"] }).subscribe((res: any) => {
-
+     // console.log(res['data'][0]);
+      
       if (res.success && res['data'].length > 0) {
         this.privacypalicy.patchValue(res['data'][0])
+       // console.log(this.privacypalicy.patchValue(res['data'][0]));
+        
       }
-
-
     })
 
   }
