@@ -4,12 +4,15 @@ import { Observable } from "rxjs";
 import Swal from "sweetalert2";
 import { ApiService } from "../services/api.service";
 import { AppService } from "../services/app.service";
+import { BlockUI, NgBlockUI } from "ng-block-ui";
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiParameterScript {
+    @BlockUI() blockUI: NgBlockUI;
+  // **************************
 
     constructor(
         private http: HttpClient,
@@ -41,11 +44,20 @@ export class ApiParameterScript {
         const simpleObservable = new Observable((observer) => {
             try {
                 apiData['table'] = db;
-                this.apiservices.getdata(apiData).subscribe((res: any) => {
+                this.blockUI.start("Please Wait")
+                this.apiservices.getdata(apiData).subscribe(
+                    (res: any) => {
+                    this.blockUI.stop()
                     observer.next(res);
                     observer.complete();
-                })
+                },(err:any)=>{
+                    this.blockUI.stop()
+                    observer.next(err);
+                    observer.complete();
+                }
+                )
             } catch (error) {
+                this.blockUI.stop()
                 console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
                 observer.next(error);
                 observer.complete();

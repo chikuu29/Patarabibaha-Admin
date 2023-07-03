@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 
@@ -8,6 +9,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./contry.component.scss']
 })
 export class ContryComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
+  // **************************
   country:any;
   countryalldata: any;
   page: number = 1;
@@ -43,7 +46,9 @@ export class ContryComponent implements OnInit {
     let param = {
       'status':211,
     }
+    this.blockUI.start('Please Wait..')
     this.api.insertCountry(param).subscribe((res:any)=>{
+      this.blockUI.stop()
       if(res.status){
         this.countryalldata = res.message
         console.log(this.countryalldata);
