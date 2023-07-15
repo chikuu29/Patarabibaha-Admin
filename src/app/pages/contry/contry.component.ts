@@ -99,8 +99,6 @@ export class ContryComponent implements OnInit {
       }
     } else if (this.button == 'Update') {
       if (this.countrygroup.valid) {
-
-
         let updateData = {
           "data": {
             "name": this.countrygroup.value.name,
@@ -160,40 +158,7 @@ export class ContryComponent implements OnInit {
 
 
 
-    //   if (this.countrygroup.valid) {
-
-
-    //     var updateData={
-    //       "data":{
-    //         "name":this.countrygroup.value.name,
-    //       },
-    //       "whereConditions": { id: id }
-    //     }
-
-    //     this.ApiParameter.updatedata('country',updateData).subscribe((res: any) => {
-    //      // console.log(res);
-    //       if (res.success) {
-    //         Swal.fire({
-    //           icon: 'success',
-    //           text: res.message
-    //         }).then((ress: any) => {
-    //           this.ngOnInit()
-    //         });
-    //       } else {
-    //         Swal.fire({
-    //           icon: 'success',
-    //           text: res.message
-    //         });
-    //       }
-    //     })
-
-
-    //   } else {
-    //     Swal.fire({
-    //       icon: 'error',
-    //       text: 'Please Enter Your About Us'
-    //     })
-    //   }
+   
   }
 
 }

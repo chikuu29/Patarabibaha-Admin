@@ -23,6 +23,7 @@ import { EmployredinComponent } from './employredin/employredin.component';
 import { CasteComponent } from './caste/caste.component';
 import { SubcasteComponent } from './subcaste/subcaste.component';
 import { ReligionComponent } from './religion/religion.component';
+import { PrifixidComponent } from './prifixid/prifixid.component';
 
 
 const routes: Routes = [
@@ -133,7 +134,13 @@ const routes: Routes = [
         path: 'religion-page',
         canActivate: [AuthGuard],
         component: ReligionComponent
-      },
+      },{
+        path: 'prifixid-page',
+        canActivate: [AuthGuard],
+        component: PrifixidComponent
+      }
+
+      
 
       
 
