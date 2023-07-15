@@ -1,1 +1,82 @@
-<p>subcaste works!</p>
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-inline" [formGroup]="subcastgroup">
+                <div class="form-group col-md-4">
+                    <label for="exampleSelectGender">CAST</label>
+                    <select class="form-control" name="exampleSelectGender"  formControlName="cast_name" ngDefaultControl id="exampleSelectGender">
+                        <option hidden [value]="'0'">SELECT</option>
+                        <option *ngFor="let countryalldatahtml of cast" [value]="countryalldatahtml.cast_name" >{{countryalldatahtml.cast_name}}</option>
+                    </select>
+                </div>
+                <h4 class="card-title">SUB-CAST</h4>
+                <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form controls, and buttons on a single horizontal row </p> -->
+
+                <label class="sr-only" for="inlineFormInputName2">Name</label>
+                <input type="text" class="form-control mb-2 mr-sm-2"  id="inlineFormInputName2" formControlName="sub_cast_name"
+                    placeholder="Sub cast">
+                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <!-- <div class="input-group-text">@</div> -->
+                    </div>
+                    <!-- <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username"> -->
+                </div>
+                <div class="form-check mx-sm-2">
+                    <!-- <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" checked> Remember me </label> -->
+                </div>
+                <button type="submit" (click)="adddata()" class="btn btn-primary mb-2">{{ button }}</button>
+                <!--  -->
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <!-- <h4 class="card-title">Basic Table</h4>
+                <p class="card-description"> Add class <code>.table</code> -->
+                <!-- </p> -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox"  class="checkbox">
+                                    <!-- (click)="checkall($event)" -->
+                                </th>
+                                <th>#SI</th>
+                                <th>Sub cast Nmae</th>
+                                <th>Created in</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let statealldatahtml of subcast ; index as i">
+                                <th>
+                                    <input type="checkbox" class="checkbox">
+                                </th>
+                                <td>{{i+1}}</td>
+                                <td>{{statealldatahtml.sub_cast_name}}</td>
+                                <td>{{ statealldatahtml.createdon }}</td>
+                                <td>
+                                    <p class="badge badge-danger" *ngIf="statealldatahtml.status == 0">
+                                        NOT PUBLISHED
+                                    </p>
+                                    <p class="badge badge-success" *ngIf="statealldatahtml.status == 1">PUBLISHED</p>
+                                </td>
+                                <td>
+                                   
+                                    <input type="button" class="form-control" (click)="updatestate(statealldatahtml.id)" value="Edit">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

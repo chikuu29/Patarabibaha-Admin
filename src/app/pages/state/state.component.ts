@@ -33,7 +33,7 @@ export class StateComponent implements OnInit {
       country_name: new FormControl('0', [Validators.required]),
       name: new FormControl('', [Validators.required])
     });
-    this.button = 'Submit';     
+    this.button = 'Submit';
     this.showCountry();
     this.fatchdata();
 
