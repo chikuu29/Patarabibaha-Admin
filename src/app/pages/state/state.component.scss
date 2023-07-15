@@ -1,19 +1,27 @@
-.show{
-    display: flex;
-    justify-content: right;
-}
-.showchils{
-    padding: 20px;
-    border: black 1px solid;
-    margin: 10px;
-    border-radius: 20px;
-}
-.green{
-    background-color: green;
-}
-.red{
-   background-color: red;
-}
-.pading{
-    padding: 0 0 5px 0;
-}
+// .show{
+//     display: flex;
+//     justify-content: right;
+// }
+// .showchils{
+//     padding: 20px;
+//     border: black 1px solid;
+//     margin: 10px;
+//     border-radius: 20px;
+// }
+// .green{
+//     background-color: green;
+// }
+// .red{
+//    background-color: red;
+// }
+// .pading{
+//     padding: 0 0 5px 0;
+// }
+
+.card {
+    box-shadow: 0.063rem 0 1.25rem 0 #c1c3c5;
+    border-radius: 14px;
+    border: none;
+    background: #fff;
+    color:black;
+  }

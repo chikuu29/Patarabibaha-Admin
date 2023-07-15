@@ -24,7 +24,7 @@ export class ContryComponent implements OnInit {
   count: number = 0;
   tableSize: number = 10;
   pageSizes = [10, 20, 50, 100, 500, 1000];
-  button: any = 'Submit';
+  button: any = 'ADD';
   constructor(
     private api: ApiService,
     private ApiParameter: ApiParameterScript
@@ -32,7 +32,7 @@ export class ContryComponent implements OnInit {
 
   ngOnInit(): void {
     this.showCountry();
-    this.button = 'Submit';
+    this.button = 'ADD';
   }
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
@@ -61,7 +61,7 @@ export class ContryComponent implements OnInit {
 
 
   addCountry() {
-    if (this.button == 'Submit') {
+    if (this.button == 'ADD') {
 
       if (this.countrygroup.valid) {
 
@@ -69,7 +69,7 @@ export class ContryComponent implements OnInit {
         let  updateData = {
           "data": {
             "name": this.countrygroup.value.name,
-            "time_stamp": moment().toISOString()
+            "created_At": moment().toISOString()
           },
         }
 
@@ -104,7 +104,7 @@ export class ContryComponent implements OnInit {
         let updateData = {
           "data": {
             "name": this.countrygroup.value.name,
-            "time_stamp": moment().toISOString()
+            "created_At": moment().toISOString()
           },
           "whereConditions": { id: this.countrygroup.value.id }
         }
