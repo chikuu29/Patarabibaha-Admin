@@ -20,6 +20,9 @@ import { HighestEducationComponent } from './highest-education/highest-education
 import { AddionalEducationComponent } from './addional-education/addional-education.component';
 import { OccupationComponent } from './occupation/occupation.component';
 import { EmployredinComponent } from './employredin/employredin.component';
+import { CasteComponent } from './caste/caste.component';
+import { SubcasteComponent } from './subcaste/subcaste.component';
+import { ReligionComponent } from './religion/religion.component';
 
 
 const routes: Routes = [
@@ -118,7 +121,23 @@ const routes: Routes = [
         path: 'employedin-page',
         canActivate: [AuthGuard],
         component: EmployredinComponent
+      },{
+        path: 'cast-page',
+        canActivate: [AuthGuard],
+        component: CasteComponent
+      },{
+        path: 'subcast-page',
+        canActivate: [AuthGuard],
+        component: SubcasteComponent
+      },{
+        path: 'religion-page',
+        canActivate: [AuthGuard],
+        component: ReligionComponent
       },
+
+      
+
+
 
 
 

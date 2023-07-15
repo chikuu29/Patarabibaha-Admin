@@ -4,10 +4,10 @@
             <h4 class="card-title">COUNTRY</h4>
             <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form
                 controls, and buttons on a single horizontal row </p> -->
-            <div class="form-inline">
+            <form class="form-inline" [formGroup]="countrygroup">
                 <label class="sr-only" for="inlineFormInputName2">Name</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                    (keyup)="showFilterData()" [(ngModel)]="country" placeholder="Country name">
+                       formControlName="name" placeholder="Country name">
                 <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
                 <!-- <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
@@ -19,8 +19,8 @@
                     <!-- <label class="form-check-label"> -->
                     <!-- <input type="checkbox" class="form-check-input" checked> Remember me </label>  -->
                 </div>
-                <!-- <button type="submit" (click)="addCountry()" class="btn btn-primary mb-2">Submit</button> -->
-            </div>
+                <button type="submit" (click)="addCountry()" class="btn btn-primary mb-2">{{button}}</button>
+            </form>
         </div>
     </div>
 </div>
@@ -48,9 +48,9 @@
                                 </th>
                                 <th>#SI</th>
                                 <th>Country Nmae</th>
-                                <!-- <th>Created in</th> -->
+                                <th>Created in</th>
                                 <th>Status</th>
-                                <!-- <th>Deleted</th> -->
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,14 +67,9 @@
                                     </p>
                                     <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
                                 </td>
-                                <!-- <td>
-                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.deleted == 0">
-                                        DELETED
-                                    </p>
-                                    <p class="badge badge-success" *ngIf="countryalldatahtml.deleted == 1">
-                                        PRESENT
-                                    </p>
-                                </td> -->
+                                <td>
+                                    <input type="submit" value="Edit" class="form-control" (click)="update(countryalldatahtml.id)">
+                                </td>
                             </tr>
                         </tbody>
                     </table>

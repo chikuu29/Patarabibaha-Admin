@@ -26,6 +26,9 @@ import { HighestEducationComponent } from './highest-education/highest-education
 import { AddionalEducationComponent } from './addional-education/addional-education.component';
 import { OccupationComponent } from './occupation/occupation.component';
 import { EmployredinComponent } from './employredin/employredin.component';
+import { ReligionComponent } from './religion/religion.component';
+import { CasteComponent } from './caste/caste.component';
+import { SubcasteComponent } from './subcaste/subcaste.component';
 
 
 @NgModule({
@@ -51,6 +54,9 @@ import { EmployredinComponent } from './employredin/employredin.component';
     AddionalEducationComponent,
     OccupationComponent,
     EmployredinComponent,
+    ReligionComponent,
+    CasteComponent,
+    SubcasteComponent,
    
   ],
   imports: [

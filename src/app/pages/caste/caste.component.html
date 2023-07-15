@@ -1,13 +1,13 @@
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Employer In</h4>
+            <h4 class="card-title">Cast</h4>
             <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form
                 controls, and buttons on a single horizontal row </p> -->
-            <form class="form-inline" [formGroup]="Employer">
+            <form class="form-inline" [formGroup]="cast">
                 <label class="sr-only" for="inlineFormInputName2">Name</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                     formControlName="Employer_in_name" placeholder="Employer In">
+                     formControlName="cast_name" placeholder="Cast">
                 <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
                 <!-- <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
@@ -19,7 +19,7 @@
                     <!-- <label class="form-check-label"> -->
                     <!-- <input type="checkbox" class="form-check-input" checked> Remember me </label>  -->
                 </div>
-                <button type="submit" (click)="public()" class="btn btn-primary mb-2">{{action}}</button>
+                <button type="submit" (click)="public()" class="btn btn-primary mb-2">Submit</button>
             </form>
         </div>
     </div>
@@ -47,7 +47,7 @@
                                     <input type="checkbox" class="">
                                 </th>
                                 <th>#SI</th>
-                                <th>Employer In</th>
+                                <th>Cast</th>
                                 <th>Created in</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -59,8 +59,8 @@
                                     <input type="checkbox" class="">
                                 </th>
                                 <td>{{i+1}}</td>
-                                <td>{{countryalldatahtml.Employer_in_name}}</td>
-                                <td>{{ countryalldatahtml.Employer_in_date_time}}</td>
+                                <td>{{countryalldatahtml.cast_name}}</td>
+                                <td>{{ countryalldatahtml.createdon}}</td>
                                 <td>
                                     <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
                                         NOT PUBLISHED

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
+import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 
@@ -8,95 +11,148 @@ import Swal from 'sweetalert2';
   styleUrls: ['./state.component.scss']
 })
 export class StateComponent implements OnInit {
-  state:any;
+  stategroup = new FormGroup({
+    id: new FormControl('', []),
+    country_name: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required])
+  })
+  state: any;
   countryalldata: any;
-  countryid:any;
+  countryid: any;
   statealldata: any;
-  
+  button: any = 'Submit';
+
   constructor(
-    private api:ApiService
+    private api: ApiService,
+    private ApiParameter: ApiParameterScript
   ) { }
 
   ngOnInit(): void {
-    this.countryid = 0;
+    this.stategroup = new FormGroup({
+      id: new FormControl('', []),
+      country_name: new FormControl('0', [Validators.required]),
+      name: new FormControl('', [Validators.required])
+    });
+    this.button = 'Submit';     
     this.showCountry();
-    this.showstate();
+    this.fatchdata();
+
   }
 
-  addState(){
-    alert(this.countryid)
-      let param = {
-        'status':21,
-        'countryid':this.countryid,
-        'state':this.state
+
+  showCountry() {
+    this.ApiParameter.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.countryalldata = res['data'];
       }
-      
-      this.api.state(param).subscribe((res:any)=>{
-        if(res.status){
-          Swal.fire({
-            icon:'success',
-            text:res.message
-          }).then((res:any)=>{
-            location.reload();
-          })
+    });
+  }
+
+  adddata() {
+    if (this.button == 'Submit') {
+      if (this.stategroup.value.country_name == '0') {
+        Swal.fire({
+          icon: 'error',
+          text: 'Select a Country name',
+        });
+      } else if (this.stategroup.value.name == '') {
+        Swal.fire({
+          icon: 'error',
+          text: 'Enter  state name',
+        });
+      } else {
+
+        let updateData = {
+          "data": {
+            "country_name": this.stategroup.value.country_name,
+            "name": this.stategroup.value.name,
+            "time_stamp": moment().toISOString()
+          },
         }
-      })
+
+        this.ApiParameter.savedata('state', updateData).subscribe((res: any) => {
+          // console.log(res);
+          if (res.success) {
+            Swal.fire({
+              icon: 'success',
+              text: res.message
+            }).then((ress: any) => {
+              this.ngOnInit()
+            });
+          } else {
+            Swal.fire({
+              icon: 'success',
+              text: res.message
+            });
+          }
+        });
+
+      }
+    } else if (this.button == 'Update') {
+      if (this.stategroup.value.country_name == '0') {
+        Swal.fire({
+          icon: 'error',
+          text: 'Select a Country name',
+        });
+      } else if (this.stategroup.value.name == '') {
+        Swal.fire({
+          icon: 'error',
+          text: 'Enter  state name',
+        });
+      } else {
+
+        let updateData = {
+          "data": {
+            "country_name": this.stategroup.value.country_name,
+            "name": this.stategroup.value.name,
+          },
+          "whereConditions": { id: this.stategroup.value.id }
+        }
+
+        this.ApiParameter.updatedata('state', updateData).subscribe((res: any) => {
+          if (res.success) {
+            Swal.fire({
+              icon: 'success',
+              text: res.message
+            }).then((ress: any) => {
+              this.ngOnInit()
+            });
+          } else {
+            Swal.fire({
+              icon: 'success',
+              text: res.message
+            });
+          }
+        });
+      }
+    }
   }
 
-  showCountry(){
-    let param = {
-      'status':211,
-    }
-    this.api.insertCountry(param).subscribe((res:any)=>{
-      if(res.status){
-        this.countryalldata = res.message;
-        //console.log(this.countryalldata);
-      }
-  })
-  }
-  showstate(){
-    let param = {
-      'status':211,
-    }
-    this.api.state(param).subscribe((res:any)=>{
-      if(res.status){
-        this.statealldata = res.message;
-        console.log(this.statealldata);
+  fatchdata() {
+    this.ApiParameter.fetchdata('state', { "projection": ["*"] }).subscribe((res: any) => {
+      // console.log(res['data'][0]);
+
+      if (res.success && res['data'].length > 0) {
+        this.statealldata = res['data'];
+        // console.log(this.privacypalicy.patchValue(res['data'][0]));
+
       }
     })
   }
 
-  checkall(e:any){
-    let check = document.querySelectorAll('.checkbox')
-  }
-  filterstate(){
-    let param = {
-      'country':this.countryid,
-      'status':22,
-    }
-    this.api.state(param).subscribe((res:any)=>{
-      if(res.status){
-        this.statealldata = res.message;
-       // console.log(this.statealldata);
+  updatestate(id: any) {
+    this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { id: id } }).subscribe((res: any) => {
+      // console.log(res['data'][0]);
+
+      if (res.success && res['data'].length > 0) {
+        this.stategroup.patchValue(res['data'][0]);
+        this.button = 'Update';
+
       }
     })
   }
-  statefilter(){
-    // alert(this.countryid);
-    // alert(this.state);
-    let param = {
-      'country':this.countryid == 0 ?'':this.countryid,
-      'state':this.state,
-      'status':23,
-    }
-    this.api.state(param).subscribe((res:any)=>{
-      if(res.status){
-        this.statealldata = res.message;
-       // console.log(this.statealldata);
-      }else{
-        this.statealldata = [];
-      }
-    })
-  }
+
+
+
 
 }
