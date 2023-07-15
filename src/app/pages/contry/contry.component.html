@@ -1,81 +1,65 @@
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">COUNTRY</h4>
-            <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form
-                controls, and buttons on a single horizontal row </p> -->
+            <h4 class="card-titleb text-muted">ADD COUNTRIES NAME</h4>
             <form class="form-inline" [formGroup]="countrygroup">
                 <label class="sr-only" for="inlineFormInputName2">Name</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                       formControlName="name" placeholder="Country name">
-                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-                <!-- <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">@</div>
-                    </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
-                </div> -->
-                <div class="form-check mx-sm-2">
-                    <!-- <label class="form-check-label"> -->
-                    <!-- <input type="checkbox" class="form-check-input" checked> Remember me </label>  -->
-                </div>
-                <button type="submit" (click)="addCountry()" class="btn btn-primary mb-2">{{button}}</button>
+                <mat-form-field isReadonly appearance="outline" class="flex-fill w-100">
+                    <mat-label>Countrie name</mat-label>
+                    <input matInput placeholder="Countrie name" formControlName="name" type="text" />
+                    <mat-error>Please Enter Countrie Name</mat-error>
+                </mat-form-field>
+                <button type="submit" (click)="addCountry()"
+                    class="btn btn-primary  btn-lg mb-3 w-100">{{button}}</button>
+                <button type="submit" (click)="countrygroup.reset();button='ADD'"
+                    class="btn btn-danger  btn-lg mb-3 w-100" [hidden]="button=='ADD'">Cancle</button>
+                    
             </form>
         </div>
     </div>
 </div>
-<!-- <div> Per Page: <select>
 
-        <option *ngFor="let size of pageSizes" [ngValue]="size" (change)="onTableSizeChange($event)">
-            {{ size }}
-        </option>
-    </select>
-</div> -->
-<div class="row">
 
-    <div class="col-lg grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <!-- <h4 class="card-title">Basic Table</h4>
-                <p class="card-description"> Add class <code>.table</code> -->
-                <!-- </p> -->
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" class="">
-                                </th>
-                                <th>#SI</th>
-                                <th>Country Nmae</th>
-                                <th>Created in</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let countryalldatahtml of countryalldata ; index as i">
-                                <th>
-                                    <input type="checkbox" class="">
-                                </th>
-                                <td>{{i+1}}</td>
-                                <td>{{countryalldatahtml.name}}</td>
-                                <!-- <td>{{ countryalldatahtml.updated_at}}</td> -->
-                                <td>
-                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
-                                        NOT PUBLISHED
-                                    </p>
-                                    <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
-                                </td>
-                                <td>
-                                    <input type="submit" value="Edit" class="form-control" (click)="update(countryalldatahtml.id)">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
+
+<div class="col-lg grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+          
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>#SI</th>
+                            <th>Country Nmae</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of countryalldata ; index as i">
+
+                            <td>{{i+1}}</td>
+                            <td>{{data.name}}</td>
+                            <td>{{data.created_At | date}}</td>
+                            <td>
+                                <p class="badge badge-danger" *ngIf="data.status == 0">
+                                    NOT PUBLISHED
+                                </p>
+                                <p class="badge badge-success" *ngIf="data.status == 1">PUBLISHED</p>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-warning btn-fw "
+                                    (click)="update(data.id)">Edit</button>
+                                <button type="button" class="btn btn-outline-danger btn-fw">Delete</button>
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+
         </div>
     </div>
 </div>

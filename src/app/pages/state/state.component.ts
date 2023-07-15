@@ -20,7 +20,8 @@ export class StateComponent implements OnInit {
   countryalldata: any;
   countryid: any;
   statealldata: any;
-  button: any = 'Submit';
+  button: any = 'ADD';
+  countryOption: any
 
   constructor(
     private api: ApiService,
@@ -30,12 +31,18 @@ export class StateComponent implements OnInit {
   ngOnInit(): void {
     this.stategroup = new FormGroup({
       id: new FormControl('', []),
-      country_name: new FormControl('0', [Validators.required]),
+      country_name: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required])
     });
-    this.button = 'Submit';
+    this.button = 'ADD';
     this.showCountry();
-    this.fatchdata();
+    this.ApiParameter.fetchdata('state', { "projection": ["*"] }).subscribe((res: any) => {
+
+
+      if (res.success && res['data'].length > 0) {
+        this.statealldata = res['data'];
+      }
+    })
 
   }
 
@@ -43,64 +50,58 @@ export class StateComponent implements OnInit {
   showCountry() {
     this.ApiParameter.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        this.countryalldata = res['data'];
+
+        this.countryOption = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.name };
+          } else {
+            return null
+          }
+        });
+        console.log(this.countryOption);
+
       }
     });
   }
 
   adddata() {
-    if (this.button == 'Submit') {
-      if (this.stategroup.value.country_name == '0') {
-        Swal.fire({
-          icon: 'error',
-          text: 'Select a Country name',
-        });
-      } else if (this.stategroup.value.name == '') {
-        Swal.fire({
-          icon: 'error',
-          text: 'Enter  state name',
-        });
-      } else {
-
-        let updateData = {
-          "data": {
-            "country_name": this.stategroup.value.country_name,
-            "name": this.stategroup.value.name,
-            "time_stamp": moment().toISOString()
-          },
-        }
-
-        this.ApiParameter.savedata('state', updateData).subscribe((res: any) => {
-          // console.log(res);
-          if (res.success) {
-            Swal.fire({
-              icon: 'success',
-              text: res.message
-            }).then((ress: any) => {
-              this.ngOnInit()
-            });
-          } else {
-            Swal.fire({
-              icon: 'success',
-              text: res.message
-            });
-          }
-        });
-
+    if (this.button == 'ADD') {
+     if (this.stategroup.valid) {
+      let updateData = {
+        "data": {
+          "country_name": this.stategroup.value.country_name,
+          "name": this.stategroup.value.name,
+          "created_At": moment().toISOString()
+        },
       }
-    } else if (this.button == 'Update') {
-      if (this.stategroup.value.country_name == '0') {
-        Swal.fire({
-          icon: 'error',
-          text: 'Select a Country name',
-        });
-      } else if (this.stategroup.value.name == '') {
-        Swal.fire({
-          icon: 'error',
-          text: 'Enter  state name',
-        });
-      } else {
 
+      this.ApiParameter.savedata('state', updateData).subscribe((res: any) => {
+        // console.log(res);
+        if (res.success) {
+          Swal.fire({
+            icon: 'success',
+            text: res.message
+          }).then((ress: any) => {
+            this.ngOnInit()
+          });
+        } else {
+          Swal.fire({
+            icon: 'success',
+            text: res.message
+          });
+        }
+      });
+      
+     } else {
+      // Swal.fire('Please Enter All Fields','success','success')
+      Swal.fire({
+        icon: 'warning',
+        text: "Please Enter All Fields"
+      });
+     }
+
+    } else if (this.button == 'Update') {
+      if (this.stategroup.valid) {
         let updateData = {
           "data": {
             "country_name": this.stategroup.value.country_name,
@@ -108,7 +109,6 @@ export class StateComponent implements OnInit {
           },
           "whereConditions": { id: this.stategroup.value.id }
         }
-
         this.ApiParameter.updatedata('state', updateData).subscribe((res: any) => {
           if (res.success) {
             Swal.fire({
@@ -128,19 +128,10 @@ export class StateComponent implements OnInit {
     }
   }
 
-  fatchdata() {
-    this.ApiParameter.fetchdata('state', { "projection": ["*"] }).subscribe((res: any) => {
-      // console.log(res['data'][0]);
 
-      if (res.success && res['data'].length > 0) {
-        this.statealldata = res['data'];
-        // console.log(this.privacypalicy.patchValue(res['data'][0]));
+  
 
-      }
-    })
-  }
-
-  updatestate(id: any) {
+  edit(id: any) {
     this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { id: id } }).subscribe((res: any) => {
       // console.log(res['data'][0]);
 
