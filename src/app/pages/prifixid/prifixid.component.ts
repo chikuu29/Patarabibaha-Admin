@@ -21,20 +21,18 @@ export class PrifixidComponent implements OnInit {
 
   ngOnInit(): void {
     this.fatchdata();
-    // console.log(this._Auth.getAuthStatus());
   }
-  addCountry() {
+  update() {
     if (this.prifixgroup.valid) {
       let updateData = {
         "data": {
           "prefix_id_name": this.prifixgroup.value.prefix_id_name,
-          "time_stamp": moment().toISOString(),
+          "created_At": moment().toISOString(),
           "last_change_by": "Admin"
         },
         "whereConditions": { id: 1 }
       }
       this.ApiParameter.updatedata('prefix_id', updateData).subscribe((res: any) => {
-        // console.log(res);
         if (res.success) {
           Swal.fire({
             icon: 'success',
@@ -52,22 +50,18 @@ export class PrifixidComponent implements OnInit {
     }else{
       Swal.fire({
         icon:'error',
-        text:'Enter Every fild'
+        text:'Fill All The Fields'
       })
     }
   }
   reset() {
-    this.prifixgroup = new FormGroup({
-      prefix_id_name: new FormControl('', [Validators.required]),
-    });
+    this.prifixgroup.reset()
   }
 
   fatchdata(){
     this.ApiParameter.fetchdata('prefix_id', { "projection": ["*"], "whereConditions": { id: 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        // this.countryalldata = res['data'];
         this.prifixgroup.patchValue(res['data'][0]);
-
       }
     });
   }

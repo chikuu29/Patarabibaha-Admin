@@ -1,4 +1,15 @@
-.flex{
-    display: flex;
-    justify-content: center;
+.flex {
+  display: flex;
+  justify-content: center;
 }
+
+::ng-deep {
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+       color: rgb(89, 89, 213);
+    }
+    mat-form-field {
+       .mat-hint, input, ::placeholder, .mat-form-field-label {
+          color: white;
+       }
+    }
+ }
