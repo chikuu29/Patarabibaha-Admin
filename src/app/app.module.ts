@@ -21,6 +21,7 @@ import { ComponentModule } from './component/component.module';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimengModule } from './primeng/primeng.module';
+import { MessageService } from 'primeng/api';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,7 @@ import { PrimengModule } from './primeng/primeng.module';
     ),
     ToastrModule.forRoot()
   ],
-  providers: [AppService],
+  providers: [AppService,MessageService],
   entryComponents: [BlockUiCustomTemplateComponent],
   bootstrap: [AppComponent]
 })

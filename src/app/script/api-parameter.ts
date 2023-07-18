@@ -67,11 +67,15 @@ export class ApiParameterScript {
     }
 
 
-    /**
+   /**
     * {
-       
-        
-        }
+            "table":"country_table",
+            "data":[],
+            "whereConditions":{
+                "country_name":"INDIA"
+            ]
+        } Upadte data parametr formate 
+
 
     * @param db 
     * @param apiData 

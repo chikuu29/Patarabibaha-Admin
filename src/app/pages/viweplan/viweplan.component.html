@@ -1,107 +1,177 @@
-<div class="col-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Annual Income</h4>
-            <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form
-                controls, and buttons on a single horizontal row </p> -->
-            <div class="form-inline">
-                <label class="sr-only" for="inlineFormInputName2">Name</label>
-                <!-- <input type="text" (keyup)="search()" class="form-control mb-2 mr-sm-2" [(ngModel)]="searchincome" id="inlineFormInputName2" -->
-                     placeholder="Search Annual Income">
-                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-                <!-- <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">@</div>
+
+<div class="card">
+    <p-toast></p-toast>
+    <p-table [value]="allplandata" dataKey="membership_plan_id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:20%">Plan ID</th>
+                <th style="width:20%">Name</th>
+                <th style="width:20%">Plan Type</th>
+                <th style="width:20%">Amount</th>
+                <th style="width:20%">Currency</th>
+                <th style="width:20%">Discont</th>
+                <th style="width:20%">Plan Validity</th>
+                <th style="width:20%">Message Count</th>
+                <th style="width:20%">Chat Count</th>
+                <th style="width:20%">Photo Count</th>
+                <th style="width:20%">Other Count</th>
+                <th style="width:20%">Created Date</th>
+                <th style="width:20%">Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="data">
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_id" disabled>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_id}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_name" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_name}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-dropdown [options]="planOptionType" [showClear]="true" optionLabel="name" [filter]="true"
+                                placeholder="Select Country" [style]="{ width: '100%' }" [(ngModel)]="data.membership_plan_type"
+                                optionValue="name">
+                                <ng-template pTemplate="selectedItem">
+                                    <div class="country-item country-item-value">
+                                        <div>
+                                            {{
+                                                data.membership_plan_type
+                                            }}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-data pTemplate="item">
+                                    <div class="country-item">
+                                        <div>{{ data.name }}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_type}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_amount">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_amount | currency: 'INR'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_currency">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_currency}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_dicount" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_dicount}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_validity_date" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_validity_date}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_of_send_message">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_of_send_message}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_chating">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_chating}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_no_of_photo" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_no_of_photo}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_show_contact_number_other" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_show_contact_number_other}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="data.membership_plan_created_date_time" disabled>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{data.membership_plan_created_date_time |date}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                            (click)="onRowEditInit(data)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                            (click)="onRowEditSave(data)"
+                            class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                            (click)="onRowEditCancel(data, ri)"
+                            class="p-button-rounded p-button-text p-button-danger"></button>
                     </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
-                </div> -->
-                <div class="form-check mx-sm-2">
-                    <!-- <label class="form-check-label"> -->
-                    <!-- <input type="checkbox" class="form-check-input" checked> Remember me </label>  -->
-                </div>
-                <!-- <button type="submit" (click)="addCountry()" class="btn btn-primary mb-2">Submit</button> -->
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="row">
-
-    <div class="col-lg grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <!-- <h4 class="card-title">Basic Table</h4>
-                <p class="card-description"> Add class <code>.table</code> -->
-                <!-- </p> -->
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" class="">
-                                </th>
-                                <th>#SI</th>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Amount</th>
-                                <th>Currency</th>
-                                <th>Discount</th>
-                                <th>Plan Validity</th>
-                                <th>Profile Count</th>
-                                <th>Message Count</th>
-                                <th>Chat Count</th>
-                                <th>Photo Count</th>
-                                <th>Contact Count</th>
-                                <th>Other Count</th>
-                                <th>Created Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                                <!-- <th>Deleted</th> -->
-                            </tr>
-                        </thead>
-                         <tbody>
-                            <tr *ngFor="let countryalldatahtml of allplandata ; index as i">
-                                <th>
-                                    <input type="checkbox" class="">
-                                </th>
-                                <td>{{i+1}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_name}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_type}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_amount}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_currency}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_dicount }}%</td>
-                                <td>{{ countryalldatahtml.membership_plan_validity_date}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_visibility}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_of_send_message}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_chating}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_no_of_photo}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_no_of_contact}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_show_contact_number_other}}</td>
-                                <td>{{ countryalldatahtml.membership_plan_created_date_time}}</td>
-                                <td>
-                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.membership_plan_status == 0">
-                                        NOT PUBLISHED
-                                    </p>
-                                    <p class="badge badge-success" *ngIf="countryalldatahtml.membership_plan_status == 1">PUBLISHED</p>
-                                </td>
-                                <td>
-                                    <button type="submit" (click)="update(countryalldatahtml.Id)" class="btn btn-primary mb-2">Edit</button>
-                                </td>
-                                <!-- <td>
-                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.deleted == 0">
-                                        DELETED
-                                    </p>
-                                    <p class="badge badge-success" *ngIf="countryalldatahtml.deleted == 1">
-                                        PRESENT
-                                    </p>
-                                </td> -->
-                            </tr>
-                        </tbody> 
-                    </table>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
