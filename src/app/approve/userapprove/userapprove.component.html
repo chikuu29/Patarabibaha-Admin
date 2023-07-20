@@ -1,0 +1,31 @@
+<div class="col-lg grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+          
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>#SI</th>
+                            <th>User Name</th>
+                            <th>ID</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of useradata ; index as i">
+
+                            <td>{{i+1}}</td>
+                            <td>{{data.user_fname+" "+data.user_lname}}</td>
+                            <td>{{data.user_id}}</td>
+                            <td>
+                            <button  (click)="approve(data.user_id)" type="button" class="btn btn-outline-danger btn-fw">Approve</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

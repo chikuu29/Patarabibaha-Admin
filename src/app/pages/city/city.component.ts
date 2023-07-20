@@ -25,6 +25,8 @@ export class CityComponent implements OnInit {
   countryalldata: any;
   allcitydata: any;
   statealldatabycountry: any;
+  countryOption:any;
+  stateOption:any;
   constructor(
     private api: ApiService,
     private ApiParameter: ApiParameterScript
@@ -40,7 +42,50 @@ export class CityComponent implements OnInit {
     this.button = 'Submit';
     this.getcountryname();
     this.fatchdata();
+    this.showCountry();
+    this.showState();
   }
+
+
+  
+  showCountry() {
+    this.ApiParameter.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+
+        this.countryOption = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.name };
+          } else {
+            return null
+          }
+        });
+        console.log(this.countryOption);
+      }
+    });
+  }
+  showState() {
+    this.ApiParameter.fetchdata('state', { "projection": ["*"] }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+
+        this.stateOption = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.name };
+          } else {
+            return null
+          }
+        });
+        console.log(this.countryOption);
+
+      }
+    });
+  }
+  getstatefilter(){
+    this.stateOption.filter((data:any)=>{
+      //if(data.)
+      
+    });
+  }
+
   getcountryname() {
 
     this.ApiParameter.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {

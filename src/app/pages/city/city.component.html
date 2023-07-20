@@ -1,28 +1,78 @@
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <form class="form-inline" [formGroup]="citygroup">
-                <div class="form-group col-md-4">
+            <form [formGroup]="citygroup">
+                <label for="exampleSelectGender">COUNTRY</label>
+                <p-dropdown (onChange)="getstatefilter()" [options]="countryOption" [showClear]="true" optionLabel="name" [filter]="true"
+                    placeholder="Select Country" [style]="{ width: '100%' }" formControlName="country_name"
+                    optionValue="name" >
+                    <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                            <div>
+                                {{
+                                    citygroup.value.country_name || ""
+                                }}
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-data pTemplate="item">
+                        <div class="country-item">
+                            <div>{{ data.name }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+
+
+
+
+
+                <!-- <div class="form-group col-md-4">
                     <label for="exampleSelectGender">COUNTRY</label>
                     <select class="form-control" name="exampleSelectGender" (change)="getstate()"
                         formControlName="country_name" ngDefaultControl id="exampleSelectGender">
-                        <!-- (change)="filterstate()" [(ngModel)]="countryid" -->
+                        (change)="filterstate()" [(ngModel)]="countryid"
                         <option hidden [value]="'0'">SELECT</option>
                         <option *ngFor="let countryalldatahtml of countryalldata" [value]="countryalldatahtml.name">
                             {{countryalldatahtml.name}}</option>
                     </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="exampleSelectGender">STATE</label>
+                </div> -->
+                <label for="exampleSelectGender">STATE</label>
+                <p-dropdown  [options]="stateOption" [showClear]="true" optionLabel="name" [filter]="true"
+                placeholder="Select Country" [style]="{ width: '100%' }" formControlName="state_name"
+                optionValue="name" >
+                <ng-template pTemplate="selectedItem">
+                    <div class="country-item country-item-value">
+                        <div>
+                            {{
+                                citygroup.value.state_name || ""
+                            }}
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template let-data pTemplate="item">
+                    <div class="country-item">
+                        <div>{{ data.name }}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+
+
+
+
+
+
+
+                <!-- <div class="form-group col-md-4">
+                    
                     <select class="form-control" name="exampleSelectGender1" formControlName="state_name"
                         ngDefaultControl id="exampleSelectGender1">
-                        <!-- (change)="filterstate()" [(ngModel)]="countryid" -->
+                        (change)="filterstate()" [(ngModel)]="countryid"
                         <option hidden [value]="'0'">SELECT</option>
                         <option *ngFor="let countryalldatahtml of statealldatabycountry"
                             [value]="countryalldatahtml.name">{{countryalldatahtml.name}}</option>
                     </select>
-                </div>
-                <h4 class="card-title">CITY</h4>
+                </div> -->
+                <label class="card-title">CITY</label>
                 <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form controls, and buttons on a single horizontal row </p> -->
 
                 <label class="sr-only" for="inlineFormInputName2">Name</label>

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { ApproveModule } from './approve/approve.module';
 
 const routes: Routes = [
   {
@@ -30,6 +31,19 @@ const routes: Routes = [
       }
     ]
   },
+
+  {
+    path: 'approve',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./approve/approve.module').then(m=>m.ApproveModule)
+      }
+    ]
+  },
+
+
 
   {
     path: 'error-page',
