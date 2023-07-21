@@ -24,6 +24,7 @@ import { CasteComponent } from './caste/caste.component';
 import { SubcasteComponent } from './subcaste/subcaste.component';
 import { ReligionComponent } from './religion/religion.component';
 import { PrifixidComponent } from './prifixid/prifixid.component';
+import { GotraComponent } from './gotra/gotra.component';
 
 
 const routes: Routes = [
@@ -138,7 +139,12 @@ const routes: Routes = [
         path: 'prifixid-page',
         canActivate: [AuthGuard],
         component: PrifixidComponent
-      }
+      },{
+        path: 'gotra-page',
+        canActivate: [AuthGuard],
+        component: GotraComponent
+      },
+      
 
       
 

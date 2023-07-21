@@ -1,0 +1,65 @@
+ <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-titleb text-muted">ADD GOTRA NAME</h4>
+            <form class="form-inline" [formGroup]="gotragroup">
+                <label class="sr-only" for="inlineFormInputName2">Name</label>
+                <mat-form-field isReadonly appearance="outline" class="flex-fill w-100">
+                    <mat-label>Gotra name</mat-label>
+                    <input matInput placeholder="Gotra name" formControlName="name" type="text" />
+                    <mat-error>Please Enter Gotra Name</mat-error>
+                </mat-form-field>
+                <button type="submit" (click)="addCountry()"
+                    class="btn btn-primary  btn-lg mb-3 w-100">{{button}}</button>
+                <button type="submit" (click)="gotragroup.reset();button='ADD'"
+                    class="btn btn-danger  btn-lg mb-3 w-100" [hidden]="button=='ADD'">Cancle</button>
+                    
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-lg grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+          
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>#SI</th>
+                            <th>Gotra Name</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of gotraalldata ; index as i">
+
+                            <td>{{i+1}}</td>
+                            <td>{{data.name}}</td>
+                            <td>{{data.created_At | date}}</td>
+                            <td>
+                                <p class="badge badge-danger" *ngIf="data.status == 0">
+                                    NOT PUBLISHED
+                                </p>
+                                <p class="badge badge-success" *ngIf="data.status == 1">PUBLISHED</p>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-warning btn-fw "
+                                    (click)="update(data.id)">Edit</button>
+                                <button type="button" class="btn btn-outline-danger btn-fw">Delete</button>
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div> 

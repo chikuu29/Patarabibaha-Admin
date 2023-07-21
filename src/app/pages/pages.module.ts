@@ -30,6 +30,7 @@ import { ReligionComponent } from './religion/religion.component';
 import { CasteComponent } from './caste/caste.component';
 import { SubcasteComponent } from './subcaste/subcaste.component';
 import { PrifixidComponent } from './prifixid/prifixid.component';
+import { GotraComponent } from './gotra/gotra.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { PrifixidComponent } from './prifixid/prifixid.component';
     CasteComponent,
     SubcasteComponent,
     PrifixidComponent,
+    GotraComponent,
    
   ],
   imports: [
