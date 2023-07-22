@@ -8,6 +8,8 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ImageViewOperationComponent } from '../shared/image-view-operation/image-view-operation.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     FormsModule,
     PrimengModule,
     MaterialModule,
-    CustomPipeModule
-  ]
+    CustomPipeModule,
+    NgbModule
+  ],
+  entryComponents:[ImageViewOperationComponent]
 })
 export class ComponentModule { }

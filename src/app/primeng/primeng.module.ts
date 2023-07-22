@@ -23,6 +23,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
 import { EditorModule } from 'primeng/editor';
+import { TagModule } from 'primeng/tag';
 @NgModule({
   declarations: [],
   imports: [
@@ -49,7 +50,8 @@ import { EditorModule } from 'primeng/editor';
     MultiSelectModule,
     CalendarModule,
     DialogModule,
-    EditorModule
+    EditorModule,
+    TagModule
    
   ],
   exports:[
@@ -75,7 +77,8 @@ import { EditorModule } from 'primeng/editor';
     MultiSelectModule,
     CalendarModule,
     DialogModule,
-    EditorModule
+    EditorModule,
+    TagModule
   ]
 })
 export class PrimengModule { }

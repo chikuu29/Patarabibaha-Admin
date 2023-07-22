@@ -86,7 +86,7 @@ export class StateComponent implements OnInit {
           });
         } else {
           Swal.fire({
-            icon: 'success',
+            icon: 'error',
             text: res.message
           });
         }
@@ -95,7 +95,7 @@ export class StateComponent implements OnInit {
      } else {
       // Swal.fire('Please Enter All Fields','success','success')
       Swal.fire({
-        icon: 'warning',
+        icon: 'error',
         text: "Please Enter All Fields"
       });
      }
@@ -119,7 +119,7 @@ export class StateComponent implements OnInit {
             });
           } else {
             Swal.fire({
-              icon: 'success',
+              icon: 'error',
               text: res.message
             });
           }

@@ -1,7 +1,7 @@
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-titleb text-muted">ADD COUNTRIES NAME</h4>
+            <h4 class="card-titleb text-muted text-center"><button mat-flat-button color="accent" class="fw-bold">ADD COUNTRIES NAME</button></h4>
             <form class="form-inline" [formGroup]="countrygroup">
                 <label class="sr-only" for="inlineFormInputName2">Name</label>
                 <mat-form-field isReadonly appearance="outline" class="flex-fill w-100">
@@ -49,7 +49,7 @@
                                 <p class="badge badge-success" *ngIf="data.status == 1">PUBLISHED</p>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-outline-warning btn-fw "
+                                <button type="button" class="btn btn-outline-warning btn-fw me-2"
                                     (click)="update(data.id)">Edit</button>
                                 <button type="button" class="btn btn-outline-danger btn-fw">Delete</button>
 
