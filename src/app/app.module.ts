@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
-import { SideNavComponent } from './shared/side-nav/side-nav.component';
-import { FooterComponent } from './shared/footer/footer.component';
 import { AppService } from './services/app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './auth/auth.module';
@@ -21,18 +17,19 @@ import { ComponentModule } from './component/component.module';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimengModule } from './primeng/primeng.module';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
-    AppComponent,
-    NavBarComponent,
-    SideNavComponent,
-    FooterComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AuthModule,
+    NgbModule,
+    SharedModule,
     PagesModule,
     ComponentModule,
     MaterialModule,
@@ -42,15 +39,15 @@ import { MessageService } from 'primeng/api';
     LoadingBarRouterModule,
     NgxUiLoaderModule,
     FormsModule,
-    
     BlockUIModule.forRoot(
       {
         template: BlockUiCustomTemplateComponent
       }
     ),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    
   ],
-  providers: [AppService,MessageService],
+  providers: [AppService,MessageService,ConfirmationService,NgbActiveModal],
   entryComponents: [BlockUiCustomTemplateComponent],
   bootstrap: [AppComponent]
 })

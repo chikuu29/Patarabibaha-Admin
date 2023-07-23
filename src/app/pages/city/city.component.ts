@@ -16,39 +16,26 @@ export class CityComponent implements OnInit {
   // **************************
 
   citygroup = new FormGroup({
-    id: new FormControl('', [Validators.required]),
+    id: new FormControl('', []),
     country_name: new FormControl('', [Validators.required]),
     state_name: new FormControl('', [Validators.required]),
-    name: new FormControl('', [Validators.required])
+    city_name: new FormControl('', [Validators.required])
   });
-  button: any = 'Submit';
+  button: any = 'ADD';
   countryalldata: any;
   allcitydata: any;
   statealldatabycountry: any;
-  countryOption:any;
-  stateOption:any;
+  countryOption: any;
+  stateOption: any;
+
   constructor(
     private api: ApiService,
     private ApiParameter: ApiParameterScript
   ) { }
 
   ngOnInit(): void {
-    this.citygroup = new FormGroup({
-      id: new FormControl('', [Validators.required]),
-      country_name: new FormControl('0', [Validators.required]),
-      state_name: new FormControl('0', [Validators.required]),
-      name: new FormControl('', [Validators.required])
-    });
-    this.button = 'Submit';
-    this.getcountryname();
-    this.fatchdata();
-    this.showCountry();
-    this.showState();
-  }
 
-
-  
-  showCountry() {
+    this.button = 'ADD';
     this.ApiParameter.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
 
@@ -62,28 +49,34 @@ export class CityComponent implements OnInit {
         console.log(this.countryOption);
       }
     });
+    this.getcountryname();
+    this.fatchdata();
+ 
+
   }
-  showState() {
-    this.ApiParameter.fetchdata('state', { "projection": ["*"] }).subscribe((res: any) => {
+
+
+
+
+
+  getstatefilter(country_name: any) {
+    console.log(country_name);
+    this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { "country_name": country_name, "status": 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
 
         this.stateOption = res['data'].map((obj: any) => {
-          if (obj.status == 1) {
-            return { name: obj.name };
-          } else {
-            return null
-          }
+
+          return { name: obj.name };
+
         });
         console.log(this.countryOption);
 
+      }else{
+        this.stateOption=[]
       }
-    });
-  }
-  getstatefilter(){
-    this.stateOption.filter((data:any)=>{
-      //if(data.)
       
     });
+
   }
 
   getcountryname() {
@@ -113,30 +106,17 @@ export class CityComponent implements OnInit {
   }
 
   adddata() {
-    if (this.button == 'Submit') {
-      if (this.citygroup.value.country_name == '0') {
-        Swal.fire({
-          icon: 'error',
-          text: 'Select country'
-        });
+    if (this.button == 'ADD') {
 
-      } else if (this.citygroup.value.state_name == '0') {
-        Swal.fire({
-          icon: 'error',
-          text: 'Select state'
-        });
-      } else if (this.citygroup.value.name == '') {
-        Swal.fire({
-          icon: 'error',
-          text: 'Enter city name'
-        });
-      } else {
-        let updateData = {
+      if (this.citygroup.valid) {
+
+
+        let  updateData = {
           "data": {
-            "country_name": this.citygroup.value.country_name,
-            "state_name": this.citygroup.value.state_name,
-            "name": this.citygroup.value.name,
-            "time_stamp": moment().toISOString()
+            "country_name":this.citygroup.value.country_name,
+            "state_name":this.citygroup.value.state_name,
+            "city_name":this.citygroup.value.city_name,
+            "created_At": moment().toISOString()
           },
         }
 
@@ -151,39 +131,29 @@ export class CityComponent implements OnInit {
             });
           } else {
             Swal.fire({
-              icon: 'success',
+              icon: 'error',
               text: res.message
             });
           }
-        });
-      }
-    }else if(this.button == 'Update'){
-      if (this.citygroup.value.country_name == '0') {
-        Swal.fire({
-          icon: 'error',
-          text: 'Select country'
-        });
+        })
 
-      } else if (this.citygroup.value.state_name == '0') {
-        Swal.fire({
-          icon: 'error',
-          text: 'Select state'
-        });
-      } else if (this.citygroup.value.name == '') {
-        Swal.fire({
-          icon: 'error',
-          text: 'Enter city name'
-        });
+
       } else {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please Enter All Your Data'
+        })
+      }
+    } else if (this.button == 'Update') {
+      if (this.citygroup.valid) {
         let updateData = {
           "data": {
-            "country_name": this.citygroup.value.country_name,
-            "state_name": this.citygroup.value.state_name,
-            "name": this.citygroup.value.name,
+            "country_name":this.citygroup.value.country_name,
+            "state_name":this.citygroup.value.state_name,
+            "city_name":this.citygroup.value.city_name,
           },
           "whereConditions": { id: this.citygroup.value.id }
         }
-
         this.ApiParameter.updatedata('city', updateData).subscribe((res: any) => {
           // console.log(res);
           if (res.success) {
@@ -195,11 +165,18 @@ export class CityComponent implements OnInit {
             });
           } else {
             Swal.fire({
-              icon: 'success',
+              icon: 'warning',
               text: res.message
             });
           }
-        });
+        })
+
+
+      } else {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please Enter All Your Data'
+        })
       }
     }
   }
@@ -214,14 +191,21 @@ export class CityComponent implements OnInit {
       }
     })
   }
-  update(id:any){
+
+ 
+
+
+  edit(id: any) {
     this.ApiParameter.fetchdata('city', { "projection": ["*"], "whereConditions": { id: id } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
+        // this.countryalldata = res['data'];
+        this.getstatefilter(res['data'][0]['country_name'])
         this.citygroup.patchValue(res['data'][0]);
-        this.button = 'Update';
+        this.button = "Update";
+        // console.log(this.city);
 
       }
-    })
+    });
   }
 
 }

@@ -48,7 +48,7 @@
 
     <div class="row gutters-sm">
       <div class="col-md-4 mb-3">
-        <div class="card">
+        <div class="card" style="overflow: auto;">
           <div class="card-body mb-3">
             <div class="d-flex flex-column align-items-center text-center">
               <ng-container *ngIf="uloadedImageFile.length == 0">
@@ -61,58 +61,13 @@
                 </div>
               </ng-container>
               <div class="mt-3">
-                <h4>{{ profile?.profile_name | uppercase }}</h4>
-       
-                <button mat-raised-button color="accent" (click)="showupload = true" class="me-2">
-                  Add Photo
+                <h4 class="text-muted">{{ userAllData?.user_info?.user_fname +" "+ userAllData?.user_info?.user_lname | uppercase }}</h4>
+
+                <button (click)="viewMemberimages()" mat-stroked-button color="accent"   class="me-2">
+                  View Photo for Approved
                 </button>
               </div>
-              <ng-container *ngIf="showupload">
-                <div class="custom-file mt-3 mb-3 w-100">
-                  <p-fileUpload class="w-100" name="uploadfile[]" [url]="uploadURL" (onUpload)="onUpload($event)"
-                    accept="image/*" [multiple]="false" [maxFileSize]="100000000" chooseIcon="fa-solid fa-upload"
-                    mode="advanced" (onSelect)="onSelectFile($event)" (onClear)="onClearSelectedFile()"
-                    (onRemove)="onRemoveFile($event)" styleClass="text-center" [chooseStyleClass]="'d-block mb-2'"
-                    [uploadStyleClass]="'d-block'" [cancelStyleClass]="'d-block'">
-                    <ng-template pTemplate="content">
-                      <ul *ngIf="uploadedFiles.length">
-                        <li *ngFor="let file of uploadedFiles">
-                          {{ file.name }} - {{ file.size }} bytes
-                        </li>
-                      </ul>
-                    </ng-template>
-                    <ng-template pTemplate="toolbar">
-                      <div class="pre-view-image my-3">
-                        <ng-container *ngIf="selecteduploadedFiles.length > 0">
-                          <img [src]="
-                                  selecteduploadedFiles[0].previewImageSrc
-                                    | safeUrlPipe
-                                " alt="Avatar" class="img-fluid" />
-                        </ng-container>
-                        <ng-container *ngIf="selecteduploadedFiles.length <= 0">
-                          <div class="tm-product-img-dummy"></div>
-                        </ng-container>
-
-                        <div class="overlay">
-                          <ng-container *ngIf="selecteduploadedFiles.length > 0">
-                            <p class="icon" style="cursor: pointer" (click)="previewImage()">
-                              <i class="fa-solid fa-eye fs-1" style="cursor: pointer"></i>
-                            </p>
-                          </ng-container>
-
-                          <!-- <ng-container *ngIf="selecteduploadedFiles.length <= 0">
-                                                      <p class="icon" style="cursor: pointer">
-                                                          <i class="fas fa-cloud-upload-alt tm-upload-icon"
-                                                              style="cursor: pointer"
-                                                              onclick='document.querySelector(`input[type="file"]`).click();'></i>
-                                                      </p>
-                                                  </ng-container> -->
-                        </div>
-                      </div>
-                    </ng-template>
-                  </p-fileUpload>
-                </div>
-              </ng-container>
+            
             </div>
           </div>
         </div>

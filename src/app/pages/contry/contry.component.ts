@@ -84,7 +84,7 @@ export class ContryComponent implements OnInit {
             });
           } else {
             Swal.fire({
-              icon: 'success',
+              icon: 'warning',
               text: res.message
             });
           }
@@ -94,7 +94,7 @@ export class ContryComponent implements OnInit {
       } else {
         Swal.fire({
           icon: 'error',
-          text: 'Please Enter Your About Us'
+          text: 'Please Enter All Your Data'
         })
       }
     } else if (this.button == 'Update') {
@@ -117,7 +117,7 @@ export class ContryComponent implements OnInit {
             });
           } else {
             Swal.fire({
-              icon: 'success',
+              icon: 'warning',
               text: res.message
             });
           }
@@ -127,7 +127,7 @@ export class ContryComponent implements OnInit {
       } else {
         Swal.fire({
           icon: 'error',
-          text: 'Please Enter Your About Us'
+          text: 'Please Enter All Your Data'
         })
       }
     }

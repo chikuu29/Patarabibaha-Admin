@@ -4,10 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { ConfirmationService } from 'primeng/api';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
 import { AppService } from 'src/app/services/app.service';
 import Swal from 'sweetalert2';
+import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ImageViewOperationComponent } from 'src/app/shared/image-view-operation/image-view-operation.component';
+
 ApiService
 @Component({
   selector: 'app-user-view',
@@ -652,22 +656,26 @@ export class UserViewComponent implements OnInit {
   profileImage: any
 
   profile_id: string = '';
-
-
-
   userAllData: any
+
+  actualUploadedFiles: any[] = []
   constructor(
     private appservices: AppService,
     private ApiParameterScript: ApiParameterScript,
     private router: Router,
     private _rout: ActivatedRoute,
-    private api: ApiService
+    private api: ApiService,
+    private confirmationService: ConfirmationService,
+    private modalService: NgbModal
+    
   ) { }
 
   ngOnInit(): void {
     this.uploadURL = `${this.appservices.getApipath()}upload?q=${this.profile_id}`
     console.log(this.appservices.authStatus);
-    this.profile = this.appservices.authStatus
+    // this.profile = this.appservices.authStatus
+    // console.log(this.profile);
+
     // this.profileDetailsForm.patchValue(this.appservices.authStatus)
     this.blockUI.start("Loading...")
 
@@ -696,6 +704,49 @@ export class UserViewComponent implements OnInit {
         } else {
 
         }
+
+      })
+
+      var profileApiData = {
+        "projection": ['*'],
+        "whereConditions": { "user_ID": this.profile_id },
+        "orderBy": 'id',
+        'orderType': 'desc'
+
+      }
+      this.ApiParameterScript.fetchdata('user_profile_images', profileApiData).subscribe((getprofile_res: any) => {
+        console.log("getprofile_res", getprofile_res);
+
+        if (getprofile_res.success && getprofile_res['data'].length > 0) {
+          this.showupload = true
+          getprofile_res.data.forEach((element: any) => {
+
+
+            this.actualUploadedFiles.push(
+              {
+                "previewImageSrc": `${this.appservices.getFilePath()}storage/${element.user_profile_images}`,
+                "thumbnailImageSrc": `${this.appservices.getFilePath()}storage/${element.user_profile_images}`,
+                "alt": element.user_profile_images,
+                "title": element.user_profile_images
+              }
+            )
+            this.selecteduploadedFiles.push(
+              {
+                "previewImageSrc": `${this.appservices.getFilePath()}storage/${element.user_profile_images}`,
+                "thumbnailImageSrc": `${this.appservices.getFilePath()}storage/${element.user_profile_images}`,
+                "alt": element.user_profile_images,
+                "title": element.user_profile_images
+              }
+            )
+            console.log(this.actualUploadedFiles);
+
+
+          });
+
+        } else {
+
+        }
+
 
       })
 
@@ -1240,6 +1291,7 @@ export class UserViewComponent implements OnInit {
       }
       this.api.userActivation(param).subscribe((res: any) => {
         this.blockUI.stop()
+        this.ngOnInit()
       })
     } else {
       Swal.fire({
@@ -1247,6 +1299,17 @@ export class UserViewComponent implements OnInit {
       })
     }
   }
+
+  public viewMemberimages() {
+    
+
+    const modalRef = this.modalService.open(ImageViewOperationComponent,{ fullscreen: true , scrollable: true });
+    modalRef.componentInstance.user_id=this.profile_id
+
+
+
+  }
+
 
 
 }
