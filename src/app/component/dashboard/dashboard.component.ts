@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,11 +11,14 @@ export class DashboardComponent implements OnInit {
 
   userInfoDATA:any[]=[];
   allUserCount:any=0;
+  image:any=''
   constructor(
-    private apiparameter: ApiParameterScript
+    private apiparameter: ApiParameterScript,
+    private appsevices:AppService
   ) { }
 
   ngOnInit(): void {
+    this.image=this.appsevices.getFilePath()+'storage/'
 
     var apiData = {
       "projection": ["*"],
@@ -30,8 +34,11 @@ export class DashboardComponent implements OnInit {
         this.userInfoDATA=[];
         this.allUserCount=0
       }
-
     })
+
+
+
+
   }
 
 }
