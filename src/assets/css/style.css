@@ -30482,7 +30482,7 @@ div.tagsinput span.tag a {
 
 @media (min-width: 992px) {
   .sidebar-icon-only .navbar {
-    left: 70px;
+    left: 70px !important;
   }
 
   .sidebar-icon-only .navbar .navbar-menu-wrapper {
@@ -30681,7 +30681,7 @@ div.tagsinput span.tag a {
   }
 
   .sidebar-icon-only .page-body-wrapper {
-    width: calc(100% - 70px);
+    width: calc(100% - 70px) !important;
     transition: all 0.25s ease;
     -webkit-transition: all 0.25s ease;
     -moz-transition: all 0.25s ease;
@@ -30698,12 +30698,12 @@ div.tagsinput span.tag a {
   padding-left: 0;
   padding-right: 0;
   transition: all 0.25s ease;
-  width: calc(100% - 244px);
+  width: calc(100% - 244px) !important;
 }
 
 .page-body-wrapper.full-page-wrapper {
-  width: 100%;
-  min-height: 100vh;
+  width: 100% !important;
+  min-height: 100vh !important;
 }
 
 @media (max-width: 992px) {
