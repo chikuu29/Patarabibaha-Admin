@@ -19160,7 +19160,7 @@ button.bg-dark:focus {
 
 .fixed-top {
   position: fixed;
-  top: 0;
+  top: 0 ;
   right: 0;
   left: 0;
   z-index: 1030;
@@ -22665,9 +22665,9 @@ code {
   font-size: 12px;
 }
 
-.flex-grow {
-  flex-grow: 1;
-}
+/* .flex-grow {
+  flex-grow: 1 !important;
+} */
 
 .font-weight-light {
   font-weight: 300;
@@ -29514,7 +29514,7 @@ div.tagsinput span.tag a {
 .navbar {
   font-weight: normal;
   background: #191c24;
-  left: 244px;
+  left: 244px !important;
   transition: left 0.25s ease;
   -webkit-transition: left 0.25s ease;
   -moz-transition: left 0.25s ease;
@@ -29523,7 +29523,7 @@ div.tagsinput span.tag a {
 
 @media (max-width: 992px) {
   .navbar {
-    left: 0;
+    left: 0 !important;
   }
 }
 
@@ -30708,7 +30708,7 @@ div.tagsinput span.tag a {
 
 @media (max-width: 992px) {
   .page-body-wrapper {
-    width: 100%;
+    width: 100% !important;
   }
 }
 
