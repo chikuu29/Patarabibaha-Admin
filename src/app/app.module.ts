@@ -20,6 +20,7 @@ import { PrimengModule } from './primeng/primeng.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
+import { ApproveModule } from './approve/approve.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -39,6 +40,7 @@ import { SharedModule } from './shared/shared.module';
     LoadingBarRouterModule,
     NgxUiLoaderModule,
     FormsModule,
+    ApproveModule,
     BlockUIModule.forRoot(
       {
         template: BlockUiCustomTemplateComponent
