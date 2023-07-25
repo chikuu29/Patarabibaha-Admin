@@ -8,37 +8,114 @@ import { AppService } from 'src/app/services/app.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+ 
 
-  userInfoDATA:any[]=[];
-  allUserCount:any=0;
-  image:any=''
+  allUserClick:boolean=false;
+  allApprovedUserClick:boolean=false;
+
+  user_data_message: any = 'All Members';
+  userInfoDATA: any[] = [];
+  allUserCount: any = 0;
+  allApprovedUser: any = 0
+  image: any = ''
   constructor(
     private apiparameter: ApiParameterScript,
-    private appsevices:AppService
+    private appsevices: AppService
   ) { }
 
   ngOnInit(): void {
-    this.image=this.appsevices.getFilePath()+'storage/'
+    this.image = this.appsevices.getFilePath() + 'storage/'
 
-    var apiData = {
-      "projection": ["*"],
-      "whereConditions": []
-    }
-    this.apiparameter.fetchdata('user_info', apiData).subscribe((res: any) => {
-      console.log(res);
-      if (res.success && res['data'].length>0) {
-        this.userInfoDATA=res['data'];
-        this.allUserCount=res['data'].length
-        
-      }else{
-        this.userInfoDATA=[];
-        this.allUserCount=0
+    this.getUserCount(["Approved", 'All', 'Paid', 'Unpaid'])
+    this.laodMemberInfo('All');
+  }
+  getUserCount(countUserList: any) {
+    var query = "SELECT COUNT(user_id) as count FROM user_info"
+
+    countUserList.forEach((item: any) => {
+      switch (item) {
+        case "Approved":
+          query = "SELECT COUNT(user_id) as count FROM user_info WHERE user_membership_plan_active=1"
+          this.apiparameter.fetchDataFormQuery({ "query": query }).subscribe((res: any) => {
+            console.log(res);
+            if (res.success && res['data'].length > 0) {
+
+              this.allApprovedUser = res['data'][0].count ? res['data'][0].count : 0
+            } else {
+              this.allApprovedUser = 0
+            }
+
+          })
+
+          break;
+
+        case "All":
+          query = "SELECT COUNT(user_id) as count FROM user_info WHERE user_membership_plan_active=0"
+          this.apiparameter.fetchDataFormQuery({ "query": query }).subscribe((res: any) => {
+            console.log(res);
+            if (res.success && res['data'].length > 0) {
+
+              this.allUserCount = res['data'][0].count ? res['data'][0].count : 0
+            } else {
+              this.allUserCount = 0
+            }
+
+          })
+          break;
+        default:
+
       }
-    })
 
-
+    });
 
 
   }
 
+  laodMemberInfo(typeOfUser: String) {
+
+    var apiData = {
+      "projection": ["*"],
+      "whereConditions": {}
+    }
+    switch (typeOfUser) {
+      case 'Approved':
+        this.allApprovedUserClick=true
+        this.allUserClick=false
+        this.user_data_message = "All Approved Members"
+        apiData = {
+          "projection": ["*"],
+          "whereConditions": { "user_membership_plan_active": 1 }
+        }
+        break;
+      case 'Paid':
+
+        break;
+      case 'All':
+        this.allUserClick=true
+        this.allApprovedUserClick=false
+        this.user_data_message = "All Recent Register Members"
+        apiData = {
+          "projection": ["*"],
+          "whereConditions":  { "user_membership_plan_active": 0 }
+        }
+        break;
+      default:
+        apiData = {
+          "projection": ["*"],
+          "whereConditions": {}
+        }
+        break;
+    }
+
+    this.apiparameter.fetchdata('user_info', apiData).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.userInfoDATA = res['data'];
+      } else {
+        this.userInfoDATA = [];
+      }
+    })
+
+
+  }
 }

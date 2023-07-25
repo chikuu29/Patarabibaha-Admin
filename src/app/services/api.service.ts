@@ -53,7 +53,7 @@ export class ApiService {
   }
   
   public fetchDataQueryApi(query:any){
-    return this.http.get(this.appservices.getApipath() + 'generic/getDataFormQuery.php?token='+this.appservices.authStatus._refreshkey+'&query='+encodeURIComponent(JSON.stringify(query)));
+    return this.http.post(this.appservices.getApipath()+'getDataFormQuery',query,{headers:this.headers})
   }
 
   public deleteImage(apiData:any){

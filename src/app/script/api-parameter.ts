@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { ApiService } from "../services/api.service";
 import { AppService } from "../services/app.service";
 import { BlockUI, NgBlockUI } from "ng-block-ui";
+import { CryptographyService } from "../services/cryptography.service";
 
 
 @Injectable({
@@ -17,7 +18,8 @@ export class ApiParameterScript {
     constructor(
         private http: HttpClient,
         private apiservices: ApiService,
-        private appservices: AppService
+        private appservices: AppService,
+        private cryptography: CryptographyService
 
     ) {
         console.log("Calling API Parametere");
@@ -272,22 +274,25 @@ export class ApiParameterScript {
     public fetchDataFormQuery(query: any) {
         const simpleObservable = new Observable((observer) => {
             try {
-                // apiData['db'] = db;
-                // const appConfig = this.appservices.getappconfig;
-                // const loginInfo = this.appservices.authStatus;
-                // let getrole = loginInfo['role'] ? loginInfo['role'] : '';
-                // let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
-                // let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
-                // if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
-                //     apiData['loginInfo'] = loginInfo;
-                this.apiservices.fetchDataQueryApi(query).subscribe((res: any) => {
-                    observer.next(res);
-                    observer.complete();
-                })
-                // } else {
-                //     observer.next({ "success": false, "message": "Permission Denied To Update Database" });
-                //     observer.complete();
-                // }
+                query = this.cryptography.encryptData(query)
+                this.apiservices.fetchDataQueryApi(query).subscribe(
+                    (res: any) => {
+                        try {
+                            res = JSON.parse(this.cryptography.decryptData(JSON.stringify(res)));
+                            observer.next(res);
+                            observer.complete();
+                        } catch (error) {
+                            observer.next({ success: false, message: error });
+                            observer.complete();
+
+                        }
+
+                    }, (err: any) => {
+                        observer.next({ success: false, message: err });
+                        observer.complete();
+                    }
+                )
+
             } catch (error) {
                 console.log({ "methodName": "ApiParameterScript.fetchDataFormQuery", "error": error });
                 observer.next(error);

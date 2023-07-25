@@ -1,6 +1,5 @@
-
 <div class="row">
-    <div class="col-12 grid-margin stretch-card" >
+    <div class="col-12 grid-margin stretch-card">
         <div class="card corona-gradient-card" style="background-color: #f91f06;">
             <div class="card-body py-0 px-0 px-sm-3">
                 <div class="row align-items-center">
@@ -25,10 +24,9 @@
 </div>
 <div class="main-pane p-0">
     <div class="container-fluid content-wrapper p-0">
-       
         <div class="row">
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card">
+                <div class="card" (click)="laodMemberInfo('All')">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-9">
@@ -39,33 +37,39 @@
                             </div>
                             <div class="col-3">
                                 <div class="icon icon-box-success ">
-                                    <i class="fa-solid fa-user" ></i>
+                                    <i class="fa-solid fa-users"></i>
                                     <!-- <span class="mdi mdi-arrow-top-right icon-item"></span> -->
                                 </div>
                             </div>
                         </div>
-                        <h6 class="text-muted font-weight-normal">All Members</h6>
+                        <h6 class="text-muted font-weight-normal">All Recent Register Members</h6>
+                        <ng-container *ngIf="allUserClick">
+                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
+                        </ng-container>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card">
+                <div class="card" (click)="laodMemberInfo('Approved')">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-9">
                                 <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">0</h3>
+                                    <h3 class="mb-0">{{allApprovedUser}}</h3>
                                     <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p> -->
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="icon icon-box-success">
-                                    <i class="fa-solid fa-user"
-                                        style="--fa-primary-color: #050505; --fa-secondary-color: #11e462;"></i>
+                                    <i class="fa-solid fa-thumbs-up"
+                                        style="--fa-primary-color: #050505; --fa-secondary-color: #e41111;"></i>
                                 </div>
                             </div>
                         </div>
-                        <h6 class="text-muted font-weight-normal">Active Members</h6>
+                        <h6 class="text-muted font-weight-normal">Approved Members</h6>
+                        <ng-container *ngIf="allApprovedUserClick">
+                            <mat-progress-bar mode="indeterminate" [color]="''"></mat-progress-bar>
+                        </ng-container>
                     </div>
                 </div>
             </div>
@@ -80,8 +84,8 @@
                                 </div>
                             </div>
                             <div class="col-3">
-                                <div class="icon icon-box-danger">
-                                    <i class="fa-solid fa-user-plus" style="color: #f91f06;"></i>
+                                <div class="icon icon-box-warning">
+                                    <i class="fa-solid fa-crown" style="color: #f91f06;"></i>
                                 </div>
                             </div>
                         </div>
@@ -111,39 +115,40 @@
             </div>
         </div>
     </div>
-    <h3 class="text-light text-muted mb-5">Recent Members </h3>
+    <h3 class="text-light text-muted mb-5">{{user_data_message}} </h3>
     <div class="container-fluid data-view-container">
         <div class="row">
 
             <div class="w-100 grid grid-cols-2 gap-3 sm:gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
 
-            <ng-container *ngFor="let user of userInfoDATA">
-                <div class="relative product-container">
-                    <div class=" cursor-pointer overflow-hidden transition-all duration-300 ">
-                        <div
-                            class="overflow-clip rounded-md lg:rounded-xl flex flex-col justify-between relative flex-1">
-                            <div class="relative flex items-center justify-center overflow-hidden rounded-t-lg flex-1 flex-col"
-                            [routerLink]="'/user/'+user.user_id">
-                                <div class=" relative w-full aspect-square product-img-container ">
-                                    <div class="w-full h-full bg-cover product-img "
-                                        style="z-index: 0; background-image: url('{{image +user.user_profile_image}}');background-repeat: no-repeat;background-size: cover">
+                <ng-container *ngFor="let user of userInfoDATA">
+                    <div class="relative product-container">
+                        <div class=" cursor-pointer overflow-hidden transition-all duration-300 ">
+                            <div
+                                class="overflow-clip rounded-md lg:rounded-xl flex flex-col justify-between relative flex-1">
+                                <div class="relative flex items-center justify-center overflow-hidden rounded-t-lg flex-1 flex-col"
+                                    [routerLink]="'/user/'+user.user_id">
+                                    <div class=" relative w-full aspect-square product-img-container ">
+                                        <div class="w-full h-full bg-cover product-img "
+                                            style="z-index: 0; background-image: url('{{image +user.user_profile_image}}');background-repeat: no-repeat;background-size: cover">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="py-1 lg:py-2 bg-white rounded-b-lg flex flex-col justify-between ">
-                                <div class="px-1 lg:px-2 mb-2">
-                                    <button mat-button color="accent" class="w-100 mb-2 text-wrap" style="width: 6rem;">{{user?.user_fname |uppercase}}&nbsp;{{user?.user_lname
-                                        |uppercase}} </button>
-                                    <!-- <h1 class="text-12px text-14px text-16px font-semibold line-clamp-2 h-36px sm:h-[40px] text-center fw-bold mt-3 text-wrap"
+                                <div class="py-1 lg:py-2 bg-white rounded-b-lg flex flex-col justify-between ">
+                                    <div class="px-1 lg:px-2 mb-2">
+                                        <button mat-button color="accent" class="w-100 mb-2 text-wrap"
+                                            style="width: 6rem;">{{user?.user_fname |uppercase}}&nbsp;{{user?.user_lname
+                                            |uppercase}} </button>
+                                        <!-- <h1 class="text-12px text-14px text-16px font-semibold line-clamp-2 h-36px sm:h-[40px] text-center fw-bold mt-3 text-wrap"
                                         style="color: #8a6d3b; size: 10px;">{{user?.user_fname |uppercase}}&nbsp;{{user?.user_lname
                                         |uppercase}}</h1> -->
-                                    <button mat-raised-button color="accent" class="w-100">Details</button>
+                                        <button mat-raised-button color="accent" class="w-100">Details</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
             </div>
 
 
