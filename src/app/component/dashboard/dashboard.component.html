@@ -26,12 +26,12 @@
     <div class="container-fluid content-wrapper p-0">
         <div class="row">
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card" (click)="laodMemberInfo('All')">
+                <div class="card" (click)="laodMemberInfo('Inactive')">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-9">
                                 <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">{{allUserCount}}</h3>
+                                    <h3 class="mb-0">{{allInactiveUser}}</h3>
                                     <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                                 </div>
                             </div>
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <h6 class="text-muted font-weight-normal">All Recent Register Members</h6>
-                        <ng-container *ngIf="allUserClick">
+                        <ng-container *ngIf="allInactiveUserClick">
                             <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
                         </ng-container>
                     </div>
@@ -68,18 +68,18 @@
                         </div>
                         <h6 class="text-muted font-weight-normal">Approved Members</h6>
                         <ng-container *ngIf="allApprovedUserClick">
-                            <mat-progress-bar mode="indeterminate" [color]="''"></mat-progress-bar>
+                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
                         </ng-container>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card">
+                <div class="card" (click)="laodMemberInfo('Paid')">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-9">
                                 <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">0</h3>
+                                    <h3 class="mb-0">{{allPaidUser}}</h3>
                                     <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> -->
                                 </div>
                             </div>
@@ -90,16 +90,19 @@
                             </div>
                         </div>
                         <h6 class="text-muted font-weight-normal">Paid Members</h6>
+                        <ng-container *ngIf="allPaidUsrClick">
+                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
+                        </ng-container>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card">
+                <div class="card" (click)="laodMemberInfo('All')">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-9">
                                 <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">0</h3>
+                                    <h3 class="mb-0">{{allUserCount}}</h3>
                                     <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                                 </div>
                             </div>
@@ -109,7 +112,10 @@
                                 </div>
                             </div>
                         </div>
-                        <h6 class="text-muted font-weight-normal">Featured Members</h6>
+                        <h6 class="text-muted font-weight-normal">Total Members</h6>
+                        <ng-container *ngIf="allUserClick">
+                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
+                        </ng-container>
                     </div>
                 </div>
             </div>
@@ -153,5 +159,8 @@
 
 
         </div>
+        <ng-container *ngIf="userInfoDATA.length==0">
+            <p class="text-center text-danger fs-5">No Data Found</p>
+        </ng-container>
     </div>
 </div>
