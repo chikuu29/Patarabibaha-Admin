@@ -6,11 +6,15 @@ import { LoginComponent } from './login/login.component';
 import { AppService } from '../services/app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ViewAuthUserComponent } from './view-auth-user/view-auth-user.component';
+import { MaterialModule } from '../material/material.module';
+import { PrimengModule } from '../primeng/primeng.module';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    ViewAuthUserComponent
   ],
   imports: [
     CommonModule,
@@ -18,6 +22,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MaterialModule,
+    PrimengModule
+
   ],
   providers:[AppService]
 })

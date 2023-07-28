@@ -1,0 +1,143 @@
+<div class="main-pane p-0">
+    <div class="container-fluid content-wrapper p-0">
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
+                <div class="card" (click)="loadAuthData('Inactive')">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="d-flex align-items-center align-self-start">
+                                    <h3 class="mb-0">{{"0"}}</h3>
+                                    <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="icon icon-box-success ">
+                                    <i class="fa-solid fa-users"></i>
+                                    <!-- <span class="mdi mdi-arrow-top-right icon-item"></span> -->
+                                </div>
+                            </div>
+                        </div>
+                        <h6 class="text-muted font-weight-normal">All Recent Register Members</h6>
+                        <ng-container *ngIf="true">
+                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
+                <div class="card" (click)="loadAuthData('Paid')">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="d-flex align-items-center align-self-start">
+                                    <h3 class="mb-0">{{'allPaidUser'}}</h3>
+                                    <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> -->
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="icon icon-box-warning">
+                                    <i class="fa-solid fa-crown" style="color: #f91f06;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h6 class="text-muted font-weight-normal">Paid Members</h6>
+                        <ng-container *ngIf="true">
+                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
+                <div class="card" (click)="loadAuthData('All')">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="d-flex align-items-center align-self-start">
+                                    <h3 class="mb-0">{{"0"}}</h3>
+                                    <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="icon icon-box-success ">
+                                    <i class="fa-solid fa-users" style="color: #005af5;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h6 class="text-muted font-weight-normal">Total Members</h6>
+                        <ng-container *ngIf="true">
+                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="table-holder">
+            <div class="caption-header">
+                <div class="caption-item">
+                    <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
+                    <span class="fs-5">Showing {{authDataList.length}} of {{authDataList.length}} results</span>
+                </div>
+                <div class="caption-item">
+                    <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"
+                        ></button>
+                    
+                </div>
+            </div>
+            <div class="mt-3 data-view-container">
+               
+                <ng-container>
+                    <table class="table">
+                        <thead class="table-header">
+                            <tr>
+                                <th>Auth ID</th>
+                                <th>Name</th>
+                                <th>Emil</th>
+                                
+                                <th>Created At</th>
+                                <th>Status</th>
+                                <th>Auth Type</th>
+                                <th>Phone</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body table-striped ">
+                            <ng-container *ngFor="let banner of authDataList">
+                                <tr>
+                                    <td>{{banner.auth_ID}}</td>
+                                    <td>{{banner.auth_name}}</td>
+                                    <td>{{banner.auth_email}}</td>
+                                    
+                                    <td>{{banner.created_date |date :"fullDate"}}</td>
+                                    <td>{{banner.account_status || "Not Availble"}}</td>
+                                    <td>{{banner.acount_type || "Not Availble"}}</td>
+                                    <td>{{banner.auth_phone_no}}</td>
+                                    <td style="text-align: center;">
+                                        <button pButton pRipple icon="pi pi-eye" pTooltip="Expand"
+                                            class="p-button-rounded p-button-Primary p-button-sm m-1"
+                                            ></button>
+                                        <button pButton pRipple icon="pi pi-times" pTooltip="Delete"
+                                            class="p-button-rounded p-button-danger p-button-sm m-1" ></button>
+                                
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            <ng-container *ngIf="authDataList.length == 0">
+                                <p class="text-center p-4">
+                                  No Data Availble
+                                </p>
+                            </ng-container>
+
+
+                        </tbody>
+                    </table>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+
+</div>

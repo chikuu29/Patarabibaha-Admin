@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { ErrorPageComponent } from '../pages/error-page/error-page.component';
+import { ViewAuthUserComponent } from './view-auth-user/view-auth-user.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,12 @@ const routes: Routes = [
   {
     path: 'sign-in',
     component: LoginComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'view-auth-user',
+    component: ViewAuthUserComponent,
+    canActivate: [AuthGuard],
     pathMatch: 'full'
   },
   {
