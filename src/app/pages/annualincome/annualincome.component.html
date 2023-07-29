@@ -7,7 +7,7 @@
             <form class="form-inline" [formGroup]="annualincome" (ngSubmit)="insert()">
                 <label class="sr-only" for="inlineFormInputName2">Name</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                    formControlName="incomeamount" (keypress)="numberOnly($event)"   placeholder="Insert Annual Income">
+                    formControlName="incomeamount" (keypress)="numberOnly($event)" placeholder="Insert Annual Income">
                 <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
                 <!-- <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
@@ -19,7 +19,7 @@
                     <!-- <label class="form-check-label"> -->
                     <!-- <input type="checkbox" class="form-check-input" checked> Remember me </label>  -->
                 </div>
-                <button type="submit"  class="btn btn-primary mb-2">Submit</button>
+                <button type="submit" class="btn btn-primary mb-2">Submit</button>
             </form>
         </div>
     </div>
@@ -32,8 +32,8 @@
                 controls, and buttons on a single horizontal row </p> -->
             <div class="form-inline">
                 <label class="sr-only" for="inlineFormInputName2">Name</label>
-                <input type="text" (keyup)="search()" class="form-control mb-2 mr-sm-2" [(ngModel)]="searchincome" id="inlineFormInputName2"
-                     placeholder="Search Annual Income">
+                <input type="text" (keyup)="search()" class="form-control mb-2 mr-sm-2" [(ngModel)]="searchincome"
+                    id="inlineFormInputName2" placeholder="Search Annual Income">
                 <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
                 <!-- <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
@@ -52,47 +52,52 @@
 </div>
 
 
-<div class="row">
+<div class="">
+    <div class="table-holder">
+        <div class="caption-header">
+            <div class="caption-item">
+                <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
+                <span class="fs-5">Showing {{allannualincome.length}} of {{allannualincome.length}} results</span>
+            </div>
+            <div class="caption-item">
+                <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
 
-    <div class="col-lg grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <!-- <h4 class="card-title">Basic Table</h4>
-                <p class="card-description"> Add class <code>.table</code> -->
-                <!-- </p> -->
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" class="">
-                                </th>
-                                <th>#SI</th>
-                                <th>Annual Income</th>
-                                <th>Created in</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                                <!-- <th>Deleted</th> -->
-                            </tr>
-                        </thead>
-                         <tbody>
-                            <tr *ngFor="let countryalldatahtml of allannualincome ; index as i">
-                                <th>
-                                    <input type="checkbox" class="">
-                                </th>
-                                <td>{{i+1}}</td>
-                                <td>{{ countryalldatahtml.annualincome }}</td>
-                                <td>{{ countryalldatahtml.created_date_time }}</td>
-                                <td>
-                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
-                                        NOT PUBLISHED
-                                    </p>
-                                    <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
-                                </td>
-                                <td>
-                                    <button type="submit" (click)="update(countryalldatahtml.id)" class="btn btn-primary mb-2">Edit</button>
-                                </td>
-                                <!-- <td>
+            </div>
+        </div>
+        <div class="mt-3 data-view-container">
+            <table class="table">
+                <thead class="table-header">
+                    <tr>
+                        <th>
+                            <input type="checkbox" class="">
+                        </th>
+                        <th>#SI</th>
+                        <th>Annual Income</th>
+                        <th>Created in</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        <!-- <th>Deleted</th> -->
+                    </tr>
+                </thead>
+                <tbody class="table-body table-striped">
+                    <tr *ngFor="let countryalldatahtml of allannualincome ; index as i">
+                        <th>
+                            <input type="checkbox" class="">
+                        </th>
+                        <td>{{i+1}}</td>
+                        <td>{{ countryalldatahtml.annualincome }}</td>
+                        <td>{{ countryalldatahtml.created_date_time }}</td>
+                        <td>
+                            <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
+                                NOT PUBLISHED
+                            </p>
+                            <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
+                        </td>
+                        <td>
+                            <button type="submit" (click)="update(countryalldatahtml.id)"
+                                class="btn btn-primary mb-2">Edit</button>
+                        </td>
+                        <!-- <td>
                                     <p class="badge badge-danger" *ngIf="countryalldatahtml.deleted == 0">
                                         DELETED
                                     </p>
@@ -100,12 +105,10 @@
                                         PRESENT
                                     </p>
                                 </td> -->
-                            </tr>
-                        </tbody> 
-                    </table>
-                </div>
-                
-            </div>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
     </div>
 </div>
