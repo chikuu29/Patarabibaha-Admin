@@ -2,12 +2,12 @@
     <div class="container-fluid content-wrapper p-0">
         <div class="row">
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card" (click)="loadAuthData('Inactive')">
+                <div class="card" (click)="loadAuthData('active')">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-9">
                                 <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">{{"0"}}</h3>
+                                    <h3 class="mb-0">{{activeAuthUserCount}}</h3>
                                     <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                                 </div>
                             </div>
@@ -18,8 +18,8 @@
                                 </div>
                             </div>
                         </div>
-                        <h6 class="text-muted font-weight-normal">All Recent Register Members</h6>
-                        <ng-container *ngIf="true">
+                        <h6 class="text-muted font-weight-normal">Active Members Credential</h6>
+                        <ng-container *ngIf="activeAuthUserClick">
                             <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
                         </ng-container>
                     </div>
@@ -27,23 +27,23 @@
             </div>
           
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card" (click)="loadAuthData('Paid')">
+                <div class="card" (click)="loadAuthData('inactive')">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-9">
                                 <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">{{'allPaidUser'}}</h3>
+                                    <h3 class="mb-0">{{inactiveAuthUserCount}}</h3>
                                     <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> -->
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="icon icon-box-warning">
-                                    <i class="fa-solid fa-crown" style="color: #f91f06;"></i>
+                                    <i class="fa-solid fa-users" style="color: #f91f06;"></i>
                                 </div>
                             </div>
                         </div>
-                        <h6 class="text-muted font-weight-normal">Paid Members</h6>
-                        <ng-container *ngIf="true">
+                        <h6 class="text-muted font-weight-normal">Inactive Members Credential</h6>
+                        <ng-container *ngIf="inactiveAuthUserClick">
                             <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
                         </ng-container>
                     </div>
@@ -55,7 +55,7 @@
                         <div class="row">
                             <div class="col-9">
                                 <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">{{"0"}}</h3>
+                                    <h3 class="mb-0">{{allAuthUserCount}}</h3>
                                     <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                                 </div>
                             </div>
@@ -65,8 +65,8 @@
                                 </div>
                             </div>
                         </div>
-                        <h6 class="text-muted font-weight-normal">Total Members</h6>
-                        <ng-container *ngIf="true">
+                        <h6 class="text-muted font-weight-normal">Total Members Credential</h6>
+                        <ng-container *ngIf="allAuthUserClick">
                             <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
                         </ng-container>
                     </div>
@@ -105,16 +105,16 @@
                             </tr>
                         </thead>
                         <tbody class="table-body table-striped ">
-                            <ng-container *ngFor="let banner of authDataList">
+                            <ng-container *ngFor="let data of authDataList">
                                 <tr>
-                                    <td>{{banner.auth_ID}}</td>
-                                    <td>{{banner.auth_name}}</td>
-                                    <td>{{banner.auth_email}}</td>
+                                    <td>{{data.auth_ID}}</td>
+                                    <td>{{data.auth_name}}</td>
+                                    <td>{{data.auth_email}}</td>
                                     
-                                    <td>{{banner.created_date |date :"fullDate"}}</td>
-                                    <td>{{banner.account_status || "Not Availble"}}</td>
-                                    <td>{{banner.acount_type || "Not Availble"}}</td>
-                                    <td>{{banner.auth_phone_no}}</td>
+                                    <td>{{data.created_date |date :"fullDate"}}</td>
+                                    <td> <button mat-raised-button [color]="data.account_status=='active'?'primary':'accent'">{{data.account_status || "Not Availble"}}</button></td>
+                                    <td>{{data.acount_type || "Not Availble"}}</td>
+                                    <td>{{data.auth_phone_no}}</td>
                                     <td style="text-align: center;">
                                         <button pButton pRipple icon="pi pi-eye" pTooltip="Expand"
                                             class="p-button-rounded p-button-Primary p-button-sm m-1"
@@ -126,13 +126,13 @@
                                 </tr>
                             </ng-container>
                             <ng-container *ngIf="authDataList.length == 0">
-                                <p class="text-center p-4">
+                                <p class="text-center p-4 text-danger">
                                   No Data Availble
                                 </p>
                             </ng-container>
-
-
+                            
                         </tbody>
+                       
                     </table>
                 </ng-container>
 
