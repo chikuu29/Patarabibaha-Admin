@@ -7,7 +7,7 @@
             <form class="form-inline" [formGroup]="occupation">
                 <label class="sr-only" for="inlineFormInputName2">Name</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                     formControlName="occupation_name" placeholder="Occupation">
+                    formControlName="occupation_name" placeholder="Occupation">
                 <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
                 <!-- <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
@@ -31,51 +31,53 @@
         </option>
     </select>
 </div> -->
-<div class="row">
+<div class="">
+    <div class="table-holder">
+        <div class="caption-header">
+            <div class="caption-item">
+                <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
+                <span class="fs-5">Showing {{tabledata.length}} of {{tabledata.length}} results</span>
+            </div>
+            <div class="caption-item">
+                <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
 
-    <div class="col-lg grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <!-- <h4 class="card-title">Basic Table</h4>
-                <p class="card-description"> Add class <code>.table</code> -->
-                <!-- </p> -->
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" class="">
-                                </th>
-                                <th>#SI</th>
-                                <th>Occupation</th>
-                                <th>Created in</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let countryalldatahtml of tabledata ; index as i">
-                                <th>
-                                    <input type="checkbox" class="">
-                                </th>
-                                <td>{{i+1}}</td>
-                                <td>{{countryalldatahtml.occupation_name}}</td>
-                                <td>{{ countryalldatahtml.occupation_date_time}}</td>
-                                <td>
-                                    <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
-                                        NOT PUBLISHED
-                                    </p>
-                                    <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
-                                </td>
-                                <td>
-                                   <input type="button" value="Edit" (click)="update(countryalldatahtml.id)" >
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
             </div>
         </div>
+        <div class="mt-3 data-view-container">
+            <table class="table">
+                <thead class="table-header">
+                    <tr>
+                        <th>
+                            <input type="checkbox" class="">
+                        </th>
+                        <th>#SI</th>
+                        <th>Occupation</th>
+                        <th>Created in</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body table-striped">
+                    <tr *ngFor="let countryalldatahtml of tabledata ; index as i">
+                        <th>
+                            <input type="checkbox" class="">
+                        </th>
+                        <td>{{i+1}}</td>
+                        <td>{{countryalldatahtml.occupation_name}}</td>
+                        <td>{{ countryalldatahtml.occupation_date_time}}</td>
+                        <td>
+                            <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
+                                NOT PUBLISHED
+                            </p>
+                            <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
+                        </td>
+                        <td>
+                            <input type="button" value="Edit" (click)="update(countryalldatahtml.id)">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
