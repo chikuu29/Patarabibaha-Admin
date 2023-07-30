@@ -34,7 +34,7 @@ export class ApiService {
   }
 
   public delete(apiData:any){
-    return this.http.post(this.appservices.getApipath()+ 'generic/deletedate.php',apiData,{ headers: this.headers })
+    return this.http.post(this.appservices.getApipath()+ 'delete',JSON.stringify(apiData),{ headers: this.headers })
   }
 
   public addmedicine(apiData:any){

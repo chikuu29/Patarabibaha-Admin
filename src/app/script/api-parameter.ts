@@ -13,7 +13,7 @@ import { CryptographyService } from "../services/cryptography.service";
 })
 export class ApiParameterScript {
     @BlockUI() blockUI: NgBlockUI;
-  // **************************
+    // **************************
 
     constructor(
         private http: HttpClient,
@@ -49,14 +49,14 @@ export class ApiParameterScript {
                 this.blockUI.start("Please Wait")
                 this.apiservices.getdata(apiData).subscribe(
                     (res: any) => {
-                    this.blockUI.stop()
-                    observer.next(res);
-                    observer.complete();
-                },(err:any)=>{
-                    this.blockUI.stop()
-                    observer.next(err);
-                    observer.complete();
-                }
+                        this.blockUI.stop()
+                        observer.next(res);
+                        observer.complete();
+                    }, (err: any) => {
+                        this.blockUI.stop()
+                        observer.next(err);
+                        observer.complete();
+                    }
                 )
             } catch (error) {
                 this.blockUI.stop()
@@ -69,22 +69,22 @@ export class ApiParameterScript {
     }
 
 
-   /**
-    * {
-            "table":"country_table",
-            "data":[],
-            "whereConditions":{
-                "country_name":"INDIA"
-            ]
-        } Upadte data parametr formate 
-
-
-    * @param db 
-    * @param apiData 
-    * @returns 
-    * @author Suryanarayan Biswal
-    * @since 20-10-2022
-    */
+    /**
+     * {
+             "table":"country_table",
+             "data":[],
+             "whereConditions":{
+                 "country_name":"INDIA"
+             ]
+         } Upadte data parametr formate 
+ 
+ 
+     * @param db 
+     * @param apiData 
+     * @returns 
+     * @author Suryanarayan Biswal
+     * @since 20-10-2022
+     */
     public updatedata(db: string, apiData: any) {
         const simpleObservable = new Observable((observer) => {
             try {
@@ -164,21 +164,11 @@ export class ApiParameterScript {
 
     /**
     * {
-       
-        "db":"agriculture_case",
-        "projection":"case_id='WAC4641665460808ggggddd'",when multidelete is false
-        "projection":"case_id",when multidelete is true
-        "data":[1,2,3],when multidelete is true
-        "multidelete":true/false
-        "loginInfo":{
-                        "email":"cchiku1999@gmail.com",
-                            "id": "SURYA1234",
-                            "isLogin": true,
-                            "name": "SURYANARAYAN BISWAL",
-                            "role": "agri"
-                    }
-        
-        }
+            "table":"country_table",
+            "whereConditions":{
+                "country_name":"INDIA"
+            ]
+    }
 
     * @param db 
     * @param apiData 
@@ -189,26 +179,26 @@ export class ApiParameterScript {
     public deletedata(db: string, apiData: any) {
         const simpleObservable = new Observable((observer) => {
             try {
-                apiData['db'] = db;
-                if (apiData['multidelete'] == undefined) {
-                    apiData['multidelete'] = false
-                    apiData['data'] = ''
-                }
-                const appConfig = this.appservices.getappconfig;
-                const loginInfo = this.appservices.authStatus;
-                let getrole = loginInfo['role'] ? loginInfo['role'] : '';
-                let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
-                let outhForDelete = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForDelete'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForDelete'].includes(db) : false : false;
-                if (appConfig['roleConfig'][getrole] && (outh && outhForDelete)) {
-                    apiData['loginInfo'] = loginInfo;
+                apiData['table'] = db;
+                // if (apiData['multidelete'] == undefined) {
+                //     apiData['multidelete'] = false
+                //     apiData['data'] = ''
+                // }
+                // const appConfig = this.appservices.getappconfig;
+                // const loginInfo = this.appservices.authStatus;
+                // let getrole = loginInfo['role'] ? loginInfo['role'] : '';
+                // let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
+                // let outhForDelete = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForDelete'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForDelete'].includes(db) : false : false;
+                // if (appConfig['roleConfig'][getrole] && (outh && outhForDelete)) {
+                //     apiData['loginInfo'] = loginInfo;
                     this.apiservices.delete(apiData).subscribe((res: any) => {
                         observer.next(res);
                         observer.complete();
                     })
-                } else {
-                    observer.next({ "success": false, "message": "Permission Denied for Delete Operation" });
-                    observer.complete();
-                }
+                // } else {
+                //     observer.next({ "success": false, "message": "Permission Denied for Delete Operation" });
+                //     observer.complete();
+                // }
             } catch (error) {
                 console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
                 observer.next(error);

@@ -66,7 +66,7 @@ export class ContryComponent implements OnInit {
       if (this.countrygroup.valid) {
 
 
-        let  updateData = {
+        let updateData = {
           "data": {
             "name": this.countrygroup.value.name,
             "created_At": moment().toISOString()
@@ -139,6 +139,8 @@ export class ContryComponent implements OnInit {
       if (res.success && res['data'].length > 0) {
         this.countryalldata = res['data'];
         console.log(this.countryalldata);
+      }else{
+        this.countryalldata=[]
       }
     });
   }
@@ -158,7 +160,25 @@ export class ContryComponent implements OnInit {
 
 
 
-   
+
+  }
+
+  delete(id: any) {
+    console.log(id);
+
+    this.blockUI.start('Deleting...')
+    this.ApiParameter.deletedata('country', { "whereConditions": { id: id } }).subscribe((res: any) => {
+      this.blockUI.stop();
+      if (res.success) {
+
+        Swal.fire('Success', res.message, 'success').then(() => {
+          this.ngOnInit()
+        })
+
+      } else {
+        Swal.fire('Error', res.message, 'error')
+      }
+    });
   }
 
 }
