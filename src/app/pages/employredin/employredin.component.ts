@@ -112,5 +112,8 @@ export class EmployredinComponent implements OnInit {
       }
     })
   }
+  deleted(data:any){
+
+  }
 
 }

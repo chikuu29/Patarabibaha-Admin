@@ -4,6 +4,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { ApproveModule } from './approve/approve.module';
+import { ChattingModule } from './chatting/chatting.module';
 
 const routes: Routes = [
   {
@@ -41,7 +42,20 @@ const routes: Routes = [
         loadChildren: () => import('./approve/approve.module').then(m=>m.ApproveModule)
       }
     ]
+    
   },
+  {
+    path: 'chating',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./chatting/chatting.module').then(m=>m.ChattingModule)
+      }
+    ]
+    
+  },
+
 
 
 

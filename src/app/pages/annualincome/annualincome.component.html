@@ -95,7 +95,9 @@
                         </td>
                         <td>
                             <button type="submit" (click)="update(countryalldatahtml.id)"
-                                class="btn btn-primary mb-2">Edit</button>
+                            class="btn btn-outline-warning btn-fw me-2 w-50">Edit</button>
+                            <button type="submit" (click)="deleted(countryalldatahtml.id)"
+                            class="btn btn-outline-danger btn-fw w-50">Delete</button>
                         </td>
                         <!-- <td>
                                     <p class="badge badge-danger" *ngIf="countryalldatahtml.deleted == 0">

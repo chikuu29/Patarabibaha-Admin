@@ -122,5 +122,8 @@ export class MothertongueComponent implements OnInit {
       }
     })
   }
+  deleted(data:any){
+
+  }
 
 }

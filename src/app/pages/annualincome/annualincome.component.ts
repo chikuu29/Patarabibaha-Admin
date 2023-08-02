@@ -150,5 +150,9 @@ export class AnnualincomeComponent implements OnInit {
 
   }
 
+  deleted(data:any){
+
+  }
+
 
 }

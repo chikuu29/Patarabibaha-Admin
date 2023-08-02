@@ -20,7 +20,7 @@ export class UserapproveComponent implements OnInit {
   }
 
   getuserAprrove(){
-    this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_ready_for_active_account: 1 } }).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_status: 'Pending' } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.useradata = res['data'];
       }

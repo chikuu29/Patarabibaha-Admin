@@ -24,8 +24,6 @@ export class OccupationComponent implements OnInit {
   public() {
 
     if (this.occupation.valid) {
-
-
       var updateData={
         "data":{
           "occupation_name":this.occupation.value.occupation_name,
@@ -74,6 +72,9 @@ export class OccupationComponent implements OnInit {
 
   }
   update(data:any){
+
+  }
+  deleted(data:any){
 
   }
 
