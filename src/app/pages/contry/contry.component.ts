@@ -163,18 +163,31 @@ export class ContryComponent implements OnInit {
 
   }
 
-  delete(id: any) {
+  delete(id: any ,name:any) {
     console.log(id);
 
     this.blockUI.start('Deleting...')
     this.ApiParameter.deletedata('country', { "whereConditions": { id: id } }).subscribe((res: any) => {
       this.blockUI.stop();
       if (res.success) {
+        this.ApiParameter.deletedata('state', { "whereConditions": { country_name: name } }).subscribe((res: any) => { 
 
-        Swal.fire('Success', res.message, 'success').then(() => {
-          this.ngOnInit()
-        })
+          if (res.success) {
 
+            this.ApiParameter.deletedata('city', { "whereConditions": { country_name: name } }).subscribe((res: any) => { 
+              if (res.success) {
+                Swal.fire('Success', res.message, 'success').then(() => {
+                  this.ngOnInit()
+                });
+
+              }
+            });
+
+           
+          }
+
+        
+      });
       } else {
         Swal.fire('Error', res.message, 'error')
       }

@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-state',
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./state.component.scss']
 })
 export class StateComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   stategroup = new FormGroup({
     id: new FormControl('', []),
     country_name: new FormControl('', [Validators.required]),
@@ -31,8 +33,8 @@ export class StateComponent implements OnInit {
   ngOnInit(): void {
     this.stategroup = new FormGroup({
       id: new FormControl('', []),
-      country_name: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required])
+      country_name: new FormControl(''),
+      name: new FormControl('')
     });
     this.button = 'ADD';
     this.showCountry();
@@ -141,6 +143,38 @@ export class StateComponent implements OnInit {
 
       }
     })
+  }
+
+
+  delete(id: any ,name:any) {
+    //console.log(id);
+
+    this.blockUI.start('Deleting...')
+    this.ApiParameter.deletedata('state', { "whereConditions": { id: id } }).subscribe((res: any) => {
+      this.blockUI.stop();
+      if (res.success) {
+        this.ApiParameter.deletedata('city', { "whereConditions": { state_name: name } }).subscribe((res: any) => { 
+
+          if (res.success) {
+
+           
+                Swal.fire('Success', res.message, 'success').then(() => {
+                  this.ngOnInit()
+                });
+
+           
+
+           
+          }
+
+        
+      });
+       
+
+      } else {
+        Swal.fire('Error', res.message, 'error')
+      }
+    });
   }
 
 

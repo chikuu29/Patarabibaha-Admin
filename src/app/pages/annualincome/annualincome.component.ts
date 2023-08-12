@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-annualincome',
@@ -10,101 +13,118 @@ import Swal from 'sweetalert2';
   styleUrls: ['./annualincome.component.scss']
 })
 export class AnnualincomeComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   searchincome: any;
   allannualincome: any;
+  button:any = "ADD";
   annualincome = new FormGroup({
-    incomeamount: new FormControl('')
+    id: new FormControl(''),
+    annualincome: new FormControl('',[Validators.required])
   });
   routerdata: any = '';
   constructor(
     private api: ApiService,
     private Arouter: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private ApiParameter: ApiParameterScript
   ) { }
 
   ngOnInit(): void {
-    // this.Arouter.params.subscribe((res: any) => {
-    //   if(res.id == ''){
-
-    //   }else{
-    //     this.routerdata = res.id;
-    //     this.selectaftereditclick();
-    //   }
-      
-    // })
+    this.annualincome = new FormGroup({
+      id: new FormControl(''),
+      annualincome: new FormControl('')
+    });
+    this.button='ADD'
     this.getAllAnnualIncome();
   }
 
-  selectaftereditclick() {
-    let param = {
-      'status': 27,
-      'id': this.routerdata
-    }
-    this.api.annualincome(param).subscribe((res: any) => {
-      if (res.status) {
-        this.annualincome = new FormGroup({
-          incomeamount: new FormControl(res.message[0].annualincome)
-        });
-      }
-    })
-  }
+  // selectaftereditclick() {
+  //   let param = {
+  //     'status': 27,
+  //     'id': this.routerdata
+  //   }
+  //   this.api.annualincome(param).subscribe((res: any) => {
+  //     if (res.status) {
+  //       this.annualincome = new FormGroup({
+  //         incomeamount: new FormControl(res.message[0].annualincome)
+  //       });
+  //     }
+  //   })
+  // }
 
   insert() {
-    if (this.annualincome.value.incomeamount == '') {
-      Swal.fire({
-        icon: 'error',
-        text: "Income Shouldn't Blank!"
-      });
-    } else if (this.routerdata == '') {
-      let param = {
-        'status': 25,
-        'annualincome': this.annualincome.value.incomeamount
-      }
-      this.api.annualincome(param).subscribe((res: any) => {
-        console.log(res);
-        if (res.status) {
-          Swal.fire({
-            icon: 'success',
-            text: res.message
-          }).then((resd: any) => {
-            this.ngOnInit();
-          })
-        } else {
-          Swal.fire({
-            icon: 'error',
-            text: res.message
-          });
+    if (this.button == 'ADD') {
+
+      if (this.annualincome.valid) {
+
+
+        let updateData = {
+          "data": {
+            "annualincome": this.annualincome.value.annualincome,
+            "created_At": moment().toISOString()
+          },
         }
 
-      });
+        this.ApiParameter.savedata('annual_income', updateData).subscribe((res: any) => {
+          // console.log(res);
+          if (res.success) {
+            Swal.fire({
+              icon: 'success',
+              text: res.message
+            }).then((ress: any) => {
+              this.ngOnInit()
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              text: res.message
+            });
+          }
+        })
 
-    } 
-    else if (this.routerdata != '') {
-      let param = {
-        'status': 26,
-        'id': this.routerdata,
-        'annualincome':this.annualincome.value.incomeamount
+
+      } else {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please Enter All Your Data'
+        })
       }
-      this.api.annualincome(param).subscribe((res: any) => {
-        console.log(res);
-        if (res.status) {
-          Swal.fire({
-            icon: 'success',
-            text: res.message
-          }).then((resd: any) => {
-            this.ngOnInit();
-          })
-        } else {
-          Swal.fire({
-            icon: 'error',
-            text: res.message
-          });
+    } else if (this.button == 'Update') {
+      if (this.annualincome.valid) {
+        let updateData = {
+          "data": {
+            "annualincome": this.annualincome.value.annualincome,
+            //"created_At": moment().toISOString()
+          },
+          "whereConditions": { id: this.annualincome.value.id }
         }
+        this.ApiParameter.updatedata('annual_income', updateData).subscribe((res: any) => {
+          // console.log(res);
+          if (res.success) {
+            Swal.fire({
+              icon: 'success',
+              text: res.message
+            }).then((ress: any) => {
+              this.ngOnInit()
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              text: res.message
+            });
+          }
+        })
 
-      });
+
+      } else {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please Enter All Your Data'
+        })
+      }
     }
-  }
 
+  }
   getAllAnnualIncome() {
     let param = {
       'status': 23
@@ -133,9 +153,19 @@ export class AnnualincomeComponent implements OnInit {
     })
   }
   update(data: any) {
-    this.routerdata = data;
-    this.selectaftereditclick();
-    document.getElementById('inlineFormInputName2')?.focus();
+
+    this.ApiParameter.fetchdata('annual_income', { "projection": ["*"], "whereConditions": { id: data } }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        // this.countryalldata = res['data'];
+        this.annualincome.patchValue(res['data'][0]);
+        this.button = "Update";
+        document.getElementById('inlineFormInputName2')?.focus();
+       // console.log(this.countrygroup);
+
+      }
+    });
+   
+    
    
     //this.router.navigate(['/annualincome-page', data])
   }
@@ -151,8 +181,73 @@ export class AnnualincomeComponent implements OnInit {
   }
 
   deleted(data:any){
+      //console.log(id);
+      this.blockUI.start('Deleting...')
+      this.ApiParameter.deletedata('annual_income', { "whereConditions": { id: data } }).subscribe((res: any) => {
+        this.blockUI.stop();
+        if (res.success) {
+          Swal.fire('Success', res.message, 'success').then(() => {
+            this.ngOnInit()
+          });
+        } else {
+          Swal.fire('Error', res.message, 'error')
+        }
+      });
+    }
 
-  }
+    publish(id:any,status:any){
+
+      if(status == 1){
+        let updateData = {
+          "data": {
+            "status": 0,
+          },
+          "whereConditions": { id: id }
+        }
+        this.ApiParameter.updatedata('annual_income', updateData).subscribe((res: any) => {
+          // console.log(res);
+          if (res.success) {
+            Swal.fire({
+              icon: 'success',
+              text: "Unpublished"
+            }).then(() => {
+              this.ngOnInit()
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              text: res.message
+            });
+          }
+        })
+
+      }else if(status == 0){
+        let updateData = {
+          "data": {
+            "status": 1,
+          },
+          "whereConditions": { id: id }
+        }
+        this.ApiParameter.updatedata('annual_income', updateData).subscribe((res: any) => {
+          // console.log(res);
+          if (res.success) {
+            Swal.fire({
+              icon: 'success',
+              text: "Published"
+            }).then(() => {
+              this.ngOnInit()
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              text: res.message
+            });
+          }
+        })
+      }
+
+    }
+  
 
 
 }

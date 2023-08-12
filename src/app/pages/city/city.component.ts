@@ -35,6 +35,13 @@ export class CityComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.citygroup = new FormGroup({
+      id: new FormControl('',),
+      country_name: new FormControl(''),
+      state_name: new FormControl(''),
+      city_name: new FormControl('')
+    });
+
     this.button = 'ADD';
     this.ApiParameter.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
@@ -51,7 +58,7 @@ export class CityComponent implements OnInit {
     });
     this.getcountryname();
     this.fatchdata();
- 
+
 
   }
 
@@ -71,10 +78,10 @@ export class CityComponent implements OnInit {
         });
         console.log(this.countryOption);
 
-      }else{
-        this.stateOption=[]
+      } else {
+        this.stateOption = []
       }
-      
+
     });
 
   }
@@ -111,11 +118,11 @@ export class CityComponent implements OnInit {
       if (this.citygroup.valid) {
 
 
-        let  updateData = {
+        let updateData = {
           "data": {
-            "country_name":this.citygroup.value.country_name,
-            "state_name":this.citygroup.value.state_name,
-            "city_name":this.citygroup.value.city_name,
+            "country_name": this.citygroup.value.country_name,
+            "state_name": this.citygroup.value.state_name,
+            "city_name": this.citygroup.value.city_name,
             "created_At": moment().toISOString()
           },
         }
@@ -148,9 +155,9 @@ export class CityComponent implements OnInit {
       if (this.citygroup.valid) {
         let updateData = {
           "data": {
-            "country_name":this.citygroup.value.country_name,
-            "state_name":this.citygroup.value.state_name,
-            "city_name":this.citygroup.value.city_name,
+            "country_name": this.citygroup.value.country_name,
+            "state_name": this.citygroup.value.state_name,
+            "city_name": this.citygroup.value.city_name,
           },
           "whereConditions": { id: this.citygroup.value.id }
         }
@@ -192,7 +199,7 @@ export class CityComponent implements OnInit {
     })
   }
 
- 
+
 
 
   edit(id: any) {
@@ -204,6 +211,22 @@ export class CityComponent implements OnInit {
         this.button = "Update";
         // console.log(this.city);
 
+      }
+    });
+  }
+
+  delete(id: any) {
+    console.log(id);
+
+    this.blockUI.start('Deleting...')
+    this.ApiParameter.deletedata('city', { "whereConditions": { id: id } }).subscribe((res: any) => {
+      this.blockUI.stop();
+      if (res.success) {
+        Swal.fire('Success', res.message, 'success').then(() => {
+          this.ngOnInit()
+        });
+      } else {
+        Swal.fire('Error', res.message, 'error')
       }
     });
   }

@@ -47,9 +47,9 @@
             <table class="table">
                 <thead class="table-header">
                     <tr>
-                        <th>
+                        <!-- <th>
                             <input type="checkbox" class="">
-                        </th>
+                        </th> -->
                         <th>#SI</th>
                         <th>Mother Tongue Name</th>
                         <th>Created in</th>
@@ -59,9 +59,9 @@
                 </thead>
                 <tbody class="table-body table-striped">
                     <tr *ngFor="let countryalldatahtml of tabledata ; index as i">
-                        <th>
+                        <!-- <th>
                             <input type="checkbox" class="">
-                        </th>
+                        </th> -->
                         <td>{{i+1}}</td>
                         <td>{{countryalldatahtml.mother_tongue_name}}</td>
                         <td>{{ countryalldatahtml.mother_tongue_date_and_time}}</td>
@@ -72,9 +72,13 @@
                             <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
                         </td>
                         <td>
-                            <input type="button" class="btn btn-outline-warning btn-fw me-2 w-50" value="Edit" (click)="update(countryalldatahtml.id)">
-                            <button type="submit" (click)="update(countryalldatahtml.id)"
-                            class="btn btn-outline-danger btn-fw w-50" (click)="deleted(countryalldatahtml.id)">delete</button>
+                            <input type="button" class="btn btn-outline-warning btn-fw me-2 w-10" value="Edit" (click)="update(countryalldatahtml.id)">
+                            <button type="submit" 
+                            class="btn btn-outline-danger btn-fw w-10" (click)="deleted(countryalldatahtml.id)">delete</button>
+
+                            <button type="submit" 
+                            class="btn btn-outline-danger btn-fw w-10" (click)="publish(countryalldatahtml.id,countryalldatahtml.status)">{{ countryalldatahtml.status == 1 ?'PUBLISHED': 'UNPUBLISHED' }}</button>
+                            
                         </td>
                     </tr>
                 </tbody>

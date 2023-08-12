@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class AddionalEducationComponent implements OnInit {
 
   additionaleducation = new FormGroup({
-    additional_education_name : new FormControl('',[Validators.required])
+    additional_education_name: new FormControl('', [Validators.required])
   })
   tabledata: any;
   constructor(
@@ -27,16 +27,16 @@ export class AddionalEducationComponent implements OnInit {
     if (this.additionaleducation.valid) {
 
 
-      var updateData={
-        "data":{
-          "additional_education_name":this.additionaleducation.value.additional_education_name,
-          "additional_education_date_time":moment().toISOString()
+      var updateData = {
+        "data": {
+          "additional_education_name": this.additionaleducation.value.additional_education_name,
+          "additional_education_date_time": moment().toISOString()
         },
-        
+
       }
 
-      this.ApiParameter.savedata('additional_education',updateData).subscribe((res: any) => {
-       // console.log(res);
+      this.ApiParameter.savedata('additional_education', updateData).subscribe((res: any) => {
+        // console.log(res);
         if (res.success) {
           Swal.fire({
             icon: 'success',
@@ -52,29 +52,23 @@ export class AddionalEducationComponent implements OnInit {
         }
       })
 
-     
+
     } else {
       Swal.fire({
         icon: 'error',
         text: 'Please Enter Additional Education Name'
       })
     }
-   
+
   }
   getAllData() {
     this.ApiParameter.fetchdata('additional_education', { "projection": ["*"] }).subscribe((res: any) => {
-     // console.log(res['data'][0]);
-      
       if (res.success) {
-        //this.privacypalicy.patchValue(res['data'][0])
         this.tabledata = res['data'];
-       // console.log(this.privacypalicy.patchValue(res['data'][0]));
-        
       }
     })
-
   }
-  update(data:any){
+  update(data: any) {
 
   }
 
