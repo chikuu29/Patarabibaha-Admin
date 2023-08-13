@@ -19,7 +19,7 @@
                     <!-- <label class="form-check-label"> -->
                     <!-- <input type="checkbox" class="form-check-input" checked> Remember me </label>  -->
                 </div>
-                <button type="submit" (click)="public()" class="btn btn-primary mb-2">Submit</button>
+                <button type="submit" (click)="public()" class="btn btn-primary mb-2">{{ button }}</button>
             </form>
         </div>
     </div>
@@ -47,9 +47,9 @@
             <table class="table">
                 <thead class="table-header">
                     <tr>
-                        <th>
+                        <!-- <th>
                             <input type="checkbox" class="">
-                        </th>
+                        </th> -->
                         <th>#SI</th>
                         <th>Highest Education</th>
                         <th>Created in</th>
@@ -59,9 +59,9 @@
                 </thead>
                 <tbody class="table-body table-striped">
                     <tr *ngFor="let countryalldatahtml of tabledata ; index as i">
-                        <th>
+                        <!-- <th>
                             <input type="checkbox" class="">
-                        </th>
+                        </th> -->
                         <td>{{i+1}}</td>
                         <td>{{countryalldatahtml.highest_education_name}}</td>
                         <td>{{ countryalldatahtml.highest_education_date_time}}</td>
@@ -72,8 +72,15 @@
                             <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
                         </td>
                         <td>
-                            <input type="button" value="Edit" (click)="update(countryalldatahtml.id)">
+                            <button type="submit" (click)="update(countryalldatahtml.id)"
+                            class="btn btn-outline-warning btn-fw me-2 w-10">Edit</button>
+                            <button type="submit" (click)="deleted(countryalldatahtml.id)"
+                            class="btn btn-outline-danger btn-fw w-10">Delete</button>
+                            <button type="submit"
+                            class="btn btn-outline-danger btn-fw w-10" (click)="publish(countryalldatahtml.id,countryalldatahtml.status)" >{{ countryalldatahtml.status == 1 ?'PUBLISHED': 'UNPUBLISHED' }}</button>
                         </td>
+                            <!-- <input type="button" value="Edit" (click)="update(countryalldatahtml.id)"> -->
+                        <!-- </td> -->
                     </tr>
                 </tbody>
             </table>

@@ -57,9 +57,15 @@
                                 <p class="badge badge-success" *ngIf="data.status == 1">PUBLISHED</p>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-outline-warning btn-fw w-3 "
+                                <!-- <button type="button" class="btn btn-outline-warning btn-fw w-3 "
                                     (click)="update(data.id)">Edit</button>
-                                <button type="button" class="btn btn-outline-danger btn-fw w-3">Delete</button>
+                                <button type="button" class="btn btn-outline-danger btn-fw w-3">Delete</button> -->
+                                <button type="submit" (click)="update(data.id)"
+                            class="btn btn-outline-warning btn-fw me-2 w-10">Edit</button>
+                            <button type="submit" (click)="deleted(data.id)"
+                            class="btn btn-outline-danger btn-fw w-10">Delete</button>
+                            <button type="submit"
+                            class="btn btn-outline-danger btn-fw w-10" (click)="publish(data.id,data.status)" >{{ data.status == 1 ?'PUBLISHED': 'UNPUBLISHED' }}</button>
 
 
                             </td>

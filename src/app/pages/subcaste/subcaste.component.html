@@ -6,7 +6,7 @@
                     <label for="exampleSelectGender">CAST</label>
                     <select class="form-control" name="exampleSelectGender" formControlName="cast_name" ngDefaultControl
                         id="exampleSelectGender">
-                        <option hidden [value]="'0'">SELECT</option>
+                        <option hidden value="0">SELECT</option>
                         <option *ngFor="let countryalldatahtml of cast" [value]="countryalldatahtml.cast_name">
                             {{countryalldatahtml.cast_name}}</option>
                     </select>
@@ -69,7 +69,7 @@
                         </th>
                         <td>{{i+1}}</td>
                         <td>{{statealldatahtml.sub_cast_name}}</td>
-                        <td>{{ statealldatahtml.createdon }}</td>
+                        <td>{{ statealldatahtml.created_At }}</td>
                         <td>
                             <p class="badge badge-danger" *ngIf="statealldatahtml.status == 0">
                                 NOT PUBLISHED
@@ -78,8 +78,15 @@
                         </td>
                         <td>
 
-                            <input type="button" class="form-control" (click)="updatestate(statealldatahtml.id)"
-                                value="Edit">
+                            <!-- <input type="button" class="form-control" (click)="updatestate(statealldatahtml.id)"
+                                value="Edit"> -->
+
+                                <button type="submit" (click)="update(statealldatahtml.id)"
+                                class="btn btn-outline-warning btn-fw me-2 w-10">Edit</button>
+                                <button type="submit" (click)="deleted(statealldatahtml.id)"
+                                class="btn btn-outline-danger btn-fw w-10">Delete</button>
+                                <button type="submit"
+                                class="btn btn-outline-danger btn-fw w-10" (click)="publish(statealldatahtml.id,statealldatahtml.status)" >{{ statealldatahtml.status == 1 ?'UNPUBLISHED': 'PUBLISHED' }}</button>
                         </td>
                     </tr>
                 </tbody>

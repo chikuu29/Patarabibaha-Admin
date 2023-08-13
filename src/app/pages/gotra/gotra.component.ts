@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-gotra',
@@ -10,6 +11,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./gotra.component.scss']
 })
 export class GotraComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
+  // **************************
   button:any = 'ADD';
   gotragroup = new FormGroup({
     id:new FormControl('',[]),
@@ -21,6 +24,11 @@ export class GotraComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.gotragroup = new FormGroup({
+      id:new FormControl('',[]),
+      name: new FormControl(''),
+    });
+    this.button = 'ADD';
    this. showGotra();
   }
 
@@ -114,6 +122,71 @@ export class GotraComponent implements OnInit {
 
       }
     });
+  }
+
+  deleted(data:any){
+    this.blockUI.start('Deleting...')
+    this.ApiParameter.deletedata('gotra', { "whereConditions": { id: data } }).subscribe((res: any) => {
+      this.blockUI.stop();
+      if (res.success) {
+        Swal.fire('Success', res.message, 'success').then(() => {
+          this.ngOnInit()
+        });
+      } else {
+        Swal.fire('Error', res.message, 'error')
+      }
+    });
+  }
+  publish(id: any, status: any) {
+    if(status == 1){
+      let updateData = {
+        "data": {
+          "status": 0,
+        },
+        "whereConditions": { id: id }
+      }
+      this.ApiParameter.updatedata('gotra', updateData).subscribe((res: any) => {
+        // console.log(res);
+        if (res.success) {
+          Swal.fire({
+            icon: 'success',
+            text: "Unpublished"
+          }).then(() => {
+            this.ngOnInit()
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            text: res.message
+          });
+        }
+      })
+
+    }else if(status == 0){
+      let updateData = {
+        "data": {
+          "status": 1,
+        },
+        "whereConditions": { id: id }
+      }
+      this.ApiParameter.updatedata('gotra', updateData).subscribe((res: any) => {
+        // console.log(res);
+        if (res.success) {
+          Swal.fire({
+            icon: 'success',
+            text: "Published"
+          }).then(() => {
+            this.ngOnInit()
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            text: res.message
+          });
+        }
+      })
+    }
+
   }
 
 }
