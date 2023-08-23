@@ -10,12 +10,14 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ImageViewOperationComponent } from '../shared/image-view-operation/image-view-operation.component';
+import { AlluserdataComponent } from './alluserdata/alluserdata.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    UserViewComponent
+    UserViewComponent,
+    AlluserdataComponent
   ],
   imports: [
     CommonModule,

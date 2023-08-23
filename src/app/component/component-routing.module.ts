@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserViewComponent } from './user-view/user-view.component';
+import { AlluserdataComponent } from './alluserdata/alluserdata.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
         path: 'user/:profile_id',
         canActivate: [AuthGuard],
         component: UserViewComponent
+      },
+      {
+        path: 'alluserdata',
+        canActivate: [AuthGuard],
+        component: AlluserdataComponent
       }
     ]
   }
