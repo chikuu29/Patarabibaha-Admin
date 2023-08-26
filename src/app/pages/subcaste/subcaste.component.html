@@ -1,35 +1,50 @@
-<div class="col-12 grid-margin stretch-card">
+<div class="mb-3">
     <div class="card">
         <div class="card-body">
-            <form class="form-inline" [formGroup]="subcastgroup">
-                <div class="form-group col-md-4">
+            <form  [formGroup]="subcastgroup">
+                <!-- <div class="form-group col-md-4">
                     <label for="exampleSelectGender">CAST</label>
                     <select class="form-control" name="exampleSelectGender" formControlName="cast_name" ngDefaultControl
                         id="exampleSelectGender">
                         <option hidden value="0">SELECT</option>
-                        <option *ngFor="let countryalldatahtml of cast" [value]="countryalldatahtml.cast_name">
+                        <option *ngFor="let countryalldatahtml of castOption" [value]="countryalldatahtml.cast_name">
                             {{countryalldatahtml.cast_name}}</option>
                     </select>
+                </div> -->
+                <div class="mb-3">
+                    <p-dropdown 
+                         [options]="castOption"
+                        [showClear]="true" class="mb-2" optionLabel="name" [filter]="true" placeholder="Select Caste"
+                        [style]="{ width: '100%' }" formControlName="cast_name" optionValue="name">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="country-item country-item-value">
+                                <div>
+                                    {{
+                                        subcastgroup.value.cast_name || ""
+                                    }}
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-data pTemplate="item">
+                            <div class="country-item">
+                                <div>{{ data.name }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
                 </div>
-                <h4 class="card-title">SUB-CAST</h4>
-                <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form controls, and buttons on a single horizontal row </p> -->
 
-                <label class="sr-only" for="inlineFormInputName2">Name</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                    formControlName="sub_cast_name" placeholder="Sub cast">
-                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <!-- <div class="input-group-text">@</div> -->
-                    </div>
-                    <!-- <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username"> -->
+                <div class="mb-3">
+                    <mat-form-field isReadonly appearance="outline" class="flex-fill w-100">
+                        <mat-label>Sub Caste</mat-label>
+                        <input matInput placeholder="Sub Caste" formControlName="sub_cast_name" type="text" />
+                        <mat-error>Please Enter Sub Caste</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="form-check mx-sm-2">
-                    <!-- <label class="form-check-label">
-              <input type="checkbox" class="form-check-input" checked> Remember me </label> -->
-                </div>
+             
+                
+             
                 <button type="submit" (click)="adddata()" class="btn btn-primary mb-2">{{ button }}</button>
-                <!--  -->
+             
             </form>
         </div>
     </div>
@@ -40,7 +55,7 @@
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{subcast.length}} of {{subcast.length}} results</span>
+                <span class="fs-5">Showing {{subcast?.length}} of {{subcast?.length}} results</span>
             </div>
             <div class="caption-item">
                 <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
@@ -51,12 +66,9 @@
             <table class="table">
                 <thead class="table-header">
                     <tr>
-                        <th>
-                            <input type="checkbox" class="checkbox">
-                            <!-- (click)="checkall($event)" -->
-                        </th>
                         <th>#SI</th>
-                        <th>Sub cast Nmae</th>
+                        <th>Caste</th>
+                        <th>Subcaste</th>
                         <th>Created in</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -64,12 +76,11 @@
                 </thead>
                 <tbody class="table-body table-striped">
                     <tr *ngFor="let statealldatahtml of subcast ; index as i">
-                        <th>
-                            <input type="checkbox" class="checkbox">
-                        </th>
+                      
                         <td>{{i+1}}</td>
+                        <td>{{statealldatahtml.cast_name}}</td>
                         <td>{{statealldatahtml.sub_cast_name}}</td>
-                        <td>{{ statealldatahtml.created_At }}</td>
+                        <td>{{ statealldatahtml.created_At |date}}</td>
                         <td>
                             <p class="badge badge-danger" *ngIf="statealldatahtml.status == 0">
                                 NOT PUBLISHED
@@ -81,12 +92,12 @@
                             <!-- <input type="button" class="form-control" (click)="updatestate(statealldatahtml.id)"
                                 value="Edit"> -->
 
-                                <button type="submit" (click)="update(statealldatahtml.id)"
+                                <button type="submit" (click)="edit(statealldatahtml.id)"
                                 class="btn btn-outline-warning btn-fw me-2 w-10">Edit</button>
                                 <button type="submit" (click)="deleted(statealldatahtml.id)"
-                                class="btn btn-outline-danger btn-fw w-10">Delete</button>
+                                class="btn btn-outline-danger btn-fw me-2 w-10">Delete</button>
                                 <button type="submit"
-                                class="btn btn-outline-danger btn-fw w-10" (click)="publish(statealldatahtml.id,statealldatahtml.status)" >{{ statealldatahtml.status == 1 ?'UNPUBLISHED': 'PUBLISHED' }}</button>
+                                class="btn btn-outline-success btn-fw w-10" (click)="publish(statealldatahtml.id,statealldatahtml.status)" >{{ statealldatahtml.status == 1 ?'UNPUBLISHED': 'PUBLISHED' }}</button>
                         </td>
                     </tr>
                 </tbody>

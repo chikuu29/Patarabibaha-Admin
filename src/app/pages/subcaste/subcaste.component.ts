@@ -21,7 +21,7 @@ export class SubcasteComponent implements OnInit {
     private ApiParameter: ApiParameterScript
   ) { }
   button: any = 'Submit';
-  cast: any;
+  castOption: any;
   subcast: any;
   ngOnInit(): void {
     this.subcastgroup = new FormGroup({
@@ -36,10 +36,21 @@ export class SubcasteComponent implements OnInit {
 
   getcast() {
     this.ApiParameter.fetchdata('cast_table', { "projection": ["*"] }).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success) {
-        this.cast = res['data'];
-        console.log(this.cast);
+        // this.cast = res['data'];
+        // console.log(this.cast);
+
+        this.castOption = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.cast_name };
+          } else {
+            return null
+          }
+        });
+
+  
+        
       }
     })
   }
@@ -134,7 +145,7 @@ export class SubcasteComponent implements OnInit {
     }
   }
 
-  update(id: any) {
+  edit(id: any) {
     this.ApiParameter.fetchdata('sub_cast', { "projection": ["*"], "whereConditions": { id: id } }).subscribe((res: any) => {
        console.log(res['data'][0]);
 
