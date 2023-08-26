@@ -1,4 +1,4 @@
-<div class="col-12 grid-margin stretch-card">
+<div class="mb-3">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Annual Income</h4>
@@ -86,7 +86,7 @@
                         </th> -->
                         <td>{{i+1}}</td>
                         <td>{{ countryalldatahtml.annualincome }}</td>
-                        <td>{{ countryalldatahtml.created_At }}</td>
+                        <td>{{ countryalldatahtml.created_At |date}}</td>
                         <td>
                             <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
                                 NOT PUBLISHED
@@ -97,9 +97,9 @@
                             <button type="submit" (click)="update(countryalldatahtml.id)"
                             class="btn btn-outline-warning btn-fw me-2 w-10">Edit</button>
                             <button type="submit" (click)="deleted(countryalldatahtml.id)"
-                            class="btn btn-outline-danger btn-fw w-10">Delete</button>
+                            class="btn btn-outline-danger btn-fw me-2  w-10">Delete</button>
                             <button type="submit"
-                            class="btn btn-outline-danger btn-fw w-10" (click)="publish(countryalldatahtml.id,countryalldatahtml.status)" >{{ countryalldatahtml.status == 1 ?'PUBLISHED': 'UNPUBLISHED' }}</button>
+                            class="btn btn-outline-success btn-fw w-10" (click)="publish(countryalldatahtml.id,countryalldatahtml.status)" >{{ countryalldatahtml.status == 1 ?'PUBLISHED': 'UNPUBLISHED' }}</button>
                         </td>
                         <!-- <td>
                                     <p class="badge badge-danger" *ngIf="countryalldatahtml.deleted == 0">

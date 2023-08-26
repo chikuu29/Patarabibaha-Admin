@@ -1,4 +1,4 @@
-<div class="col-12 grid-margin stretch-card">
+<div class="MB-3">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Employer In</h4>
@@ -36,7 +36,7 @@
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{tabledata.length}} of {{tabledata.length}} results</span>
+                <span class="fs-5">Showing {{tabledata?.length}} of {{tabledata?.length}} results</span>
             </div>
             <div class="caption-item">
                 <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
@@ -47,9 +47,7 @@
             <table class="table">
                 <thead class="table-header">
                     <tr>
-                        <th>
-                            <input type="checkbox" class="">
-                        </th>
+                       
                         <th>#SI</th>
                         <th>Employer In</th>
                         <th>Created in</th>
@@ -59,9 +57,6 @@
                 </thead>
                 <tbody class="table-body table-striped">
                     <tr *ngFor="let countryalldatahtml of tabledata ; index as i">
-                        <th>
-                            <input type="checkbox" class="">
-                        </th>
                         <td>{{i+1}}</td>
                         <td>{{countryalldatahtml.Employer_in_name}}</td>
                         <td>{{ countryalldatahtml.Employer_in_date_time}}</td>
@@ -74,9 +69,9 @@
                         <td>
                             <input type="button" class="btn btn-outline-warning btn-fw me-2 w-10" value="Edit" (click)="update(countryalldatahtml.id)">
                             <button type="submit" 
-                            class="btn btn-outline-danger btn-fw w-10" (click)="deleted(countryalldatahtml.id)">Delete</button>
+                            class="btn btn-outline-danger btn-fw me-2 w-10" (click)="deleted(countryalldatahtml.id)">Delete</button>
                             <button type="submit"
-                            class="btn btn-outline-danger btn-fw w-10" (click)="publish(countryalldatahtml.id,countryalldatahtml.status)" >{{ countryalldatahtml.status == 1 ?'PUBLISHED': 'UNPUBLISHED' }}</button>
+                            class="btn btn-outline-success btn-fw w-10" (click)="publish(countryalldatahtml.id,countryalldatahtml.status)" >{{ countryalldatahtml.status == 1 ?'PUBLISHED': 'UNPUBLISHED' }}</button>
                         </td>
                     </tr>
                 </tbody>

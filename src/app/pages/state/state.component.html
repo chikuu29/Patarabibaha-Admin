@@ -1,7 +1,7 @@
-<div class="col-12 grid-margin stretch-card">
+<div class="mb-3">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-titleb text-muted text-center"><button mat-flat-button color="accent" class="fw-bold">ADD
+            <h4 class="card-titleb text-muted "><button mat-flat-button color="accent" class="fw-bold">ADD
                     STATE NAME</button></h4>
             <form [formGroup]="stategroup">
                 <label>Select Country</label>
@@ -46,7 +46,7 @@
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{statealldata.length}} of {{statealldata.length}} results</span>
+                <span class="fs-5">Showing {{statealldata?.length}} of {{statealldata?.length}} results</span>
             </div>
             <div class="caption-item">
                 <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>

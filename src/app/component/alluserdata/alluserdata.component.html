@@ -49,9 +49,9 @@
                                 <p class="badge badge-danger" *ngIf="data.deleted == 0">Deleted</p>
                             </td>
                             <td>
-                                    <i (click)="deletedata(data.user_id,data.deleted)" [class]="data.deleted==1 ? 'material-icons text-danger pointer':'material-icons text-success pointer'">delete_outline</i>
-                                    <i *ngIf="data.status == 0" (click)="publishuser(data.user_id)" class="material-icons pointer text-success">published_with_changes</i>
-                                    <i *ngIf="data.status == 1" (click)="unpublishuser(data.user_id)" class="material-icons text-danger pointer">unpublished</i>
+                                    <i (click)="deletedata(data.user_id,data.deleted)" [class]="data.deleted==1 ? 'material-icons text-danger pointer':'material-icons text-success pointer'" class="me-2">delete_outline</i>
+                                    <i *ngIf="data.status == 0" (click)="publishuser(data.user_id)" class="material-icons pointer text-success me-2">published_with_changes</i>
+                                    <i *ngIf="data.status == 1" (click)="unpublishuser(data.user_id)" class="material-icons text-danger pointer me-2">unpublished</i>
                                     <i (click)="userpage(data.user_id)" class="material-icons pointer text-primary" >approval</i>
                             </td>
                         </tr>

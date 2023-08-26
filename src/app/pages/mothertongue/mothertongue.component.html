@@ -1,4 +1,4 @@
-<div class="col-12 grid-margin stretch-card">
+<div class="mb-3">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Mother Tongue</h4>
@@ -36,7 +36,7 @@
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{tabledata.length}} of {{tabledata.length}} results</span>
+                <span class="fs-5">Showing {{tabledata?.length}} of {{tabledata?.length}} results</span>
             </div>
             <div class="caption-item">
                 <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
@@ -74,10 +74,10 @@
                         <td>
                             <input type="button" class="btn btn-outline-warning btn-fw me-2 w-10" value="Edit" (click)="update(countryalldatahtml.id)">
                             <button type="submit" 
-                            class="btn btn-outline-danger btn-fw w-10" (click)="deleted(countryalldatahtml.id)">delete</button>
+                            class="btn btn-outline-danger btn-fw  me-2 w-10" (click)="deleted(countryalldatahtml.id)">delete</button>
 
                             <button type="submit" 
-                            class="btn btn-outline-danger btn-fw w-10" (click)="publish(countryalldatahtml.id,countryalldatahtml.status)">{{ countryalldatahtml.status == 1 ?'PUBLISHED': 'UNPUBLISHED' }}</button>
+                            class="btn btn-outline-success btn-fw w-10" (click)="publish(countryalldatahtml.id,countryalldatahtml.status)">{{ countryalldatahtml.status == 1 ?'PUBLISHED': 'UNPUBLISHED' }}</button>
                             
                         </td>
                     </tr>
