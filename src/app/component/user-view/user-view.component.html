@@ -141,20 +141,19 @@
                   <label for="category" class="mb-3 text-muted fw-bold">Country Living In</label>
                   <p-dropdown [options]="countryOption" optionLabel="name" [filter]="true" filterBy="name"
                     [showClear]="true" placeholder="Country Living In" [style]="{ width: '100%' }"
-                    formControlName="user_country" optionValue="name">
+                    formControlName="user_country" optionValue="name" >
                     <ng-template pTemplate="selectedItem">
                       <div class="country-item country-item-value">
                         <div>
                           {{
-                          partnerPreferenceForm.value.user_country
-                          | formatdropdown
+                          partnerPreferenceForm.value.user_country || ""
                           }}
                         </div>
                       </div>
                     </ng-template>
                     <ng-template let-country pTemplate="item">
                       <div class="country-item">
-                        <div>{{ country | formatdropdown }}</div>
+                        <div>{{ country.name }}</div>
                       </div>
                     </ng-template>
                   </p-dropdown>
@@ -796,7 +795,7 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label for="category" class="mb-3 text-muted fw-bold">Caste</label>
-                    <p-dropdown [options]="religionCasteOptions" optionLabel="name" [filter]="true" filterBy="name"
+                    <p-dropdown (onChange)="getSubcaste(user_religionDetailsForm.value.user_caste)" (onClear)="getSubcaste(user_religionDetailsForm.value.user_caste)" [options]="religionCasteOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Caste" [style]="{ width: '100%' }" formControlName="user_caste"
                       optionValue="name">
                       <ng-template pTemplate="selectedItem">
@@ -1123,22 +1122,22 @@
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
                     <label for="category" class="mb-3 text-muted fw-bold">Country Living In</label>
-                    <p-dropdown [options]="countryOption" optionLabel="name" [filter]="true" filterBy="name"
+                    <p-dropdown (onShow)="getstatefilter(locationDetailsForm.value.user_country)" (onChange)="getstatefilter(locationDetailsForm.value.user_country)"
+                    (onClear)="getstatefilter(locationDetailsForm.value.user_country)"  [options]="countryOption" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Country Living In" [style]="{ width: '100%' }"
                       formControlName="user_country" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
                             {{
-                            locationDetailsForm.value.user_country
-                            | formatdropdown
+                            locationDetailsForm.value.user_country ||""
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-country pTemplate="item">
                         <div class="country-item">
-                          <div>{{ country | formatdropdown }}</div>
+                          <div>{{ country.name }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -1146,22 +1145,22 @@
                   <div class="form-group col-md-6">
                     <label for="category" class="mb-3 text-muted fw-bold">
                       State Living In</label>
-                    <p-dropdown [options]="stateOption" optionLabel="name" [filter]="true" filterBy="name"
+                    <p-dropdown (onChange)="getcityfilter(locationDetailsForm.value.user_state)"
+                    (onClear)="getcityfilter(locationDetailsForm.value.user_state)" [options]="stateOption" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="State Living In" [style]="{ width: '100%' }"
                       formControlName="user_state" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
                             {{
-                            locationDetailsForm.value.user_state
-                            | formatdropdown
+                            locationDetailsForm.value.user_state || ""
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-state pTemplate="item">
                         <div class="country-item">
-                          <div>{{ state | formatdropdown }}</div>
+                          <div>{{ state.name }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>

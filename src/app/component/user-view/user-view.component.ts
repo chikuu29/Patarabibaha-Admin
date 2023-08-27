@@ -69,38 +69,14 @@ export class UserViewComponent implements OnInit {
 
 
   religionOptions: any = [
-    { "name": "Hinduism" },
-    { "name": "Islam" },
-    { "name": "Christianity" },
-    { "name": "Sikhism" },
-    { "name": "Buddhism" },
-    { "name": "Jainism" },
-    { "name": "Zoroastrianism" },
-    { "name": "Bahá'í Faith" },
-    { "name": "Judaism" }
+   
   ]
   religionCasteOptions: any = [
-    { "name": "Hinduism" },
-    { "name": "Islam" },
-    { "name": "Christianity" },
-    { "name": "Sikhism" },
-    { "name": "Buddhism" },
-    { "name": "Jainism" },
-    { "name": "Zoroastrianism" },
-    { "name": "Bahá'í Faith" },
-    { "name": "Judaism" }
+    
   ]
 
   religionSubcasteOptions: any = [
-    { "name": "Hinduism" },
-    { "name": "Islam" },
-    { "name": "Christianity" },
-    { "name": "Sikhism" },
-    { "name": "Buddhism" },
-    { "name": "Jainism" },
-    { "name": "Zoroastrianism" },
-    { "name": "Bahá'í Faith" },
-    { "name": "Judaism" }
+    
   ]
 
 
@@ -265,75 +241,15 @@ export class UserViewComponent implements OnInit {
 
 
   countryOption: any = [
-    { 'name': 'India' }
+    
 
   ]
 
   stateOption: any = [
-    { 'name': 'Andhra Pradesh' },
-    { 'name': 'Arunachal Pradesh' },
-    { 'name': 'Assam' },
-    { 'name': 'Bihar' },
-    { 'name': 'Chhattisgarh' },
-    { 'name': 'Goa' },
-    { 'name': 'Gujarat' },
-    { 'name': 'Haryana' },
-    { 'name': 'Himachal Pradesh' },
-    { 'name': 'Jharkhand' },
-    { 'name': 'Karnataka' },
-    { 'name': 'Kerala' },
-    { 'name': 'Madhya Pradesh' },
-    { 'name': 'Maharashtra' },
-    { 'name': 'Manipur' },
-    { 'name': 'Meghalaya' },
-    { 'name': 'Mizoram' },
-    { 'name': 'Nagaland' },
-    { 'name': 'Odisha' },
-    { 'name': 'Punjab' },
-    { 'name': 'Rajasthan' },
-    { 'name': 'Sikkim' },
-    { 'name': 'Tamil Nadu' },
-    { 'name': 'Telangana' },
-    { 'name': 'Tripura' },
-    { 'name': 'Uttar Pradesh' },
-    { 'name': 'Uttarakhand' },
-    { 'name': 'West Bengal' }
+   
   ]
   cityOption: any = [
-    { 'name': 'Puri' },
-    { 'name': 'Khordha' },
-    { 'name': 'Cuttack' },
-    { 'name': 'Bhubaneswar' },
-    { 'name': 'Mumbai' },
-    { 'name': 'Delhi' },
-    { 'name': 'Bangalore' },
-    { 'name': 'Kolkata' },
-    { 'name': 'Chennai' },
-    { 'name': 'Hyderabad' },
-    { 'name': 'Ahmedabad' },
-    { 'name': 'Pune' },
-    { 'name': 'Surat' },
-    { 'name': 'Jaipur' },
-    { 'name': 'Lucknow' },
-    { 'name': 'Kanpur' },
-    { 'name': 'Nagpur' },
-    { 'name': 'Patna' },
-    { 'name': 'Indore' },
-    { 'name': 'Vadodara' },
-    { 'name': 'Bhopal' },
-    { 'name': 'Coimbatore' },
-    { 'name': 'Ludhiana' },
-    { 'name': 'Kochi' },
-    { 'name': 'Visakhapatnam' },
-    { 'name': 'Agra' },
-    { 'name': 'Varanasi' },
-    { 'name': 'Madurai' },
-    { 'name': 'Meerut' },
-    { 'name': 'Nashik' },
-    { 'name': 'Rajkot' },
-    { 'name': 'Amritsar' },
-    { 'name': 'Srinagar' },
-    { 'name': 'Aurangabad' }
+    
   ]
 
 
@@ -672,22 +588,15 @@ export class UserViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.uploadURL = `${this.appservices.getApipath()}upload?q=${this.profile_id}`
-    console.log(this.appservices.authStatus);
-    // this.profile = this.appservices.authStatus
-    // console.log(this.profile);
 
-    // this.profileDetailsForm.patchValue(this.appservices.authStatus)
     this.blockUI.start("Loading...")
-
     this._rout.params.subscribe((res: any) => {
       this.profile_id = res['profile_id']
-      console.log(this.profile_id);
       this.ApiParameterScript.getprofile({ userid: this.profile_id }).subscribe((res: any) => {
         console.log(res);
         this.blockUI.stop();
         if (res.success) {
           this.userAllData = res;
-
           this.profileDetailsForm.patchValue({
             profile_id: res?.user_info?.user_id
             , profile_name: res?.user_info?.user_fname + ' ' + res?.user_info?.user_lname, profile_email: res?.user_info?.user_email, profile_phone: ''
@@ -696,13 +605,15 @@ export class UserViewComponent implements OnInit {
           this.education_occupationDetailsForm.patchValue(res['user_education_occupations'])
           this.userAboutDetailsForm.patchValue(res['user_about'])
           this.locationDetailsForm.patchValue(res['user_locations'])
+         
           this.userFamilyDetailsForm.patchValue(res['user_family'])
           this.habitHobbiesForm.patchValue(res['user_diet_hobbies'])
           this.physicalDeatilsForm.patchValue(res['user_physical_details'])
           this.partnerPreferenceForm.patchValue(res['user_partnerpreference'])
           this.basicDetailsForm.patchValue(res['user_info'])
-        } else {
-
+          this.getSubcaste(this.user_religionDetailsForm.value.user_caste)
+          this.getstatefilter(this.locationDetailsForm.value.user_country);
+          this.getcityfilter(this.locationDetailsForm.value.user_state);
         }
 
       })
@@ -715,7 +626,7 @@ export class UserViewComponent implements OnInit {
 
       }
       this.ApiParameterScript.fetchdata('user_profile_images', profileApiData).subscribe((getprofile_res: any) => {
-        console.log("getprofile_res", getprofile_res);
+        // console.log("getprofile_res", getprofile_res);
 
         if (getprofile_res.success && getprofile_res['data'].length > 0) {
           this.showupload = true
@@ -738,7 +649,7 @@ export class UserViewComponent implements OnInit {
                 "title": element.user_profile_images
               }
             )
-            console.log(this.actualUploadedFiles);
+            // console.log(this.actualUploadedFiles);
 
 
           });
@@ -750,6 +661,181 @@ export class UserViewComponent implements OnInit {
 
       })
 
+    })
+
+    this.ApiParameterScript.fetchdata('annual_income', { "projection": ["*"] }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+
+        this.anualIncomeOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.annualincome };
+          } else {
+            return null
+          }
+        });
+        console.log(this.anualIncomeOptions);
+      }
+    })
+
+    // this.ApiParameterScript.fetchdata('additional_education', { "projection": ["*"] }).subscribe((res: any) => {
+
+
+    //   if (res.success && res['data'].length > 0) {
+
+    //     this.aducationalOptions2 = res['data'].map((obj: any) => {
+    //       if (obj.status == 1) {
+    //         return { name: obj.additional_education_name };
+    //       } else {
+    //         return null
+    //       }
+    //     });
+
+
+
+
+
+    //   }
+
+    // })
+
+    this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"] }).subscribe((res: any) => {
+      console.log(res['data'][0]);
+
+      if (res.success && res['data'].length > 0) {
+
+        this.motherTounghOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.mother_tongue_name };
+          } else {
+            return null
+          }
+        });
+
+        console.log(this.anualIncomeOptions);
+
+
+
+      }
+
+    })
+
+    // this.ApiParameterScript.fetchdata('highest_education', { "projection": ["*"] }).subscribe((res: any) => {
+    //   // console.log(res['data'][0]);
+    //   if (res.success && res['data'].length > 0) {
+
+    //     this.aducationalOptions1 = res['data'].map((obj: any) => {
+    //       if (obj.status == 1) {
+    //         return { name: obj.highest_education_name };
+    //       } else {
+    //         return null
+    //       }
+    //     });
+
+
+
+
+
+    //   }
+
+    // })
+
+
+    this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"] }).subscribe((res: any) => {
+      // console.log(res['data'][0]);
+
+
+      if (res.success && res['data'].length > 0) {
+
+        this.employeeInOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.Employer_in_name };
+          } else {
+            return null
+          }
+        });
+
+
+
+
+
+      }
+
+    })
+
+
+    this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"] }).subscribe((res: any) => {
+      // console.log(res['data'][0]);
+      if (res.success && res['data'].length > 0) {
+        this.ocupationOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.occupation_name };
+          } else {
+            return null
+          }
+        });
+        console.log(this.anualIncomeOptions);
+      }
+
+
+
+
+
+
+    })
+
+
+    this.ApiParameterScript.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
+      // console.log(res['data'][0]);
+      if (res.success && res['data'].length > 0) {
+        this.countryOption = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.name };
+          } else {
+            return null
+          }
+        });
+        console.log(this.anualIncomeOptions);
+      }
+
+
+
+
+
+
+    })
+
+    this.ApiParameterScript.fetchdata('religion', { "projection": ["*"] }).subscribe((res: any) => {
+      // console.log(res['data'][0]);
+      if (res.success && res['data'].length > 0) {
+        this.religionOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.religion_name	 };
+          } else {
+            return null
+          }
+        });
+
+      }
+
+
+
+
+
+
+    })
+
+    this.ApiParameterScript.fetchdata('cast_table', { "projection": ["*"] }).subscribe((res: any) => {
+      // console.log(res['data'][0]);
+      if (res.success && res['data'].length > 0) {
+        this.religionCasteOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.cast_name};
+          } else {
+            return null
+          }
+        });
+
+      }
     })
 
   }
@@ -1310,6 +1396,65 @@ export class UserViewComponent implements OnInit {
 
   }
 
+  getSubcaste(caste:any){
+    this.ApiParameterScript.fetchdata('sub_cast', { "projection": ["*"],"whereConditions":{"cast_name":caste} }).subscribe((res: any) => {
+      // console.log(res['data'][0]);
+      if (res.success && res['data'].length > 0) {
+        this.religionSubcasteOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.sub_cast_name};
+          } else {
+            return null
+          }
+        });
+
+      }else{
+        this.religionSubcasteOptions=[]
+      }
+    })
+  }
+
+
+
+  getstatefilter(country_name: any) {
+    console.log("getstatefilter",country_name);
+    this.ApiParameterScript.fetchdata('state', { "projection": ["*"], "whereConditions": { "country_name": country_name, "status": 1 } }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+
+        this.stateOption = res['data'].map((obj: any) => {
+
+          return { name: obj.name };
+
+        });
+      
+
+      } else {
+        this.stateOption = []
+        this.cityOption=[]
+      }
+
+    });
+
+  }
+
+  getcityfilter(state_name: any) {
+    console.log(state_name);
+    this.ApiParameterScript.fetchdata('city', { "projection": ["*"], "whereConditions": { "state_name": state_name } }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+
+        this.cityOption = res['data'].map((obj: any) => {
+
+          return { name: obj.city_name };
+
+        });
+
+      } else {
+        this.cityOption = []
+      }
+
+    });
+
+  }
 
 
 }
