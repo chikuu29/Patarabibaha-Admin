@@ -11,13 +11,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ImageViewOperationComponent } from '../shared/image-view-operation/image-view-operation.component';
 import { AlluserdataComponent } from './alluserdata/alluserdata.component';
+import { MakepaidComponent } from './makepaid/makepaid.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     UserViewComponent,
-    AlluserdataComponent
+    AlluserdataComponent,
+    MakepaidComponent
   ],
   imports: [
     CommonModule,

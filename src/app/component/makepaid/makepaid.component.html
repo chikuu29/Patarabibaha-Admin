@@ -1,0 +1,188 @@
+<div class="">
+    <div class="table-holder">
+        <div class="caption-header">
+            <div class="caption-item">
+                <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
+                <span class="fs-5">Showing of results</span>
+                <!-- countryalldata.length {{}} -->
+                <!-- {{countryalldata.length}}  -->
+
+            </div>
+            <div class="caption-item">
+                <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
+
+            </div>
+        </div>
+        <div class="mt-3 data-view-container">
+            <table class="table ">
+                <thead class="table-header">
+                    <tr>
+
+                        <th>#SI</th>
+                        <th>User Name</th>
+
+                        <th>Gender</th>
+
+
+                        <th>Approval</th>
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body table-striped">
+                    <ng-container *ngFor="let data of finaldata ; index as i">
+                        <tr>
+
+                            <td>{{i+1}}</td>
+                            <td> <a (click)="userpage(data.alldata.user_id)" class="underline"
+                                    href="javascript:void(0);">
+                                    {{data.alldata.user_fname+' '+data.alldata.user_lname }}
+                                </a> </td>
+
+                            <td>{{data.alldata.user_gender }}</td>
+
+
+                            <td>
+                                <p class="badge badge-success" *ngIf="data.alldata.user_status == 'Approved'">Approved
+                                </p>
+                                <p class="badge badge-danger" *ngIf="data.alldata.user_status == 'Pending'">Pending</p>
+                            </td>
+
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" (click)="invisualdata(data.alldata.user_id)"
+                                    class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    Approve As Paid
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body coloer">
+                                                <section class="col-lg-12 col-xs-12">
+                                                    <div id="result" class="All">
+                                                        <div class="col-lg-12 col-xs-12 col-md-12 gtAdminMemResult">
+                                                            <form action="" method="post" class="form-data"
+                                                                id="action_form">
+                                                                <div class="row mb-15">
+                                                                    
+                                                                    <h3 class="col-lg-7 col-xs-10 col-md-5">
+                                                                        RAJKUMAR CHAUDHARY<span
+                                                                            class="badge">IN153</span>
+                                                                    </h3>
+                                                                    <ul
+                                                                        class="gtAdminMemStatus col-lg-3 col-lg-4 col-xs-12 col-md-6">
+                                                                        <li class="col-lg-7 col-xs-4 text-center">
+                                                                            <i class="fa fa-thumbs-up"
+                                                                                aria-hidden="true"></i><span
+                                                                                class="hidden-xs"> Approved</span>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-2 col-xs-12 col-sm-6 col-md-4">
+                                                                        <img src="../my_photos/watermark.php?image=1692606810.png&amp;watermark=watermark.png"
+                                                                            alt="User Image" class="img-thumbnail"
+                                                                            style="width: 100%;">
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-lg-10 col-xs-12 col-md-8 gtAdminMemDetails">
+                                                                        <div class="row mb-5">
+                                                                            <div class="col-lg-6 col-xs-12">
+                                                                                <div class="col-lg-5 col-xs-5">
+                                                                                    Email :
+                                                                                </div>
+                                                                                <div class="col-lg-7 col-xs-7">
+                                                                                    Disabled In Demo
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-6 col-xs-12">
+                                                                                <div class="col-lg-5 col-xs-5">
+                                                                                    Gender :
+                                                                                </div>
+                                                                                <div class="col-lg-7 col-xs-7">
+                                                                                    Male </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-5">
+                                                                            <div class="col-lg-6 col-xs-12">
+                                                                                <div class="col-lg-5 col-xs-5">
+                                                                                    Country :
+                                                                                </div>
+                                                                                <div class="col-lg-7 col-xs-7">
+                                                                                    India </div>
+                                                                            </div>
+                                                                            <div class="col-lg-6 col-xs-12">
+                                                                                <div class="col-lg-5 col-xs-5">
+                                                                                    Age
+                                                                                </div>
+                                                                                <div class="col-lg-7 col-xs-7">
+                                                                                    31 Years
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-5">
+                                                                            <div class="col-lg-6 col-xs-12">
+                                                                                <div class="col-lg-5 col-xs-5">
+                                                                                    Education:
+                                                                                </div>
+                                                                                <div class="col-lg-7 col-xs-7">
+                                                                                    B Tech </div>
+                                                                            </div>
+                                                                            <div class="col-lg-6 col-xs-12">
+                                                                                <div class="col-lg-5 col-xs-5">
+                                                                                    Height
+                                                                                </div>
+                                                                                <div class="col-lg-7 col-xs-7">
+                                                                                    5ft 2in - 157cm </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-5">
+                                                                            <div class="col-lg-6 col-xs-12">
+                                                                                <div class="col-lg-5 col-xs-5">
+                                                                                    Religion :
+                                                                                </div>
+                                                                                <div class="col-lg-7 col-xs-7">
+                                                                                    Hindu </div>
+                                                                            </div>
+                                                                            <div class="col-lg-6 col-xs-12">
+                                                                                <div class="col-lg-5 col-xs-5">
+                                                                                    Caste :
+                                                                                </div>
+                                                                                <div class="col-lg-7 col-xs-7">
+                                                                                    Pasi </div>
+                                                                            </div>
+                                                                        </div>
+                                                                       
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

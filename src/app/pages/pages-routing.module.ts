@@ -79,6 +79,11 @@ const routes: Routes = [
         component: AddplanComponent
       },
       {
+        path: 'addplan-page/:id',
+        canActivate: [AuthGuard],
+        component: AddplanComponent
+      },
+      {
         path: 'viweplan-page',
         canActivate: [AuthGuard],
         component: ViweplanComponent

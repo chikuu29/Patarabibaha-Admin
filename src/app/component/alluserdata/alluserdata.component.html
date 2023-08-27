@@ -3,7 +3,7 @@
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing  of results</span>
+                <span class="fs-5">Showing of results</span>
                 <!-- countryalldata.length {{}} -->
                 <!-- {{countryalldata.length}}  -->
 
@@ -18,41 +18,65 @@
                 <thead class="table-header">
                     <tr>
                         <th class="width"></th>
-                        <th >#SI</th>
-                        <th >User Name</th>
-                        <th >Created At</th>
-                        <th >Approval</th>
+                        <th>#SI</th>
+                        <th>User Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Created At</th>
+                        <th>status</th>
+                        <th>Approval</th>
                         <th>Delete Status</th>
-                        <th >Action</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody class="table-body table-striped">
-                    <ng-container *ngFor="let data of alldata ; index as i">
+                    <ng-container *ngFor="let data of finaldata ; index as i">
                         <tr>
                             <td class="width">
-                                <p class="badge badge-success" *ngIf="data.status == 1">
+                                <p title="Online" class="badge badge-success" *ngIf="data.alldata.online_status == 1">
                                     <span></span>
                                 </p>
-                                <p class="badge badge-danger" *ngIf="data.status == 0">
+                                <p title="Offline" class="badge badge-danger" *ngIf="data.alldata.online_status == 0">
                                     <span></span>
                                 </p>
                             </td>
                             <td>{{i+1}}</td>
-                            <td>{{data.user_fname+' '+data.user_lname }}</td>
-                            <td>{{data.user_creation_date_time | date}}</td>
+                            <td> <a (click)="userpage(data.alldata.user_id)" class="underline"
+                                    href="javascript:void(0);">
+                                    {{data.alldata.user_fname+' '+data.alldata.user_lname }}
+                                </a> </td>
+                            <td>{{data.age}}</td>
+                            <td>{{data.alldata.user_gender }}</td>
+                            <td>{{data.alldata.user_creation_date_time | date}}</td>
                             <td>
-                                <p class="badge badge-success" *ngIf="data.user_status == 'Approved'">Approved</p>
-                                <p class="badge badge-danger" *ngIf="data.user_status == 'Pending'">Pending</p>
+                                <p class="badge badge-success" *ngIf="data.alldata.status == 1">Publish</p>
+                                <p class="badge badge-danger" *ngIf="data.alldata.status == 0">Unpublish</p>
                             </td>
                             <td>
-                                <p class="badge badge-success" *ngIf="data.deleted == 1">Not Deleted</p>
-                                <p class="badge badge-danger" *ngIf="data.deleted == 0">Deleted</p>
+                                <p class="badge badge-success" *ngIf="data.alldata.user_status == 'Approved'">Approved
+                                </p>
+                                <p class="badge badge-danger" *ngIf="data.alldata.user_status == 'Pending'">Pending</p>
                             </td>
                             <td>
-                                    <i (click)="deletedata(data.user_id,data.deleted)" [class]="data.deleted==1 ? 'material-icons text-danger pointer':'material-icons text-success pointer'" class="me-2">delete_outline</i>
-                                    <i *ngIf="data.status == 0" (click)="publishuser(data.user_id)" class="material-icons pointer text-success me-2">published_with_changes</i>
-                                    <i *ngIf="data.status == 1" (click)="unpublishuser(data.user_id)" class="material-icons text-danger pointer me-2">unpublished</i>
-                                    <i (click)="userpage(data.user_id)" class="material-icons pointer text-primary" >approval</i>
+                                <p class="badge badge-success" *ngIf="data.alldata.deleted == 1">Not Deleted</p>
+                                <p class="badge badge-danger" *ngIf="data.alldata.deleted == 0">Deleted</p>
+                            </td>
+                            <td>
+                                <i [title]="data.alldata.deleted==1 ? ' DELETE':'RECOVER'"
+                                    (click)="deletedata(data.alldata.user_id,data.alldata.deleted)"
+                                    [class]="data.alldata.deleted==1 ? 'material-icons text-danger pointer':'material-icons text-success pointer'">delete_outline</i>
+                                <i title="PUBLISH" *ngIf="data.alldata.status == 0"
+                                    (click)="publishuser(data.alldata.user_id)"
+                                    class="material-icons pointer text-success">published_with_changes</i>
+                                <i title="UNPUBLISH" *ngIf="data.alldata.status == 1"
+                                    (click)="unpublishuser(data.alldata.user_id)"
+                                    class="material-icons text-danger pointer">unpublished</i>
+                                <i class="material-icons pointer text-success"
+                                    (click)="makeoffline(data.alldata.user_id)"
+                                    *ngIf="data.alldata.online_status == 1">done</i>
+                                <i class="material-icons text-danger pointer" (click)="makeonline(data.alldata.user_id)"
+                                    *ngIf="data.alldata.online_status == 0">close</i>
+
                             </td>
                         </tr>
                     </ng-container>
