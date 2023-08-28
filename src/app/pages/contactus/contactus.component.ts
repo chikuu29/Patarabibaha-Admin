@@ -68,17 +68,11 @@ export class ContactusComponent implements OnInit {
    
   }
   getAllData() {
-
-
     this.ApiParameter.fetchdata('contactus', { "projection": ["*"] }).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.privacypalicy.patchValue(res['data'][0])
       }
-
-
     })
-
   }
 
 }

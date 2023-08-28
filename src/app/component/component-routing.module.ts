@@ -4,6 +4,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { AlluserdataComponent } from './alluserdata/alluserdata.component';
+import { MakepaidComponent } from './makepaid/makepaid.component';
 
 const routes: Routes = [
   {
@@ -29,7 +30,13 @@ const routes: Routes = [
         path: 'alluserdata',
         canActivate: [AuthGuard],
         component: AlluserdataComponent
-      }
+      },
+      {
+        path: 'addtopaid',
+        canActivate: [AuthGuard],
+        component: MakepaidComponent
+      },
+      
     ]
   }
 

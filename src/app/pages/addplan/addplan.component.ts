@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-addplan',
@@ -25,9 +28,20 @@ export class AddplanComponent implements OnInit {
   });
   constructor(
     private api :ApiService,
+    private activatedroute :ActivatedRoute,
+    private ApiParameter: ApiParameterScript
   ) { }
 
   ngOnInit(): void {
+    this.activatedroute.params.subscribe((res:any)=>{
+      console.log(res.id);
+      if(res.id == undefined){
+
+      }else{
+        this.getdatafromedit(res.id);
+      }
+      
+    })
   }
 
   get type() {
@@ -198,5 +212,13 @@ export class AddplanComponent implements OnInit {
     }
 
   }
+  getdatafromedit(id:any){
+    this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"],"whereConditions": { Id: id } }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.memberplan.patchValue(res['data'][0])
+      }
+    })
+  }
+
 
 }

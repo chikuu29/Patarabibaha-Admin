@@ -13,7 +13,7 @@
                         <img class="img-xs rounded-circle " src="assets/images/faces/face15.jpg" alt="">
                         <span class="count bg-success"></span>
                     </div>
-                    <div class="profile-name text-light" >
+                    <div class="profile-name text-light">
                         <h5 class="mb-0 fw-600">Admin User</h5>
                         <!-- <span>Gold Member</span> -->
                     </div>
@@ -83,6 +83,20 @@
                 <span class="menu-title">All User Data</span>
             </a>
         </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-icon">
+                    <i class="mdi mdi-laptop"></i>
+                </span>
+                <span class="menu-title">Activity</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic2">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/addtopaid">Active To Paid</a></li>
+                </ul>
+            </div>
+        </li>
         <!-- <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-icon">
@@ -149,11 +163,14 @@
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/zodiacs-page">Zodiacs</a></li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/nakshatra-page">Nakshatra</a></li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/annualincome-page">Annualincome</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/mother-tongue-page">Mother Tongue</a></li>
+                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/mother-tongue-page">Mother Tongue</a>
+                    </li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/employedin-page">Employed In</a></li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/occupation-page">Occupation</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/aditional-education-page">Aditional Eeducation</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/education-page">Highest Education</a></li>
+                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/aditional-education-page">Aditional
+                            Eeducation</a></li>
+                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/education-page">Highest Education</a>
+                    </li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/religion-page">Religion</a></li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/cast-page">Cast</a></li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/subcast-page">Sub Cast</a></li>
@@ -196,7 +213,7 @@
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/aboutus-page">About Us</a></li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/contactus-page">Contact Us</a></li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/prifixid-page">Prifix Id</a></li>
-                    
+
                 </ul>
             </div>
         </li>
@@ -212,15 +229,17 @@
             <div class="collapse" id="auth1">
                 <ul class="nav flex-column sub-menu">
 
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/approve/userapprove-page">User Approve<span style="color: red;"> ({{usercount}})</span> </a>
+                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/approve/userapprove-page">User
+                            Approve<span style="color: red;"> ({{usercount}})</span> </a>
                     </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/approve/profileimagepprove-page">Profile Image Approve<span style="color: red;"> ({{profilephotocount}})</span> </a>
+                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/approve/profileimagepprove-page">Profile
+                            Image Approve<span style="color: red;"> ({{profilephotocount}})</span> </a>
                     </li>
-                    
+
                 </ul>
             </div>
         </li>
-        
+
         <li class="nav-item menu-items">
             <a class="nav-link" routerLink="/chating">
                 <span class="menu-icon">

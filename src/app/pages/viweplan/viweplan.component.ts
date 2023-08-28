@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MessageService } from 'primeng/api';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
@@ -20,10 +21,13 @@ export class ViweplanComponent implements OnInit {
     {name:"DIMOND_PLAN"},
     {name:"GOLD_PLAN"},
   ]
+  finaldata: any;
   constructor(
     private api: ApiService,
     private messageService: MessageService,
-    private ApiParameterScript:ApiParameterScript
+    private ApiParameterScript:ApiParameterScript,
+    private ApiParameter: ApiParameterScript,
+    private router: Router,
   ) { }
 
 
@@ -37,65 +41,21 @@ export class ViweplanComponent implements OnInit {
   ngOnInit(): void {
     this.getallplain();
   }
+getallplain(){
+  this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {
 
-  getallplain() {
-    let parma = {
-      'id': ''
+    if (res.success && res['data'].length > 0) {
+        this.finaldata = res['data'];
+        console.log(this.finaldata );
+        
     }
-    this.blockUI.start("Loading...")
-    this.api.getAllData(parma).subscribe((res: any) => {
-      this.blockUI.stop()
-      if (res.status) {
-        this.allplandata = res.message;
-        console.log(this.allplandata);
+  })
+}
 
-      }
-    })
-  }
- 
+edite(data:any){
+    this.router.navigate(['/addplan-page',data]);
+}
 
-  onRowEditInit(product: any) {
-    // this.clonedProducts[product.id as string] = { ...product };
-  }
 
-  onRowEditSave(data: any) {
-
-    console.log("data",data);
-    var updataData={
-      "data":data,
-      "whereConditions":{"membership_plan_id":data.membership_plan_id}
-    }
-    this.blockUI.start("Updating")
-    this.ApiParameterScript.updatedata("membership_plan",updataData).subscribe((res:any)=>{
-      console.log(res);
-      this.blockUI.stop()
-      if(res.success){
-        Swal.fire({
-          icon: 'success',
-          text: res.message
-        }).then((ress: any) => {
-          this.ngOnInit()
-        });
-      }else{
-        Swal.fire({
-          icon: 'error',
-          text: res.message
-        })
-      }
-      
-    })
-    
-    // if (product.price > 0) {
-    //   delete this.clonedProducts[product.id as string];
-    //   this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
-    // } else {
-    //   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
-    // }
-  }
-
-  onRowEditCancel(product: any, index: number) {
-    // this.products[index] = this.clonedProducts[product.id as string];
-    delete this.clonedProducts[product.id as string];
-  }
 
 }
