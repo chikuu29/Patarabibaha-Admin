@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
+import { MemberPaymentProcessingTaskComponent } from 'src/app/shared/member-payment-processing-task/member-payment-processing-task.component';
 
 @Component({
   selector: 'app-makepaid',
@@ -13,7 +15,8 @@ export class MakepaidComponent implements OnInit {
 
   constructor(
     private ApiParameter: ApiParameterScript,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -42,11 +45,20 @@ export class MakepaidComponent implements OnInit {
   userpage(data: any) {
     this.router.navigate(['/user', data]);
   }
-  invisualdata(data: any) {
-    this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_id: data } }).subscribe((res: any) => {
-      console.log(res);
+  makeMemberAsPaid(data: any) {
 
-    })
+    console.log("data",data);
+    
+    const modalRef =  this.modalService.open(MemberPaymentProcessingTaskComponent,{ size: 'lg' })
+    modalRef.componentInstance.user_Data=data
+    // this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_id: data } }).subscribe((res: any) => {
+    //   console.log(res);
+
+    // })
+
+
+
+
   }
   getmembership_plan() {
     this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {

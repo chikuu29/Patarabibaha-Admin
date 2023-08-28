@@ -10,6 +10,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 import { MaterialModule } from '../material/material.module';
 import { PrimengModule } from '../primeng/primeng.module';
+import { MemberPaymentProcessingTaskComponent } from './member-payment-processing-task/member-payment-processing-task.component';
 
 
 
@@ -18,7 +19,8 @@ import { PrimengModule } from '../primeng/primeng.module';
     NavBarComponent,
     SideNavComponent,
     FooterComponent,
-    ImageViewOperationComponent
+    ImageViewOperationComponent,
+    MemberPaymentProcessingTaskComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { PrimengModule } from '../primeng/primeng.module';
     NavBarComponent,
     SideNavComponent,
     FooterComponent,
-    ImageViewOperationComponent
+    ImageViewOperationComponent,
+    MemberPaymentProcessingTaskComponent
   ]
 })
 export class SharedModule { }

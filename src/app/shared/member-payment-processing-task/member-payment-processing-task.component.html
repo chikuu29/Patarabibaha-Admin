@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h4 class="modal-title text-muted " id="modal-title">Make Member Payment Proccesing</h4>
+    <button type="button" class="btn-close" aria-describedby="modal-title"
+        (click)="modal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+
+    <div class="">
+        <div class="checkbox-wrapper-26">
+            <input type="checkbox" id="_checkbox-26" [checked]="user_Data.user_status=='Approved'" >
+            <label for="_checkbox-26g">
+              <div class="tick_mark"></div>
+            </label>
+          </div>
+        <button class="button-30 w-100 text-left" role="button"><span>USER ID: {{user_Data.user_id}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Name: {{user_Data.user_fname}} {{user_Data.user_lname}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Gender: {{user_Data.user_gender}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Age: {{user_Data.user_dob |age}}</span></button>
+    </div>
+    
+   
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('cancel click')">Close</button>
+    <button type="button" class="btn btn-outline-success">Ok</button>
+</div>
+
+
