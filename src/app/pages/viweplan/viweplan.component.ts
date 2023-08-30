@@ -16,16 +16,16 @@ export class ViweplanComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   allplandata: any;
-  planOptionType:any[]=[
-    {name:"FREE_PLAN"},
-    {name:"DIMOND_PLAN"},
-    {name:"GOLD_PLAN"},
+  planOptionType: any[] = [
+    { name: "FREE_PLAN" },
+    { name: "DIMOND_PLAN" },
+    { name: "GOLD_PLAN" },
   ]
   finaldata: any;
   constructor(
     private api: ApiService,
     private messageService: MessageService,
-    private ApiParameterScript:ApiParameterScript,
+    private ApiParameterScript: ApiParameterScript,
     private ApiParameter: ApiParameterScript,
     private router: Router,
   ) { }
@@ -41,20 +41,20 @@ export class ViweplanComponent implements OnInit {
   ngOnInit(): void {
     this.getallplain();
   }
-getallplain(){
-  this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {
+  getallplain() {
+    this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {
 
-    if (res.success && res['data'].length > 0) {
+      if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
-        console.log(this.finaldata );
-        
-    }
-  })
-}
+        console.log(this.finaldata);
 
-edite(data:any){
-    this.router.navigate(['/addplan-page',data]);
-}
+      }
+    })
+  }
+
+  edite(data: any) {
+    this.router.navigate(['/addplan-page', data]);
+  }
 
 
 

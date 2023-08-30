@@ -5,6 +5,7 @@ import { SpeedMeasurementPipe } from './speed-measurement.pipe';
 import { FormatdropdownPipe } from './formatdropdown.pipe';
 import { SafeUrlPipePipe } from './safe-url-pipe.pipe';
 import { AgePipe } from './age.pipe';
+import { CurrencyToWordsPipe } from './currency-to-words.pipe';
 
 
 
@@ -14,7 +15,8 @@ import { AgePipe } from './age.pipe';
     SpeedMeasurementPipe,
     FormatdropdownPipe,
     SafeUrlPipePipe,
-    AgePipe
+    AgePipe,
+    CurrencyToWordsPipe
 
   ],
   imports: [
@@ -25,7 +27,8 @@ import { AgePipe } from './age.pipe';
     SpeedMeasurementPipe,
     FormatdropdownPipe,
     SafeUrlPipePipe,
-    AgePipe
+    AgePipe,
+    CurrencyToWordsPipe
   ]
 })
 export class CustomPipeModule { }

@@ -25,13 +25,51 @@
 
         </div>
     </div>
+    <div class="mt-3">
+        <button class="button-89 w-100 mt-3 mb-3" role="button">Upgrade Current Plan</button>
+        <div>
+            <mat-radio-group
+                    aria-labelledby="example-radio-group-label"
+                    class="example-radio-group"
+                    (change)="getPlandetails(palnType)"
+                    [(ngModel)]="palnType">
+                    <mat-radio-button class="example-radio-button m-1" *ngFor="let season of seasons" [value]="season">
+                        {{season}}
+                    </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <ng-container *ngIf="planInformation" >
+            <div style="padding: 10px; border-radius: 12px; box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;">
+
+                    <p class="ms-4 fs-4 text-center"><strong class="text-success">Price: {{planInformation?.membership_plan_amount |currency:'INR'}}</strong></p>
+                    <ul class="features" style="border-radius: 12px; padding: 5px ;list-style:none ;">
+                        <li class="true"><i class="fa-regular fa-square-check me-2" style="color: #39ac56;" ></i> View Profile : {{planInformation?.membership_plan_visibility}}</li>
+                        <li class="true"><i class="fa-regular fa-square-check me-2" style="color: #39ac56;" ></i>Plan Validity : {{ planInformation?.membership_plan_validity_date}} days</li>
+                        <li class="true"><i class="fa-regular fa-square-check me-2" style="color: #39ac56;" ></i>View Photo : {{planInformation?.membership_plan_no_of_photo}}</li>
+                        <li class="false"><i class="fa-regular fa-square-check me-2" style="color: #39ac56;" ></i>Send Message : {{planInformation?.membership_plan_of_send_message}}</li>
+                        <li class="false"><i class="fa-regular fa-square-check me-2" style="color: #39ac56;"></i>View Contact : {{planInformation?.membership_plan_no_of_contact}}</li>
+                    </ul>
+                    <label for="" class="d-block mt-3 fw-bold text-danger">Please Select Payment Mode</label>
+                    <mat-radio-group aria-label="Select an option"  [(ngModel)]="paymentType">
+                        <mat-radio-button value="online" class="me-2">Online</mat-radio-button>
+                        <mat-radio-button value="offline" class="me-2">Offline</mat-radio-button>
+                        <mat-radio-button value="direct" class="me-2">Direct</mat-radio-button>
+                        <mat-radio-button value="other" class="me-2">Other</mat-radio-button>
+                    </mat-radio-group>
+                    <button class="button-91 d-block" role="button" (click)="upgradePlan()">Click For Payment Proccesing & Upgrading Plan</button>
+            </div>
+        </ng-container>
+
+    </div>
+
     
    
 </div>
 
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('cancel click')">Close</button>
-    <button type="button" class="btn btn-outline-success">Ok</button>
+    <!-- <button type="button" class="btn btn-outline-success">Ok</button> -->
 </div>
 
 
