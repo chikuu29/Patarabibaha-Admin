@@ -11,11 +11,19 @@
             <label for="_checkbox-26g">
               <div class="tick_mark"></div>
             </label>
-          </div>
+        </div>
         <button class="button-30 w-100 text-left" role="button"><span>USER ID: {{user_Data.user_id}}</span></button>
         <button class="button-30 d-block" role="button"><span>Name: {{user_Data.user_fname}} {{user_Data.user_lname}}</span></button>
         <button class="button-30 d-block" role="button"><span>Gender: {{user_Data.user_gender}}</span></button>
         <button class="button-30 d-block" role="button"><span>Age: {{user_Data.user_dob |age}}</span></button>
+    </div>
+    <div class="mt-3">
+        <button class="button-89 w-100 mt-3 mb-3" role="button">Current Active Plan Information</button>
+        <div>
+            <button class="button-30 " role="button"><span [ngClass]="user_Data.user_membership_plan_active?'text-success':'text-danger'">Plan Status: {{user_Data.user_membership_plan_active?'Active':'Inactive'}}</span></button>
+            <button class="button-30 " role="button"><span>Plan Type: {{user_Data.user_membership_plan_type?user_Data.user_membership_plan_type:'No Plan Availble'}}</span></button>
+
+        </div>
     </div>
     
    
