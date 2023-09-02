@@ -12,6 +12,7 @@ import { MemberPaymentProcessingTaskComponent } from 'src/app/shared/member-paym
 export class MakepaidComponent implements OnInit {
   finaldata: any = [];
   alldata: any;
+  defultdata: any;
 
   constructor(
     private ApiParameter: ApiParameterScript,
@@ -20,25 +21,16 @@ export class MakepaidComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllData();
+    //this.getdefultplan();.
     this.getmembership_plan();
+    
+
   }
   getAllData() {
-    this.ApiParameter.fetchdata('user_info', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_membership_plan_type: this.defultdata } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        this.finaldata = [];
-        this.alldata = res['data'];
-        this.alldata.map((res: any) => {
-          // this.finaldata[]= res;
-          let daat = Math.abs(Date.now() - new Date(res.user_dob).getTime());
-          let age = Math.floor((daat / (1000 * 3600 * 24)) / 365.25);
-          this.finaldata.push({
-            'alldata': res,
-            'age': age
-          });
-        });
+        this.finaldata = res['data'];
         console.log(this.finaldata);
-
       }
     })
   }
@@ -47,23 +39,29 @@ export class MakepaidComponent implements OnInit {
   }
   makeMemberAsPaid(data: any) {
 
-    console.log("data",data);
-    
-    const modalRef =  this.modalService.open(MemberPaymentProcessingTaskComponent,{ size: 'lg' })
-    modalRef.componentInstance.user_Data=data
-    // this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_id: data } }).subscribe((res: any) => {
-    //   console.log(res);
+    console.log("data", data);
 
-    // })
-
-
-
-
+    const modalRef = this.modalService.open(MemberPaymentProcessingTaskComponent, { size: 'lg' })
+    modalRef.componentInstance.user_Data = data
   }
   getmembership_plan() {
-    this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {
-      console.log(res);
+    this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"], "whereConditions": { membership_plan_default: 1 } }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.defultdata = res['data'][0].membership_plan_type;
+        this.getAllData();
+        console.log(this.defultdata);
+      }
     })
   }
+
+  // getdefultplan() {
+
+  //   this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {
+  //     if (res.success && res['data'].length > 0) {
+  //         this.defultdata = res['data'];
+  //         console.log(this.defultdata);
+  //     }
+  //   });
+  // }
 
 }
