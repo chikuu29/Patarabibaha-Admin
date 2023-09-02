@@ -107,7 +107,7 @@ export class OccupationComponent implements OnInit {
 
   }
   getAllData() {
-    this.ApiParameter.fetchdata('occupation', { "projection": ["*"] , }).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('occupation', { "projection": ["*"]  }).subscribe((res: any) => {
       // console.log(res['data'][0]);
 
       if (res.success) {
