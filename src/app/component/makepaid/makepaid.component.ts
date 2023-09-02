@@ -38,9 +38,6 @@ export class MakepaidComponent implements OnInit {
     this.router.navigate(['/user', data]);
   }
   makeMemberAsPaid(data: any) {
-
-    console.log("data", data);
-
     const modalRef = this.modalService.open(MemberPaymentProcessingTaskComponent, { size: 'lg' })
     modalRef.componentInstance.user_Data = data
   }
