@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     userID: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
-    checkme: new FormControl('', [Validators.required])
+    checkme: new FormControl('', [])
   });
   constructor(
     private activeroute: ActivatedRoute,

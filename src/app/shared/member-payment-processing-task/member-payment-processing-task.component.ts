@@ -27,10 +27,10 @@ export class MemberPaymentProcessingTaskComponent implements OnInit {
     public modal: NgbActiveModal,
     private AppService: AppService,
     private ApiParameterScript: ApiParameterScript,
-    private Router :Router
+    private Router: Router
 
   ) { }
-  
+
   ngOnInit(): void {
     console.log(this.user_Data);
     this.ApiParameterScript.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {
@@ -70,7 +70,7 @@ export class MemberPaymentProcessingTaskComponent implements OnInit {
       let dev = this;
       Swal.fire({
         icon: 'question',
-        text: "Do you want upgrade " + this.user_Data.user_fname + " " + this.user_Data.user_lname + " 's plan"
+        text: "Do you want upgrade Mr/Ms " + this.user_Data.user_fname + " " + this.user_Data.user_lname + " 's plan"
       }).then((r: any) => {
         // console.log(r);
         if (r.isConfirmed) {
@@ -81,7 +81,7 @@ export class MemberPaymentProcessingTaskComponent implements OnInit {
             "whereConditions": { user_id: this.user_Data.user_id }
           }
           this.ApiParameterScript.updatedata('user_info', param).subscribe((res: any) => {
-            if (res.success ) {
+            if (res.success) {
               let param_user = {
                 "data": {
                   "active_status": 0,
@@ -91,7 +91,7 @@ export class MemberPaymentProcessingTaskComponent implements OnInit {
               this.ApiParameterScript.updatedata('user_plan_deatils', param_user).subscribe((res: any) => {
 
                 if (res.success) {
-                   let days= Number(this.planInformation.membership_plan_validity_date);
+                  let days = Number(this.planInformation.membership_plan_validity_date);
                   let new_date = moment().add(days, 'days').format("YYYY-MM-DD HH:mm:ss").toString();
                   console.log(new_date);
                   console.log();
@@ -103,35 +103,41 @@ export class MemberPaymentProcessingTaskComponent implements OnInit {
                       "user_plan_type": this.palnType,
                       "user_plan_id": this.planInformation.membership_plan_id,
                       "plan_stating_date": moment().format("YYYY-MM-DD HH:mm:ss").toString(),
-                      "plan_ending_date" : new_date
+                      "plan_ending_date": new_date
                     }
                   }
                   this.ApiParameterScript.savedata('user_plan_deatils', param_user_insert).subscribe((res: any) => {
                     if (res.success) {
                       Swal.fire({
-                        icon:'success',
-                        text: this.user_Data.user_fname + " " + this.user_Data.user_lname +" 's Plane Upgrated "
-                      }).then((re:any)=>{
-                        this.Router.navigate(['/addtopaid']);
+                        icon: 'success',
+                        text: this.user_Data.user_fname + " " + this.user_Data.user_lname + " 's Plane Upgrated "
+                      }).then((re: any) => {
+                        this.modal.close()
                       })
-                    }else{
+                    } else {
                       Swal.fire({
-                          text: "Not done 3"
+                        icon: 'error',
+                        text: "Somethings Went Wrong"
+                        
                       });
                     }
                   });
 
-                }else{
+                } else {
                   Swal.fire({
-                      text: "Not done 2"
+                    icon: 'error',
+                    text: "Somethings Went Wrong While updating plan"
+                    
                   });
                 }
 
 
               })
-            }else{
+            } else {
               Swal.fire({
-                  text: "Not done 1"
+                icon: 'error',
+                text: "Somethings Went Wrong"
+                
               });
             }
           });
