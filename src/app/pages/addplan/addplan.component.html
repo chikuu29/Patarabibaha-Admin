@@ -13,10 +13,10 @@
                     <label>Type</label>
                     <select class="form-select" formControlName="membership_plan_type" >
                         <option value="Select" selected>---Select---</option>
-                        <option value="FREE_PLAN">FREE PLAN</option>
-                        <option value="GOLD_PLAN">GOLD PLAN</option>
+                         <option *ngFor="let data of typedata" [value]="data.name">{{ data.type_name }}</option>
+                       <!-- <option value="GOLD_PLAN">GOLD PLAN</option>
                         <option value="DIMOND_PLAN">DIMOND PLAN</option>
-                        <option value="SELVER_PLAN">SELVER PLAN</option>
+                        <option value="SELVER_PLAN">SELVER PLAN</option> -->
                     </select>
                     <!-- <input type="text" class="form-control" formControlName="membership_plan_type" id="exampleInputName1" placeholder="Plan Type"> -->
                 </div>

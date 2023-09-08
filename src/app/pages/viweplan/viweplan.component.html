@@ -26,12 +26,13 @@
                             <th>Currency</th>
                             <th>Discont</th>
                             <th>Plan Validity</th>
-                            <th>Message Count</th>
+                            <th>Action</th>
+                            <!-- <th>Message Count</th>
                             <th>Chat Count</th>
                             <th>Photo Count</th>
                             <th>Other Count</th>
                             <th>Created Date</th>
-                            <th>Action</th>
+                            -->
                         </tr>
                     
                 </thead>
@@ -44,15 +45,16 @@
                             <td>{{ data.membership_plan_type }}</td>
                             <td>{{ data.membership_plan_amount | currency:'INR' }}</td>
                             <td>{{ data.membership_plan_currency }}</td>
-                            <td>{{ data.membership_plan_dicount }}</td>
+                            <td>{{ data.membership_plan_dicount }}%</td>
                             <td>{{ data.membership_plan_validity_date }} days</td>
-                            <td>{{ data.membership_plan_of_send_message }}</td>
+                            <!-- <td>{{ data.membership_plan_of_send_message }}</td>
                             <td>{{ data.membership_plan_chating }}</td>
                             <td>{{ data.membership_plan_no_of_photo }}</td>
                             <td>{{ data.membership_plan_show_contact_number_other }}</td>
-                            <td>{{ data.membership_plan_created_date_time }}</td>
+                            <td>{{ data.membership_plan_created_date_time }}</td> -->
                            <td>
-
+                            <button type="button" class="btn btn-outline-warning btn-fw me-2 w-50"
+                            (click)="viwe(data.membership_plan_id)">Viwe</button>
                            </td>
                         </tr>
                     </ng-container>

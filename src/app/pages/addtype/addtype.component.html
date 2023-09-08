@@ -1,0 +1,72 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Enter Type</h4>
+            <form class="form-inline" [formGroup]="type">
+                <label class="sr-only" for="inlineFormInputName2">Name</label>
+                <input type="text" formControlName="type_name" class="form-control mb-2 mr-sm-2"
+                    id="inlineFormInputName2" placeholder="enter type">
+                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                <div class="form-check mx-sm-2">
+                </div>
+                <button type="submit" (click)="addtype()" class="btn btn-primary mb-2">{{ button }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="">
+    <div class="table-holder">
+        <div class="caption-header">
+            <div class="caption-item">
+                <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
+                <span class="fs-5">Showing of results</span>
+            </div>
+            <!-- {{nakshatra.length}} of {{nakshatra.length}} -->
+            <div class="caption-item">
+                <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
+
+            </div>
+        </div>
+        <div class="mt-3 data-view-container">
+            <table class="table">
+                <thead class="table-header">
+                    <tr>
+                        <th>#SI</th>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Used</th>
+                        <th>Deleted</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body table-striped">
+                    <tr *ngFor="let countryalldatahtml of alldata ; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{ countryalldatahtml.type_name }}</td>
+                        <td>{{ countryalldatahtml.name }}</td>
+                        <td>
+                            <p class="badge badge-danger" *ngIf="countryalldatahtml.used == 0">
+                                NOT USED
+                            </p>
+                            <p class="badge badge-success" *ngIf="countryalldatahtml.used == 1">USED</p>
+                        </td>
+                        <td>
+                            <p class="badge badge-danger" *ngIf="countryalldatahtml.deleted == 0">
+                                DELETED
+                            </p>
+                            <p class="badge badge-success" *ngIf="countryalldatahtml.deleted == 1">
+                                PRESENT
+                            </p>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-warning btn-fw me-2 w-50"
+                            (click)="edit(countryalldatahtml.id)">Edit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

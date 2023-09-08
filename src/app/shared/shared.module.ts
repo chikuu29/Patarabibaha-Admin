@@ -11,6 +11,7 @@ import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 import { MaterialModule } from '../material/material.module';
 import { PrimengModule } from '../primeng/primeng.module';
 import { MemberPaymentProcessingTaskComponent } from './member-payment-processing-task/member-payment-processing-task.component';
+import { ViewPageForMembershipplanComponent } from './view-page-for-membershipplan/view-page-for-membershipplan.component';
 
 
 
@@ -20,7 +21,8 @@ import { MemberPaymentProcessingTaskComponent } from './member-payment-processin
     SideNavComponent,
     FooterComponent,
     ImageViewOperationComponent,
-    MemberPaymentProcessingTaskComponent
+    MemberPaymentProcessingTaskComponent,
+    ViewPageForMembershipplanComponent
   ],
   imports: [
     CommonModule,

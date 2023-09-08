@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MessageService } from 'primeng/api';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
+import { ViewPageForMembershipplanComponent } from 'src/app/shared/view-page-for-membershipplan/view-page-for-membershipplan.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -28,6 +30,7 @@ export class ViweplanComponent implements OnInit {
     private ApiParameterScript: ApiParameterScript,
     private ApiParameter: ApiParameterScript,
     private router: Router,
+    private modalService: NgbModal
   ) { }
 
 
@@ -54,6 +57,12 @@ export class ViweplanComponent implements OnInit {
 
   edite(data: any) {
     this.router.navigate(['/addplan-page', data]);
+  }
+
+  viwe(data:any){
+    ///alert(data);
+    const modalRef = this.modalService.open(ViewPageForMembershipplanComponent, { size: 'lg' })
+    modalRef.componentInstance.user_Data = data
   }
 
 

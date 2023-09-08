@@ -31,6 +31,7 @@ import { CasteComponent } from './caste/caste.component';
 import { SubcasteComponent } from './subcaste/subcaste.component';
 import { PrifixidComponent } from './prifixid/prifixid.component';
 import { GotraComponent } from './gotra/gotra.component';
+import { AddtypeComponent } from './addtype/addtype.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { GotraComponent } from './gotra/gotra.component';
     SubcasteComponent,
     PrifixidComponent,
     GotraComponent,
+    AddtypeComponent,
    
   ],
   imports: [
