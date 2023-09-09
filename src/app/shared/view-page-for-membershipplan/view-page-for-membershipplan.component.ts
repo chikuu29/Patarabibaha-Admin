@@ -20,7 +20,7 @@ export class ViewPageForMembershipplanComponent implements OnInit {
   ngOnInit(): void {
     this.ApiParameterScript.fetchdata('membership_plan', { "projection": ["*"] , "whereConditions": { membership_plan_id: this.user_Data }  }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        this.deatils = res['data'][0]
+        this.deatils = res['data'][0];
       }
     });
   }

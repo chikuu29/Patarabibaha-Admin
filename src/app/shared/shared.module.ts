@@ -12,6 +12,7 @@ import { MaterialModule } from '../material/material.module';
 import { PrimengModule } from '../primeng/primeng.module';
 import { MemberPaymentProcessingTaskComponent } from './member-payment-processing-task/member-payment-processing-task.component';
 import { ViewPageForMembershipplanComponent } from './view-page-for-membershipplan/view-page-for-membershipplan.component';
+import { UpgradePaymentProcessTaskComponent } from './upgrade-payment-process-task/upgrade-payment-process-task.component';
 
 
 
@@ -22,7 +23,8 @@ import { ViewPageForMembershipplanComponent } from './view-page-for-membershippl
     FooterComponent,
     ImageViewOperationComponent,
     MemberPaymentProcessingTaskComponent,
-    ViewPageForMembershipplanComponent
+    ViewPageForMembershipplanComponent,
+    UpgradePaymentProcessTaskComponent
   ],
   imports: [
     CommonModule,

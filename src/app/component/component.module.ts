@@ -12,6 +12,7 @@ import { NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ImageViewOperationComponent } from '../shared/image-view-operation/image-view-operation.component';
 import { AlluserdataComponent } from './alluserdata/alluserdata.component';
 import { MakepaidComponent } from './makepaid/makepaid.component';
+import { UpgradeuserplanComponent } from './upgradeuserplan/upgradeuserplan.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { MakepaidComponent } from './makepaid/makepaid.component';
     DashboardComponent,
     UserViewComponent,
     AlluserdataComponent,
-    MakepaidComponent
+    MakepaidComponent,
+    UpgradeuserplanComponent
   ],
   imports: [
     CommonModule,
