@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { AlluserdataComponent } from './alluserdata/alluserdata.component';
 import { MakepaidComponent } from './makepaid/makepaid.component';
+import { UpgradeuserplanComponent } from './upgradeuserplan/upgradeuserplan.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: MakepaidComponent
       },
+      {
+        path: 'upgrade',
+        canActivate: [AuthGuard],
+        component: UpgradeuserplanComponent
+      },
+      
       
     ]
   }
