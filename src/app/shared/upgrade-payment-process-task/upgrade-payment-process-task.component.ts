@@ -83,7 +83,7 @@ export class UpgradePaymentProcessTaskComponent implements OnInit {
                   let days = Number(this.planInformation.membership_plan_validity_date);
                   let new_date = moment().add(days, 'days').format("YYYY-MM-DD HH:mm:ss").toString();
                   console.log(new_date);
-                  console.log();
+                  
 
                   let param_user_insert = {
                     "data": {

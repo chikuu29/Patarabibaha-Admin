@@ -33,7 +33,7 @@
                         class="example-radio-group"
                         (change)="getPlandetails(palnType)"
                         [(ngModel)]="palnType">
-                        <mat-radio-button class="example-radio-button m-1" *ngFor="let season of seasons" [value]="season">
+                        <mat-radio-button class="example-radio-button m-1" *ngFor="let season of seasons" [value]="season.membership_plan_type">
                             {{season.membership_plan_type}}
                         </mat-radio-button>
                 </mat-radio-group>
