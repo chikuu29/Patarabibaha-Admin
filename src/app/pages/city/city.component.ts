@@ -27,7 +27,7 @@ export class CityComponent implements OnInit {
   statealldatabycountry: any;
   countryOption: any;
   stateOption: any;
-
+  filterText:string
   constructor(
     private api: ApiService,
     private ApiParameter: ApiParameterScript

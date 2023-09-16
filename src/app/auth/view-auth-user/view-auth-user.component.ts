@@ -16,6 +16,7 @@ export class ViewAuthUserComponent implements OnInit {
   activeAuthUserClick:boolean=false
   inactiveAuthUserClick:boolean=false
   allAuthUserClick:boolean=false
+  filterText:string
   constructor(
     private ApiParameterScript:ApiParameterScript
   ) { }

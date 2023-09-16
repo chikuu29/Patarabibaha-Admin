@@ -32,6 +32,7 @@ import { SubcasteComponent } from './subcaste/subcaste.component';
 import { PrifixidComponent } from './prifixid/prifixid.component';
 import { GotraComponent } from './gotra/gotra.component';
 import { AddtypeComponent } from './addtype/addtype.component';
+import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { AddtypeComponent } from './addtype/addtype.component';
     FormsModule,
     ReactiveFormsModule,
     PrimengModule,
-    MaterialModule
+    MaterialModule,
+    CustomPipeModule
   ]
 })
 export class PagesModule { }

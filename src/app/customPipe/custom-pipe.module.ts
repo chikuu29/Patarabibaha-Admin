@@ -5,6 +5,7 @@ import { SpeedMeasurementPipe } from './speed-measurement.pipe';
 import { FormatdropdownPipe } from './formatdropdown.pipe';
 import { SafeUrlPipePipe } from './safe-url-pipe.pipe';
 import { AgePipe } from './age.pipe';
+import { FillterPipe } from './fillter.pipe';
 // import { CurrencyToWordsPipe } from './currency-to-words.pipe';
 
 
@@ -15,7 +16,8 @@ import { AgePipe } from './age.pipe';
     SpeedMeasurementPipe,
     FormatdropdownPipe,
     SafeUrlPipePipe,
-    AgePipe
+    AgePipe,
+    FillterPipe
     //CurrencyToWordsPipe
 
   ],
@@ -28,6 +30,7 @@ import { AgePipe } from './age.pipe';
     FormatdropdownPipe,
     SafeUrlPipePipe,
     AgePipe,
+    FillterPipe
     //CurrencyToWordsPipe
   ]
 })

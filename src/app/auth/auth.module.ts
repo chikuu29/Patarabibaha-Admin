@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewAuthUserComponent } from './view-auth-user/view-auth-user.component';
 import { MaterialModule } from '../material/material.module';
 import { PrimengModule } from '../primeng/primeng.module';
+import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PrimengModule } from '../primeng/primeng.module';
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
-    PrimengModule
+    PrimengModule,
+    CustomPipeModule
 
   ],
   providers:[AppService]
