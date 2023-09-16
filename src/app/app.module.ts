@@ -21,9 +21,11 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { ApproveModule } from './approve/approve.module';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+   
   ],
   imports: [
     BrowserModule,

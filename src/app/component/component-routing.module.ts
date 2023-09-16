@@ -6,6 +6,9 @@ import { UserViewComponent } from './user-view/user-view.component';
 import { AlluserdataComponent } from './alluserdata/alluserdata.component';
 import { MakepaidComponent } from './makepaid/makepaid.component';
 import { UpgradeuserplanComponent } from './upgradeuserplan/upgradeuserplan.component';
+import { SpotlightComponent } from './spotlight/spotlight.component';
+import { ViewSpotlightComponent } from './view-spotlight/view-spotlight.component';
+
 
 const routes: Routes = [
   {
@@ -42,6 +45,18 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: UpgradeuserplanComponent
       },
+      {
+        path: 'spotlight',
+        canActivate: [AuthGuard],
+        component: SpotlightComponent
+      },
+      {
+        path: 'view-spotlight',
+        canActivate: [AuthGuard],
+        component: ViewSpotlightComponent
+      },
+      
+      
       
       
     ]

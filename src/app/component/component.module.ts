@@ -13,6 +13,8 @@ import { ImageViewOperationComponent } from '../shared/image-view-operation/imag
 import { AlluserdataComponent } from './alluserdata/alluserdata.component';
 import { MakepaidComponent } from './makepaid/makepaid.component';
 import { UpgradeuserplanComponent } from './upgradeuserplan/upgradeuserplan.component';
+import { SpotlightComponent } from './spotlight/spotlight.component';
+import { ViewSpotlightComponent } from './view-spotlight/view-spotlight.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { UpgradeuserplanComponent } from './upgradeuserplan/upgradeuserplan.comp
     UserViewComponent,
     AlluserdataComponent,
     MakepaidComponent,
-    UpgradeuserplanComponent
+    UpgradeuserplanComponent,
+    SpotlightComponent,
+    ViewSpotlightComponent
   ],
   imports: [
     CommonModule,
