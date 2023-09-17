@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class NakshatraComponent implements OnInit {
  nakshatra:any;
  nakshatrasearch:any;
+ filterText:any;
   constructor(
     private api:ApiService
   ) { }

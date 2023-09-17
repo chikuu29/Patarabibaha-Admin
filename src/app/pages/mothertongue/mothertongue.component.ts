@@ -13,7 +13,8 @@ export class MothertongueComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI; 
   mothertongue = new FormGroup({
     mother_tongue_name: new FormControl('', [Validators.required])
-  })
+  });
+  filterText:any
   tabledata: any;
   originaldata: any;
   action: any = 'Submit';

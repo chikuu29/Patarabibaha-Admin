@@ -16,7 +16,8 @@ export class HighestEducationComponent implements OnInit {
   highesteducation = new FormGroup({
     id: new FormControl(''),
     highest_education_name: new FormControl('', [Validators.required])
-  })
+  });
+  filterText:any;
   tabledata: any;
   constructor(
     private ApiParameter: ApiParameterScript

@@ -17,7 +17,8 @@ export class ContryComponent implements OnInit {
   countrygroup = new FormGroup({
     id: new FormControl('', []),
     name: new FormControl('', [Validators.required])
-  })
+  });
+  filterText:any;
   country: any;
   countryalldata: any;
   page: number = 1;

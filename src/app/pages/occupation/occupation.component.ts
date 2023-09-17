@@ -16,7 +16,8 @@ export class OccupationComponent implements OnInit {
   occupation = new FormGroup({
     id: new FormControl(''),
     occupation_name: new FormControl('', [Validators.required])
-  })
+  });
+  filterText:any;
   tabledata: any;
   constructor(
     private ApiParameter: ApiParameterScript

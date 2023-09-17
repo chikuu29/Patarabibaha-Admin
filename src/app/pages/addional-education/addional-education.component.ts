@@ -13,6 +13,7 @@ export class AddionalEducationComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   button: any = 'Submit';
+  filterText:any;
   additionaleducation = new FormGroup({
     id: new FormControl(''),
     additional_education_name: new FormControl('', [Validators.required])

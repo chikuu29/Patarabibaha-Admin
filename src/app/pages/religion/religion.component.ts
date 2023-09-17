@@ -18,6 +18,7 @@ export class ReligionComponent implements OnInit {
     id: new FormControl(''),
     religion_name: new FormControl('', [Validators.required])
   });
+  filterText:any;
   tabledata: any;
   constructor(
     private ApiParameter: ApiParameterScript

@@ -19,6 +19,7 @@ export class AddtypeComponent implements OnInit {
     type_name :new FormControl('',[Validators.required]),
     name :new FormControl('',[])
   });
+  filterText:any;
   button:any = 'Submit'
   ngOnInit(): void {
     this.button = 'Submit';

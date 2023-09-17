@@ -16,7 +16,8 @@ export class SubcasteComponent implements OnInit {
     id: new FormControl('',),
     sub_cast_name: new FormControl('', [Validators.required]),
     cast_name: new FormControl('', [Validators.required]),
-  })
+  });
+  filterText:any;
   constructor(
     private ApiParameter: ApiParameterScript
   ) { }

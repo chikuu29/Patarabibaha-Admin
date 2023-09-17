@@ -17,7 +17,8 @@ export class StateComponent implements OnInit {
     id: new FormControl('', []),
     country_name: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required])
-  })
+  });
+  filterText:any;
   state: any;
   countryalldata: any;
   countryid: any;

@@ -69,14 +69,14 @@ export class UserViewComponent implements OnInit {
 
 
   religionOptions: any = [
-   
+
   ]
   religionCasteOptions: any = [
-    
+
   ]
 
   religionSubcasteOptions: any = [
-    
+
   ]
 
 
@@ -241,15 +241,15 @@ export class UserViewComponent implements OnInit {
 
 
   countryOption: any = [
-    
+
 
   ]
 
   stateOption: any = [
-   
+
   ]
   cityOption: any = [
-    
+
   ]
 
 
@@ -583,7 +583,7 @@ export class UserViewComponent implements OnInit {
     private api: ApiService,
     private confirmationService: ConfirmationService,
     private modalService: NgbModal
-    
+
   ) { }
 
   ngOnInit(): void {
@@ -596,7 +596,9 @@ export class UserViewComponent implements OnInit {
         console.log(res);
         this.blockUI.stop();
         if (res.success) {
+         
           this.userAllData = res;
+          console.log(this.userAllData);
           this.profileDetailsForm.patchValue({
             profile_id: res?.user_info?.user_id
             , profile_name: res?.user_info?.user_fname + ' ' + res?.user_info?.user_lname, profile_email: res?.user_info?.user_email, profile_phone: ''
@@ -605,7 +607,7 @@ export class UserViewComponent implements OnInit {
           this.education_occupationDetailsForm.patchValue(res['user_education_occupations'])
           this.userAboutDetailsForm.patchValue(res['user_about'])
           this.locationDetailsForm.patchValue(res['user_locations'])
-         
+
           this.userFamilyDetailsForm.patchValue(res['user_family'])
           this.habitHobbiesForm.patchValue(res['user_diet_hobbies'])
           this.physicalDeatilsForm.patchValue(res['user_physical_details'])
@@ -809,7 +811,7 @@ export class UserViewComponent implements OnInit {
       if (res.success && res['data'].length > 0) {
         this.religionOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.religion_name	 };
+            return { name: obj.religion_name };
           } else {
             return null
           }
@@ -829,7 +831,7 @@ export class UserViewComponent implements OnInit {
       if (res.success && res['data'].length > 0) {
         this.religionCasteOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.cast_name};
+            return { name: obj.cast_name };
           } else {
             return null
           }
@@ -1387,29 +1389,29 @@ export class UserViewComponent implements OnInit {
   }
 
   public viewMemberimages() {
-    
 
-    const modalRef = this.modalService.open(ImageViewOperationComponent,{ fullscreen: true , scrollable: true });
-    modalRef.componentInstance.user_id=this.profile_id
+
+    const modalRef = this.modalService.open(ImageViewOperationComponent, { fullscreen: true, scrollable: true });
+    modalRef.componentInstance.user_id = this.profile_id
 
 
 
   }
 
-  getSubcaste(caste:any){
-    this.ApiParameterScript.fetchdata('sub_cast', { "projection": ["*"],"whereConditions":{"cast_name":caste} }).subscribe((res: any) => {
+  getSubcaste(caste: any) {
+    this.ApiParameterScript.fetchdata('sub_cast', { "projection": ["*"], "whereConditions": { "cast_name": caste } }).subscribe((res: any) => {
       // console.log(res['data'][0]);
       if (res.success && res['data'].length > 0) {
         this.religionSubcasteOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.sub_cast_name};
+            return { name: obj.sub_cast_name };
           } else {
             return null
           }
         });
 
-      }else{
-        this.religionSubcasteOptions=[]
+      } else {
+        this.religionSubcasteOptions = []
       }
     })
   }
@@ -1417,7 +1419,7 @@ export class UserViewComponent implements OnInit {
 
 
   getstatefilter(country_name: any) {
-    console.log("getstatefilter",country_name);
+    console.log("getstatefilter", country_name);
     this.ApiParameterScript.fetchdata('state', { "projection": ["*"], "whereConditions": { "country_name": country_name, "status": 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
 
@@ -1426,11 +1428,11 @@ export class UserViewComponent implements OnInit {
           return { name: obj.name };
 
         });
-      
+
 
       } else {
         this.stateOption = []
-        this.cityOption=[]
+        this.cityOption = []
       }
 
     });

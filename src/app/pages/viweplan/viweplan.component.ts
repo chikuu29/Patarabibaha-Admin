@@ -18,6 +18,7 @@ export class ViweplanComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   allplandata: any;
+  filterText:any;
   planOptionType: any[] = [
     { name: "FREE_PLAN" },
     { name: "DIMOND_PLAN" },

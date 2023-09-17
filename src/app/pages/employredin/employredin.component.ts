@@ -17,6 +17,7 @@ export class EmployredinComponent implements OnInit {
   tabledata: any;
   action: any = 'Submit';
   rdata: any;
+  filterText:any;
   constructor(
     private ApiParameter: ApiParameterScript
   ) { }
@@ -25,6 +26,7 @@ export class EmployredinComponent implements OnInit {
     this.Employer = new FormGroup({
       Employer_in_name: new FormControl('')
     });
+
     this.action= 'Submit';
     this.getAllData();
   }

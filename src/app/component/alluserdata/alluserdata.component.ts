@@ -24,29 +24,12 @@ export class AlluserdataComponent implements OnInit {
   }
 
   getAllData() {
-
-
     this.ApiParameter.fetchdata('user_info', { "projection": ["*"] }).subscribe((res: any) => {
 
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
-        // this.alldata = res['data'];
-        // this.alldata.map((res: any) => {
-        //   // this.finaldata[]= res;
-        //   let daat = Math.abs(Date.now() - new Date(res.user_dob).getTime());
-        //   let age = Math.floor((daat / (1000 * 3600 * 24)) / 365.25);
-        //   this.finaldata.push({
-        //     'alldata': res,
-        //     'age': age
-        //   });
-        // });
-        // console.log(this.finaldata);
-
       }
-
-
-    })
-
+    });
   }
   deletedata(data: any, deleted: any) {
 

@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class ZodiacsComponent implements OnInit {
   zodiacs :any;
   zodiacsalldata:any;
-
+  filterText:any;
   constructor(
     private api:ApiService
   ) { }

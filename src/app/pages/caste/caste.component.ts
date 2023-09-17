@@ -14,6 +14,7 @@ export class CasteComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   button:any = 'Submit';
+  filterText:any;
   cast = new FormGroup({
     id: new FormControl(''),
     cast_name : new FormControl('',[Validators.required])

@@ -18,6 +18,7 @@ export class GotraComponent implements OnInit {
     id:new FormControl('',[]),
     name: new FormControl('',[Validators.required]),
   });
+  filterText:any;
   gotraalldata: any;
   constructor(
     private ApiParameter: ApiParameterScript
