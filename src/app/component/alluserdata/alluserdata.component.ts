@@ -24,8 +24,9 @@ export class AlluserdataComponent implements OnInit {
   }
 
   getAllData() {
-    this.ApiParameter.fetchdata('user_info', { "projection": ["*"] }).subscribe((res: any) => {
-
+    let Quary =  'SELECT * FROM auth_user';
+    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+      console.log(res);
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
       }

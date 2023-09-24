@@ -52,7 +52,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-body table-striped">
-                    <ng-container *ngFor="let data of finaldata | fillter:['user_fname','user_id','user_email']:filterText; index as i">
+                    <ng-container *ngFor="let data of finaldata | fillter:['user_fname','user_id','user_email','']:filterText; index as i">
                         <tr>
                             <td class="width">
                                 <p title="Online" class="badge badge-success" *ngIf="data.online_status == 1">

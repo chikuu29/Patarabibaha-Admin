@@ -260,11 +260,13 @@ export class ApiParameterScript {
         });
         return simpleObservable;
     }
-
     public fetchDataFormQuery(query: any) {
         const simpleObservable = new Observable((observer) => {
             try {
-                query = this.cryptography.encryptData(query)
+                var apData = {
+                    "query": query
+                }
+                query = this.cryptography.encryptData(apData)
                 this.apiservices.fetchDataQueryApi(query).subscribe(
                     (res: any) => {
                         try {
@@ -305,7 +307,7 @@ export class ApiParameterScript {
                 // apiData['db'] = db;
                 var apiData: any = {}
                 apiData['FilePath'] = FilePath;
-                apiData['FileName'] = FileName
+                apiData['FileName'] = FileName;
                 // const appConfig = this.appservices.getappconfig;
                 const loginInfo = this.appservices.authStatus;
                 let getrole = loginInfo['role'] ? loginInfo['role'] : false;

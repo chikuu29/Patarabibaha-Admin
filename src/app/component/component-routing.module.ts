@@ -8,6 +8,9 @@ import { MakepaidComponent } from './makepaid/makepaid.component';
 import { UpgradeuserplanComponent } from './upgradeuserplan/upgradeuserplan.component';
 import { SpotlightComponent } from './spotlight/spotlight.component';
 import { ViewSpotlightComponent } from './view-spotlight/view-spotlight.component';
+import { LogoComponent } from './logo/logo.component';
+import { BannerComponent } from './banner/banner.component';
+import { CouponComponent } from './coupon/coupon.component';
 
 
 const routes: Routes = [
@@ -55,6 +58,23 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: ViewSpotlightComponent
       },
+      {
+        path: 'logo-page',
+        canActivate: [AuthGuard],
+        component: LogoComponent
+      },
+      {
+        path: 'banner-page',
+        canActivate: [AuthGuard],
+        component: BannerComponent
+      },
+      {
+        path: 'deatils-page',
+        canActivate: [AuthGuard],
+        component: CouponComponent
+      },
+      
+      
       
       
       

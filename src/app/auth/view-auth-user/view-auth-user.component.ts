@@ -131,7 +131,7 @@ export class ViewAuthUserComponent implements OnInit {
     }
 
     this.ApiParameterScript.fetchdata('auth_user', apiData).subscribe((res: any) => {
-      console.log(res);
+      //console.log(res);
       if (res.success && res['data'].length > 0) {
         this.authDataList = res['data'];
       } else {

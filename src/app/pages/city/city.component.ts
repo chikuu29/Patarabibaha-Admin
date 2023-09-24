@@ -216,8 +216,6 @@ export class CityComponent implements OnInit {
   }
 
   delete(id: any) {
-    console.log(id);
-
     this.blockUI.start('Deleting...')
     this.ApiParameter.deletedata('city', { "whereConditions": { id: id } }).subscribe((res: any) => {
       this.blockUI.stop();
