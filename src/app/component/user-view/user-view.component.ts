@@ -35,30 +35,7 @@ export class UserViewComponent implements OnInit {
   profileCreatedBy: string[] = ['GUEST']
   genderOptions: string[] = ['male', 'female'];
   profileOptions: string[] = ['myself', 'my son', 'my daughter', 'my brother', 'my sister', 'my friend', 'my relative'];
-  motherTounghOptions: any[] = [
-    { "name": "Assamese" },
-    { "name": "Bengali" },
-    { "name": "Bodo" },
-    { "name": "Dogri" },
-    { "name": "Gujarati" },
-    { "name": "Hindi" },
-    { "name": "Kannada" },
-    { "name": "Kashmiri" },
-    { "name": "Konkani" },
-    { "name": "Maithili" },
-    { "name": "Malayalam" },
-    { "name": "Manipuri" },
-    { "name": "Marathi" },
-    { "name": "Nepali" },
-    { "name": "Odia" },
-    { "name": "Punjabi" },
-    { "name": "Sanskrit" },
-    { "name": "Santali" },
-    { "name": "Sindhi" },
-    { "name": "Tamil" },
-    { "name": "Telugu" },
-    { "name": "Urdu" }
-  ]
+  motherTounghOptions: any[] = [];
   maritalOptions: any = [
     { "name": "Single" },
     { "name": "Married" },
@@ -68,9 +45,7 @@ export class UserViewComponent implements OnInit {
   ]
 
 
-  religionOptions: any = [
-
-  ]
+  religionOptions: any = []
   religionCasteOptions: any = [
 
   ]
@@ -79,124 +54,15 @@ export class UserViewComponent implements OnInit {
 
   ]
 
+  aducationalOptions: any = []
+  aducationalOptions1: any = [];
+  aducationalOptions2: any = [];
 
-  aducationalOptions: any = [
-    { 'name': 'Bachelor of Technology (B.Tech)' },
-    { 'name': 'Bachelor of Engineering (B.E)' },
-    { 'name': 'Bachelor of Arts (B.A)' },
-    { 'name': 'Bachelor of Science (B.Sc)' },
-    { 'name': 'Bachelor of Commerce (B.Com)' },
-    { 'name': 'Master of Technology (M.Tech)' },
-    { 'name': 'Master of Engineering (M.E)' },
-    { 'name': 'Master of Arts (M.A)' },
-    { 'name': 'Master of Science (M.Sc)' },
-    { 'name': 'Master of Commerce (M.Com)' },
-    { 'name': 'Doctor of Philosophy (Ph.D)' },
-    { 'name': 'Diploma in Engineering' },
-    { 'name': 'Diploma in Business Administration (DBA)' },
-    { 'name': 'Bachelor of Medicine, Bachelor of Surgery (MBBS)' },
-    { 'name': 'Bachelor of Dental Surgery (BDS)' },
-    { 'name': 'Bachelor of Pharmacy (B.Pharm)' },
-    { 'name': 'Bachelor of Ayurvedic Medicine and Surgery (BAMS)' },
-    { 'name': 'Bachelor of Homeopathic Medicine and Surgery (BHMS)' },
-    { 'name': 'Bachelor of Veterinary Science (B.V.Sc)' },
-    { 'name': 'Chartered Accountancy (CA)' },
-    { 'name': 'Company Secretary (CS)' },
-    { 'name': 'Cost and Management Accountancy (CMA)' },
-    { 'name': 'Bachelor of Education (B.Ed)' },
-    { 'name': 'Bachelor of Physical Education (B.P.Ed)' },
-    { 'name': 'Bachelor of Fine Arts (BFA)' }
-  ]
+  ocupationOptions: any = []
 
-  ocupationOptions: any = [
-    { 'name': 'Software Engineer' },
-    { 'name': 'Civil Engineer' },
-    { 'name': 'Engineer' },
-    { 'name': 'Doctor' },
-    { 'name': 'Teacher' },
-    { 'name': 'Lawyer' },
-    { 'name': 'Artist' },
-    { 'name': 'Chef' },
-    { 'name': 'Architect' },
-    { 'name': 'Writer' },
-    { 'name': 'Accountant' },
-    { 'name': 'Musician' },
-    { 'name': 'Athlete' },
-    { 'name': 'Designer' },
-    { 'name': 'Scientist' },
-    { 'name': 'Entrepreneur' },
-    { 'name': 'Police Officer' },
-    { 'name': 'Firefighter' },
-    { 'name': 'Pilot' },
-    { 'name': 'Actor/Actress' },
-    { 'name': 'Journalist' },
-    { 'name': 'Salesperson' },
-    { 'name': 'Nurse' },
-    { 'name': 'Electrician' },
-    { 'name': 'Mechanic' },
-    { 'name': 'Carpenter' },
-    { 'name': 'Plumber' }
-  ]
+  employeeInOptions: any = [];
 
-  employeeInOptions: any = [
-    { 'name': 'Private' },
-    { 'name': 'Government' },
-    { 'name': 'Self-employed' },
-    { 'name': 'Freelancer' },
-    { 'name': 'Non-profit organization' },
-    { 'name': 'Startup' },
-    { 'name': 'Corporate' },
-    { 'name': 'Academic/Research' },
-    { 'name': 'Healthcare' },
-    { 'name': 'Retail' },
-    { 'name': 'Hospitality' },
-    { 'name': 'IT/Technology' },
-    { 'name': 'Finance/Banking' },
-    { 'name': 'Media/Entertainment' },
-    { 'name': 'Construction' },
-    { 'name': 'Transportation/Logistics' },
-    { 'name': 'Education' },
-    { 'name': 'Manufacturing' },
-    { 'name': 'Consulting' },
-    { 'name': 'Legal' },
-    { 'name': 'Real Estate' },
-    { 'name': 'Energy/Utilities' },
-    { 'name': 'Agriculture' },
-    { 'name': 'Fashion/Beauty' },
-    { 'name': 'Telecommunications' },
-    { 'name': 'Automotive' }
-  ]
-
-  anualIncomeOptions: any = [
-    { 'name': 50000 },
-    { 'name': 60000 },
-    { 'name': 70000 },
-    { 'name': 80000 },
-    { 'name': 90000 },
-    { 'name': 100000 },
-    { 'name': 150000 },
-    { 'name': 200000 },
-    { 'name': 250000 },
-    { 'name': 300000 },
-    { 'name': 400000 },
-    { 'name': 500000 },
-    { 'name': 600000 },
-    { 'name': 700000 },
-    { 'name': 800000 },
-    { 'name': 900000 },
-    { 'name': 1000000 },
-    { 'name': 1500000 },
-    { 'name': 2000000 },
-    { 'name': 2500000 },
-    { 'name': 3000000 },
-    { 'name': 4000000 },
-    { 'name': 5000000 },
-    { 'name': 6000000 },
-    { 'name': 7000000 },
-    { 'name': 8000000 },
-    { 'name': 9000000 },
-    { 'name': 10000000 }
-  ]
+  anualIncomeOptions: any = [];
 
 
   familytypeOptions: any = [
@@ -241,16 +107,12 @@ export class UserViewComponent implements OnInit {
 
 
   countryOption: any = [
-
-
-  ]
-
-  stateOption: any = [
+    { 'name': 'India' }
 
   ]
-  cityOption: any = [
 
-  ]
+  stateOption: any = []
+  cityOption: any = []
 
 
   dietOptions: any = [
@@ -438,6 +300,11 @@ export class UserViewComponent implements OnInit {
     { "name": "Normal" },
     { "name": "Physical Chalenges" }
   ]
+  likeOption: any = [
+    { "name": "Like Tv Serial" },
+    { "name": "Like Game" },
+    { "name": "Like Book" }
+  ]
 
 
   profileDetailsForm = new FormGroup({
@@ -450,7 +317,7 @@ export class UserViewComponent implements OnInit {
   basicDetailsForm = new FormGroup({
     user_fname: new FormControl('', [Validators.required]),
     user_lname: new FormControl('', [Validators.required]),
-    user_email: new FormControl('', [Validators.required]),
+    user_email: new FormControl(this.appservices.authStatus.profile_email, [Validators.required]),
     user_profileType: new FormControl('', [Validators.required]),
     user_gender: new FormControl('', [Validators.required]),
     user_mother_toungh: new FormControl('', [Validators.required]),
@@ -518,6 +385,7 @@ export class UserViewComponent implements OnInit {
     user_diet: new FormControl('', [Validators.required]),
     user_smoking: new FormControl('', [Validators.required]),
     user_drinking: new FormControl('', [Validators.required]),
+    user_like: new FormControl('', [Validators.required]),
     completed: new FormControl(1, []),
   });
 
@@ -532,20 +400,7 @@ export class UserViewComponent implements OnInit {
   });
 
 
-  partnerPreferenceForm = new FormGroup({
-    user_ID: new FormControl('', []),
-    user_height: new FormControl('', [Validators.required]),
-    user_religion: new FormControl('', [Validators.required]),
-    user_country: new FormControl('', [Validators.required]),
-    user_marital_status: new FormControl('', [Validators.required]),
-    user_state: new FormControl('', [Validators.required]),
-    user_city: new FormControl('', [Validators.required]),
-    user_employed_In: new FormControl('', [Validators.required]),
-    user_occupation: new FormControl('', [Validators.required]),
-    user_mother_toungh: new FormControl('', [Validators.required]),
-    user_min_anual_income: new FormControl('', [Validators.required]),
-    user_max_anual_income: new FormControl('', [Validators.required]),
-  })
+
 
 
   responsiveOptions: any[] = [
@@ -575,6 +430,7 @@ export class UserViewComponent implements OnInit {
   userAllData: any
 
   actualUploadedFiles: any[] = []
+  imageUrl="this.appservices.getFilePath()}storage/"
   constructor(
     private appservices: AppService,
     private ApiParameterScript: ApiParameterScript,
@@ -587,8 +443,8 @@ export class UserViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.imageUrl=this.appservices.getFilePath()+'storage/';
     this.uploadURL = `${this.appservices.getApipath()}upload?q=${this.profile_id}`
-
     this.blockUI.start("Loading...")
     this._rout.params.subscribe((res: any) => {
       this.profile_id = res['profile_id']
@@ -596,7 +452,7 @@ export class UserViewComponent implements OnInit {
         console.log(res);
         this.blockUI.stop();
         if (res.success) {
-         
+
           this.userAllData = res;
           console.log(this.userAllData);
           this.profileDetailsForm.patchValue({
@@ -611,7 +467,6 @@ export class UserViewComponent implements OnInit {
           this.userFamilyDetailsForm.patchValue(res['user_family'])
           this.habitHobbiesForm.patchValue(res['user_diet_hobbies'])
           this.physicalDeatilsForm.patchValue(res['user_physical_details'])
-          this.partnerPreferenceForm.patchValue(res['user_partnerpreference'])
           this.basicDetailsForm.patchValue(res['user_info'])
           this.getSubcaste(this.user_religionDetailsForm.value.user_caste)
           this.getstatefilter(this.locationDetailsForm.value.user_country);
@@ -675,30 +530,30 @@ export class UserViewComponent implements OnInit {
             return null
           }
         });
-        console.log(this.anualIncomeOptions);
+
       }
     })
 
-    // this.ApiParameterScript.fetchdata('additional_education', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('additional_education', { "projection": ["*"] }).subscribe((res: any) => {
 
 
-    //   if (res.success && res['data'].length > 0) {
+      if (res.success && res['data'].length > 0) {
 
-    //     this.aducationalOptions2 = res['data'].map((obj: any) => {
-    //       if (obj.status == 1) {
-    //         return { name: obj.additional_education_name };
-    //       } else {
-    //         return null
-    //       }
-    //     });
-
-
+        this.aducationalOptions2 = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.additional_education_name };
+          } else {
+            return null
+          }
+        });
 
 
 
-    //   }
 
-    // })
+
+      }
+
+    })
 
     this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"] }).subscribe((res: any) => {
       console.log(res['data'][0]);
@@ -713,7 +568,6 @@ export class UserViewComponent implements OnInit {
           }
         });
 
-        console.log(this.anualIncomeOptions);
 
 
 
@@ -721,25 +575,25 @@ export class UserViewComponent implements OnInit {
 
     })
 
-    // this.ApiParameterScript.fetchdata('highest_education', { "projection": ["*"] }).subscribe((res: any) => {
-    //   // console.log(res['data'][0]);
-    //   if (res.success && res['data'].length > 0) {
+    this.ApiParameterScript.fetchdata('highest_education', { "projection": ["*"] }).subscribe((res: any) => {
+      // console.log(res['data'][0]);
+      if (res.success && res['data'].length > 0) {
 
-    //     this.aducationalOptions1 = res['data'].map((obj: any) => {
-    //       if (obj.status == 1) {
-    //         return { name: obj.highest_education_name };
-    //       } else {
-    //         return null
-    //       }
-    //     });
-
-
+        this.aducationalOptions1 = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.highest_education_name };
+          } else {
+            return null
+          }
+        });
 
 
 
-    //   }
 
-    // })
+
+      }
+
+    })
 
 
     this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"] }).subscribe((res: any) => {
@@ -775,7 +629,7 @@ export class UserViewComponent implements OnInit {
             return null
           }
         });
-        console.log(this.anualIncomeOptions);
+
       }
 
 
@@ -798,12 +652,6 @@ export class UserViewComponent implements OnInit {
         });
         console.log(this.anualIncomeOptions);
       }
-
-
-
-
-
-
     })
 
     this.ApiParameterScript.fetchdata('religion', { "projection": ["*"] }).subscribe((res: any) => {
@@ -1244,57 +1092,6 @@ export class UserViewComponent implements OnInit {
   }
 
 
-  userupartnerpreferenceForm_submit() {
-    console.log(this);
-    if (this.partnerPreferenceForm.valid) {
-      if (this.partnerPreferenceForm.value.user_ID == '') {
-        this.partnerPreferenceForm.value['user_ID'] = this.profile_id
-        var updateData = {
-          "data": this.partnerPreferenceForm.value,
-          "whereConditions": { user_ID: this.profile_id }
-        }
-        console.log("need to Save");
-        this.ApiParameterScript.savedata('user_partnerpreference', updateData).subscribe((res: any) => {
-          console.log(res);
-          if (res.success) {
-            Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
-          } else {
-            Swal.fire('No Data Updated', res.message, 'error')
-          }
-
-        })
-
-      } else {
-        var updateData = {
-          "data": this.partnerPreferenceForm.value,
-          "whereConditions": { user_ID: this.profile_id }
-        }
-        this.ApiParameterScript.updatedata('user_partnerpreference', updateData).subscribe((res: any) => {
-          console.log(res);
-          if (res.success) {
-            Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
-          } else {
-            Swal.fire('No Data Updated', res.message, 'error')
-          }
-
-        })
-
-      }
-    } else {
-
-      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning')
-
-    }
-  }
-
-
-
-
-  // imagesUpload
 
 
   onUpload(event: any) {
@@ -1351,16 +1148,14 @@ export class UserViewComponent implements OnInit {
     });
 
 
-    console.log("this", this.selecteduploadedFiles);
+
 
 
   }
 
   onClearSelectedFile() {
     console.log("Calling onClearSelectedFile");
-
     this.selecteduploadedFiles = this.images
-
   }
 
   onRemoveFile(event: any) {
@@ -1368,9 +1163,6 @@ export class UserViewComponent implements OnInit {
     _.remove(this.selecteduploadedFiles, item => item.previewImageSrc === event.file.objectURL.changingThisBreaksApplicationSecurity)
 
   }
-
-
-
   activeAccount() {
     if (this.userAllData?.user_profile_status == 'Completed') {
       this.blockUI.start("Please Wait...")
@@ -1391,7 +1183,7 @@ export class UserViewComponent implements OnInit {
   public viewMemberimages() {
 
 
-    const modalRef = this.modalService.open(ImageViewOperationComponent, { fullscreen: true, scrollable: true });
+    const modalRef = this.modalService.open(ImageViewOperationComponent, { size: 'xl', scrollable: true });
     modalRef.componentInstance.user_id = this.profile_id
 
 

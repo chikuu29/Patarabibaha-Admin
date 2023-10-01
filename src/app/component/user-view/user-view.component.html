@@ -47,14 +47,18 @@
     </ng-container>
 
     <div class="row gutters-sm">
-      <div class="col-md-4 mb-3">
+      <div class="col-md-5 mb-3">
         <div class="card" style="overflow: auto;">
           <div class="card-body mb-3">
             <div class="d-flex flex-column align-items-center text-center">
-              <ng-container *ngIf="uloadedImageFile.length == 0">
+              <img [src]="imageUrl+userAllData?.user_info?.user_profile_image"
+              onerror="this.onerror=null;this.src='https://bootdey.com/img/Content/avatar/avatar7.png';"
+               alt="Admin" class="rounded-circle"
+                  width="150"  height="150"/>
+              <!-- <ng-container *ngIf="uloadedImageFile.length == 0">
                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
                   width="150" />
-              </ng-container>
+              </ng-container> -->
               <ng-container *ngIf="uloadedImageFile.length > 0">
                 <div class="rounded-circle border" style="border-radius: 2px solid red">
                   <p-image [src]="profileImage" alt="Image" width="150" [preview]="true"></p-image>
@@ -71,299 +75,10 @@
             </div>
           </div>
         </div>
-        <div class="card mt-3 p-3">
-          <div class="d-flex">
-            <h2 class="fw-bold fs-4 text-muted">Partner Preference</h2>
-            <ng-container *ngIf="partnerPreferenceForm.valid">
-              <span class="ms-2"><img src="/assets/img/icons/checkmark.png" alt="checkmark.png" srcset="" width="25px"
-                  height="25px" /></span>
-            </ng-container>
-            <ng-container *ngIf="!partnerPreferenceForm.valid">
-              <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
-                  height="25px" /></span>
-            </ng-container>
-          </div>
-          <div class="mb-3">
-            <mat-progress-bar mode="determinate" color="accent"
-              [value]="partnerPreferenceForm.valid ? 100 : 0"></mat-progress-bar>
-          </div>
-          <div>
-            <form [formGroup]="partnerPreferenceForm">
-              <div class="row mb-3">
-                <div class="form-group col-md-6">
-                  <label for="category" class="mb-3 text-muted fw-bold">Religion</label>
-                  <p-dropdown [options]="religionOptions" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="Religion" [style]="{ width: '100%' }"
-                    formControlName="user_religion" optionValue="name">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="country-item country-item-value">
-                        <div>
-                          {{
-                          this.partnerPreferenceForm.value.user_religion
-                          | formatdropdown
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-religion pTemplate="item">
-                      <div class="country-item">
-                        <div>{{ religion | formatdropdown }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="category" class="mb-3 text-muted fw-bold">Marital Status</label>
-                  <p-dropdown [options]="maritalOptions" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="Marital Status" [style]="{ width: '100%' }"
-                    formControlName="user_marital_status" optionValue="name">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="country-item country-item-value">
-                        <div>
-                          {{
-                          partnerPreferenceForm.value.user_marital_status
-                          | formatdropdown
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-marital pTemplate="item">
-                      <div class="country-item">
-                        <div>{{ marital | formatdropdown }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="form-group col-md-6">
-                  <label for="category" class="mb-3 text-muted fw-bold">Country Living In</label>
-                  <p-dropdown [options]="countryOption" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="Country Living In" [style]="{ width: '100%' }"
-                    formControlName="user_country" optionValue="name" >
-                    <ng-template pTemplate="selectedItem">
-                      <div class="country-item country-item-value">
-                        <div>
-                          {{
-                          partnerPreferenceForm.value.user_country || ""
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-country pTemplate="item">
-                      <div class="country-item">
-                        <div>{{ country.name }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="category" class="mb-3 text-muted fw-bold">
-                    State Living In</label>
-                  <p-dropdown [options]="stateOption" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="State Living In" [style]="{ width: '100%' }"
-                    formControlName="user_state" optionValue="name">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="country-item country-item-value">
-                        <div>
-                          {{
-                          partnerPreferenceForm.value.user_state
-                          | formatdropdown
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-state pTemplate="item">
-                      <div class="country-item">
-                        <div>{{ state | formatdropdown }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="form-group col-md-6">
-                  <label for="category" class="mb-3 text-muted fw-bold">City Living In</label>
-                  <p-dropdown [options]="cityOption" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="Profile Created By" [style]="{ width: '100%' }"
-                    formControlName="user_city" optionValue="name">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="country-item country-item-value">
-                        <div>
-                          {{
-                          partnerPreferenceForm.value.user_city
-                          | formatdropdown
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-city pTemplate="item">
-                      <div class="country-item">
-                        <div>{{ city | formatdropdown }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-
-                <div class="form-group col-md-6">
-                  <label class="mb-3 text-muted fw-bold">Mother Tounge</label>
-                  <p-dropdown [options]="motherTounghOptions" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="Mother Tounge" [style]="{ width: '100%' }"
-                    formControlName="user_mother_toungh" optionValue="name">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="">
-                        <div>
-                          {{
-                          partnerPreferenceForm.value.user_mother_toungh
-                          | formatdropdown
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-
-                    <ng-template let-motherToungh pTemplate="item">
-                      <div class="">
-                        <div>{{ motherToungh.name | uppercase }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="form-group col-md-6">
-                  <label for="category" class="mb-3 text-muted fw-bold">Height</label>
-                  <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="Height" [style]="{ width: '100%' }" formControlName="user_height"
-                    optionValue="name">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="country-item country-item-value">
-                        <div>
-                          {{
-                          partnerPreferenceForm.value.user_height
-                          | formatdropdown
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-item pTemplate="item">
-                      <div class="country-item">
-                        <div>{{ item | formatdropdown }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="category" class="mb-3 text-muted fw-bold">Employed In</label>
-                  <p-dropdown [options]="employeeInOptions" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="Employed In" [style]="{ width: '100%' }"
-                    formControlName="user_employed_In" optionValue="name">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="country-item country-item-value">
-                        <div>
-                          {{
-                          partnerPreferenceForm.value.user_employed_In
-                          | formatdropdown
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-employeeIn pTemplate="item">
-                      <div class="country-item">
-                        <div>{{ employeeIn | formatdropdown }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="category" class="mb-3 text-muted fw-bold">Occupation</label>
-                  <p-dropdown [options]="ocupationOptions" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="Occupation" [style]="{ width: '100%' }"
-                    formControlName="user_occupation" optionValue="name">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="country-item country-item-value">
-                        <div>
-                          {{
-                          partnerPreferenceForm.value.user_occupation
-                          | formatdropdown
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-ocupation pTemplate="item">
-                      <div class="country-item">
-                        <div>{{ ocupation | formatdropdown }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="form-group col-md-6">
-                  <label for="category" class="mb-3 text-muted fw-bold">Min Annual Income</label>
-                  <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="Min Annual Income" [style]="{ width: '100%' }"
-                    formControlName="user_min_anual_income" optionValue="name">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="country-item country-item-value">
-                        <div>
-                          {{
-                          partnerPreferenceForm.value
-                          .user_min_anual_income | formatdropdown
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-anualincome pTemplate="item">
-                      <div class="country-item">
-                        <div>
-                          {{ anualincome.name | currency : "INR" }}
-                        </div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="category" class="mb-3 text-muted fw-bold">Max Annual Income</label>
-                  <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name"
-                    [showClear]="true" placeholder="Max Annual Income" [style]="{ width: '100%' }"
-                    formControlName="user_max_anual_income" optionValue="name">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="country-item country-item-value">
-                        <div>
-                          {{
-                          partnerPreferenceForm.value
-                          .user_max_anual_income | formatdropdown
-                          }}
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-anualincome pTemplate="item">
-                      <div class="country-item">
-                        <div>
-                          {{ anualincome.name | currency : "INR" }}
-                        </div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-              </div>
-
-
-            </form>
-            <div class="row mt-2">
-              <div class="col-sm-12">
-                <button mat-raised-button color="accent" (click)="userupartnerpreferenceForm_submit()" class="me-2">
-                  Update
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-partner-preference></app-partner-preference>
+       
       </div>
-      <div class="col-md-8">
+      <div class="col-md-7" style="overflow-y: scroll; max-height: 100vh;">
         <div class="card mb-3">
           <div class="card-body">
             <div class="mb-3">
@@ -423,8 +138,8 @@
                       width="25px" height="25px" /></span>
                 </ng-container>
                 <ng-container *ngIf="!basicDetailsForm.valid">
-                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
-                      height="25px" /></span>
+                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset=""
+                      width="25px" height="25px" /></span>
                 </ng-container>
               </div>
             </div>
@@ -450,7 +165,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Gender</label>
+                    <label class="mb-3 text-muted fw-bold">Gender</label>
                     <p-dropdown [options]="genderOptions" [showClear]="true" placeholder="Gender"
                       [style]="{ width: '100%' }" formControlName="user_gender">
                       <ng-template pTemplate="selectedItem">
@@ -471,7 +186,7 @@
                     </p-dropdown>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Profile Created By</label>
+                    <label class="mb-3 text-muted fw-bold">Profile Created By</label>
                     <p-dropdown [options]="profileOptions" formControlName="user_profileType" [showClear]="true"
                       placeholder="Profile Created By" [style]="{ width: '100%' }">
                       <ng-template pTemplate="selectedItem">
@@ -494,7 +209,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Marital Status</label>
+                    <label class="mb-3 text-muted fw-bold">Marital Status</label>
                     <p-dropdown [options]="maritalOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Marital Status" [style]="{ width: '100%' }"
                       formControlName="user_marital_status" optionValue="name">
@@ -554,11 +269,11 @@
                   </div>
 
                   <!-- <div class="form-group col-md-6">
-                                          <mat-form-field appearance="outline" class="flex-fill w-100">
-                                              <mat-label>Phone No</mat-label>
-                                              <input matInput placeholder="Phone No">
-                                          </mat-form-field>
-                                      </div> -->
+                                    <mat-form-field appearance="outline" class="flex-fill w-100">
+                                        <mat-label>Phone No</mat-label>
+                                        <input matInput placeholder="Phone No">
+                                    </mat-form-field>
+                                </div> -->
                 </div>
               </form>
               <div class="row mt-2">
@@ -571,7 +286,112 @@
             </div>
           </div>
         </div>
-
+     
+    
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="mb-3">
+              <div class="d-flex">
+                <h2 class="fw-bold fs-4 text-muted">
+                  Religion Information
+                </h2>
+                <ng-container *ngIf="user_religionDetailsForm.valid">
+                  <span class="ms-2"><img src="/assets/img/icons/checkmark.png" alt="checkmark.png" srcset=""
+                      width="25px" height="25px" /></span>
+                </ng-container>
+                <ng-container *ngIf="!user_religionDetailsForm.valid">
+                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset=""
+                      width="25px" height="25px" /></span>
+                </ng-container>
+              </div>
+            </div>
+            <div class="mb-3">
+              <mat-progress-bar mode="determinate" color="accent"
+                [value]="user_religionDetailsForm.valid ? 100 : 0"></mat-progress-bar>
+            </div>
+            <div>
+              <form [formGroup]="user_religionDetailsForm">
+                <div class="row mb-3">
+                  <div class="form-group col-md-6">
+                    <label class="mb-3 text-muted fw-bold">Religion</label>
+                    <p-dropdown [options]="religionOptions" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="true" placeholder="Religion" [style]="{ width: '100%' }"
+                      formControlName="user_religion" optionValue="name">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{
+                            this.user_religionDetailsForm.value
+                            .user_religion | formatdropdown
+                            }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-religion pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ religion | formatdropdown }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="mb-3 text-muted fw-bold">Caste</label>
+                    <p-dropdown [options]="religionCasteOptions" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="true" placeholder="Caste" [style]="{ width: '100%' }"
+                      formControlName="user_caste" optionValue="name"
+                      (onChange)="getSubcaste(user_religionDetailsForm.value.user_caste)"
+                      (onClear)="getSubcaste(user_religionDetailsForm.value.user_caste)">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{ user_religionDetailsForm.value.user_caste | formatdropdown}}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-subcaste pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ subcaste | formatdropdown }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group col-md-12">
+                    <label class="mb-3 text-muted fw-bold">Sub Caste</label>
+                    <p-dropdown [options]="religionSubcasteOptions" optionLabel="name" [filter]="true"
+                      filterBy="name" [showClear]="true" placeholder="Sub Caste" [style]="{ width: '100%' }"
+                      formControlName="user_subcaste" optionValue="name">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{
+                            this.user_religionDetailsForm.value
+                            .user_subcaste | formatdropdown
+                            }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-subcaste pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ subcaste | formatdropdown }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+              </form>
+              <div class="row mt-2">
+                <div class="col-sm-12">
+                  <button mat-raised-button color="accent" (click)="religionDetailsForm()">
+                    Update
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
         <div class="card mb-3">
           <div class="card-body">
             <div class="mb-3">
@@ -584,8 +404,8 @@
                       width="25px" height="25px" /></span>
                 </ng-container>
                 <ng-container *ngIf="!education_occupationDetailsForm.valid">
-                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
-                      height="25px" /></span>
+                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset=""
+                      width="25px" height="25px" /></span>
                 </ng-container>
               </div>
             </div>
@@ -597,8 +417,8 @@
               <form [formGroup]="education_occupationDetailsForm">
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Highest Education</label>
-                    <p-dropdown [options]="aducationalOptions" optionLabel="name" [filter]="true" filterBy="name"
+                    <label class="mb-3 text-muted fw-bold">Highest Education</label>
+                    <p-dropdown [options]="aducationalOptions1" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Highest Education" [style]="{ width: '100%' }"
                       formControlName="user_highest_education" optionValue="name">
                       <ng-template pTemplate="selectedItem">
@@ -619,8 +439,8 @@
                     </p-dropdown>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Additional Degree</label>
-                    <p-dropdown [options]="aducationalOptions" optionLabel="name" [filter]="true" filterBy="name"
+                    <label class="mb-3 text-muted fw-bold">Additional Degree</label>
+                    <p-dropdown [options]="aducationalOptions2" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Additional Degree" [style]="{ width: '100%' }"
                       formControlName="user_additional_education" optionValue="name">
                       <ng-template pTemplate="selectedItem">
@@ -643,7 +463,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Occupation</label>
+                    <label class="mb-3 text-muted fw-bold">Occupation</label>
                     <p-dropdown [options]="ocupationOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Occupation" [style]="{ width: '100%' }"
                       formControlName="user_occupation" optionValue="name">
@@ -665,7 +485,7 @@
                     </p-dropdown>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Employed In</label>
+                    <label class="mb-3 text-muted fw-bold">Employed In</label>
                     <p-dropdown [options]="employeeInOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Employed In" [style]="{ width: '100%' }"
                       formControlName="user_employed_In" optionValue="name">
@@ -710,7 +530,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Annual Income</label>
+                    <label class="mb-3 text-muted fw-bold">Annual Income</label>
                     <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Annual Income" [style]="{ width: '100%' }"
                       formControlName="user_anual_income" optionValue="name">
@@ -745,112 +565,7 @@
             </div>
           </div>
         </div>
-
-
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="mb-3">
-              <div class="d-flex">
-                <h2 class="fw-bold fs-4 text-muted">
-                  Religion Information
-                </h2>
-                <ng-container *ngIf="user_religionDetailsForm.valid">
-                  <span class="ms-2"><img src="/assets/img/icons/checkmark.png" alt="checkmark.png" srcset=""
-                      width="25px" height="25px" /></span>
-                </ng-container>
-                <ng-container *ngIf="!user_religionDetailsForm.valid">
-                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
-                      height="25px" /></span>
-                </ng-container>
-              </div>
-            </div>
-            <div class="mb-3">
-              <mat-progress-bar mode="determinate" color="accent"
-                [value]="user_religionDetailsForm.valid ? 100 : 0"></mat-progress-bar>
-            </div>
-            <div>
-              <form [formGroup]="user_religionDetailsForm">
-                <div class="row mb-3">
-                  <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Religion</label>
-                    <p-dropdown [options]="religionOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Religion" [style]="{ width: '100%' }"
-                      formControlName="user_religion" optionValue="name">
-                      <ng-template pTemplate="selectedItem">
-                        <div class="country-item country-item-value">
-                          <div>
-                            {{
-                            this.user_religionDetailsForm.value
-                            .user_religion | formatdropdown
-                            }}
-                          </div>
-                        </div>
-                      </ng-template>
-                      <ng-template let-religion pTemplate="item">
-                        <div class="country-item">
-                          <div>{{ religion | formatdropdown }}</div>
-                        </div>
-                      </ng-template>
-                    </p-dropdown>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Caste</label>
-                    <p-dropdown (onChange)="getSubcaste(user_religionDetailsForm.value.user_caste)" (onClear)="getSubcaste(user_religionDetailsForm.value.user_caste)" [options]="religionCasteOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Caste" [style]="{ width: '100%' }" formControlName="user_caste"
-                      optionValue="name">
-                      <ng-template pTemplate="selectedItem">
-                        <div class="country-item country-item-value">
-                          <div>
-                            {{
-                            this.user_religionDetailsForm.value.user_caste
-                            | formatdropdown
-                            }}
-                          </div>
-                        </div>
-                      </ng-template>
-                      <ng-template let-subcaste pTemplate="item">
-                        <div class="country-item">
-                          <div>{{ subcaste | formatdropdown }}</div>
-                        </div>
-                      </ng-template>
-                    </p-dropdown>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-group col-md-12">
-                    <label for="category" class="mb-3 text-muted fw-bold">Sub Caste</label>
-                    <p-dropdown [options]="religionSubcasteOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Sub Caste" [style]="{ width: '100%' }"
-                      formControlName="user_subcaste" optionValue="name">
-                      <ng-template pTemplate="selectedItem">
-                        <div class="country-item country-item-value">
-                          <div>
-                            {{
-                            this.user_religionDetailsForm.value
-                            .user_subcaste | formatdropdown
-                            }}
-                          </div>
-                        </div>
-                      </ng-template>
-                      <ng-template let-subcaste pTemplate="item">
-                        <div class="country-item">
-                          <div>{{ subcaste | formatdropdown }}</div>
-                        </div>
-                      </ng-template>
-                    </p-dropdown>
-                  </div>
-                </div>
-              </form>
-              <div class="row mt-2">
-                <div class="col-sm-12">
-                  <button mat-raised-button color="accent" (click)="religionDetailsForm()">
-                    Update
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+     
 
         <div class="card mb-3">
           <div class="card-body">
@@ -862,8 +577,8 @@
                       width="25px" height="25px" /></span>
                 </ng-container>
                 <ng-container *ngIf="!userFamilyDetailsForm.valid">
-                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
-                      height="25px" /></span>
+                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset=""
+                      width="25px" height="25px" /></span>
                 </ng-container>
               </div>
             </div>
@@ -875,7 +590,7 @@
               <form [formGroup]="userFamilyDetailsForm">
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Family Type</label>
+                    <label class="mb-3 text-muted fw-bold">Family Type</label>
                     <p-dropdown [options]="familytypeOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Family Type" optionValue="name" [style]="{ width: '100%' }"
                       formControlName="user_family_type">
@@ -897,7 +612,7 @@
                     </p-dropdown>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Family value</label>
+                    <label class="mb-3 text-muted fw-bold">Family value</label>
                     <p-dropdown [options]="familyvalueOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Family value" optionValue="name" [style]="{ width: '100%' }"
                       formControlName="user_family_value">
@@ -921,7 +636,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Family Status</label>
+                    <label class="mb-3 text-muted fw-bold">Family Status</label>
                     <p-dropdown [options]="familystatusOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Family Status" formControlName="user_family_status"
                       [style]="{ width: '100%' }" optionValue="name">
@@ -943,7 +658,7 @@
                     </p-dropdown>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-2 text-muted fw-bold">Fathers Occupation</label>
+                    <label class="mb-2 text-muted fw-bold">Fathers Occupation</label>
                     <mat-form-field appearance="outline" class="flex-fill w-100">
                       <mat-label>Fathers Occupation</mat-label>
                       <input formControlName="user_father_occupation" matInput placeholder="Fathers Occupation" />
@@ -952,14 +667,14 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-2 text-muted fw-bold">Father Name</label>
+                    <label class="mb-2 text-muted fw-bold">Father Name</label>
                     <mat-form-field appearance="outline" class="flex-fill w-100">
                       <mat-label>Fathers Name</mat-label>
                       <input formControlName="user_father_name" matInput placeholder="Father Name" />
                     </mat-form-field>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-2 text-muted fw-bold">Mother Name</label>
+                    <label class="mb-2 text-muted fw-bold">Mother Name</label>
                     <mat-form-field appearance="outline" class="flex-fill w-100">
                       <mat-label>Mother Name</mat-label>
                       <input formControlName="user_mother_name" matInput placeholder="Mother Name" />
@@ -968,16 +683,16 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-2 text-muted fw-bold">Mothers Occupation</label>
+                    <label class="mb-2 text-muted fw-bold">Mothers Occupation</label>
                     <mat-form-field appearance="outline" class="flex-fill w-100">
                       <mat-label>Mothers Occupation</mat-label>
                       <input formControlName="user_mothers_occupation" matInput placeholder="Mothers Occupation" />
                     </mat-form-field>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">No of Unmarried Brothers</label>
-                    <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="No of Unmarried Brothers"
+                    <label class="mb-3 text-muted fw-bold">No of Unmarried Brothers</label>
+                    <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true"
+                      filterBy="name" [showClear]="true" placeholder="No of Unmarried Brothers"
                       formControlName="user_no_of_unmarried_brother" [style]="{ width: '100%' }" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1001,10 +716,10 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">No of Married Brothers</label>
-                    <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="No of Married
-                                              Brothers" [style]="{ width: '100%' }"
+                    <label class="mb-3 text-muted fw-bold">No of Married Brothers</label>
+                    <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true"
+                      filterBy="name" [showClear]="true" placeholder="No of Married
+                                        Brothers" [style]="{ width: '100%' }"
                       formControlName="user_no_of_married_brother" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1026,10 +741,10 @@
                     </p-dropdown>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">No of Unmarried Sisters</label>
-                    <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="No of Unmarried Sisters" [style]="{ width: '100%' }"
-                      formControlName="user_no_of_unmarried_sister" optionValue="name">
+                    <label class="mb-3 text-muted fw-bold">No of Unmarried Sisters</label>
+                    <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true"
+                      filterBy="name" [showClear]="true" placeholder="No of Unmarried Sisters"
+                      [style]="{ width: '100%' }" formControlName="user_no_of_unmarried_sister" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
@@ -1052,10 +767,10 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">No of Married Sisters</label>
-                    <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="No of Married
-                                              Sisters" [style]="{ width: '100%' }"
+                    <label class="mb-3 text-muted fw-bold">No of Married Sisters</label>
+                    <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true"
+                      filterBy="name" [showClear]="true" placeholder="No of Married
+                                        Sisters" [style]="{ width: '100%' }"
                       formControlName="user_no_of_married_sister" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1088,8 +803,8 @@
             </div>
           </div>
         </div>
-
-
+     
+    
         <div class="card mb-3">
           <div class="card-body">
             <div class="mb-3">
@@ -1100,8 +815,8 @@
                       width="25px" height="25px" /></span>
                 </ng-container>
                 <ng-container *ngIf="!locationDetailsForm.valid">
-                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
-                      height="25px" /></span>
+                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset=""
+                      width="25px" height="25px" /></span>
                 </ng-container>
               </div>
             </div>
@@ -1112,7 +827,7 @@
             <div>
               <form [formGroup]="locationDetailsForm">
                 <div class="row mb-3">
-                  <label for="category" class="mb-3 text-muted fw-bold">Current Address</label>
+                  <label class="mb-3 text-muted fw-bold">Current Address</label>
 
                   <mat-form-field appearance="outline" class="flex-fill w-100">
                     <mat-label>Current Address</mat-label>
@@ -1121,46 +836,50 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Country Living In</label>
-                    <p-dropdown (onShow)="getstatefilter(locationDetailsForm.value.user_country)" (onChange)="getstatefilter(locationDetailsForm.value.user_country)"
-                    (onClear)="getstatefilter(locationDetailsForm.value.user_country)"  [options]="countryOption" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Country Living In" [style]="{ width: '100%' }"
-                      formControlName="user_country" optionValue="name">
+                    <label class="mb-3 text-muted fw-bold">Country Living In</label>
+                    <p-dropdown (onChange)="getstatefilter(locationDetailsForm.value.user_country)"
+                      (onClear)="getstatefilter(locationDetailsForm.value.user_country)" [options]="countryOption"
+                      optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+                      placeholder="Country Living In" [style]="{ width: '100%' }" formControlName="user_country"
+                      optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
                             {{
-                            locationDetailsForm.value.user_country ||""
+                            locationDetailsForm.value.user_country
+                            | formatdropdown
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-country pTemplate="item">
                         <div class="country-item">
-                          <div>{{ country.name }}</div>
+                          <div>{{ country | formatdropdown }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">
+                    <label class="mb-3 text-muted fw-bold">
                       State Living In</label>
                     <p-dropdown (onChange)="getcityfilter(locationDetailsForm.value.user_state)"
-                    (onClear)="getcityfilter(locationDetailsForm.value.user_state)" [options]="stateOption" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="State Living In" [style]="{ width: '100%' }"
-                      formControlName="user_state" optionValue="name">
+                      (onClear)="getcityfilter(locationDetailsForm.value.user_state)" [options]="stateOption"
+                      optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+                      placeholder="State Living In" [style]="{ width: '100%' }" formControlName="user_state"
+                      optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
                             {{
-                            locationDetailsForm.value.user_state || ""
+                            locationDetailsForm.value.user_state
+                            | formatdropdown
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-state pTemplate="item">
                         <div class="country-item">
-                          <div>{{ state.name }}</div>
+                          <div>{{ state | formatdropdown }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -1168,7 +887,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">City Living In</label>
+                    <label class="mb-3 text-muted fw-bold">City Living In</label>
                     <p-dropdown [options]="cityOption" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="City Living in" [style]="{ width: '100%' }"
                       formControlName="user_city" optionValue="name">
@@ -1191,12 +910,12 @@
                   </div>
                 </div>
                 <div class="row mb-4">
-                  <label for="category" class="mb-3  fw-bold text-danger">Is Your Current Address Same With Parmanent
-                    Address</label>
+                  <label class="mb-3  fw-bold text-danger">Is Your Current Address Same With
+                    Parmanent Address</label>
                   <mat-radio-group aria-label="Select an option"
                     formControlName="user_current_and_permanent_address_same" (change)="onchangeAddress()">
-                    <mat-radio-button value="Yes" class="text-danger">Yes</mat-radio-button>
-                    <mat-radio-button value="No" class="text-danger">No</mat-radio-button>
+                    <mat-radio-button value="Yes">Yes</mat-radio-button>
+                    <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
                 </div>
 
@@ -1221,7 +940,7 @@
                 </div>
                 <div>
                   <div class="row mb-3">
-                    <label for="category" class="mb-3 text-muted fw-bold">Permanent Address</label>
+                    <label class="mb-3 text-muted fw-bold">Permanent Address</label>
                     <mat-form-field appearance="outline" class="flex-fill w-100">
                       <mat-label>Permanent Address</mat-label>
                       <textarea formControlName="user_Permanent_Address" matInput cols="30" rows="10"></textarea>
@@ -1229,7 +948,7 @@
                   </div>
                   <div class="row mb-3">
                     <div class="form-group col-md-6">
-                      <label for="category" class="mb-3 text-muted fw-bold">Country</label>
+                      <label class="mb-3 text-muted fw-bold">Country</label>
                       <p-dropdown [options]="countryOption" optionLabel="name" [filter]="true" filterBy="name"
                         [showClear]="true" placeholder="Country" [style]="{ width: '100%' }"
                         formControlName="user_Permanent_country" optionValue="name">
@@ -1251,7 +970,7 @@
                       </p-dropdown>
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="category" class="mb-3 text-muted fw-bold">
+                      <label class="mb-3 text-muted fw-bold">
                         State</label>
                       <p-dropdown [options]="stateOption" optionLabel="name" [filter]="true" filterBy="name"
                         [showClear]="true" placeholder="State" [style]="{ width: '100%' }"
@@ -1276,7 +995,7 @@
                   </div>
                   <div class="row mb-3">
                     <div class="form-group col-md-6">
-                      <label for="category" class="mb-3 text-muted fw-bold">City</label>
+                      <label class="mb-3 text-muted fw-bold">City</label>
                       <p-dropdown [options]="cityOption" optionLabel="name" [filter]="true" filterBy="name"
                         [showClear]="true" placeholder="City" [style]="{ width: '100%' }"
                         formControlName="user_Permanent_city" optionValue="name">
@@ -1310,8 +1029,8 @@
             </div>
           </div>
         </div>
-
-
+   
+   
         <div class="card mb-3">
           <div class="card-body">
             <div class="mb-3">
@@ -1322,8 +1041,8 @@
                       width="25px" height="25px" /></span>
                 </ng-container>
                 <ng-container *ngIf="!habitHobbiesForm.valid">
-                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
-                      height="25px" /></span>
+                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset=""
+                      width="25px" height="25px" /></span>
                 </ng-container>
               </div>
             </div>
@@ -1335,7 +1054,7 @@
               <form [formGroup]="habitHobbiesForm">
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Diet</label>
+                    <label class="mb-3 text-muted fw-bold">Diet</label>
                     <p-dropdown [options]="dietOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Diet" [style]="{ width: '100%' }" formControlName="user_diet"
                       optionValue="name">
@@ -1357,7 +1076,7 @@
                     </p-dropdown>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">
+                    <label class="mb-3 text-muted fw-bold">
                       Smoking Habits</label>
                     <p-dropdown [options]="smokingOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Smoking Habits" [style]="{ width: '100%' }"
@@ -1382,7 +1101,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Drinking Habits</label>
+                    <label class="mb-3 text-muted fw-bold">Drinking Habits</label>
                     <p-dropdown [options]="drinkOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Drinking Habits" [style]="{ width: '100%' }"
                       formControlName="user_drinking" optionValue="name">
@@ -1391,6 +1110,28 @@
                           <div>
                             {{
                             habitHobbiesForm.value.user_drinking
+                            | formatdropdown
+                            }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-item pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ item | formatdropdown }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="mb-3 text-muted fw-bold">Your Like</label>
+                    <p-dropdown [options]="likeOption" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="true" placeholder="Drinking Habits" [style]="{ width: '100%' }"
+                      formControlName="user_like" optionValue="name">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{
+                            habitHobbiesForm.value.user_like
                             | formatdropdown
                             }}
                           </div>
@@ -1415,8 +1156,7 @@
             </div>
           </div>
         </div>
-
-
+  
         <div class="card mb-3">
           <div class="card-body">
             <div class="mb-3">
@@ -1427,8 +1167,8 @@
                       width="25px" height="25px" /></span>
                 </ng-container>
                 <ng-container *ngIf="!physicalDeatilsForm.valid">
-                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
-                      height="25px" /></span>
+                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset=""
+                      width="25px" height="25px" /></span>
                 </ng-container>
               </div>
             </div>
@@ -1440,10 +1180,10 @@
               <form [formGroup]="physicalDeatilsForm">
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Height</label>
+                    <label class="mb-3 text-muted fw-bold">Height</label>
                     <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Height" [style]="{ width: '100%' }" formControlName="user_height"
-                      optionValue="name">
+                      [showClear]="true" placeholder="Height" [style]="{ width: '100%' }"
+                      formControlName="user_height" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
@@ -1462,11 +1202,11 @@
                     </p-dropdown>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">
+                    <label class="mb-3 text-muted fw-bold">
                       Weight</label>
                     <p-dropdown [options]="weightOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Weight" [style]="{ width: '100%' }" formControlName="user_weight"
-                      optionValue="name">
+                      [showClear]="true" placeholder="Weight" [style]="{ width: '100%' }"
+                      formControlName="user_weight" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
@@ -1487,7 +1227,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Body Type</label>
+                    <label class="mb-3 text-muted fw-bold">Body Type</label>
                     <p-dropdown [options]="bodyTpeOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Body Type" [style]="{ width: '100%' }"
                       formControlName="user_body_type" optionValue="name">
@@ -1509,7 +1249,7 @@
                     </p-dropdown>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Complextion</label>
+                    <label class="mb-3 text-muted fw-bold">Complextion</label>
                     <p-dropdown [options]="ComplextionOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Complextion" [style]="{ width: '100%' }"
                       formControlName="user_complextion" optionValue="name">
@@ -1533,7 +1273,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label for="category" class="mb-3 text-muted fw-bold">Physical Status</label>
+                    <label class="mb-3 text-muted fw-bold">Physical Status</label>
                     <p-dropdown [options]="physicalStatusOptions" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Profile Created By" [style]="{ width: '100%' }"
                       formControlName="user_physical_status" optionValue="name">
@@ -1566,8 +1306,8 @@
             </div>
           </div>
         </div>
-
-
+   
+   
         <div class="card mb-3">
           <div class="card-body">
             <div class="mb-3">
@@ -1578,8 +1318,8 @@
                       width="25px" height="25px" /></span>
                 </ng-container>
                 <ng-container *ngIf="!userAboutDetailsForm.valid">
-                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
-                      height="25px" /></span>
+                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset=""
+                      width="25px" height="25px" /></span>
                 </ng-container>
               </div>
             </div>

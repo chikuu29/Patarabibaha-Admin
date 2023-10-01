@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title text-muted " id="modal-title">All user images Found {{allProfileImage_Data.length}}</h4>
+    <h4 class="modal-title text-muted " id="modal-title">{{allProfileImage_Data.length}} images Found </h4>
     <button type="button" class="btn-close" aria-describedby="modal-title"
         (click)="modal.dismiss('Cross click')"></button>
 </div>
@@ -19,22 +19,15 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th style="width:22%">Profile ID</th>
-                <th style="width:22%">File Name</th>
-                <th style="width:22%">Images</th>
-                <th style="width:22%">Created At</th>
+                <th style="width:10%">Images</th>
+                <th style="width:10%">Created At</th>
 
-                <th style="width:22%">Status</th>
-                <th style="width:22%">Actions</th>
+                <th style="width:10%">Status</th>
+                <th style="width:10%">Actions</th>
 
             </tr>
             <tr>
-                <th>
-                    <!-- <p-columnFilter type="text" field="user_ID"></p-columnFilter> -->
-                </th>
-                <th>
-                    <!-- <p-columnFilter type="text" field="country.name"></p-columnFilter> -->
-                </th>
+               
                 <th>
                     <!-- <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -64,18 +57,15 @@
                         </ng-template>
                     </p-columnFilter>
                 </th>
+                <th></th>
 
 
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-image>
             <tr>
-                <td>
-                    {{ image?.user_ID }}
-                </td>
-                <td>
-                    {{ image?.title }}
-                </td>
+              
+                
                 <td>
                     <!-- <img [src]="image?.previewImageSrc" [alt]="image?.title"
                             width="100" class="shadow-4" /> -->
@@ -92,12 +82,14 @@
                     <p-tag [value]="image.status" [severity]="getSeverity(image.status)"></p-tag>
                 </td>
                 <td>
-                    <button mat-raised-button color="" class="bg-success mb-2 w-100 text-light"
+                    <div class="d-flex flex-column">
+                    <button mat-raised-button color="" class="bg-success mb-2 w-50 text-light"
                         (click)="approved(image)">Approved</button>
-                    <button mat-raised-button color="" class="bg-success mb-2 w-100 text-light"
-                        (click)="setProfile_picture(image)">Make user profile picture</button>
-                    <button mat-raised-button color="warn" class="w-100 mb-2" (click)="delet(image)">Delete</button>
-                    <button mat-raised-button color="accent" class="w-100" (click)="reject(image)">Rejected</button>
+                    <button mat-raised-button color="" class="bg-success mb-2 w-50 text-light"
+                        (click)="setProfile_picture(image)">Set profile</button>
+                    <button mat-raised-button color="warn" class="w-50 mb-2" (click)="delet(image)">Delete</button>
+                    <button mat-raised-button color="accent" class="w-50" (click)="reject(image)">Rejected</button>
+                </div>
                 </td>
 
             </tr>
