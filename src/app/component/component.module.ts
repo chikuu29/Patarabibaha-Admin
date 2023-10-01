@@ -18,6 +18,7 @@ import { ViewSpotlightComponent } from './view-spotlight/view-spotlight.componen
 import { LogoComponent } from './logo/logo.component';
 import { BannerComponent } from './banner/banner.component';
 import { CouponComponent } from './coupon/coupon.component';
+import { PartnerPreferenceComponent } from './partner-preference/partner-preference.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { CouponComponent } from './coupon/coupon.component';
     ViewSpotlightComponent,
     LogoComponent,
     BannerComponent,
-    CouponComponent
+    CouponComponent,
+    PartnerPreferenceComponent
   ],
   imports: [
     CommonModule,
