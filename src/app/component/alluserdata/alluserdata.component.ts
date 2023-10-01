@@ -24,11 +24,12 @@ export class AlluserdataComponent implements OnInit {
   }
 
   getAllData() {
-    let Quary =  'SELECT * FROM auth_user';
+    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
+        console.log(this.finaldata);
       }
     });
   }
