@@ -1,22 +1,29 @@
-<form [formGroup]="banner">
-    <label class="form-label text-white" for="customFile">Uplode Logo Image</label>
-    <input type="file" (change)="handleInputChange($event)" #fileUpload class="form-control" id="customFile" />
-    <label class="form-label text-white" for="customFile">Index</label>
-    <input type="text" formControlName="index" name="index" id="index">
-    <input type="submit" (click)="submit()" class="form-control" value="Submit">
-</form>
-<ng-container *ngIf="imageSrc!=''">
-    <div class="img-thumbnail h-25 w-25">
-        <img [src]="imageSrc"  class="img-thumbnail h-100 w-100" alt="">
-    </div>
-</ng-container>
+<div class="card p-3">
+    <form [formGroup]="banner">
+        <label class="text-muted fw-bold" >Upload Banner Images</label>
+        <input type="file" (change)="handleInputChange($event)" #fileUpload class="form-control" id="customFile" />
+        <ng-container *ngIf="imageSrc!=''">
+            <div class="img-thumbnail ">
+                <img [src]="imageSrc" class="img-thumbnail  w-25 h-25" alt="" height="25px">
+            </div>
+        </ng-container>
+        <div class="mb-3 mt-3">
+            <mat-form-field appearance="outline" class="flex-fill w-100">
+                <mat-label>Order No</mat-label>
+                <input matInput placeholder="Order No" formControlName="index" type="text" />
+            </mat-form-field>
+        </div>
+        <button type="submit" (click)="submit()" class="btn btn-primary mb-2">Submit</button>
+    </form>
+</div>
+
 
 <div class="">
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing  of  results</span>
+                <span class="fs-5">Showing of results</span>
             </div>
             <div class="caption-item">
                 <!-- Search Start -->
@@ -65,10 +72,10 @@
 
                         <td>{{i+1}}</td>
                         <td>
-                            <img [src]="url+data.image" class="h-25 w-25" alt="">
+                            <img [src]="url+data.image"  alt="" class="img-thumbnails"  height="100px">
                         </td>
                         <td>{{data.index}}</td>
-                        <td>{{data.created_At | date}}</td>
+                        <td>{{data.created_At | date :'medium'}}</td>
                         <td>
                             <p class="badge badge-danger" *ngIf="data.status == 0">
                                 NOT PUBLISHED
@@ -76,10 +83,13 @@
                             <p class="badge badge-success" *ngIf="data.status == 1">PUBLISHED</p>
                         </td>
                         <td>
-                            <button type="button" [class]="data.status == 0 ? 'btn btn-outline-success btn-fw me-2 w-50' : 'btn btn-outline-warning btn-fw me-2 w-50'"
-                                (click)="publish(data.id,data.status)"> {{ data.status == 0 ? 'PUBLISHED' : 'UNPUBLISHED' }} </button>
-                            <button type="button" (click)="delete(data.id)" class="btn btn-outline-danger btn-fw w-50">Delete</button>
-                            
+                            <button type="button"
+                                [class]="data.status == 0 ? 'btn btn-outline-success btn-fw me-2 w-50' : 'btn btn-outline-warning btn-fw me-2 w-50'"
+                                (click)="publish(data.id,data.status)"> {{ data.status == 0 ? 'PUBLISHED' :
+                                'UNPUBLISHED' }} </button>
+                            <button type="button" (click)="delete(data.id)"
+                                class="btn btn-outline-danger btn-fw w-50">Delete</button>
+
 
                         </td>
                     </tr>

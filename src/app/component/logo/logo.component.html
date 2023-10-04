@@ -1,11 +1,15 @@
-<label class="form-label text-white" for="customFile">Uplode Logo Image</label>
-<input type="file" (change)="handleInputChange($event)" #fileUpload class="form-control" id="customFile" />
-<input type="submit" (click)="submit()" class="form-control" value="Submit">
-<!-- <form>
-    <input type='file'  ng-model='yourModel' base-sixty-four-input>
-  </form> -->
-<div  class="img-thumbnail h-25 w-25">
-    <img [src]="imageSrc" *ngIf="imageSrc!=''" class="img-thumbnail h-25 w-25" alt="">
+
+<div class="card p-3">
+    <!-- <form [formGroup]="banner"> -->
+        <label class="text-muted fw-bold" >Upload Banner Images</label>
+        <input type="file" (change)="handleInputChange($event)" #fileUpload class="form-control" id="customFile" />
+        <ng-container *ngIf="imageSrc!=''">
+            <div class="img-thumbnail ">
+                <img [src]="imageSrc" class="img-thumbnail  w-25 h-25" alt="" height="25px">
+            </div>
+        </ng-container>
+        <button type="button" (click)="submit()" class="btn btn-primary mb-2 mt-2">Submit</button>
+    <!-- </form> -->
 </div>
 <div class="">
     <div class="table-holder">
