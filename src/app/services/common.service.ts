@@ -28,4 +28,19 @@ export class CommonService {
   public bannerUplode(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'bannerUplode', apiData, { headers: this.headers })
   }
+  public matchByCast(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'matchByCast', apiData, { headers: this.headers })
+  }
+  public premimusMatches(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'premimusMatches', apiData, { headers: this.headers })
+  }
+  public matchesforindivisual(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'matchesforindivisual', apiData, { headers: this.headers })
+  }
+  public matches(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'matches', apiData, { headers: this.headers })
+  }
+  
+  
+  
 }

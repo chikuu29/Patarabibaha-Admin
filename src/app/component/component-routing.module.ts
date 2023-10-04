@@ -11,6 +11,8 @@ import { ViewSpotlightComponent } from './view-spotlight/view-spotlight.componen
 import { LogoComponent } from './logo/logo.component';
 import { BannerComponent } from './banner/banner.component';
 import { CouponComponent } from './coupon/coupon.component';
+import { MatchmakingComponent } from './matchmaking/matchmaking.component';
+import { MatchpageComponent } from './matchpage/matchpage.component';
 
 
 const routes: Routes = [
@@ -72,6 +74,15 @@ const routes: Routes = [
         path: 'deatils-page',
         canActivate: [AuthGuard],
         component: CouponComponent
+      }, {
+        path: 'match-makng-page',
+        canActivate: [AuthGuard],
+        component: MatchmakingComponent
+      },
+      {
+        path: 'matches-page/:id',
+        canActivate: [AuthGuard],
+        component: MatchpageComponent
       },
       
       
