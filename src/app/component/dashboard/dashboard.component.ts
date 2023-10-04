@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   allApprovedUser: any = 0
   allPaidUser: any = 0
   image: any = ''
+  filterText:any=''
   constructor(
     private apiparameter: ApiParameterScript,
     private appsevices: AppService
@@ -41,7 +42,7 @@ export class DashboardComponent implements OnInit {
       switch (item) {
         case "Approved":
           query = "SELECT COUNT(user_id) as count FROM user_info WHERE user_membership_plan_active=1"
-          this.apiparameter.fetchDataFormQuery({ "query": query }).subscribe((res: any) => {
+          this.apiparameter.fetchDataFormQuery(query).subscribe((res: any) => {
             console.log(res);
             if (res.success && res['data'].length > 0) {
 
@@ -55,7 +56,7 @@ export class DashboardComponent implements OnInit {
           break;
         case 'Paid':
           query = "SELECT COUNT(user_id) as count FROM user_info WHERE user_membership_plan_active=4"
-          this.apiparameter.fetchDataFormQuery({ "query": query }).subscribe((res: any) => {
+          this.apiparameter.fetchDataFormQuery(query).subscribe((res: any) => {
             console.log(res);
             if (res.success && res['data'].length > 0) {
 
@@ -69,7 +70,7 @@ export class DashboardComponent implements OnInit {
 
         case "Inactive":
           query = "SELECT COUNT(user_id) as count FROM user_info WHERE user_membership_plan_active=0"
-          this.apiparameter.fetchDataFormQuery({ "query": query }).subscribe((res: any) => {
+          this.apiparameter.fetchDataFormQuery(query).subscribe((res: any) => {
             console.log(res);
             if (res.success && res['data'].length > 0) {
 
@@ -82,8 +83,8 @@ export class DashboardComponent implements OnInit {
           break;
         case "All":
           query = "SELECT COUNT(user_id) as count FROM user_info"
-          this.apiparameter.fetchDataFormQuery({ "query": query }).subscribe((res: any) => {
-            console.log(res);
+          this.apiparameter.fetchDataFormQuery(query).subscribe((res: any) => {
+            console.log("res",res);
             if (res.success && res['data'].length > 0) {
 
               this.allUserCount = res['data'][0].count ? res['data'][0].count : 0
@@ -163,7 +164,7 @@ export class DashboardComponent implements OnInit {
     }
 
     this.apiparameter.fetchdata('user_info', apiData).subscribe((res: any) => {
-      console.log(res);
+      console.log("res",res);
       if (res.success && res['data'].length > 0) {
         this.userInfoDATA = res['data'];
       } else {

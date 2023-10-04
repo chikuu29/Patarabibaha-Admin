@@ -20,6 +20,7 @@ import { BannerComponent } from './banner/banner.component';
 import { CouponComponent } from './coupon/coupon.component';
 import { MatchmakingComponent } from './matchmaking/matchmaking.component';
 import { MatchpageComponent } from './matchpage/matchpage.component';
+import { PartnerPreferenceComponent } from './partner-preference/partner-preference.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { MatchpageComponent } from './matchpage/matchpage.component';
     BannerComponent,
     CouponComponent,
     MatchmakingComponent,
-    MatchpageComponent
+    MatchpageComponent,
+    PartnerPreferenceComponent
   ],
   imports: [
     CommonModule,

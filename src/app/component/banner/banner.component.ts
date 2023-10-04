@@ -30,6 +30,7 @@ export class BannerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.imageSrc=''
     this.fatchdata();
   }
   handleInputChange(e: any) {
@@ -49,16 +50,18 @@ export class BannerComponent implements OnInit {
       image : reader.result
     })
     this.imageSrc = reader.result;
-    //console.log(this.imageSrc)
   }
 
   submit() {
+    this.blockUI.start("Please wait...")
     this.CommonService.bannerUplode(this.banner.value).subscribe((res: any) => {
+      this.blockUI.stop()
       if (res.success) {
         Swal.fire({
           icon: 'success',
           text: res.message
         }).then(() => {
+          this.banner.reset()
           this.ngOnInit();
         })
       } else {
