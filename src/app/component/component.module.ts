@@ -23,6 +23,8 @@ import { MatchpageComponent } from './matchpage/matchpage.component';
 import { PartnerPreferenceComponent } from './partner-preference/partner-preference.component';
 import { LoginactivityComponent } from './loginactivity/loginactivity.component';
 import { LoginactivityallComponent } from './loginactivityall/loginactivityall.component';
+import { LikeprofileviewComponent } from './likeprofileview/likeprofileview.component';
+import { LikeprofiledetailsComponent } from './likeprofiledetails/likeprofiledetails.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { LoginactivityallComponent } from './loginactivityall/loginactivityall.c
     MatchpageComponent,
     PartnerPreferenceComponent,
     LoginactivityComponent,
-    LoginactivityallComponent
+    LoginactivityallComponent,
+    LikeprofileviewComponent,
+    LikeprofiledetailsComponent
   ],
   imports: [
     CommonModule,

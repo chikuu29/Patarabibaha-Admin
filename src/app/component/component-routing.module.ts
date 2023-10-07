@@ -15,6 +15,8 @@ import { MatchmakingComponent } from './matchmaking/matchmaking.component';
 import { MatchpageComponent } from './matchpage/matchpage.component';
 import { LoginactivityComponent } from './loginactivity/loginactivity.component';
 import { LoginactivityallComponent } from './loginactivityall/loginactivityall.component';
+import { LikeprofiledetailsComponent } from './likeprofiledetails/likeprofiledetails.component';
+import { LikeprofileviewComponent } from './likeprofileview/likeprofileview.component';
 
 
 const routes: Routes = [
@@ -96,13 +98,16 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: LoginactivityallComponent
       },
-      
-      
-      
-      
-      
-      
-      
+      {
+        path: 'like-activity',
+        canActivate: [AuthGuard],
+        component: LikeprofileviewComponent
+      },
+      {
+        path: 'like-activity/details/:id',
+        canActivate: [AuthGuard],
+        component: LikeprofiledetailsComponent
+      },
     ]
   }
 

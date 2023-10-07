@@ -43,6 +43,10 @@ export class CommonService {
   public getLoginCount(){
     return this.http.post(this.appservices.getApipath()+ `getLoginCount`,null,{headers:this.headers})
   }
+  public getLikeCount(){
+    return this.http.post(this.appservices.getApipath()+ `getLikeCount`,null,{headers:this.headers})
+  }
+  
   
   
   
