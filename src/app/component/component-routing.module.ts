@@ -13,6 +13,8 @@ import { BannerComponent } from './banner/banner.component';
 import { CouponComponent } from './coupon/coupon.component';
 import { MatchmakingComponent } from './matchmaking/matchmaking.component';
 import { MatchpageComponent } from './matchpage/matchpage.component';
+import { LoginactivityComponent } from './loginactivity/loginactivity.component';
+import { LoginactivityallComponent } from './loginactivityall/loginactivityall.component';
 
 
 const routes: Routes = [
@@ -84,6 +86,17 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: MatchpageComponent
       },
+      {
+        path: 'login-activity',
+        canActivate: [AuthGuard],
+        component: LoginactivityComponent
+      },
+      {
+        path: 'login-activity/details/:id',
+        canActivate: [AuthGuard],
+        component: LoginactivityallComponent
+      },
+      
       
       
       

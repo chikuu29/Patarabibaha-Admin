@@ -21,6 +21,8 @@ import { CouponComponent } from './coupon/coupon.component';
 import { MatchmakingComponent } from './matchmaking/matchmaking.component';
 import { MatchpageComponent } from './matchpage/matchpage.component';
 import { PartnerPreferenceComponent } from './partner-preference/partner-preference.component';
+import { LoginactivityComponent } from './loginactivity/loginactivity.component';
+import { LoginactivityallComponent } from './loginactivityall/loginactivityall.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { PartnerPreferenceComponent } from './partner-preference/partner-prefere
     CouponComponent,
     MatchmakingComponent,
     MatchpageComponent,
-    PartnerPreferenceComponent
+    PartnerPreferenceComponent,
+    LoginactivityComponent,
+    LoginactivityallComponent
   ],
   imports: [
     CommonModule,

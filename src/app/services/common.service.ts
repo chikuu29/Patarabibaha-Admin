@@ -40,6 +40,10 @@ export class CommonService {
   public matches(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'matches', apiData, { headers: this.headers })
   }
+  public getLoginCount(){
+    return this.http.post(this.appservices.getApipath()+ `getLoginCount`,null,{headers:this.headers})
+  }
+  
   
   
   
