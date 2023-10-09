@@ -34,7 +34,6 @@ export class LikeprofiledetailsComponent implements OnInit {
   }
 
   userpage(data:any){
-    alert(data);
     this.router.navigate(['/user', data]);
   }
 

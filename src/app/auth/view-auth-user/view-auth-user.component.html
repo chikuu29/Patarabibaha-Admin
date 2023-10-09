@@ -136,8 +136,8 @@
                                     <td>{{data.auth_name}}</td>
                                     <td>{{data.auth_email}}</td>
                                     
-                                    <td>{{data.created_date |date :"fullDate"}}</td>
-                                    <td> <button mat-raised-button [color]="data.account_status=='active'?'primary':'accent'">{{data.account_status || "Not Availble"}}</button></td>
+                                    <td>{{data.created_date | date :"fullDate"}}</td>
+                                    <td> <button mat-raised-button [attr.color]="data.account_status=='active'?'primary':'accent'">{{data.account_status || "Not Availble"}}</button></td>
                                     <td>{{data.acount_type || "Not Availble"}}</td>
                                     <td>{{data.auth_phone_no}}</td>
                                     <td style="text-align: center;">

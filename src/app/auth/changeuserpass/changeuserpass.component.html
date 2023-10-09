@@ -1,27 +1,9 @@
-<div class="border border-success p-4">
-    <div class="d-flex justify-content-around">
-        <div class="p-4 text-left text-light">
-            <span>ID : </span> <a (click)="userpage(userdata?.user_id)" class="underline" href="javascript:void(0);"><span>{{ userdata?.user_id }}</span></a>
-        </div>
-        <div class="p-4 text-left text-light">
-            <span>Name : </span> <span>{{ userdata?.user_fname +' '+ userdata?.user_lname }}</span>
-        </div>
-    </div>
-    <div class="d-flex justify-content-around">
-        <div class="p-4 text-left text-light">
-            <span>Gemder : </span> <span>{{ userdata?.user_gender }}</span>
-        </div>
-        <div class="p-4 text-left text-light">
-            <span>mailid : </span> <span>{{ userdata?.user_email }}</span>
-        </div>
-    </div>
-</div>
 <div class="">
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{alldataoflike?.length}} of {{alldataoflike?.length}} results</span>
+                <span class="fs-5">Showing {{finaldata?.length}} of {{finaldata?.length}} results</span>
             </div>
             <div class="caption-item">
                 <!-- Search Start -->
@@ -58,17 +40,24 @@
                 <thead class="table-header">
                     <tr>
                         <th>#SI</th>
-                        <th>User Id</th>
-                        <th>Date</th>
+                        <th>User Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Mobile no</th>
+                        <th>Created At</th>
                     </tr>
                 </thead>
                 <tbody class="table-body table-striped">
-                    <ng-container
-                        *ngFor="let data of alldataoflike | fillter:['liked_profile']:filterText ; index as i">
+                    <ng-container *ngFor="let data of finaldata | fillter:['user_fname','user_lname','user_id','user_email','auth_phone_no']:filterText ; index as i">
                         <tr>
                             <td>{{i+1}}</td>
-                            <td> <a (click)="userpage(data?.liked_profile)" class="underline" href="javascript:void(0);">{{data?.liked_profile }} </a></td>
-                            <td>{{data?.created_At }}</td>
+                            <td> <a (click)="userpage(data?.user_id ,data?.user_fname,data?.user_lname)" class="underline" href="javascript:void(0);">
+                                    {{data?.user_fname+' '+data?.user_lname }}
+                                </a> </td>
+                            <td>{{data.user_dob | age}}</td>
+                            <td>{{data.user_gender }}</td>
+                            <td>{{data.auth_phone_no }}</td>
+                            <td>{{data.user_creation_date_time | date}}</td>
                         </tr>
                     </ng-container>
                 </tbody>

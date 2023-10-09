@@ -1164,7 +1164,7 @@ export class UserViewComponent implements OnInit {
 
   }
   activeAccount() {
-    if (this.userAllData?.user_profile_status == 'Completed') {
+   // if (this.userAllData?.user_profile_status == 'Completed') {
       this.blockUI.start("Please Wait...")
       let param = {
         "id": this.profile_id
@@ -1173,11 +1173,11 @@ export class UserViewComponent implements OnInit {
         this.blockUI.stop()
         this.ngOnInit()
       })
-    } else {
-      Swal.fire({
-        text: 'Please Complete User Profile'
-      })
-    }
+   // } else {
+    //   Swal.fire({
+    //     text: 'Please Complete User Profile'
+    //   })
+    // }
   }
 
   public viewMemberimages() {

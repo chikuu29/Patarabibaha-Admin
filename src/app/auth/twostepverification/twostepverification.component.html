@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-around p-4">
+    <div>
+        <span class="text-light">ID: </span> <span class="text-light">{{ this.id}}</span>
+    </div>
+    <div>
+        <span class="text-light">Name: </span> <span class="text-light">{{ this.fname +' '+this.lname }}</span>
+    </div>
+</div>
+<h1>1st Stap verification</h1>
+<div class="d-flex justify-content-around p-4">
+
+    <div>
+        <input class="form-control" type="text" [(ngModel)]="firstdata" placeholder="Enter Password" [readonly]="false">
+        <span class="text-danger">
+            {{ firsterror }}
+        </span>
+    </div>
+    <div>
+        <button type="submit" [disabled]="first" (click)="firstPass()" class="btn btn-primary">submit</button>
+    </div>
+</div>
+<h1>2nd Stap verification</h1>
+<div class="d-flex justify-content-around p-4">
+    <div>
+        <input class="form-control" type="text" [(ngModel)]="seconddata" placeholder="Enter Password" [readonly]="second">
+        <span class="text-danger">
+            {{ seconderror }}
+        </span>
+    </div>
+    <div>
+        <button type="submit" (click)="secondPass()" [disabled]="second" class="btn btn-primary">submit</button>
+    </div>
+</div>
+<h1>Passwordchange</h1>
+<div class="d-flex justify-content-around p-4">
+    <div>
+        <input class="form-control" type="text" [(ngModel)]="password" placeholder="Enter Password" [readonly]="third">
+    </div>
+    <div>
+        <button type="submit" [disabled]="third" (click)="changepass()" class="btn btn-primary">submit</button>
+    </div>
+</div>

@@ -46,6 +46,17 @@ export class CommonService {
   public getLikeCount(){
     return this.http.post(this.appservices.getApipath()+ `getLikeCount`,null,{headers:this.headers})
   }
+  public secondPass(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'secondPass', apiData, { headers: this.headers })
+  }
+  public firstPass(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'firstPass', apiData, { headers: this.headers })
+  }
+  passwordresetbyadmin(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'passwordresetbyadmin', apiData, { headers: this.headers })
+  }
+  
+  
   
   
   
