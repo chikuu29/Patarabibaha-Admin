@@ -11,13 +11,15 @@ import { MaterialModule } from '../material/material.module';
 import { PrimengModule } from '../primeng/primeng.module';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 import { ChangeuserpassComponent } from './changeuserpass/changeuserpass.component';
+import { TwostepverificationComponent } from './twostepverification/twostepverification.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     ViewAuthUserComponent,
-    ChangeuserpassComponent
+    ChangeuserpassComponent,
+    TwostepverificationComponent
   ],
   imports: [
     CommonModule,
