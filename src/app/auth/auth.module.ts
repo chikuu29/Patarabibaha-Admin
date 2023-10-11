@@ -10,12 +10,14 @@ import { ViewAuthUserComponent } from './view-auth-user/view-auth-user.component
 import { MaterialModule } from '../material/material.module';
 import { PrimengModule } from '../primeng/primeng.module';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
+import { ChangeuserpassComponent } from './changeuserpass/changeuserpass.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    ViewAuthUserComponent
+    ViewAuthUserComponent,
+    ChangeuserpassComponent
   ],
   imports: [
     CommonModule,
