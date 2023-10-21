@@ -17,6 +17,7 @@ import { LoginactivityComponent } from './loginactivity/loginactivity.component'
 import { LoginactivityallComponent } from './loginactivityall/loginactivityall.component';
 import { LikeprofiledetailsComponent } from './likeprofiledetails/likeprofiledetails.component';
 import { LikeprofileviewComponent } from './likeprofileview/likeprofileview.component';
+import { IgnoreactivityComponent } from './ignoreactivity/ignoreactivity.component';
 
 
 const routes: Routes = [
@@ -108,6 +109,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: LikeprofiledetailsComponent
       },
+      {
+        path: 'ignore-activity',
+        canActivate: [AuthGuard],
+        component: IgnoreactivityComponent
+      },
+      
     ]
   }
 

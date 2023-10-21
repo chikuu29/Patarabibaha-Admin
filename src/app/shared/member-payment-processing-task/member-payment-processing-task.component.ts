@@ -21,7 +21,7 @@ export class MemberPaymentProcessingTaskComponent implements OnInit {
   user_Data: any
   palnType: string;
   paymentType: string
-  seasons: string[] = [];
+  seasons: any = [];
   planInformation: any
   constructor(
     public modal: NgbActiveModal,
@@ -33,12 +33,19 @@ export class MemberPaymentProcessingTaskComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.user_Data);
+    console.log(this.user_Data.user_membership_plan_type);
     this.ApiParameterScript.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        console.log(res);
-        this.seasons = _.uniq(_.map(res['data'], 'membership_plan_type'))
+       // console.log(res['data']);
+        this.seasons = res['data'].filter((elemrnt: any) => {
+          if (elemrnt.membership_plan_default == 0 && elemrnt.membership_plan_type != this.user_Data.user_membership_plan_type ) {
+            return elemrnt;
+          }
+        });
+        console.log(this.seasons);
       }
     });
+
   }
 
   getPlandetails(plan_type: any) {

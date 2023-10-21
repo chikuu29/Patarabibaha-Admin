@@ -33,14 +33,16 @@ export class UpgradePaymentProcessTaskComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.user_Data);
-
+    console.log(this.user_Data.user_membership_plan_type);
     this.ApiParameterScript.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
+       // console.log(res['data']);
         this.seasons = res['data'].filter((elemrnt: any) => {
           if (elemrnt.membership_plan_default == 0 && elemrnt.membership_plan_type != this.user_Data.user_membership_plan_type ) {
             return elemrnt;
           }
         });
+        console.log(this.seasons);
       }
     });
 

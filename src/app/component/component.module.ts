@@ -25,6 +25,7 @@ import { LoginactivityComponent } from './loginactivity/loginactivity.component'
 import { LoginactivityallComponent } from './loginactivityall/loginactivityall.component';
 import { LikeprofileviewComponent } from './likeprofileview/likeprofileview.component';
 import { LikeprofiledetailsComponent } from './likeprofiledetails/likeprofiledetails.component';
+import { IgnoreactivityComponent } from './ignoreactivity/ignoreactivity.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { LikeprofiledetailsComponent } from './likeprofiledetails/likeprofiledet
     LoginactivityComponent,
     LoginactivityallComponent,
     LikeprofileviewComponent,
-    LikeprofiledetailsComponent
+    LikeprofiledetailsComponent,
+    IgnoreactivityComponent
   ],
   imports: [
     CommonModule,

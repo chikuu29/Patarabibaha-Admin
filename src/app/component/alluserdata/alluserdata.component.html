@@ -1,3 +1,14 @@
+<div class="d-flex justify-content-around pading">
+    <button type="button" [class]="class1" (click)="getAllData()">All Data</button>
+    <button type="button" [class]="class2" (click)="getAllOnlineData()">Online</button>
+    <button type="button" [class]="class3" (click)="getAllPublishedData()">Published</button>
+    <button type="button" [class]="class4"(click)="getAllUnpublishedData()">UnPublished</button>
+    <button type="button" [class]="class5"(click)="getAllDeletedData()">Deleted</button>
+    <button type="button" [class]="class6"(click)="getAllNotDeletedData()">Not Deleted</button>
+    <button type="button" [class]="class7"(click)="getAllApprovedData()">Approve</button>
+    <button type="button" [class]="class8"(click)="getAllPendingData()">Pending</button>
+    <button type="button" [class]="class9"(click)="getAllvaliduserData()">Valid user</button>
+</div>
 <div class="">
     <div class="table-holder">
         <div class="caption-header">
@@ -53,7 +64,8 @@
                     </tr>
                 </thead>
                 <tbody class="table-body table-striped">
-                    <ng-container *ngFor="let data of finaldata | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
+                    <ng-container
+                        *ngFor="let data of finaldata | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
                         <tr>
                             <td class="width">
                                 <p title="Online" class="badge badge-success" *ngIf="data.online_status == 1">
@@ -88,6 +100,7 @@
                                 <i [title]="data.deleted==1 ? ' DELETE':'RECOVER'"
                                     (click)="deletedata(data.user_id,data.deleted)"
                                     [class]="data.deleted==1 ? 'material-icons text-danger pointer':'material-icons text-success pointer'">delete_outline</i>
+
                                 <i title="PUBLISH" *ngIf="data.status == 0" (click)="publishuser(data.user_id)"
                                     class="material-icons pointer text-success">published_with_changes</i>
                                 <i title="UNPUBLISH" *ngIf="data.status == 1" (click)="unpublishuser(data.user_id)"
