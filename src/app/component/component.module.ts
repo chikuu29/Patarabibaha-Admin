@@ -27,6 +27,8 @@ import { LikeprofileviewComponent } from './likeprofileview/likeprofileview.comp
 import { LikeprofiledetailsComponent } from './likeprofiledetails/likeprofiledetails.component';
 import { IgnoreactivityComponent } from './ignoreactivity/ignoreactivity.component';
 import { IgnoredeatilsComponent } from './ignoredeatils/ignoredeatils.component';
+import { ExpirememberComponent } from './expiremember/expiremember.component';
+import { SalesreportComponent } from './salesreport/salesreport.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { IgnoredeatilsComponent } from './ignoredeatils/ignoredeatils.component'
     LikeprofileviewComponent,
     LikeprofiledetailsComponent,
     IgnoreactivityComponent,
-    IgnoredeatilsComponent
+    IgnoredeatilsComponent,
+    ExpirememberComponent,
+    SalesreportComponent
   ],
   imports: [
     CommonModule,

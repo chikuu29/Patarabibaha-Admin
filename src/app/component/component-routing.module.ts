@@ -19,7 +19,8 @@ import { LikeprofiledetailsComponent } from './likeprofiledetails/likeprofiledet
 import { LikeprofileviewComponent } from './likeprofileview/likeprofileview.component';
 import { IgnoreactivityComponent } from './ignoreactivity/ignoreactivity.component';
 import { IgnoredeatilsComponent } from './ignoredeatils/ignoredeatils.component';
-IgnoredeatilsComponent
+import { ExpirememberComponent } from './expiremember/expiremember.component';
+import { SalesreportComponent } from './salesreport/salesreport.component';
 
 const routes: Routes = [
   {
@@ -120,6 +121,19 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: IgnoredeatilsComponent
       },
+      {
+        path: 'expire-member',
+        canActivate: [AuthGuard],
+        component:  ExpirememberComponent
+      },
+      {
+        path: 'sales-report',
+        canActivate: [AuthGuard],
+        component:  SalesreportComponent
+      },
+
+     
+
       
       
     ]
