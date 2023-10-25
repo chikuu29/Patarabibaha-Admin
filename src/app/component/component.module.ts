@@ -26,6 +26,7 @@ import { LoginactivityallComponent } from './loginactivityall/loginactivityall.c
 import { LikeprofileviewComponent } from './likeprofileview/likeprofileview.component';
 import { LikeprofiledetailsComponent } from './likeprofiledetails/likeprofiledetails.component';
 import { IgnoreactivityComponent } from './ignoreactivity/ignoreactivity.component';
+import { IgnoredeatilsComponent } from './ignoredeatils/ignoredeatils.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { IgnoreactivityComponent } from './ignoreactivity/ignoreactivity.compone
     LoginactivityallComponent,
     LikeprofileviewComponent,
     LikeprofiledetailsComponent,
-    IgnoreactivityComponent
+    IgnoreactivityComponent,
+    IgnoredeatilsComponent
   ],
   imports: [
     CommonModule,

@@ -55,6 +55,10 @@ export class CommonService {
   passwordresetbyadmin(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'passwordresetbyadmin', apiData, { headers: this.headers })
   }
+  updateEditedPlanDetails(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'updateEditedPlanDetails', apiData, { headers: this.headers })
+  }
+  
   
   
   

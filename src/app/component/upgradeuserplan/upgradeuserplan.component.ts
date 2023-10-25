@@ -19,16 +19,28 @@ export class UpgradeuserplanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this. getAllData();
+    this.getAllData();
   }
 
   getAllData() {
-    this.ApiParameter.fetchdata('user_info', { "projection": ["*"] , "whereConditions": { user_status: 'Approved' } }).subscribe((res: any) => {
+
+    this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"], "whereConditions": { membership_plan_default: 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        this.finaldata = res['data'];
-        console.log(this.finaldata);
+        console.log(res['data'][0].membership_plan_type);
+        
+        let Quary =  `SELECT * FROM user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_membership_plan_type <> "${res['data'][0].membership_plan_type}";`
+        this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+          console.log(res);
+          if (res.success && res['data'].length > 0) {
+            this.finaldata = res['data'];
+            console.log(this.finaldata);
+          }
+        });
       }
-    })
+
+    });
+    console.log(this.finaldata);
+
   }
   userpage(data: any) {
     this.router.navigate(['/user', data]);

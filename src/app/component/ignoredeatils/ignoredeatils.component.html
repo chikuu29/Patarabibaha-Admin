@@ -1,9 +1,27 @@
+<div class="border border-success p-4">
+    <div class="d-flex justify-content-around">
+        <div class="p-4 text-left text-light">
+            <span>ID : </span> <a (click)="userpage(userdata?.user_id)" class="underline" href="javascript:void(0);"><span>{{ userdata?.user_id }}</span></a>
+        </div>
+        <div class="p-4 text-left text-light">
+            <span>Name : </span> <span>{{ userdata?.user_fname +' '+ userdata?.user_lname }}</span>
+        </div>
+    </div>
+    <div class="d-flex justify-content-around">
+        <div class="p-4 text-left text-light">
+            <span>Gemder : </span> <span>{{ userdata?.user_gender }}</span>
+        </div>
+        <div class="p-4 text-left text-light">
+            <span>mailid : </span> <span>{{ userdata?.user_email }}</span>
+        </div>
+    </div>
+</div>
 <div class="">
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing of results</span>
+                <span class="fs-5">Showing {{alldataoflike?.length}} of {{alldataoflike?.length}} results</span>
             </div>
             <div class="caption-item">
                 <!-- Search Start -->
@@ -36,33 +54,23 @@
             </div>
         </div>
         <div class="mt-3 data-view-container">
-            <table class="table">
+            <table class="table ">
                 <thead class="table-header">
                     <tr>
                         <th>#SI</th>
                         <th>User Id</th>
-                        <th>Ignore Count</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody class="table-body table-striped">
-                    <ng-container *ngIf="countele == 0">
-                        <td colspan="5" class="text-center">NO DATA</td>
+                    <ng-container
+                        *ngFor="let data of alldataoflike | fillter:['liked_profile']:filterText ; index as i">
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td> <a (click)="userpage(data?.id)" class="underline" href="javascript:void(0);">{{data?.id }} </a></td>
+                        </tr>
                     </ng-container>
-                    <tr *ngFor="let data of userdata | fillter:['id']:filterText ; index as i">
-
-                        <td>{{i+1}}</td>
-                        <td>
-                            {{ data.id }}
-                        </td>
-                        <td>{{ data.count }}</td>
-                        <td>
-                            <button type="button" (click)="details(data.id)"  class="btn btn-primary btn-lg btn-block">View Details </button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
-
     </div>
 </div>

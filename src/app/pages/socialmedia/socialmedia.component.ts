@@ -16,6 +16,7 @@ export class SocialmediaComponent implements OnInit {
     wh: new FormControl('', [Validators.required]),
     yo: new FormControl('', [Validators.required]),
     li: new FormControl('', [Validators.required]),
+    ai: new FormControl('', [Validators.required]),
   })
 
 
@@ -60,7 +61,8 @@ export class SocialmediaComponent implements OnInit {
           tw: res['data'][0].twitter_link,
           wh: res['data'][0].whatsapp_no,
           yo: res['data'][0].youtub_link,
-          li: res['data'][0].linkedin_link
+          li: res['data'][0].linkedin_link,
+          ai: res['data'][0].application_link
         })
         // this.socialMediaForm.setValue({
         //          fb: res['data'][0].facebook_link,

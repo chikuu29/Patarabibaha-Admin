@@ -6,13 +6,18 @@ import { UserapproveComponent } from './userapprove/userapprove.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrimengModule } from '../primeng/primeng.module';
 import { MaterialModule } from '../material/material.module';
+import { DeleterequestComponent } from './deleterequest/deleterequest.component';
 import { ProfileimagepproveComponent } from './profileimagepprove/profileimagepprove.component';
+
+
 
 
 @NgModule({
   declarations: [
     UserapproveComponent,
-    ProfileimagepproveComponent
+    ProfileimagepproveComponent,
+    DeleterequestComponent,
+    
   ],
   imports: [
     CommonModule,

@@ -18,7 +18,8 @@ import { LoginactivityallComponent } from './loginactivityall/loginactivityall.c
 import { LikeprofiledetailsComponent } from './likeprofiledetails/likeprofiledetails.component';
 import { LikeprofileviewComponent } from './likeprofileview/likeprofileview.component';
 import { IgnoreactivityComponent } from './ignoreactivity/ignoreactivity.component';
-
+import { IgnoredeatilsComponent } from './ignoredeatils/ignoredeatils.component';
+IgnoredeatilsComponent
 
 const routes: Routes = [
   {
@@ -114,6 +115,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: IgnoreactivityComponent
       },
+      {
+        path: 'ignore-activity-details/:id',
+        canActivate: [AuthGuard],
+        component: IgnoredeatilsComponent
+      },
+      
       
     ]
   }
