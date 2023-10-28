@@ -58,6 +58,9 @@ export class CommonService {
   updateEditedPlanDetails(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'updateEditedPlanDetails', apiData, { headers: this.headers })
   }
+  public waterMark(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'waterMark', apiData, { headers: this.headers });
+  }
   
   
   

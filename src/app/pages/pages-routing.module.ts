@@ -28,6 +28,7 @@ import { GotraComponent } from './gotra/gotra.component';
 import { AddtypeComponent } from './addtype/addtype.component';
 
 
+
 const routes: Routes = [
 
   {
@@ -154,6 +155,8 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: AddtypeComponent
       },
+      
+
       
       
 

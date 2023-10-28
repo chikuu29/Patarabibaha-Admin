@@ -21,6 +21,7 @@ import { IgnoreactivityComponent } from './ignoreactivity/ignoreactivity.compone
 import { IgnoredeatilsComponent } from './ignoredeatils/ignoredeatils.component';
 import { ExpirememberComponent } from './expiremember/expiremember.component';
 import { SalesreportComponent } from './salesreport/salesreport.component';
+import { WatermarkComponent } from './watermark/watermark.component';
 
 const routes: Routes = [
   {
@@ -130,7 +131,12 @@ const routes: Routes = [
         path: 'sales-report',
         canActivate: [AuthGuard],
         component:  SalesreportComponent
+      },{
+        path: 'water-page',
+        canActivate: [AuthGuard],
+        component: WatermarkComponent
       },
+
 
      
 

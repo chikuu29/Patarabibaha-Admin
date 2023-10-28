@@ -35,6 +35,7 @@ import { AddtypeComponent } from './addtype/addtype.component';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 
 
+
 @NgModule({
   declarations: [
     PageNotFoundComponent,
@@ -63,7 +64,7 @@ import { CustomPipeModule } from '../customPipe/custom-pipe.module';
     SubcasteComponent,
     PrifixidComponent,
     GotraComponent,
-    AddtypeComponent,
+    AddtypeComponent
    
   ],
   imports: [

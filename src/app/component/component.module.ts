@@ -29,6 +29,7 @@ import { IgnoreactivityComponent } from './ignoreactivity/ignoreactivity.compone
 import { IgnoredeatilsComponent } from './ignoredeatils/ignoredeatils.component';
 import { ExpirememberComponent } from './expiremember/expiremember.component';
 import { SalesreportComponent } from './salesreport/salesreport.component';
+import { WatermarkComponent } from './watermark/watermark.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { SalesreportComponent } from './salesreport/salesreport.component';
     IgnoreactivityComponent,
     IgnoredeatilsComponent,
     ExpirememberComponent,
-    SalesreportComponent
+    SalesreportComponent ,
+    WatermarkComponent
   ],
   imports: [
     CommonModule,
