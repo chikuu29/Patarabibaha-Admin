@@ -33,6 +33,7 @@ import { PrifixidComponent } from './prifixid/prifixid.component';
 import { GotraComponent } from './gotra/gotra.component';
 import { AddtypeComponent } from './addtype/addtype.component';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
+import { BarcodeComponent } from './barcode/barcode.component';
 
 
 
@@ -64,7 +65,8 @@ import { CustomPipeModule } from '../customPipe/custom-pipe.module';
     SubcasteComponent,
     PrifixidComponent,
     GotraComponent,
-    AddtypeComponent
+    AddtypeComponent,
+    BarcodeComponent
    
   ],
   imports: [

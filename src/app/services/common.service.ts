@@ -61,6 +61,9 @@ export class CommonService {
   public waterMark(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'waterMark', apiData, { headers: this.headers });
   }
+  public barCode(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'barCode', apiData, { headers: this.headers });
+  }
   
   
   

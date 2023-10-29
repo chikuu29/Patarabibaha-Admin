@@ -5,19 +5,19 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import Swal from 'sweetalert2';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { environment } from 'src/environments/environment';
-environment
+
 @Component({
-  selector: 'app-logo',
-  templateUrl: './logo.component.html',
-  styleUrls: ['./logo.component.scss']
+  selector: 'app-barcode',
+  templateUrl: './barcode.component.html',
+  styleUrls: ['./barcode.component.scss']
 })
-export class LogoComponent implements OnInit {
+export class BarcodeComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   img: any;
   image: any;
   filterText: any
-  url: any = environment.filePath + 'storage/logo_image/';
+  url: any = environment.filePath + 'storage/barcode/';
   public imageSrc: string = '';
   constructor(
     private CommonService: CommonService,
@@ -27,8 +27,6 @@ export class LogoComponent implements OnInit {
   ngOnInit(): void {
     this.fatchdata();
   }
-
-
   handleInputChange(e: any) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
@@ -47,7 +45,7 @@ export class LogoComponent implements OnInit {
   }
 
   submit() {
-    this.CommonService.logoUplode({ "image": this.imageSrc, 'date': moment().toISOString() }).subscribe((res: any) => {
+    this.CommonService.barCode({ "image": this.imageSrc, 'date': moment().toISOString() }).subscribe((res: any) => {
       if (res.success) {
         Swal.fire({
           icon: 'success',
@@ -65,7 +63,7 @@ export class LogoComponent implements OnInit {
   }
 
   fatchdata() {
-    this.ApiParameter.fetchdata('logo_table', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('barcode', { "projection": ["*"] }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.image = res['data'];
       }
@@ -81,7 +79,7 @@ export class LogoComponent implements OnInit {
       console.log(r);
       if (r.isConfirmed) {
         this.blockUI.start('Deleting...')
-        this.ApiParameter.deletedata('logo_table', { "whereConditions": { id: id } }).subscribe((res: any) => {
+        this.ApiParameter.deletedata('barcode', { "whereConditions": { id: id } }).subscribe((res: any) => {
           this.blockUI.stop();
           if (res.success) {
             Swal.fire('Success', res.message, 'success').then(() => {
@@ -109,7 +107,7 @@ export class LogoComponent implements OnInit {
             },
             "whereConditions": { id: id }
           }
-          this.ApiParameter.updatedata('logo_table', updateData).subscribe((res: any) => {
+          this.ApiParameter.updatedata('barcode', updateData).subscribe((res: any) => {
             // console.log(res);
             if (res.success) {
               Swal.fire({
@@ -142,7 +140,7 @@ export class LogoComponent implements OnInit {
             },
             "whereConditions": { id: id }
           }
-          this.ApiParameter.updatedata('logo_table', updateData).subscribe((res: any) => {
+          this.ApiParameter.updatedata('barcode', updateData).subscribe((res: any) => {
             // console.log(res);
             if (res.success) {
               Swal.fire({

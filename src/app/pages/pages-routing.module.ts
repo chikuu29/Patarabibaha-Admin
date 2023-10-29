@@ -26,6 +26,7 @@ import { ReligionComponent } from './religion/religion.component';
 import { PrifixidComponent } from './prifixid/prifixid.component';
 import { GotraComponent } from './gotra/gotra.component';
 import { AddtypeComponent } from './addtype/addtype.component';
+import { BarcodeComponent } from './barcode/barcode.component';
 
 
 
@@ -155,6 +156,13 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: AddtypeComponent
       },
+      {
+        path: 'barcode-page',
+        canActivate: [AuthGuard],
+        component: BarcodeComponent
+      },
+
+      
       
 
       
