@@ -17,6 +17,9 @@ export class BarcodeComponent implements OnInit {
   img: any;
   image: any;
   filterText: any
+  accountholdername:any;
+  upiid:any;
+  phonenumber:any;
   url: any = environment.filePath + 'storage/barcode/';
   public imageSrc: string = '';
   constructor(
@@ -45,7 +48,16 @@ export class BarcodeComponent implements OnInit {
   }
 
   submit() {
-    this.CommonService.barCode({ "image": this.imageSrc, 'date': moment().toISOString() }).subscribe((res: any) => {
+    let param = {
+      'image': this.imageSrc,
+      'upi' :this.upiid,
+      'phoneno' : this.phonenumber,
+      'name' : this.accountholdername,
+      'date': moment().toISOString()
+    }
+    console.log(param);
+    
+    this.CommonService.barCode(param).subscribe((res: any) => {
       if (res.success) {
         Swal.fire({
           icon: 'success',

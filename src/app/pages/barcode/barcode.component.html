@@ -1,23 +1,38 @@
-
-
 <div class="card p-3">
-    <!-- <form [formGroup]="banner"> -->
-        <label class="text-muted fw-bold" >Upload Banner Images</label>
+    
+        <label class="text-muted fw-bold">Upload Banner Images</label>
         <input type="file" (change)="handleInputChange($event)" #fileUpload class="form-control" id="customFile" />
         <ng-container *ngIf="imageSrc!=''">
             <div class="img-thumbnail ">
                 <img [src]="imageSrc" class="img-thumbnail  w-25 h-25" alt="" height="25px">
             </div>
         </ng-container>
+        <div class="form-group">
+            <label class="text-muted fw-bold" for="exampleInputEmail1">Account Holder Name</label>
+            <input type="text" class="form-control" [(ngModel)]="accountholdername" id="exampleInputEmail1" aria-describedby="emai"
+                placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label class="text-muted fw-bold" for="exampleInputEmail2">Upi Id</label>
+            <input type="text" class="form-control" [(ngModel)]="upiid" id="exampleInputEmail2" aria-describedby="emailHel"
+                placeholder="Upi Id">
+            
+        </div>
+        <div class="form-group">
+            <label class="text-muted fw-bold" for="exampleInputEmail3">Phone Number</label>
+            <input type="text" class="form-control" [(ngModel)]="phonenumber" id="exampleInputEmail3" aria-describedby="emailHe"
+                placeholder="Phone Number">
+           
+        </div>
         <button type="button" (click)="submit()" class="btn btn-primary mb-2 mt-2">Submit</button>
-    <!-- </form> -->
+    
 </div>
 <div class="">
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing  of  results</span>
+                <span class="fs-5">Showing of results</span>
             </div>
             <div class="caption-item">
                 <!-- Search Start -->
@@ -55,6 +70,9 @@
                     <tr>
                         <th>#SI</th>
                         <th>Image</th>
+                        <th>name</th>
+                        <th>Number</th>
+                        <th>Upi id</th>
                         <th>Created At</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -67,6 +85,9 @@
                         <td>
                             <img [src]="url+data.image" class="h-25 w-25" alt="">
                         </td>
+                        <td>{{data.name }}</td>
+                        <td>{{data.phoneno }}</td>
+                        <td>{{data.upi }}</td>
                         <td>{{data.created_At | date}}</td>
                         <td>
                             <p class="badge badge-danger" *ngIf="data.status == 0">
@@ -75,10 +96,13 @@
                             <p class="badge badge-success" *ngIf="data.status == 1">PUBLISHED</p>
                         </td>
                         <td>
-                            <button type="button" [class]="data.status == 0 ? 'btn btn-outline-success btn-fw me-2 w-50' : 'btn btn-outline-warning btn-fw me-2 w-50'"
-                                (click)="publish(data.id,data.status)"> {{ data.status == 0 ? 'PUBLISHED' : 'UNPUBLISHED' }} </button>
-                            <button type="button" (click)="delete(data.id)" class="btn btn-outline-danger btn-fw w-50">Delete</button>
-                            
+                            <button type="button"
+                                [class]="data.status == 0 ? 'btn btn-outline-success btn-fw me-2 w-50' : 'btn btn-outline-warning btn-fw me-2 w-50'"
+                                (click)="publish(data.id,data.status)"> {{ data.status == 0 ? 'PUBLISHED' :
+                                'UNPUBLISHED' }} </button>
+                            <button type="button" (click)="delete(data.id)"
+                                class="btn btn-outline-danger btn-fw w-50">Delete</button>
+
 
                         </td>
                     </tr>
