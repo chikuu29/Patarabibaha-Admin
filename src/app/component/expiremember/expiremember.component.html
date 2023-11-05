@@ -1,3 +1,8 @@
+<div class="d-flex justify-content-around pading">
+    <button type="button" [class]="class1" (click)="getExpireData()">Expire Users</button>
+    <button type="button" [class]="class2" (click)="freeUser()">Free Users</button>
+    <button type="button" [class]="class3" (click)="premiumUser()">Premium Users</button>
+</div>
 <div class="">
     <div class="table-holder">
         <div class="caption-header">
@@ -45,6 +50,7 @@
                         <th>Age</th>
                         <th>Gender</th>
                         <th>Mobile no</th>
+                        <th>Plan type</th>
                         <th>Created At</th>
                         <th>Plan last date</th>
                         <th>Status</th>
@@ -62,6 +68,7 @@
                             <td>{{data.user_dob | age}}</td>
                             <td>{{data.user_gender }}</td>
                             <td>{{data.auth_phone_no }}</td>
+                            <td>{{data.user_plan_type }}</td>
                             <td>{{data.user_creation_date_time | date}}</td>
                             <td>{{data.plan_stating_date | date}}</td>
                             <td>

@@ -14,6 +14,9 @@ import { MemberPaymentProcessingTaskComponent } from 'src/app/shared/member-paym
 export class ExpirememberComponent implements OnInit {
   finaldata: any;
   filterText: any;
+  class1: any = 'btn btn-primary';
+  class2: any = 'btn btn-primary';
+  class3: any = 'btn btn-primary';
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router,
@@ -116,9 +119,53 @@ export class ExpirememberComponent implements OnInit {
 
     }
   }
-  Upgrade(data:any){
+  Upgrade(data: any) {
     const modalRef = this.modalService.open(MemberPaymentProcessingTaskComponent, { size: 'lg' })
     modalRef.componentInstance.user_Data = data
+  }
+  freeUser() {
+
+    let Quary = 'select * from membership_plan where membership_plan_default=1';
+    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        let free = res['data'][0].membership_plan_type;
+        //console.log(free);
+
+        let Quary = "select * from auth_user as a Join user_info as b join user_plan_deatils as c on a.auth_ID = b.user_id AND b.user_id = c.user_id where c.active_status = 1 AND c.user_plan_type =" + `'${free}'` + ";"
+        console.log(Quary);
+        this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+          console.log(res);
+          if (res.success && res['data'].length > 0) {
+            this.finaldata = res['data'];
+            console.log(this.finaldata);
+          }
+        });
+
+      }
+    });
+
+  }
+  premiumUser() {
+    let Quary = 'select * from membership_plan where membership_plan_default=1';
+    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        let free = res['data'][0].membership_plan_type;
+        //console.log(free);
+
+        let Quary = "select * from auth_user as a Join user_info as b join user_plan_deatils as c on a.auth_ID = b.user_id AND b.user_id = c.user_id where c.active_status = 1 AND c.user_plan_type <>" + `'${free}'` + ";"
+        console.log(Quary);
+        this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+          console.log(res);
+          if (res.success && res['data'].length > 0) {
+            this.finaldata = res['data'];
+            console.log(this.finaldata);
+          }
+        });
+
+      }
+    });
   }
 
 }
