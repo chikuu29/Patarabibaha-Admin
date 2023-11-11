@@ -25,6 +25,10 @@ export class CommonService {
   public logoUplode(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'logoUplode', apiData, { headers: this.headers });
   }
+  public homeLogoUplode(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'homeLogoUplode', apiData, { headers: this.headers });
+  }
+  
   public bannerUplode(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'bannerUplode', apiData, { headers: this.headers })
   }

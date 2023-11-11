@@ -27,6 +27,8 @@ import { PrifixidComponent } from './prifixid/prifixid.component';
 import { GotraComponent } from './gotra/gotra.component';
 import { AddtypeComponent } from './addtype/addtype.component';
 import { BarcodeComponent } from './barcode/barcode.component';
+import { HomeiconComponent } from './homeicon/homeicon.component';
+import { HomepagecontentComponent } from './homepagecontent/homepagecontent.component';
 
 
 
@@ -160,7 +162,19 @@ const routes: Routes = [
         path: 'barcode-page',
         canActivate: [AuthGuard],
         component: BarcodeComponent
+      },{
+        path: 'home-icon',
+        canActivate: [AuthGuard],
+        component: HomeiconComponent
       },
+      {
+        path: 'home-content',
+        canActivate: [AuthGuard],
+        component: HomepagecontentComponent
+      },
+
+      
+
 
       
       

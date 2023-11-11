@@ -34,6 +34,8 @@ import { GotraComponent } from './gotra/gotra.component';
 import { AddtypeComponent } from './addtype/addtype.component';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 import { BarcodeComponent } from './barcode/barcode.component';
+import { HomepagecontentComponent } from './homepagecontent/homepagecontent.component';
+import { HomeiconComponent } from './homeicon/homeicon.component';
 
 
 
@@ -66,7 +68,9 @@ import { BarcodeComponent } from './barcode/barcode.component';
     PrifixidComponent,
     GotraComponent,
     AddtypeComponent,
-    BarcodeComponent
+    BarcodeComponent,
+    HomepagecontentComponent,
+    HomeiconComponent
    
   ],
   imports: [
