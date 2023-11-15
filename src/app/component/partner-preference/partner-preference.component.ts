@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./partner-preference.component.scss']
 })
 export class PartnerPreferenceComponent implements OnInit {
-
+  @Input() user_id:string
   motherTounghOptions: any[] = [];
   countryOption: any = [
     { 'name': 'India' }
@@ -191,15 +191,21 @@ export class PartnerPreferenceComponent implements OnInit {
   constructor(
     private ApiParameterScript:ApiParameterScript,
     private appservices:AppService
+  
   ) { }
 
   ngOnInit(): void {
 
+
     var apiData={
       "projection":['*'],
-      "whereConditions":{ user_ID: this.appservices.authStatus.profile_id }
+      "whereConditions":{ user_ID: this.user_id }
     }
+    
+    
     this.ApiParameterScript.fetchdata("user_partnerpreference",apiData).subscribe((res:any)=>{
+    
+      
       if (res.success && res['data'].length>0) {
         this.partnerPreferenceForm.patchValue(JSON.parse(res['data'][0]['json_data']))
         this.getstatefilter(this.partnerPreferenceForm.value.user_country)
@@ -208,7 +214,7 @@ export class PartnerPreferenceComponent implements OnInit {
     })
 
     this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"] }).subscribe((res: any) => {
-      // console.log(res['data'][0]);
+      
       if (res.success && res['data'].length > 0) {
         this.ocupationOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -217,7 +223,7 @@ export class PartnerPreferenceComponent implements OnInit {
             return null
           }
         });
-        console.log(this.anualIncomeOptions);
+        
       }
 
 
@@ -236,12 +242,12 @@ export class PartnerPreferenceComponent implements OnInit {
             return null
           }
         });
-        console.log(this.anualIncomeOptions);
+        
       }
     })
 
     this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"] }).subscribe((res: any) => {
-      console.log(res['data'][0]);
+      
 
       if (res.success && res['data'].length > 0) {
 
@@ -253,7 +259,7 @@ export class PartnerPreferenceComponent implements OnInit {
           }
         });
 
-        console.log(this.anualIncomeOptions);
+        
 
 
 
@@ -262,7 +268,7 @@ export class PartnerPreferenceComponent implements OnInit {
     })
 
     this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"] }).subscribe((res: any) => {
-      // console.log(res['data'][0]);
+      
 
 
       if (res.success && res['data'].length > 0) {
@@ -283,7 +289,7 @@ export class PartnerPreferenceComponent implements OnInit {
 
     })
     this.ApiParameterScript.fetchdata('religion', { "projection": ["*"] }).subscribe((res: any) => {
-      // console.log(res['data'][0]);
+      
       if (res.success && res['data'].length > 0) {
         this.religionOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -302,7 +308,7 @@ export class PartnerPreferenceComponent implements OnInit {
 
     })
     this.ApiParameterScript.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
-      // console.log(res['data'][0]);
+      
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -311,11 +317,11 @@ export class PartnerPreferenceComponent implements OnInit {
             return null
           }
         });
-        console.log(this.anualIncomeOptions);
+        
       }
     })
     this.ApiParameterScript.fetchdata('gotra', { "projection": ["*"] ,"whereConditions":{status:1}}).subscribe((res: any) => {
-      // console.log(res['data'][0]);
+      
       if (res.success && res['data'].length > 0) {
         this.gotraOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -328,7 +334,7 @@ export class PartnerPreferenceComponent implements OnInit {
       }
     })
     this.ApiParameterScript.fetchdata('nakshatra', { "projection": ["*"] ,"whereConditions":{status:1}}).subscribe((res: any) => {
-      // console.log(res['data'][0]);
+      
       if (res.success && res['data'].length > 0) {
         this.nakshatraOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -341,7 +347,7 @@ export class PartnerPreferenceComponent implements OnInit {
       }
     })
     this.ApiParameterScript.fetchdata('zodiacs', { "projection": ["*"] ,"whereConditions":{status:1}}).subscribe((res: any) => {
-      // console.log(res['data'][0]);
+      
       if (res.success && res['data'].length > 0) {
         this.zodiacsOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -356,15 +362,15 @@ export class PartnerPreferenceComponent implements OnInit {
   }
 
   userupartnerpreferenceForm_submit() {
-    console.log(this);
+    
     let updateData = {
       "data": this.partnerPreferenceForm.value,
-      "whereConditions": { user_ID: this.appservices.authStatus.profile_id },
+      "whereConditions": { user_ID: this.user_id},
       "isJsonData": true,
-      "jsonDataID": { user_ID: this.appservices.authStatus.profile_id }
+      "jsonDataID": { user_ID: this.user_id }
     }
     this.ApiParameterScript.savedata('user_partnerpreference', updateData).subscribe((res: any) => {
-      console.log(res);
+     
       if (res.success) {
         Swal.fire('success', res.message, 'success').then(() => {
           this.ngOnInit()
@@ -377,7 +383,7 @@ export class PartnerPreferenceComponent implements OnInit {
   }
 
   getstatefilter(country_name: any) {
-    console.log(country_name);
+    
    
     if (_.isArray(country_name)) {
       let query = `SELECT * FROM state WHERE status=1 AND country_name IN (${"'" + country_name.join("', '") + "'"})`;
@@ -389,7 +395,7 @@ export class PartnerPreferenceComponent implements OnInit {
             return { name: obj.name };
 
           });
-          console.log(this.countryOption);
+          
 
         } else {
           this.stateOption = []
@@ -407,7 +413,7 @@ export class PartnerPreferenceComponent implements OnInit {
             return { name: obj.name };
 
           });
-          console.log(this.countryOption);
+          
 
         } else {
           this.stateOption = []
@@ -420,11 +426,11 @@ export class PartnerPreferenceComponent implements OnInit {
   }
 
   getcityfilter(state_name: any) {
-    console.log(state_name);
+    
   
     if (_.isArray(state_name)) {
       let query = `SELECT * FROM city WHERE state_name IN (${"'" + state_name.join("', '") + "'"})`;
-      console.log(query);
+      
       
       this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
         if (res.success && res['data'].length > 0) {

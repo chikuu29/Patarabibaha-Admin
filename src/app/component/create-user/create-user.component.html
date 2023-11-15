@@ -1,0 +1,305 @@
+<div class="containersw p-3 registation-contain-holder">
+    
+    <div class="container" style="padding: 2rem;border-radius: 12px; box-shadow: 0 2.4rem 4.8rem rgba(249, 249, 249, 0.15);">
+        <ng-container>
+            <div class="form1">
+                <div class="mb-3">
+                    <div class="text-center">
+                        <img src="assets/img/icons8-apply-skin-type-7-96.png" alt="" srcset="">
+                    </div>
+
+                </div>
+                <div>
+                    <form [formGroup]="form1">
+                        <div>
+                            <label class="fs-4 fw-bold text-muted mb-2">This Profile Is For</label>
+                            <div class="radio-buttons">
+                                <label class="custom-radio">
+                                    <input type="radio" formControlName="profileType" value="myself" checked>
+                                    <span class="radio-btn"><i class="bi bi-check"></i>
+                                        <div class="hobbies-icon">
+                                            <!-- <img src="https://img.freepik.com/free-vector/sport-equipment-concept_1284-13034.jpg?size=626&ext=jpg"> -->
+                                            <span class="m-0 fw-bold">Myself</span>
+                                        </div>
+                                    </span>
+                                </label>
+                                <label class="custom-radio">
+                                    <input type="radio" formControlName="profileType" value="my son">
+                                    <span class="radio-btn"><i class="bi bi-check"></i>
+                                        <div class="hobbies-icon">
+                                            <!-- <img src="https://img.freepik.com/free-vector/sport-equipment-concept_1284-13034.jpg?size=626&ext=jpg"> -->
+                                            <span class="m-0 fw-bold">My Son</span>
+                                        </div>
+                                    </span>
+                                </label>
+                                <label class="custom-radio">
+                                    <input type="radio" formControlName="profileType" value="my daughter">
+                                    <span class="radio-btn"><i class="bi bi-check"></i>
+                                        <div class="hobbies-icon">
+                                            <!-- <img src="https://img.freepik.com/free-vector/chemist-concept-illustration_114360-10142.jpg?size=626&ext=jpg"> -->
+                                            <span class="m-0 fw-bold">My Daughter</span>
+                                        </div>
+                                    </span>
+                                </label>
+                                <label class="custom-radio">
+                                    <input type="radio" formControlName="profileType" value="my brother">
+                                    <span class="radio-btn"><i class="bi bi-check"></i>
+                                        <div class="hobbies-icon">
+                                            <!-- <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-poetry-illustration_23-2149279810.jpg?size=626&ext=jpg"> -->
+                                            <span class="m-0 fw-bold">My Brother</span>
+                                        </div>
+                                    </span>
+                                </label>
+                                <label class="custom-radio">
+                                    <input type="radio" formControlName="profileType" value="my sister">
+                                    <span class="radio-btn"><i class="bi bi-check"></i>
+                                        <div class="hobbies-icon">
+                                            <!-- <img src="https://img.freepik.com/free-vector/hand-drawn-twerk-illustration_23-2149447957.jpg?size=626&ext=jpg"> -->
+                                            <span class="m-0 fw-bold">My Sister</span>
+                                        </div>
+                                    </span>
+                                </label>
+                                <label class="custom-radio">
+                                    <input type="radio" formControlName="profileType" value="my friend">
+                                    <span class="radio-btn"><i class="bi bi-check"></i>
+                                        <div class="hobbies-icon">
+                                            <!-- <img src="https://img.freepik.com/free-vector/hand-drawn-twerk-illustration_23-2149447957.jpg?size=626&ext=jpg"> -->
+                                            <span class="m-0 fw-bold">My Friend</span>
+                                        </div>
+                                    </span>
+                                </label>
+                                <label class="custom-radio">
+                                    <input type="radio" formControlName="profileType" value="my relative">
+                                    <span class="radio-btn"><i class="bi bi-check"></i>
+                                        <div class="hobbies-icon">
+                                            <!-- <img src="https://img.freepik.com/free-vector/hand-drawn-twerk-illustration_23-2149447957.jpg?size=626&ext=jpg"> -->
+                                            <span class="m-0 fw-bold">My Relative</span>
+                                        </div>
+                                    </span>
+                                </label>
+
+
+                            </div>
+                            
+                        </div>
+
+                        <div>
+                            <label class="fs-4 fw-bold text-muted  mb-2">Gender</label>
+                            <div class="radio-buttons">
+                                <label class="custom-radio">
+                                    <input type="radio" formControlName="gender" value="male">
+                                    <span class="radio-btn"><i class="bi bi-check"></i>
+                                        <div class="hobbies-icon">
+                                            <!-- <img src="https://img.freepik.com/free-vector/sport-equipment-concept_1284-13034.jpg?size=626&ext=jpg"> -->
+                                            <span class="m-0 fw-bold"> Male</span>
+                                        </div>
+                                    </span>
+                                </label>
+                                <label class="custom-radio">
+                                    <input type="radio" formControlName="gender" value="female">
+                                    <span class="radio-btn"><i class="bi bi-check"></i>
+                                        <div class="hobbies-icon">
+
+                                            <!-- <img src="https://img.freepik.com/free-vector/sport-equipment-concept_1284-13034.jpg?size=626&ext=jpg"> -->
+                                            <span class="m-0 fw-bold"> Female</span>
+                                        </div>
+                                    </span>
+                                </label>
+                            </div>
+
+
+                        </div>
+
+
+
+                    </form>
+                </div>
+                <div class="mt-5 mb-5 d-flex">
+
+                    <button class="button-24" role="button" (click)="continue()"
+                        [disabled]="!form1.valid">Continue</button>
+
+
+                </div>
+            </div>
+        </ng-container>
+        <ng-container>
+
+            <div class="form2">
+                <button mat-flat-button (click)="back()"><i class="fa-solid fa-arrow-left-long fa-lg"
+                    style="color: #eb321e;"></i></button>
+                <div class="mb-3">
+                    <div class="text-center">
+                        <img src="assets/img/icons8-profiles-40.png" alt="" srcset="">
+                        <p class="p-0 m-0 fw-bold text-muted">
+                            Set Your Profile
+                        </p>
+                    </div>
+
+                </div>
+                <div>
+                    <form [formGroup]="form2">
+                        <div>
+                            <label class="fs-4 fw-bold text-muted">Your Name</label>
+                            <div class="form-outline mb-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput placeholder="First Name" type="text" formControlName="fname">
+                                    <!-- <mat-icon matSuffix>{{loginForm.controls.email.valid
+                                ?'sentiment_very_satisfied':'sentiment_very_dissatisfied'}}</mat-icon> -->
+                                    <!-- <mat-error *ngIf="loginForm.controls.email.invalid">{{getErrorMessage()}}</mat-error> -->
+                                    <!-- <mat-hint>Hint</mat-hint> -->
+                                </mat-form-field>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput placeholder="First Name" type="text" formControlName="lname">
+                                    <!-- <mat-icon matSuffix>{{loginForm.controls.email.valid
+                                ?'sentiment_very_satisfied':'sentiment_very_dissatisfied'}}</mat-icon> -->
+                                    <!-- <mat-error *ngIf="loginForm.controls.email.invalid">{{getErrorMessage()}}</mat-error> -->
+                                    <!-- <mat-hint>Hint</mat-hint> -->
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="fs-4 fw-bold text-muted mb-2">Date Of Birth</label>
+                            <!-- <div class="input-group"> -->
+
+                            <!-- <p-calendar formControlName="dob" [showIcon]="true" class="w-100"></p-calendar> -->
+                            <!-- <input formControlName="dob" class="form-control datepicker" placeholder="Select date" name="dp"
+                                [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"
+                                autocomplete="off" /> -->
+                            <div class="form-outline mb-2">
+
+                                <div class="d-flex flex-wrap">
+
+                                    <div class="me-1">
+                                        <!-- <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Day</mat-label>
+                                            <input matInput placeholder="Day" type="number" formControlName="day">
+
+                                        </mat-form-field> -->
+                                        <mat-form-field appearance="outline" class="w-30">
+                                            <mat-label>Day</mat-label>
+                                            <mat-select formControlName="day">
+                                             <ng-container *ngFor="let item of dayOption">
+                                                <mat-option [value]="item">{{item}}</mat-option>
+                                             </ng-container>
+                                              
+                                            </mat-select>
+                                          </mat-form-field>
+                                    </div>
+                                    <div class="me-1">
+                                        <!-- <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Month</mat-label>
+                                            <input matInput placeholder="Month" type="number" formControlName="month">
+
+                                        </mat-form-field> -->
+                                        <mat-form-field appearance="outline" class="w-30">
+                                            <mat-label>Month</mat-label>
+                                            <mat-select formControlName="month">
+                            
+                                                <ng-container *ngFor="let item of months">
+                                                    <mat-option [value]="item.value">{{item?.display}}</mat-option>
+                                                 </ng-container>
+                                            </mat-select>
+                                          </mat-form-field>
+                                    </div>
+                                    <div class="me-1">
+                                       
+                                        <mat-form-field appearance="outline" class="w-30">
+                                            <mat-label>Year</mat-label>
+                                            <mat-select formControlName="year">
+                                             
+                                                <ng-container *ngFor="let item of year">
+                                                    <mat-option [value]="item">{{item}}</mat-option>
+                                                 </ng-container>
+                                            </mat-select>
+                                          </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="mt-5 mb-5 d-flex ">
+                    <!-- <button (click)="setProfile()" [disabled]="!form2.valid" mat-raised-button color="accent"
+                class="p-2 fs-2">Continue</button> -->
+                    <button class="button-24" role="button" (click)="setProfile()"
+                        [disabled]="!form2.valid">Continue</button>
+
+                </div>
+            </div>
+        </ng-container>
+        <ng-container>
+            <div class="form3">
+                <button mat-flat-button (click)="back()"><i class="fa-solid fa-arrow-left-long fa-lg"
+                    style="color: #eb321e;"></i></button>
+                <div class="mb-3">
+                    <div class="text-center">
+                        <img src="assets/img/icons8-security-64.png" alt="" srcset="">
+                        <p class="p-0 m-0 fw-bold text-muted">
+                            An active email ID & phone no.
+                        </p>
+                        <p class="fw-bold text-muted">
+                            are required to secure your Profile
+                        </p>
+                    </div>
+
+                </div>
+                <div>
+                    <form [formGroup]="form3">
+                        <div>
+                            <label class="fs-4 fw-bold text-muted">Your Login Info</label>
+                            <div class="form-outline mb-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput placeholder="Email" type="email" formControlName="email">
+                                    <!-- <mat-icon matSuffix>{{loginForm.controls.email.valid
+                                ?'sentiment_very_satisfied':'sentiment_very_dissatisfied'}}</mat-icon> -->
+                                    <!-- <mat-error *ngIf="loginForm.controls.email.invalid">{{getErrorMessage()}}</mat-error> -->
+                                    <!-- <mat-hint>Hint</mat-hint> -->
+                                </mat-form-field>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Phone</mat-label>
+                                    <input matInput placeholder="phone" type="number" formControlName="phone">
+                                    <!-- <mat-icon matSuffix>{{loginForm.controls.email.valid
+                                ?'sentiment_very_satisfied':'sentiment_very_dissatisfied'}}</mat-icon> -->
+                                    <!-- <mat-error *ngIf="loginForm.controls.email.invalid">{{getErrorMessage()}}</mat-error> -->
+                                    <!-- <mat-hint>Hint</mat-hint> -->
+                                </mat-form-field>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Set Password</mat-label>
+                                    <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" required
+                                        formControlName="password">
+                                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                    <!-- <mat-error *ngIf="adminLoginForm.controls.password.invalid">{{getErrorMessage()}}</mat-error> -->
+                                    <!-- <mat-hint>Hint</mat-hint> -->
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="mt-5 mb-5 d-flex ">
+                    <!-- <button (click)="signup()" [disabled]="!form3.valid" mat-raised-button color="accent"
+                class="p-2 fs-2">Continue</button> -->
+
+                    <button class="button-24" role="button" (click)="signup()"
+                        [disabled]="!form3.valid">Continue</button>
+
+                    <!-- <button (click)="signup()" [disabled]="!form2.valid" class="btn btn-1 btn-outline-danger"
+                    type="button">Ready For Sign Up</button> -->
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

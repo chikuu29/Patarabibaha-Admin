@@ -22,6 +22,7 @@ import { IgnoredeatilsComponent } from './ignoredeatils/ignoredeatils.component'
 import { ExpirememberComponent } from './expiremember/expiremember.component';
 import { SalesreportComponent } from './salesreport/salesreport.component';
 import { WatermarkComponent } from './watermark/watermark.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 const routes: Routes = [
   {
@@ -135,6 +136,11 @@ const routes: Routes = [
         path: 'water-page',
         canActivate: [AuthGuard],
         component: WatermarkComponent
+      },
+      {
+        path: 'create_user',
+        canActivate: [AuthGuard],
+        component: CreateUserComponent
       },
 
 
