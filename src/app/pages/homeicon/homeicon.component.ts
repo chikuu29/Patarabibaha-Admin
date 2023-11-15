@@ -95,6 +95,7 @@ export class HomeiconComponent implements OnInit  {
     });
   }
   publish(id: any, status: any) {
+  
     if (status == 1) {
 
       Swal.fire({

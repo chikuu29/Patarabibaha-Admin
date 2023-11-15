@@ -11,6 +11,9 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 import { ChangeuserpassComponent } from './changeuserpass/changeuserpass.component';
 import { TwostepverificationComponent } from './twostepverification/twostepverification.component';
+import { SubadmincreateComponent } from './subadmincreate/subadmincreate.component';
+import { SubadminviewComponent } from './subadminview/subadminview.component';
+
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { TwostepverificationComponent } from './twostepverification/twostepverif
     LoginComponent,
     ViewAuthUserComponent,
     ChangeuserpassComponent,
-    TwostepverificationComponent
+    TwostepverificationComponent,
+    SubadmincreateComponent,
+    SubadminviewComponent,
+    
   ],
   imports: [
     CommonModule,

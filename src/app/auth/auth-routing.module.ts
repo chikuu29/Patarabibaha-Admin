@@ -6,7 +6,8 @@ import { ErrorPageComponent } from '../pages/error-page/error-page.component';
 import { ViewAuthUserComponent } from './view-auth-user/view-auth-user.component';
 import { ChangeuserpassComponent } from './changeuserpass/changeuserpass.component';
 import { TwostepverificationComponent } from './twostepverification/twostepverification.component';
-
+import { SubadmincreateComponent } from './subadmincreate/subadmincreate.component';
+import { SubadminviewComponent } from './subadminview/subadminview.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,24 @@ const routes: Routes = [
     component:TwostepverificationComponent ,
     pathMatch: 'full'
   },
+  {
+    path: 'subadminview',
+    canActivate: [AuthGuard],
+    component:SubadminviewComponent ,
+    pathMatch: 'full'
+  },
+  {
+    path: 'subadmincreate',
+    canActivate: [AuthGuard],
+    component:SubadmincreateComponent ,
+    pathMatch: 'full'
+  },
+  {
+    path: 'subadmincreate/:id',
+    canActivate: [AuthGuard],
+    component:SubadmincreateComponent ,
+    pathMatch: 'full'
+  },
   
   {
     path: 'error-page',
@@ -44,6 +63,9 @@ const routes: Routes = [
     component:ErrorPageComponent ,
     pathMatch: 'full'
   },
+ 
+
+
   
   
  

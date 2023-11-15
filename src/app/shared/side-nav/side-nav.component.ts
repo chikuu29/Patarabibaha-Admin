@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
+import { CryptographyService } from 'src/app/services/cryptography.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -12,13 +14,22 @@ export class SideNavComponent implements OnInit {
   deliteeeqest: number=0;
 
   constructor(
-    private ApiParameter: ApiParameterScript
+    private ApiParameter: ApiParameterScript,
+    private cryptographyservice : CryptographyService,
+    private _auth: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.getuserAprrove();
     this.getProfileImageAprrove();
     this.getDeleteRequestdata();
+    // let item = secureCryptoStorage.setItem("authInfo")
+    // this.ApiParameter.fetchdata('admin', { "projection": ["*"], "whereConditions": { user_status: "Pending" } }).subscribe((res: any) => {
+    //   if (res.success && res['data'].length > 0) {
+    //     this.usercount = res['data'].length;
+    //     //console.log();
+    //   }
+    // });
   }
 
   getuserAprrove(){
