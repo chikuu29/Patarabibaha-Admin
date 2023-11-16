@@ -31,6 +31,7 @@ import { ExpirememberComponent } from './expiremember/expiremember.component';
 import { SalesreportComponent } from './salesreport/salesreport.component';
 import { WatermarkComponent } from './watermark/watermark.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { CreateUserComponent } from './create-user/create-user.component';
     PrimengModule,
     MaterialModule,
     CustomPipeModule,
-    NgbModule
+    NgbModule,
+    SharedModule
   ],
   entryComponents:[ImageViewOperationComponent]
 })

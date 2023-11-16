@@ -11,7 +11,7 @@ import { UpgradePaymentProcessTaskComponent } from 'src/app/shared/upgrade-payme
 })
 export class UpgradeuserplanComponent implements OnInit {
   finaldata: any;
-
+  filterText:string
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router,
@@ -22,6 +22,12 @@ export class UpgradeuserplanComponent implements OnInit {
     this.getAllData();
   }
 
+  getSearchText(event:any){
+ 
+    this.filterText=event
+    
+
+  }
   getAllData() {
 
     this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"], "whereConditions": { membership_plan_default: 1 } }).subscribe((res: any) => {

@@ -13,7 +13,7 @@ export class MakepaidComponent implements OnInit {
   finaldata: any = [];
   alldata: any;
   defultdata: any;
-
+  filterText:string
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router,
@@ -23,6 +23,12 @@ export class MakepaidComponent implements OnInit {
   ngOnInit(): void {
     //this.getdefultplan();.
     this.getmembership_plan();
+    
+
+  }
+  getSearchText(event:any){
+ 
+    this.filterText=event
     
 
   }

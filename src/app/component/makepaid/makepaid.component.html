@@ -9,7 +9,8 @@
 
             </div>
             <div class="caption-item">
-                <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
+                <!-- <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button> -->
+                <app-search (getSerachText)="getSearchText($event)"></app-search>
 
             </div>
         </div>
@@ -25,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-body table-striped">
-                    <ng-container *ngFor="let data of finaldata ; index as i">
+                    <ng-container *ngFor="let data of finaldata | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText  ; index as i">
                         <tr>
 
                             <td>{{i+1}}</td>

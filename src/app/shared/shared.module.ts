@@ -13,6 +13,7 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { MemberPaymentProcessingTaskComponent } from './member-payment-processing-task/member-payment-processing-task.component';
 import { ViewPageForMembershipplanComponent } from './view-page-for-membershipplan/view-page-for-membershipplan.component';
 import { UpgradePaymentProcessTaskComponent } from './upgrade-payment-process-task/upgrade-payment-process-task.component';
+import { SearchComponent } from './search/search.component';
 
 
 
@@ -24,7 +25,8 @@ import { UpgradePaymentProcessTaskComponent } from './upgrade-payment-process-ta
     ImageViewOperationComponent,
     MemberPaymentProcessingTaskComponent,
     ViewPageForMembershipplanComponent,
-    UpgradePaymentProcessTaskComponent
+    UpgradePaymentProcessTaskComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,8 @@ import { UpgradePaymentProcessTaskComponent } from './upgrade-payment-process-ta
     SideNavComponent,
     FooterComponent,
     ImageViewOperationComponent,
-    MemberPaymentProcessingTaskComponent
+    MemberPaymentProcessingTaskComponent,
+    SearchComponent
   ]
 })
 export class SharedModule { }
