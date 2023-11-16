@@ -14,6 +14,8 @@ import { MemberPaymentProcessingTaskComponent } from './member-payment-processin
 import { ViewPageForMembershipplanComponent } from './view-page-for-membershipplan/view-page-for-membershipplan.component';
 import { UpgradePaymentProcessTaskComponent } from './upgrade-payment-process-task/upgrade-payment-process-task.component';
 import { SearchComponent } from './search/search.component';
+import { ImageCroperComponent } from './image-croper/image-croper.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 
@@ -26,7 +28,8 @@ import { SearchComponent } from './search/search.component';
     MemberPaymentProcessingTaskComponent,
     ViewPageForMembershipplanComponent,
     UpgradePaymentProcessTaskComponent,
-    SearchComponent
+    SearchComponent,
+    ImageCroperComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +39,8 @@ import { SearchComponent } from './search/search.component';
     MaterialModule,
     LoadingBarRouterModule,
     ReactiveFormsModule,
-    CustomPipeModule
+    CustomPipeModule,
+    ImageCropperModule
   ],
   exports:[
     NavBarComponent,
@@ -44,7 +48,8 @@ import { SearchComponent } from './search/search.component';
     FooterComponent,
     ImageViewOperationComponent,
     MemberPaymentProcessingTaskComponent,
-    SearchComponent
+    SearchComponent,
+    ImageCroperComponent
   ]
 })
 export class SharedModule { }

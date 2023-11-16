@@ -11,6 +11,7 @@ import { AppService } from 'src/app/services/app.service';
 import Swal from 'sweetalert2';
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ImageViewOperationComponent } from 'src/app/shared/image-view-operation/image-view-operation.component';
+import { ImageCroperComponent } from 'src/app/shared/image-croper/image-croper.component';
 
 ApiService
 @Component({
@@ -430,7 +431,7 @@ export class UserViewComponent implements OnInit {
   userAllData: any
 
   actualUploadedFiles: any[] = []
-  imageUrl="this.appservices.getFilePath()}storage/"
+  imageUrl = "this.appservices.getFilePath()}storage/"
   constructor(
     private appservices: AppService,
     private ApiParameterScript: ApiParameterScript,
@@ -443,18 +444,18 @@ export class UserViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.imageUrl=this.appservices.getFilePath()+'storage/';
+    this.imageUrl = this.appservices.getFilePath() + 'storage/';
     this.uploadURL = `${this.appservices.getApipath()}upload?q=${this.profile_id}`
     this.blockUI.start("Loading...")
     this._rout.params.subscribe((res: any) => {
       this.profile_id = res['profile_id']
       this.ApiParameterScript.getprofile({ userid: this.profile_id }).subscribe((res: any) => {
-        
+
         this.blockUI.stop();
         if (res.success) {
 
           this.userAllData = res;
-          
+
           this.profileDetailsForm.patchValue({
             profile_id: res?.user_info?.user_id
             , profile_name: res?.user_info?.user_fname + ' ' + res?.user_info?.user_lname, profile_email: res?.user_info?.user_email, profile_phone: ''
@@ -506,7 +507,7 @@ export class UserViewComponent implements OnInit {
                 "title": element.user_profile_images
               }
             )
-         
+
 
 
           });
@@ -556,7 +557,7 @@ export class UserViewComponent implements OnInit {
     })
 
     this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"] }).subscribe((res: any) => {
-      
+
 
       if (res.success && res['data'].length > 0) {
 
@@ -650,7 +651,7 @@ export class UserViewComponent implements OnInit {
             return null
           }
         });
-        
+
       }
     })
 
@@ -709,7 +710,7 @@ export class UserViewComponent implements OnInit {
       }
     }
     this.ApiParameterScript.updatedata('user_info', updateData).subscribe((res: any) => {
-      
+
       if (res.success) {
         Swal.fire('', res.message, 'success').then(() => {
           this.ngOnInit()
@@ -722,7 +723,7 @@ export class UserViewComponent implements OnInit {
 
   }
   religionDetailsForm() {
-    
+
 
     if (this.user_religionDetailsForm.valid) {
       var updateData = {
@@ -735,11 +736,11 @@ export class UserViewComponent implements OnInit {
         },
         "whereConditions": { user_ID: this.profile_id }
       }
-     
+
       if (this.user_religionDetailsForm.value.user_ID == '') {
-       
+
         this.ApiParameterScript.savedata('user_religion', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -752,7 +753,7 @@ export class UserViewComponent implements OnInit {
 
       } else {
         this.ApiParameterScript.updatedata('user_religion', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -785,9 +786,9 @@ export class UserViewComponent implements OnInit {
         var saveData = {
           "data": this.education_occupationDetailsForm.value
         }
-       
+
         this.ApiParameterScript.savedata('user_education_occupations', saveData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -805,7 +806,7 @@ export class UserViewComponent implements OnInit {
         }
         this.education_occupationDetailsForm.value['user_ID'] = this.profile_id
         this.ApiParameterScript.updatedata('user_education_occupations', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -825,7 +826,7 @@ export class UserViewComponent implements OnInit {
   }
 
   updateLocationForm() {
-  
+
 
     if (this.locationDetailsForm.valid) {
 
@@ -839,7 +840,7 @@ export class UserViewComponent implements OnInit {
           "data": this.locationDetailsForm.value
         }
         this.ApiParameterScript.savedata('user_locations', saveData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -857,7 +858,7 @@ export class UserViewComponent implements OnInit {
         }
         this.locationDetailsForm.value['user_ID'] = this.profile_id
         this.ApiParameterScript.updatedata('user_locations', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -878,7 +879,7 @@ export class UserViewComponent implements OnInit {
 
   onchangeAddress() {
 
-    
+
 
     if (this.locationDetailsForm.value.user_current_and_permanent_address_same == 'Yes') {
       this.locationDetailsForm.value['user_Permanent_city'] = this.locationDetailsForm.value['user_city']
@@ -900,7 +901,7 @@ export class UserViewComponent implements OnInit {
 
 
   updatefamilyDetailsForm() {
-  
+
     if (this.userFamilyDetailsForm.valid) {
       this.userFamilyDetailsForm.value['completed'] = 1
       if (this.userFamilyDetailsForm.value.user_ID == '') {
@@ -909,9 +910,9 @@ export class UserViewComponent implements OnInit {
           "data": this.userFamilyDetailsForm.value,
           "whereConditions": { user_ID: this.profile_id }
         }
-       
+
         this.ApiParameterScript.savedata('user_family', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -928,7 +929,7 @@ export class UserViewComponent implements OnInit {
           "whereConditions": { user_ID: this.profile_id }
         }
         this.ApiParameterScript.updatedata('user_family', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -948,7 +949,7 @@ export class UserViewComponent implements OnInit {
   }
 
   diethobbiesForm() {
- 
+
     if (this.habitHobbiesForm.valid) {
       this.habitHobbiesForm.value['completed'] = 1
       if (this.habitHobbiesForm.value.user_ID == '') {
@@ -958,9 +959,9 @@ export class UserViewComponent implements OnInit {
           "data": this.habitHobbiesForm.value,
           "whereConditions": { user_ID: this.profile_id }
         }
-       
+
         this.ApiParameterScript.savedata('user_diet_hobbies', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -977,7 +978,7 @@ export class UserViewComponent implements OnInit {
           "whereConditions": { user_ID: this.profile_id }
         }
         this.ApiParameterScript.updatedata('user_diet_hobbies', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -1007,11 +1008,11 @@ export class UserViewComponent implements OnInit {
         },
         "whereConditions": { user_ID: this.profile_id }
       }
-     
+
       if (this.userAboutDetailsForm.value.user_ID == '') {
-       
+
         this.ApiParameterScript.savedata('user_about', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -1024,7 +1025,7 @@ export class UserViewComponent implements OnInit {
 
       } else {
         this.ApiParameterScript.updatedata('user_about', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -1044,7 +1045,7 @@ export class UserViewComponent implements OnInit {
   }
 
   userPhysicaldetalsForm() {
-  
+
     if (this.physicalDeatilsForm.valid) {
       this.physicalDeatilsForm.value['completed'] = 1
       if (this.physicalDeatilsForm.value.user_ID == '') {
@@ -1053,9 +1054,9 @@ export class UserViewComponent implements OnInit {
           "data": this.physicalDeatilsForm.value,
           "whereConditions": { user_ID: this.profile_id }
         }
-       
+
         this.ApiParameterScript.savedata('user_physical_details', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -1072,7 +1073,7 @@ export class UserViewComponent implements OnInit {
           "whereConditions": { user_ID: this.profile_id }
         }
         this.ApiParameterScript.updatedata('user_physical_details', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
               this.ngOnInit()
@@ -1097,7 +1098,7 @@ export class UserViewComponent implements OnInit {
   onUpload(event: any) {
     var res = event.originalEvent['body'];
     console.log("event", event.files);
-    
+
     if (res.success) {
       this.selecteduploadedFiles = []
       var getAllFile = res['data'] ? res['data'] : "";
@@ -1164,16 +1165,16 @@ export class UserViewComponent implements OnInit {
 
   }
   activeAccount() {
-   // if (this.userAllData?.user_profile_status == 'Completed') {
-      this.blockUI.start("Please Wait...")
-      let param = {
-        "id": this.profile_id
-      }
-      this.api.userActivation(param).subscribe((res: any) => {
-        this.blockUI.stop()
-        this.ngOnInit()
-      })
-   // } else {
+    // if (this.userAllData?.user_profile_status == 'Completed') {
+    this.blockUI.start("Please Wait...")
+    let param = {
+      "id": this.profile_id
+    }
+    this.api.userActivation(param).subscribe((res: any) => {
+      this.blockUI.stop()
+      this.ngOnInit()
+    })
+    // } else {
     //   Swal.fire({
     //     text: 'Please Complete User Profile'
     //   })
@@ -1250,5 +1251,12 @@ export class UserViewComponent implements OnInit {
 
   }
 
+  loadUploadComponent(){
+    console.log(this.profile_id);
+    
+    const modalRef = this.modalService.open(ImageCroperComponent, { size: 'xl', backdrop: false, scrollable: true });
+    modalRef.componentInstance.user_id=this.profile_id
+ 
 
+  }
 }
