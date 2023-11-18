@@ -38,6 +38,9 @@
                 <span class="fs-5">Showing {{finaldata?.length}} of {{finaldata?.length}} results</span>
             </div>
             <div class="caption-item">
+                <p-button label="Generated PDF" icon="pi pi-file-pdf" severity="danger" (click)="generatePDF()"></p-button>
+            </div>
+            <div class="caption-item">
                 <!-- Search Start -->
                 <div class="search">
                     <input type="text" [(ngModel)]="filterText" placeholder="Filter by any column" />
