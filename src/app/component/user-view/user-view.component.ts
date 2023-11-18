@@ -477,7 +477,7 @@ export class UserViewComponent implements OnInit {
           this.education_occupationDetailsForm.patchValue(res['user_education_occupations'])
           this.userAboutDetailsForm.patchValue(res['user_about'])
           this.locationDetailsForm.patchValue(res['user_locations'])
-
+          this.horoscopeForm.patchValue(res['user_horoscope_deatils'])
           this.userFamilyDetailsForm.patchValue(res['user_family'])
           this.habitHobbiesForm.patchValue(res['user_diet_hobbies'])
           this.physicalDeatilsForm.patchValue(res['user_physical_details'])
@@ -751,11 +751,11 @@ export class UserViewComponent implements OnInit {
     if (this.horoscopeForm.valid) {
       var updateData = {
         "data": this.horoscopeForm.value,
-        "whereConditions": { user_id: this.appservices.authStatus.profile_id }
+        "whereConditions": { user_id: this.profile_id}
       }
 
       if (this.horoscopeForm.value.user_id == '') {
-        updateData['data']['user_id']=this.appservices.authStatus.profile_id 
+        updateData['data']['user_id']=this.profile_id
         this.ApiParameterScript.savedata('user_horoscope', updateData).subscribe((res: any) => {
 
           if (res.success) {
