@@ -6,6 +6,7 @@ import { jsPDF } from 'jspdf';
 import * as _ from 'lodash';
 import { AgePipe } from 'src/app/customPipe/age.pipe';
 import * as moment from 'moment';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-matchpage',
@@ -13,6 +14,9 @@ import * as moment from 'moment';
   styleUrls: ['./matchpage.component.scss']
 })
 export class MatchpageComponent implements OnInit {
+
+  @BlockUI() blockUI: NgBlockUI;
+  // **************************
   user_id: any;
   class1: any = 'flex-item activedata';
   class2: any = 'flex-item';
@@ -114,37 +118,41 @@ export class MatchpageComponent implements OnInit {
 
 
   public generatePDF() {
+    
+    this.blockUI.start("Generating PDF...")
+    var pdfData =_.cloneDeep(this.finaldata)
     console.log("Click generatePDF", this.finaldata);
-    const customPageSize = [210, 297]; // Example: A4 size in millimeters
-
+ 
     const pdf = new jsPDF({
       unit: 'mm',
       format: 'a4', // or 'letter', 'a3', etc.
     });
-    
-    // const pdf = new jsPDF();
-    // pdf.addImage("https://admin.choicemarriage.com/api/storage/01700131606.jpg", 'JPEG', 10, 10, 50, 20); // adjust coordinates and dimensions accordingly
-    // Sample data with text and image URLs
-   _.map(this.finaldata,(res:any)=>res.user_profile_image="https://admin.choicemarriage.com/api/storage/"+res.user_profile_image)
-    console.log("Click generatePDF", this.finaldata);
-    
-    const data =  this.finaldata
 
-    let yPos = 10;
+    // const pdf = new jsPDF();
+    pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
+    // Sample data with text and image URLs
+    _.map(pdfData, (res: any) => res.user_profile_image = "https://admin.choicemarriage.com/api/storage/" + res.user_profile_image)
+    console.log("Click generatePDF", pdfData);
+
+    const data = pdfData
+
+    let yPos = 30;
     let currentPage = 1;
-    data.forEach((record:any) => {
+    data.forEach((record: any) => {
       console.log(record);
+      console.log("pdf", pdf.internal.pageSize.getHeight());
+
       if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
         pdf.addPage();
         currentPage++;
         yPos = 10; // Reset Y position for the new page
       }
       pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
-      pdf.text(`Name: ${record.user_fname}`+' '+`${record.user_lname}`, 70, yPos + 10);
-      pdf.text(`Age: ${ this.AgePipe.transform(record.user_dob)}`, 70, yPos + 25);
+      pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos + 10);
+      pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos + 25);
       // pdf.text(`Gender: ${record.user_gender}`, 70, yPos + 25);s
-     
-      pdf.text(`City: ${record.city?record.city:"NA"}`, 70, yPos + 40);
+
+      pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos + 40);
 
       // Draw lines to separate records
       pdf.line(0, yPos + 60, 210, yPos + 60);
@@ -152,8 +160,13 @@ export class MatchpageComponent implements OnInit {
       // Move the Y position for the next record
       yPos += 70;
     });
-
-    pdf.save('matching_report_'+`${this.user_id}_`+moment().toString()+'.pdf');
+   
+    const pdfFileName='matching_report_' + `${this.user_id}_` + moment().toString() + '.pdf'
+    pdf.save(pdfFileName,{returnPromise:true}).then((res:any)=>{
+      // console.log(res);
+      this.blockUI.stop()
+      
+    });
 
   }
 
