@@ -1,0 +1,44 @@
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+
+
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Upload Picture's, </h4>
+    <button type="button" class="btn-close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body">
+
+    <ng-container *ngIf="!fileSelected">
+        <form class="form-container" enctype='multipart/form-data'>
+            <div class="upload-files-container">
+                <div class="drag-file-area text-center">
+                    <label class="d-flex align-items-center flex-column">
+                        <span class="material-icons-outlined upload-icon"> file_upload </span>
+                        <h3 class="dynamic-message text-center"><span class="browse-files me-2"> <input type="file" accept="image/*"
+                                    class="default-file-input" (change)="fileChangeEvent($event)" /> <span
+                                    class="browse-files-text me-2">browse file</span>
+                            </span></h3>
+                        <span>from device</span>
+                    </label>
+                </div>
+               
+            </div>
+        </form>
+    </ng-container>
+
+
+    <!-- <input type="file" (change)="fileChangeEvent($event)" /> -->
+    <ng-container *ngIf="fileSelected">
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="4 / 3"
+            format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()" ></image-cropper>
+        <div class="text-center">
+            <p class="p-2">Preview</p>
+            <img [src]="croppedImage" width="200px" height="200px" />
+        </div>
+        <button type="button" class="upload-button w-100" (click)="uploadFile()"> Upload </button>
+    </ng-container>
+</div>
+<div class="modal-footer text-center" >
+    <!-- <button type="button" class="upload-button w-100" (click)="uploadFile()"> Upload </button> -->
+    
+</div>

@@ -21,6 +21,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { ApproveModule } from './approve/approve.module';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ApproveModule } from './approve/approve.module';
       }
     ),
     ToastrModule.forRoot(),
+    ImageCropperModule
     
   ],
   providers: [AppService,MessageService,ConfirmationService,NgbActiveModal],

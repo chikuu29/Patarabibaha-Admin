@@ -30,6 +30,8 @@ import { IgnoredeatilsComponent } from './ignoredeatils/ignoredeatils.component'
 import { ExpirememberComponent } from './expiremember/expiremember.component';
 import { SalesreportComponent } from './salesreport/salesreport.component';
 import { WatermarkComponent } from './watermark/watermark.component';
+import { CreateUserComponent } from './create-user/create-user.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -55,7 +57,8 @@ import { WatermarkComponent } from './watermark/watermark.component';
     IgnoredeatilsComponent,
     ExpirememberComponent,
     SalesreportComponent ,
-    WatermarkComponent
+    WatermarkComponent,
+    CreateUserComponent
   ],
   imports: [
     CommonModule,
@@ -65,7 +68,8 @@ import { WatermarkComponent } from './watermark/watermark.component';
     PrimengModule,
     MaterialModule,
     CustomPipeModule,
-    NgbModule
+    NgbModule,
+    SharedModule
   ],
   entryComponents:[ImageViewOperationComponent]
 })

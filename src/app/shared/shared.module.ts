@@ -13,6 +13,9 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { MemberPaymentProcessingTaskComponent } from './member-payment-processing-task/member-payment-processing-task.component';
 import { ViewPageForMembershipplanComponent } from './view-page-for-membershipplan/view-page-for-membershipplan.component';
 import { UpgradePaymentProcessTaskComponent } from './upgrade-payment-process-task/upgrade-payment-process-task.component';
+import { SearchComponent } from './search/search.component';
+import { ImageCroperComponent } from './image-croper/image-croper.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 
@@ -24,7 +27,9 @@ import { UpgradePaymentProcessTaskComponent } from './upgrade-payment-process-ta
     ImageViewOperationComponent,
     MemberPaymentProcessingTaskComponent,
     ViewPageForMembershipplanComponent,
-    UpgradePaymentProcessTaskComponent
+    UpgradePaymentProcessTaskComponent,
+    SearchComponent,
+    ImageCroperComponent
   ],
   imports: [
     CommonModule,
@@ -34,14 +39,17 @@ import { UpgradePaymentProcessTaskComponent } from './upgrade-payment-process-ta
     MaterialModule,
     LoadingBarRouterModule,
     ReactiveFormsModule,
-    CustomPipeModule
+    CustomPipeModule,
+    ImageCropperModule
   ],
   exports:[
     NavBarComponent,
     SideNavComponent,
     FooterComponent,
     ImageViewOperationComponent,
-    MemberPaymentProcessingTaskComponent
+    MemberPaymentProcessingTaskComponent,
+    SearchComponent,
+    ImageCroperComponent
   ]
 })
 export class SharedModule { }

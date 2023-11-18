@@ -70,15 +70,19 @@
                 <button (click)="viewMemberimages()" mat-stroked-button color="accent"   class="me-2">
                   View Photo for Approved
                 </button>
+
+                <button (click)="loadUploadComponent()" mat-stroked-button color="accent"   class="me-2">
+                  Add Photo
+                </button>
               </div>
             
             </div>
           </div>
         </div>
-        <app-partner-preference></app-partner-preference>
+        <app-partner-preference [user_id]="profile_id"></app-partner-preference>
        
       </div>
-      <div class="col-md-7" style="overflow-y: scroll; max-height: 100vh;">
+      <div class="col-md-7" style="overflow-y: scroll; max-height: 100%;">
         <div class="card mb-3">
           <div class="card-body">
             <div class="mb-3">

@@ -19,7 +19,7 @@ export class AlluserdataComponent implements OnInit {
   class5:any='btn btn-primary';
   class6:any='btn btn-primary';
   class7:any='btn btn-primary';
-  class8:any='btn btn-primary';
+  class8:any='btn btn-warning';
   class9:any='btn btn-primary';
   constructor(
     private ApiParameter: ApiParameterScript,

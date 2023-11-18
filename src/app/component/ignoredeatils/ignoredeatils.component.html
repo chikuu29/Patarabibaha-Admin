@@ -1,4 +1,4 @@
-<div class="border border-success p-4">
+<!-- <div class="border border-success p-4">
     <div class="d-flex justify-content-around">
         <div class="p-4 text-left text-light">
             <span>ID : </span> <a (click)="userpage(userdata?.user_id)" class="underline" href="javascript:void(0);"><span>{{ userdata?.user_id }}</span></a>
@@ -15,6 +15,42 @@
             <span>mailid : </span> <span>{{ userdata?.user_email }}</span>
         </div>
     </div>
+</div> -->
+<div class="border border-success p-4">
+    <table>
+        <tr>
+            <td colspan="2" class="text-center text-light">
+                <span>User ID : </span>
+                <a (click)="userpage(userdata?.user_id)" class="underline" href="javascript:void(0);">
+                    <span>{{ userdata?.user_id }}</span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-left text-light">
+                <span>Name : </span>
+            </td>
+            <td class="text-left text-light">
+                <span>{{ userdata?.user_fname + ' ' + userdata?.user_lname }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-left text-light">
+                <span>Gender : </span>
+            </td>
+            <td class="text-left text-light">
+                <span>{{ userdata?.user_gender }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-left text-light">
+                <span>Email : </span>
+            </td>
+            <td class="text-left text-light">
+                <span>{{ userdata?.user_email }}</span>
+            </td>
+        </tr>
+    </table>
 </div>
 <div class="">
     <div class="table-holder">
