@@ -54,5 +54,6 @@
 
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('cancel click')">Close</button>
-    <!-- <button type="button" class="btn btn-outline-success">Submit</button> -->
+    <button type="button" (click)="makedefultplan(deatils.Id,deatils.membership_plan_default)" class="btn btn-outline-success">{{ deatils.membership_plan_default == 1 ? 'Defult plan': 'Make Defult plan'  }}</button>
+    
 </div>

@@ -18,7 +18,7 @@ export class ViweplanComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   allplandata: any;
-  filterText:any;
+  filterText: any;
   planOptionType: any[] = [
     { name: "FREE_PLAN" },
     { name: "DIMOND_PLAN" },
@@ -60,10 +60,64 @@ export class ViweplanComponent implements OnInit {
     this.router.navigate(['/addplan-page', data]);
   }
 
-  viwe(data:any){
+  viwe(data: any) {
     ///alert(data);
     const modalRef = this.modalService.open(ViewPageForMembershipplanComponent, { size: 'lg' })
     modalRef.componentInstance.user_Data = data
+  }
+  publish(id: any, states: any) {
+    //alert(id +' '+states)
+    if (states == 1) {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do You Want Unpublish'
+      }).then((respo: any) => {
+        if (respo.isConfirmed) {
+          let updateData = {
+            "data": {
+              'membership_plan_status': 0,
+            },
+            "whereConditions": { Id: id }
+          }
+          this.ApiParameterScript.updatedata('membership_plan', updateData).subscribe((res: any) => {
+            if (res.status) {
+              Swal.fire({
+                icon: 'success',
+                text: "Unpublished"
+              }).then(() => {
+                this.ngOnInit();
+              });
+            }
+          })
+        }
+      });
+    }
+    else if (states == 0) {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do You Want Publish'
+      }).then((respo: any) => {
+        if (respo.isConfirmed) {
+
+          let updateData = {
+            "data": {
+              'membership_plan_status': 1,
+            },
+            "whereConditions": { Id: id }
+          }
+          this.ApiParameterScript.updatedata('membership_plan', updateData).subscribe((res: any) => {
+            if (res.status) {
+              Swal.fire({
+                icon: 'success',
+                text: "Published"
+              }).then(() => {
+                this.ngOnInit();
+              });
+            }
+          })
+        }
+      });
+    }
   }
 
 

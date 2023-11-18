@@ -130,7 +130,7 @@ export class HomepageeventComponent implements OnInit {
             if (res.status) {
               Swal.fire({
                 icon: 'success',
-                text: "SubAdmin Created"
+                text: "Unpublish"
               }).then(() => {
                 this.ngOnInit();
               });
@@ -164,7 +164,7 @@ export class HomepageeventComponent implements OnInit {
               if (res.status) {
                 Swal.fire({
                   icon: 'success',
-                  text: "SubAdmin Created"
+                  text: "Publish"
                 }).then(() => {
                   this.ngOnInit();
                 });

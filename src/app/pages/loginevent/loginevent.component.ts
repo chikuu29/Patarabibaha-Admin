@@ -116,7 +116,6 @@ export class LogineventComponent implements OnInit {
 
   publish(id: any, states: any) {
     if (states == 1) {
-
       Swal.fire({
         icon: 'question',
         text: 'Do You Want Unpublish'
@@ -132,7 +131,7 @@ export class LogineventComponent implements OnInit {
             if (res.status) {
               Swal.fire({
                 icon: 'success',
-                text: "SubAdmin Created"
+                text: "Unpublish"
               }).then(() => {
                 this.ngOnInit();
               });
@@ -140,8 +139,6 @@ export class LogineventComponent implements OnInit {
           })
         }
       });
-
-
     }
     else if (states == 0) {
       Swal.fire({
@@ -166,7 +163,7 @@ export class LogineventComponent implements OnInit {
               if (res.status) {
                 Swal.fire({
                   icon: 'success',
-                  text: "SubAdmin Created"
+                  text: "Publish"
                 }).then(() => {
                   this.ngOnInit();
                 });

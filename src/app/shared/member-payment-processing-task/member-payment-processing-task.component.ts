@@ -42,7 +42,7 @@ export class MemberPaymentProcessingTaskComponent implements OnInit {
       if (res.success && res['data'].length > 0) {
        // console.log(res['data']);
         this.seasons = res['data'].filter((elemrnt: any) => {
-          if (elemrnt.membership_plan_default == 0 && elemrnt.membership_plan_type != this.user_Data.user_membership_plan_type ) {
+          if (elemrnt.membership_plan_default == 0 &&  elemrnt.membership_plan_status == 1 && elemrnt.membership_plan_type != this.user_Data.user_membership_plan_type ) {
             return elemrnt;
           }
         });

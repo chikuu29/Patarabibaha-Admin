@@ -82,7 +82,7 @@
                                     (click)="viwe(data.membership_plan_id)">Viwe</button>
                                 <button type="button"
                                     [class]="data.membership_plan_status == 1 ?'btn btn-outline-warning btn-fw me-2 w-5':'btn btn-outline-danger btn-fw me-2 w-5'"
-                                    (click)="publish(data.membership_plan_id)">{{ data.membership_plan_status == 1 ? 'Unpublish':'Publish' }}</button>
+                                    (click)="publish(data.Id,data.membership_plan_status)">{{ data.membership_plan_status == 1 ? 'Unpublish':'Publish' }}</button>
                             </td>
                         </tr>
                     </ng-container>
