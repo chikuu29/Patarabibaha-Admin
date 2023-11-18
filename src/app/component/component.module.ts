@@ -32,6 +32,7 @@ import { SalesreportComponent } from './salesreport/salesreport.component';
 import { WatermarkComponent } from './watermark/watermark.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { SharedModule } from '../shared/shared.module';
+import { AgePipe } from '../customPipe/age.pipe';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { SharedModule } from '../shared/shared.module';
     NgbModule,
     SharedModule
   ],
+  providers:[AgePipe],
   entryComponents:[ImageViewOperationComponent]
 })
 export class ComponentModule { }
