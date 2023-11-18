@@ -29,6 +29,8 @@ import { AddtypeComponent } from './addtype/addtype.component';
 import { BarcodeComponent } from './barcode/barcode.component';
 import { HomeiconComponent } from './homeicon/homeicon.component';
 import { HomepagecontentComponent } from './homepagecontent/homepagecontent.component';
+import { HomepageeventComponent } from './homepageevent/homepageevent.component';
+import { LogineventComponent } from './loginevent/loginevent.component';
 
 
 
@@ -172,6 +174,20 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: HomepagecontentComponent
       },
+      {
+        path: 'home-event',
+        canActivate: [AuthGuard],
+        component: HomepageeventComponent
+      },
+      {
+        path: 'login-event',
+        canActivate: [AuthGuard],
+        component: LogineventComponent
+      },
+      
+      
+      
+      
 
       
 

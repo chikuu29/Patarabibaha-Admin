@@ -26,18 +26,18 @@ export class SubadmincreateComponent implements OnInit {
   id: any = '';
   constructor(
     private apiparameterscript: ApiParameterScript,
-    private activatedroute:ActivatedRoute
+    private activatedroute: ActivatedRoute
   ) { }
 
 
 
   ngOnInit(): void {
-    this.activatedroute.params.subscribe((res:any)=>{
-      if(res.id != ''){
+    this.activatedroute.params.subscribe((res: any) => {
+      if (res.id != '') {
         this.id = res.id,
-        this.getAllData(this.id)
-      }else{
-        this.id=''
+          this.getAllData(this.id)
+      } else {
+        this.id = ''
       }
     })
     this.admin = new FormGroup({
@@ -52,7 +52,7 @@ export class SubadmincreateComponent implements OnInit {
   createAdmin() {
 
     if (this.id == '') {
-        //insert part done
+      //insert part done
       if (this.admin.value.name == '' || this.admin.value.name == null || this.admin.value.name == undefined) {
         Swal.fire({
           icon: 'error',
@@ -98,13 +98,16 @@ export class SubadmincreateComponent implements OnInit {
             }
           }
           this.apiparameterscript.savedata('admin', updateData).subscribe((res: any) => {
-            Swal.fire({
-              icon: 'success',
-              text: "SubAdmin Created"
-            }).then(() => {
-              this.ngOnInit();
-            });
+            if (res.status) {
+              Swal.fire({
+                icon: 'success',
+                text: "SubAdmin Created"
+              }).then(() => {
+                this.ngOnInit();
+              });
+            }
           })
+
         } else {
           Swal.fire({
             icon: 'error',
@@ -112,7 +115,7 @@ export class SubadmincreateComponent implements OnInit {
           })
         }
       }
-    }else{
+    } else {
       //update part still panding
       if (this.admin.value.name == '' || this.admin.value.name == null || this.admin.value.name == undefined) {
         Swal.fire({
@@ -154,17 +157,20 @@ export class SubadmincreateComponent implements OnInit {
               'Password': this.admin.value.Password,
               'email_id': this.admin.value.email_id,
               'phone_number': this.admin.value.phone_number,
-              'created_At': moment().toISOString(),
+              'updated_At': moment().toISOString(),
               'creater_name': 'Admin'
-            }
+            },
+            "whereConditions": { id: this.id }
           }
-          this.apiparameterscript.savedata('admin', updateData).subscribe((res: any) => {
-            Swal.fire({
-              icon: 'success',
-              text: "SubAdmin Created"
-            }).then(() => {
-              this.ngOnInit();
-            });
+          this.apiparameterscript.updatedata('admin', updateData).subscribe((res: any) => {
+            if (res.status) {
+              Swal.fire({
+                icon: 'success',
+                text: "SubAdmin Created"
+              }).then(() => {
+                this.ngOnInit();
+              });
+            }
           })
         } else {
           Swal.fire({
@@ -175,12 +181,10 @@ export class SubadmincreateComponent implements OnInit {
       }
     }
   }
-  getAllData(data:any){
-    this.apiparameterscript.fetchdata('admin', { "projection": ["*"] ,"whereConditions": { Id: data } }).subscribe((res: any) => {
+  getAllData(data: any) {
+    this.apiparameterscript.fetchdata('admin', { "projection": ["*"], "whereConditions": { Id: data } }).subscribe((res: any) => {
       if (res.success) {
         this.admin.patchValue(res['data'][0])
-      //  console.log(this.admin.value);
-        
       }
     })
 

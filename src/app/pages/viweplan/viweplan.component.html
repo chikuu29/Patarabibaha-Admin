@@ -39,31 +39,33 @@
         <div class="mt-3 data-view-container">
             <table class="table ">
                 <thead class="table-header">
-                    
-                        <tr>
-                            <th>#IS</th>
-                            <th>Plan ID</th>
-                            <th>Name</th>
-                            <th>Plan Type</th>
-                            <th>Amount</th>
-                            <th>Currency</th>
-                            <th>Discont</th>
-                            <th>Plan Validity</th>
-                            <th>Action</th>
-                            <!-- <th>Message Count</th>
+
+                    <tr>
+                        <th>#IS</th>
+                        <th>Plan ID</th>
+                        <th>Name</th>
+                        <th>Plan Type</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Discont</th>
+                        <th>Plan Validity</th>
+                        <th>Action</th>
+                        <!-- <th>Message Count</th>
                             <th>Chat Count</th>
                             <th>Photo Count</th>
                             <th>Other Count</th>
                             <th>Created Date</th>
                             -->
-                        </tr>
-                    
+                    </tr>
+
                 </thead>
                 <tbody class="table-body table-striped">
-                    <ng-container *ngFor="let data of finaldata | fillter : ['membership_plan_name','membership_plan_type','membership_plan_amount','membership_plan_currency'] :filterText ; index as i">
+                    <ng-container
+                        *ngFor="let data of finaldata | fillter : ['membership_plan_name','membership_plan_type','membership_plan_amount','membership_plan_currency'] :filterText ; index as i">
                         <tr [class]="data.membership_plan_default == 1 ? 'bg-success' : ''">
                             <td>{{ i+1 }}</td>
-                            <td><a (click)="edite(data.Id)" href="javascript:void(0);">{{ data.membership_plan_id }}</a></td>
+                            <td><a (click)="edite(data.Id)" href="javascript:void(0);">{{ data.membership_plan_id }}</a>
+                            </td>
                             <td>{{ data.membership_plan_name }}</td>
                             <td>{{ data.membership_plan_type }}</td>
                             <td>{{ data.membership_plan_amount | currency:'INR' }}</td>
@@ -75,10 +77,13 @@
                             <td>{{ data.membership_plan_no_of_photo }}</td>
                             <td>{{ data.membership_plan_show_contact_number_other }}</td>
                             <td>{{ data.membership_plan_created_date_time }}</td> -->
-                           <td>
-                            <button type="button" class="btn btn-outline-warning btn-fw me-2 w-50"
-                            (click)="viwe(data.membership_plan_id)">Viwe</button>
-                           </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-warning btn-fw me-2 w-5"
+                                    (click)="viwe(data.membership_plan_id)">Viwe</button>
+                                <button type="button"
+                                    [class]="data.membership_plan_status == 1 ?'btn btn-outline-warning btn-fw me-2 w-5':'btn btn-outline-danger btn-fw me-2 w-5'"
+                                    (click)="publish(data.membership_plan_id)">{{ data.membership_plan_status == 1 ? 'Unpublish':'Publish' }}</button>
+                            </td>
                         </tr>
                     </ng-container>
                 </tbody>
@@ -86,28 +91,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

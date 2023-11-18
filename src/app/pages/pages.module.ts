@@ -36,6 +36,8 @@ import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 import { BarcodeComponent } from './barcode/barcode.component';
 import { HomepagecontentComponent } from './homepagecontent/homepagecontent.component';
 import { HomeiconComponent } from './homeicon/homeicon.component';
+import { LogineventComponent } from './loginevent/loginevent.component';
+import { HomepageeventComponent } from './homepageevent/homepageevent.component';
 
 
 
@@ -70,7 +72,9 @@ import { HomeiconComponent } from './homeicon/homeicon.component';
     AddtypeComponent,
     BarcodeComponent,
     HomepagecontentComponent,
-    HomeiconComponent
+    HomeiconComponent,
+    LogineventComponent,
+    HomepageeventComponent
    
   ],
   imports: [
