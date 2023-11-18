@@ -395,6 +395,141 @@
             </div>
           </div>
         </div>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="mb-3">
+              <div class="d-flex">
+                <h2 class="fw-bold fs-4 text-muted">
+                  Horoscope Details
+                </h2>
+                <ng-container *ngIf="horoscopeForm.valid">
+                  <span class="ms-2"><img src="/assets/img/icons/checkmark.png" alt="checkmark.png" srcset=""
+                      width="25px" height="25px" /></span>
+                </ng-container>
+                <ng-container *ngIf="!horoscopeForm.valid">
+                  <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
+                      height="25px" /></span>
+                </ng-container>
+              </div>
+            </div>
+            <div class="mb-3">
+              <mat-progress-bar mode="determinate" color="accent"
+                [value]="horoscopeForm.valid ? 100 : 0"></mat-progress-bar>
+            </div>
+            <div>
+              <form [formGroup]="horoscopeForm">
+                <div class="row mb-4">
+                  <label class="mb-3  fw-bold text-danger">Horoscope</label>
+                  <mat-radio-group aria-label="Select an option" formControlName="user_horoscope">
+                    <mat-radio-button value="Yes">Yes</mat-radio-button>
+                    <mat-radio-button value="No">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                <ng-container *ngIf="horoscopeForm.value.user_horoscope=='Yes'">
+                <div class="row mb-4">
+                  <label class="mb-3  fw-bold text-danger">Mangalik </label>
+                  <mat-radio-group aria-label="Select an option" formControlName="user_mangalik">
+                    <mat-radio-button value="Yes">Yes</mat-radio-button>
+                    <mat-radio-button value="No">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group col-md-6">
+                    <label class="mb-3 text-muted fw-bold">Rashi</label>
+                    <p-dropdown [options]="zodiacsOptions" [filter]="true" filterBy="name" [showClear]="true"
+                      placeholder="Rashi" [style]="{ width: '100%' }" formControlName="user_zodiacs"
+                      optionLabel="display" optionValue="name">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{
+                            this.horoscopeForm.value
+                            .user_zodiacs
+                            }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-item pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ item?.display }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="mb-3 text-muted fw-bold">Nakhyatra
+                    </label>
+                    <p-dropdown [options]="nakhyatraOption" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="true" placeholder="Nakhyatra" [style]="{ width: '100%' }"
+                      formControlName="user_nakhyatra" optionValue="name">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{ horoscopeForm.value.user_nakhyatra | formatdropdown}}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-item pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ item | formatdropdown }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group col-md-12">
+                    <label class="mb-3 text-muted fw-bold">Gotra
+                    </label>
+                    <p-dropdown [options]="gotraOption" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="true" placeholder="Gotra" [style]="{ width: '100%' }" formControlName="user_gotra"
+                      optionValue="name">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{
+                            this.horoscopeForm.value
+                            .user_gotra | formatdropdown
+                            }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-item pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ item | formatdropdown }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="mb-3 text-muted fw-bold">Date Of Time
+                  </label>
+                  <p-calendar [showTime]="true" formControlName="user_dateoftime" [touchUI]="true"
+                    [readonlyInput]="true" [showSeconds]="true" styleClass="w-100" ></p-calendar>
+                </div>
+                <div class="row mb-3">
+                  <label class="mb-3 text-muted fw-bold">Date Of Place
+                  </label>
+                  <mat-form-field appearance="outline" class="flex-fill w-100">
+                    <mat-label>Date Of Place </mat-label>
+                    <input formControlName="user_dateofplace" matInput placeholder="Date Of Place" />
+                  </mat-form-field>
+                </div>
+                </ng-container>
+              </form>
+              <div class="row mt-2">
+                <div class="col-sm-12">
+                  <button mat-raised-button color="accent" (click)="horoscopeForm_submit()">
+                    Update
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
   
         <div class="card mb-3">
           <div class="card-body">

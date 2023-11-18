@@ -401,8 +401,20 @@ export class UserViewComponent implements OnInit {
   });
 
 
-
-
+  horoscopeForm = new FormGroup({
+    user_id: new FormControl('', []),
+    user_horoscope: new FormControl('Yes', [Validators.required]),
+    user_mangalik: new FormControl('Yes', [Validators.required]),
+    user_dateoftime: new FormControl('', [Validators.required]),
+    user_dateofplace: new FormControl('', [Validators.required]),
+    user_gotra: new FormControl('', [Validators.required]),
+    user_zodiacs: new FormControl('', [Validators.required]),
+    user_nakhyatra: new FormControl('', [Validators.required]),
+    completed: new FormControl(1, []),
+  })
+  nakhyatraOption: any = []
+  zodiacsOptions: any = []
+  gotraOption: any = []
 
   responsiveOptions: any[] = [
     {
@@ -418,6 +430,7 @@ export class UserViewComponent implements OnInit {
       numVisible: 1
     }
   ];
+
 
   uploadURL = 'http://localhost/waywala-admin-api/shop/upload.php'
   uploadedFiles: any = []
@@ -688,6 +701,96 @@ export class UserViewComponent implements OnInit {
 
       }
     })
+
+    this.ApiParameterScript.fetchdata('gotra', { "projection": ["*"] }).subscribe((res: any) => {
+      // 
+      if (res.success && res['data'].length > 0) {
+        this.gotraOption = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.name };
+          } else {
+            return null
+          }
+        });
+
+      }
+    })
+    this.ApiParameterScript.fetchdata('nakshatra', { "projection": ["*"] }).subscribe((res: any) => {
+      // 
+      if (res.success && res['data'].length > 0) {
+        this.nakhyatraOption = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.nakshatra_name };
+          } else {
+            return null
+          }
+        });
+
+      }
+    })
+
+    this.ApiParameterScript.fetchdata('zodiacs', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
+      if (res.success && res['data'].length > 0) {
+        this.zodiacsOptions = res['data'].map((obj: any) => {
+
+          return { name: obj.name, display: `${obj.name} / ${obj.odia_name}` };
+
+        });
+
+
+      }
+    })
+
+
+  }
+
+  horoscopeForm_submit() {
+
+
+    if (this.horoscopeForm.valid) {
+      var updateData = {
+        "data": this.horoscopeForm.value,
+        "whereConditions": { user_id: this.appservices.authStatus.profile_id }
+      }
+
+      if (this.horoscopeForm.value.user_id == '') {
+        updateData['data']['user_id']=this.appservices.authStatus.profile_id 
+        this.ApiParameterScript.savedata('user_horoscope', updateData).subscribe((res: any) => {
+
+          if (res.success) {
+            Swal.fire('', res.message, 'success').then(() => {
+              this.ngOnInit()
+            })
+          } else {
+            Swal.fire('No Data Updated', res.message, 'error')
+          }
+
+        })
+
+      } else {
+        this.ApiParameterScript.updatedata('user_horoscope', updateData).subscribe((res: any) => {
+
+          if (res.success) {
+            Swal.fire('', res.message, 'success').then(() => {
+              this.ngOnInit()
+            })
+          } else {
+            Swal.fire('No Data Updated', res.message, 'error')
+          }
+
+        })
+
+      }
+    } else {
+
+      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning')
+
+    }
+
+
+
+
 
   }
 
