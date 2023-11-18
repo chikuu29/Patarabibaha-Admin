@@ -33,6 +33,7 @@ import { WatermarkComponent } from './watermark/watermark.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { SharedModule } from '../shared/shared.module';
 import { AgePipe } from '../customPipe/age.pipe';
+import { GraphDataViewComponent } from './graph-data-view/graph-data-view.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { AgePipe } from '../customPipe/age.pipe';
     ExpirememberComponent,
     SalesreportComponent ,
     WatermarkComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    GraphDataViewComponent
   ],
   imports: [
     CommonModule,

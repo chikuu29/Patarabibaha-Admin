@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
 
           break;
         case 'Paid':
-          query = "SELECT COUNT(user_id) as count FROM user_info WHERE user_membership_plan_active=4"
+          query = "SELECT COUNT(user_id) as count FROM user_info WHERE user_membership_plan_active=1 AND user_membership_plan_type !='Free'"
           this.apiparameter.fetchDataFormQuery(query).subscribe((res: any) => {
             console.log(res);
             if (res.success && res['data'].length > 0) {
