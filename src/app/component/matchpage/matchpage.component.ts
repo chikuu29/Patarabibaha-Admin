@@ -8,6 +8,7 @@ import { AgePipe } from 'src/app/customPipe/age.pipe';
 import * as moment from 'moment';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
+
 @Component({
   selector: 'app-matchpage',
   templateUrl: './matchpage.component.html',
@@ -118,11 +119,22 @@ export class MatchpageComponent implements OnInit {
 
 
   public generatePDF() {
-    
+    var head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']]
+
+    var data2 = [
+      [1, 'ROBERT', 'SOFTWARE DEVELOPER', 'ENGINEERING'],
+      [2, 'CRISTINAO','QA', 'TESTING'],
+      [3, 'KROOS','MANAGER', 'MANAGEMENT'],
+      [4, 'XYZ','DEVELOPER', 'DEVLOPEMENT'],
+      [5, 'ABC','CONSULTANT', 'HR'],
+      [73, 'QWE','VICE PRESIDENT', 'MANAGEMENT'],
+    ]
+  
+
     this.blockUI.start("Generating PDF...")
-    var pdfData =_.cloneDeep(this.finaldata)
+    var pdfData = _.cloneDeep(this.finaldata)
     console.log("Click generatePDF", this.finaldata);
- 
+
     const pdf = new jsPDF({
       unit: 'mm',
       format: 'a4', // or 'letter', 'a3', etc.
@@ -135,37 +147,60 @@ export class MatchpageComponent implements OnInit {
     console.log("Click generatePDF", pdfData);
 
     const data = pdfData
-
+    console.log("data",data);
+    const keyMap=['user_dob','user_height','HomeTown',]
     let yPos = 30;
     let currentPage = 1;
     data.forEach((record: any) => {
       console.log(record);
       console.log("pdf", pdf.internal.pageSize.getHeight());
 
-      if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
-        pdf.addPage();
-        currentPage++;
-        yPos = 10; // Reset Y position for the new page
-      }
-      pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
-      pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos + 10);
-      pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos + 25);
-      // pdf.text(`Gender: ${record.user_gender}`, 70, yPos + 25);s
 
-      pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos + 40);
+      pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
+      pdf.textWithLink("ID   :"+record.user_id,70 , yPos+=10, { url: "https://choicemarriage.com/member-profile/"+record.user_id });
+  
+      // pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos+=10);
+      // pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos+=10);
+      pdf.text(`Gender: ${record.user_gender}`, 70, yPos+=10);
+      pdf.text(`Marital Status: ${record.user_marital_status ? record.user_marital_status : "NA"}`, 70, yPos+=10);
+      // pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos+=10);
 
       // Draw lines to separate records
-      pdf.line(0, yPos + 60, 210, yPos + 60);
+      pdf.line(0,  85, 210,  85);
+      console.log("[record]",[record]);
+      pdf.text("BIODATA",85,yPos+35)
+      pdf.text(`DOB: ${record.user_dob}`, 10, yPos+=50);
+      pdf.text(`Height: ${record.user_height ? record.user_height : "NA"}`, 10, yPos+=10);
+      pdf.text(`Colour: ${record.user_complextion ? record.user_complextion : "NA"}`, 10, yPos+=10);
+      pdf.text(`HomeTown:  ${record.user_city ? record.user_city : "NA"},${record.user_city ? record.user_state : "NA"}`, 10, yPos+=10);
 
+      pdf.text("EDUCATION & OCCUPATION",70,yPos+20)
+      // pdf.table(0,60,[],record,{ autoSize: true });
       // Move the Y position for the next record
-      yPos += 70;
+      pdf.text(`Education: ${record.user_highest_education}`, 10, yPos+=50);
+      pdf.text(`Occupation: ${record.user_occupation ? record.user_occupation : "NA"}`, 10, yPos+=10);
+      pdf.text(`Designation: ${record.user_occupation_details ? record.user_occupation_details : "NA"}`, 10, yPos+=10);
+      pdf.text(`Anulal Income:  ${record.user_anual_income ? record.user_anual_income : "NA"}`, 10, yPos+=10);
+      pdf.text(`Job Location:  ${record.user_occupation_location ? record.user_occupation_location : "NA"}`, 10, yPos+=10);
+      pdf.text(`Details Of Job:  ${record.user_occupation_details ? record.user_occupation_details : "NA"}`, 10, yPos+=10);
+      pdf.text(`Rashi:  ${record.user_zodiacs ? record.user_zodiacs : "NA"}`, 10, yPos+=10);
+      yPos = 30;
+
+
+      // if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
+      pdf.addPage();
+      pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
+      // Sample data with text and image URLs
+      currentPage++;
+      // yPos = 30; // Reset Y position for the new page
+      // }
     });
-   
-    const pdfFileName='matching_report_' + `${this.user_id}_` + moment().toString() + '.pdf'
-    pdf.save(pdfFileName,{returnPromise:true}).then((res:any)=>{
+
+    const pdfFileName = 'matching_report_' + `${this.user_id}_` + moment().toString() + '.pdf'
+    pdf.save(pdfFileName, { returnPromise: true }).then((res: any) => {
       // console.log(res);
       this.blockUI.stop()
-      
+
     });
 
   }
