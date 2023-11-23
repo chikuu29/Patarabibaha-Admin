@@ -23,6 +23,7 @@ import { ExpirememberComponent } from './expiremember/expiremember.component';
 import { SalesreportComponent } from './salesreport/salesreport.component';
 import { WatermarkComponent } from './watermark/watermark.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { DesignationComponent } from './designation/designation.component';
 
 const routes: Routes = [
   {
@@ -142,12 +143,18 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: CreateUserComponent
       },
+      {
+        path: 'designation',
+        canActivate: [AuthGuard],
+        component: DesignationComponent
+      },
 
 
-     
 
-      
-      
+
+
+
+
     ]
   }
 
