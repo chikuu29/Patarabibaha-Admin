@@ -1,13 +1,30 @@
 <div class="d-flex justify-content-between pb-3">
-    <button type="button" [class]="class1"  (click)="getAllData()">All Data</button>
+    <button type="button" [class]="class1" (click)="getAllData()">All Data</button>
     <button type="button" [class]="class2" (click)="getAllOnlineData()">Online</button>
     <button type="button" [class]="class3" (click)="getAllPublishedData()">Published</button>
     <button type="button" [class]="class4" (click)="getAllUnpublishedData()">Un Published</button>
     <button type="button" [class]="class5" (click)="getAllDeletedData()">Deleted</button>
     <button type="button" [class]="class6" (click)="getAllNotDeletedData()">Not Deleted</button>
-    <button type="button" [class]="class7"  (click)="getAllApprovedData()">Approve</button>
+    <button type="button" [class]="class7" (click)="getAllApprovedData()">Approve</button>
     <button type="button" [class]="class8" (click)="getAllPendingData()">Pending</button>
     <button type="button" [class]="class9" (click)="getAllvaliduserData()">Valid user</button>
+</div>
+<div class="outline">
+    <div class="commen">
+        <i title="DELETE" class="material-icons text-danger pointer">delete_outline</i>
+    </div>
+    <div class="commen">
+        <i title="PUBLISH" class="material-icons pointer text-success">published_with_changes</i>
+    </div>
+    <div class="commen">
+        <i title="UNPUBLISH" class="material-icons text-danger pointer">unpublished</i>
+    </div>
+    <div class="commen">
+        <i class="material-icons pointer text-success">done</i>
+    </div>
+    <div class="commen">
+        <i class="material-icons text-danger pointer">close</i>
+    </div>
 </div>
 <div class="">
     <div class="table-holder">
@@ -46,10 +63,14 @@
                 <!-- Search End -->
             </div>
         </div>
+
         <div class="mt-3 data-view-container">
             <table class="table ">
                 <thead class="table-header">
                     <tr>
+                        <th>
+                            <input type="checkbox" class="checkAll" id="all" (change)="checkAll($event)">
+                        </th>
                         <th class="width"></th>
                         <th>#SI</th>
                         <th>User Name</th>
@@ -67,6 +88,9 @@
                     <ng-container
                         *ngFor="let data of finaldata | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
                         <tr>
+                            <td>
+                                <input type="checkbox" class="check" (change)="getId(data?.Id,$event)"  [value]="data?.user_id">
+                            </td>
                             <td class="width">
                                 <p title="Online" class="badge badge-success" *ngIf="data.online_status == 1">
                                     <span></span>

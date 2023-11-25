@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-alluserdata',
   templateUrl: './alluserdata.component.html',
@@ -11,39 +12,40 @@ import Swal from 'sweetalert2';
 export class AlluserdataComponent implements OnInit {
   alldata: any;
   finaldata: any = [];
-  filterText:string;
-  class1:any='btn active';
-  class2:any='btn btn-primary';
-  class3:any='btn btn-primary';
-  class4:any='btn btn-primary';
-  class5:any='btn btn-primary';
-  class6:any='btn btn-primary';
-  class7:any='btn btn-primary';
-  class8:any='btn btn-warning';
-  class9:any='btn btn-primary';
+  filterText: string;
+  allId: any[] = [];
+  class1: any = 'btn active';
+  class2: any = 'btn btn-primary';
+  class3: any = 'btn btn-primary';
+  class4: any = 'btn btn-primary';
+  class5: any = 'btn btn-primary';
+  class6: any = 'btn btn-primary';
+  class7: any = 'btn btn-primary';
+  class8: any = 'btn btn-warning';
+  class9: any = 'btn btn-primary';
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router
   ) { }
   date: any;
   ngOnInit(): void {
-    
+
     this.getAllData();
     this.date = new Date();
 
   }
 
   getAllData() {
-    this.class1='btn active';
-    this.class2='btn btn-primary';
-    this.class3='btn btn-primary';
-    this.class4='btn btn-primary';
-    this.class5='btn btn-primary';
-    this.class6='btn btn-primary';
-    this.class7='btn btn-primary';
-    this.class8='btn btn-primary';
-    this.class9='btn btn-primary';
-    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID';
+    this.class1 = 'btn active';
+    this.class2 = 'btn btn-primary';
+    this.class3 = 'btn btn-primary';
+    this.class4 = 'btn btn-primary';
+    this.class5 = 'btn btn-primary';
+    this.class6 = 'btn btn-primary';
+    this.class7 = 'btn btn-primary';
+    this.class8 = 'btn btn-primary';
+    this.class9 = 'btn btn-primary';
+    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
@@ -198,12 +200,12 @@ export class AlluserdataComponent implements OnInit {
         })
       }
     });
-   
+
   }
   userpage(data: any) {
     this.router.navigate(['/user', data]);
   }
-  makeonline(data:any){
+  makeonline(data: any) {
     Swal.fire({
       icon: 'question',
       text: 'Do you want make this user online',
@@ -236,7 +238,7 @@ export class AlluserdataComponent implements OnInit {
       }
     });
   }
-  makeoffline(data:any){
+  makeoffline(data: any) {
     Swal.fire({
       icon: 'question',
       text: 'Do you want make this user offline',
@@ -271,154 +273,200 @@ export class AlluserdataComponent implements OnInit {
   }
 
   getAllOnlineData() {
-    this.class1='btn btn-primary ';
-    this.class2='btn active';
-    this.class3='btn btn-primary';
-    this.class4='btn btn-primary';
-    this.class5='btn btn-primary';
-    this.class6='btn btn-primary';
-    this.class7='btn btn-primary';
-    this.class9='btn btn-primary';
-    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.online_status=1';
+    this.class1 = 'btn btn-primary ';
+    this.class2 = 'btn active';
+    this.class3 = 'btn btn-primary';
+    this.class4 = 'btn btn-primary';
+    this.class5 = 'btn btn-primary';
+    this.class6 = 'btn btn-primary';
+    this.class7 = 'btn btn-primary';
+    this.class9 = 'btn btn-primary';
+    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.online_status=1';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
         console.log(this.finaldata);
+      } else {
+        this.finaldata = [];
       }
     });
   }
-  getAllPublishedData(){
-    this.class1='btn btn-primary ';
-    this.class2='btn btn-primary';
-    this.class3='btn active';
-    this.class4='btn btn-primary';
-    this.class5='btn btn-primary';
-    this.class6='btn btn-primary';
-    this.class7='btn btn-primary';
-    this.class8='btn btn-primary';
-    this.class9='btn btn-primary';
-    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=1';
+  getAllPublishedData() {
+    this.class1 = 'btn btn-primary ';
+    this.class2 = 'btn btn-primary';
+    this.class3 = 'btn active';
+    this.class4 = 'btn btn-primary';
+    this.class5 = 'btn btn-primary';
+    this.class6 = 'btn btn-primary';
+    this.class7 = 'btn btn-primary';
+    this.class8 = 'btn btn-primary';
+    this.class9 = 'btn btn-primary';
+    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=1';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
         console.log(this.finaldata);
+      } else {
+        this.finaldata = [];
       }
     });
   }
-  getAllUnpublishedData(){
-    this.class1='btn btn-primary ';
-    this.class2='btn btn-primary';
-    this.class3='btn btn-primary';
-    this.class4='btn active';
-    this.class5='btn btn-primary';
-    this.class6='btn btn-primary';
-    this.class7='btn btn-primary';
-    this.class9='btn btn-primary';
-    
-    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
+  getAllUnpublishedData() {
+    this.class1 = 'btn btn-primary ';
+    this.class2 = 'btn btn-primary';
+    this.class3 = 'btn btn-primary';
+    this.class4 = 'btn active';
+    this.class5 = 'btn btn-primary';
+    this.class6 = 'btn btn-primary';
+    this.class7 = 'btn btn-primary';
+    this.class9 = 'btn btn-primary';
+
+    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
         console.log(this.finaldata);
+      } else {
+        this.finaldata = [];
       }
     });
   }
-  getAllDeletedData(){
-    this.class1='btn btn-primary ';
-    this.class2='btn btn-primary';
-    this.class3='btn btn-primary';
-    this.class4='btn btn-primary';
-    this.class5='btn active';
-    this.class6='btn btn-primary';
-    this.class7='btn btn-primary';
-    this.class9='btn btn-primary';
-    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=0';
+  getAllDeletedData() {
+    this.class1 = 'btn btn-primary ';
+    this.class2 = 'btn btn-primary';
+    this.class3 = 'btn btn-primary';
+    this.class4 = 'btn btn-primary';
+    this.class5 = 'btn active';
+    this.class6 = 'btn btn-primary';
+    this.class7 = 'btn btn-primary';
+    this.class9 = 'btn btn-primary';
+    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=0';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
         console.log(this.finaldata);
+      } else {
+        this.finaldata = [];
       }
     });
   }
-  getAllNotDeletedData(){
-    this.class1='btn btn-primary ';
-    this.class2='btn btn-primary';
-    this.class3='btn btn-primary';
-    this.class4='btn btn-primary';
-    this.class5='btn btn-primary';
-    this.class6='btn active';
-    this.class7='btn btn-primary';
-    this.class8='btn btn-primary';
-    this.class9='btn btn-primary';
-    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=1';
+  getAllNotDeletedData() {
+    this.class1 = 'btn btn-primary ';
+    this.class2 = 'btn btn-primary';
+    this.class3 = 'btn btn-primary';
+    this.class4 = 'btn btn-primary';
+    this.class5 = 'btn btn-primary';
+    this.class6 = 'btn active';
+    this.class7 = 'btn btn-primary';
+    this.class8 = 'btn btn-primary';
+    this.class9 = 'btn btn-primary';
+    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=1';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
         console.log(this.finaldata);
+      } else {
+        this.finaldata = [];
       }
     });
   }
-  getAllApprovedData(){
-    this.class1='btn btn-primary ';
-    this.class2='btn btn-primary';
-    this.class3='btn btn-primary';
-    this.class4='btn btn-primary';
-    this.class5='btn btn-primary';
-    this.class6='btn btn-primary';
-    this.class7='btn active';
-    this.class8='btn btn-primary';
-    this.class9='btn btn-primary';
-    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved"';
+  getAllApprovedData() {
+    this.class1 = 'btn btn-primary ';
+    this.class2 = 'btn btn-primary';
+    this.class3 = 'btn btn-primary';
+    this.class4 = 'btn btn-primary';
+    this.class5 = 'btn btn-primary';
+    this.class6 = 'btn btn-primary';
+    this.class7 = 'btn active';
+    this.class8 = 'btn btn-primary';
+    this.class9 = 'btn btn-primary';
+    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved"';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
         console.log(this.finaldata);
+      } else {
+        this.finaldata = [];
       }
     });
   }
-  getAllPendingData(){
-    this.class1='btn btn-primary ';
-    this.class2='btn btn-primary';
-    this.class3='btn btn-primary';
-    this.class4='btn btn-primary';
-    this.class5='btn btn-primary';
-    this.class6='btn btn-primary';
-    this.class7=' btn btn-primary';
-    this.class8='btn active';
-    this.class9='btn btn-primary';
-    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Pending"';
+  getAllPendingData() {
+    this.class1 = 'btn btn-primary ';
+    this.class2 = 'btn btn-primary';
+    this.class3 = 'btn btn-primary';
+    this.class4 = 'btn btn-primary';
+    this.class5 = 'btn btn-primary';
+    this.class6 = 'btn btn-primary';
+    this.class7 = ' btn btn-primary';
+    this.class8 = 'btn active';
+    this.class9 = 'btn btn-primary';
+    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Pending"';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
         console.log(this.finaldata);
+      } else {
+        this.finaldata = [];
       }
     });
   }
-  getAllvaliduserData(){
-    this.class1='btn btn-primary ';
-    this.class2='btn btn-primary';
-    this.class3='btn btn-primary';
-    this.class4='btn btn-primary';
-    this.class5='btn btn-primary';
-    this.class6='btn btn-primary';
-    this.class7=' btn btn-primary';
-    this.class8='btn btn-primary';
-    this.class9='btn active';
-    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved" AND a.deleted=1 AND a.status=1';
+  getAllvaliduserData() {
+    this.class1 = 'btn btn-primary ';
+    this.class2 = 'btn btn-primary';
+    this.class3 = 'btn btn-primary';
+    this.class4 = 'btn btn-primary';
+    this.class5 = 'btn btn-primary';
+    this.class6 = 'btn btn-primary';
+    this.class7 = ' btn btn-primary';
+    this.class8 = 'btn btn-primary';
+    this.class9 = 'btn active';
+    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved" AND a.deleted=1 AND a.status=1';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
         console.log(this.finaldata);
+      } else {
+        this.finaldata = [];
       }
     });
   }
-  
+
+  checkAll(e: any) {
+    let check = document.querySelectorAll('.check');
+    this.allId = [];
+    if (e.target.checked) {
+      check.forEach((element: any, key: any) => {
+        this.allId.push(parseInt(this.finaldata[key].Id));
+        element.checked = true;
+      });
+    } else {
+      check.forEach((element: any) => {
+        this.allId = [];
+        element.checked = false;
+      });
+    }
+    //console.log(this.allId);
+  }
+  getId(id: any, e: any) {
+
+    if (e.target.checked) {
+      this.allId.push(parseInt(id));
+    } else {
+      let index = this.allId.indexOf(parseInt(id));
+      this.allId.splice(index,1);
+      let k= <any>document.getElementById('all');
+      k.checked = false;
+    }
+    //console.log(this.allId);
+  }
+
+
 }
