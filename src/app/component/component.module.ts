@@ -35,6 +35,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AgePipe } from '../customPipe/age.pipe';
 import { GraphDataViewComponent } from './graph-data-view/graph-data-view.component';
 import { DesignationComponent } from './designation/designation.component';
+import { UserfilterComponent } from './userfilter/userfilter.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { DesignationComponent } from './designation/designation.component';
     WatermarkComponent,
     CreateUserComponent,
     GraphDataViewComponent,
-    DesignationComponent
+    DesignationComponent,
+    UserfilterComponent
   ],
   imports: [
     CommonModule,

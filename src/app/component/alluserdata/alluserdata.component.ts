@@ -13,7 +13,10 @@ export class AlluserdataComponent implements OnInit {
   alldata: any;
   finaldata: any = [];
   filterText: string;
+
   allId: any[] = [];
+
+
   class1: any = 'btn active';
   class2: any = 'btn btn-primary';
   class3: any = 'btn btn-primary';

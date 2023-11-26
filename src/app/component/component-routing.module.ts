@@ -24,6 +24,8 @@ import { SalesreportComponent } from './salesreport/salesreport.component';
 import { WatermarkComponent } from './watermark/watermark.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { DesignationComponent } from './designation/designation.component';
+import { UserfilterComponent } from './userfilter/userfilter.component';
+
 
 const routes: Routes = [
   {
@@ -147,11 +149,11 @@ const routes: Routes = [
         path: 'designation',
         canActivate: [AuthGuard],
         component: DesignationComponent
+      },{
+        path: 'filter',
+        canActivate: [AuthGuard],
+        component: UserfilterComponent
       },
-
-
-
-
 
 
 
