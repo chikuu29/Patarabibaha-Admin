@@ -366,4 +366,28 @@ export class ApiParameterScript {
         return simpleObservable;
     }
 
+    /* @param apiData 
+    * @returns 
+    * @author Suryanarayan Biswal
+    * @since 11-06-2023
+    */
+public makeActinForMultipulData(db:any ,apidata: any) {
+     
+    const simpleObservable = new Observable((observer) => {
+        try {
+            apidata['table'] = db;
+            this.apiservices.makeActinForMultipulData(apidata).subscribe((res: any) => {
+                observer.next(res);
+                observer.complete();
+            })
+
+        } catch (error) {
+            console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+            observer.next(error);
+            observer.complete();
+        }
+    });
+    return simpleObservable;
+}
+
 }

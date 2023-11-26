@@ -11,7 +11,10 @@
 </div>
 <div class="outline">
     <div class="commen">
-        <i title="DELETE" class="material-icons text-danger pointer">delete_outline</i>
+        <i title="DELETE" (click)="deletedata()" class="material-icons text-danger pointer">delete_outline</i>
+    </div>
+    <div class="commen">
+        <i title="RECOVER" (click)="recoverdata()" class="material-icons text-success pointer">delete_outline</i>
     </div>
     <div class="commen">
         <i title="PUBLISH" class="material-icons pointer text-success">published_with_changes</i>
@@ -81,7 +84,7 @@
                         <th>status</th>
                         <th>Approval</th>
                         <th>Delete Status</th>
-                        <th>Action</th>
+                        <!-- <th>Action</th> -->
                     </tr>
                 </thead>
                 <tbody class="table-body table-striped">
@@ -120,8 +123,8 @@
                                 <p class="badge badge-success" *ngIf="data.deleted == 1">Not Deleted</p>
                                 <p class="badge badge-danger" *ngIf="data.deleted == 0">Deleted</p>
                             </td>
-                            <td>
-                                <i [title]="data.deleted==1 ? ' DELETE':'RECOVER'"
+                            <!-- <td> -->
+                                <!-- <i [title]="data.deleted==1 ? ' DELETE':'RECOVER'"
                                     (click)="deletedata(data.user_id,data.deleted)"
                                     [class]="data.deleted==1 ? 'material-icons text-danger pointer':'material-icons text-success pointer'">delete_outline</i>
 
@@ -132,9 +135,9 @@
                                 <i class="material-icons pointer text-success" (click)="makeoffline(data.user_id)"
                                     *ngIf="data.online_status == 1">done</i>
                                 <i class="material-icons text-danger pointer" (click)="makeonline(data.user_id)"
-                                    *ngIf="data.online_status == 0">close</i>
+                                    *ngIf="data.online_status == 0">close</i> -->
 
-                            </td>
+                            <!-- </td> -->
                         </tr>
                     </ng-container>
                 </tbody>

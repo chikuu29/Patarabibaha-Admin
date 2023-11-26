@@ -29,7 +29,9 @@ export class AlluserdataComponent implements OnInit {
   ) { }
   date: any;
   ngOnInit(): void {
-
+    let all = <any>document.getElementById('all');
+    all.checked = false;
+    this.allId = [];
     this.getAllData();
     this.date = new Date();
 
@@ -54,10 +56,14 @@ export class AlluserdataComponent implements OnInit {
       }
     });
   }
-  deletedata(data: any, deleted: any) {
-
-    if (deleted == 1) {
-
+  // data: any, deleted: any
+  deletedata() {
+    if (this.allId.length == 0) {
+      Swal.fire({
+        icon: 'question',
+        text: 'Select one',
+      });
+    } else {
       Swal.fire({
         icon: 'question',
         text: 'Do you want to Delete',
@@ -69,10 +75,10 @@ export class AlluserdataComponent implements OnInit {
             "data": {
               "deleted": 0,
             },
-            "whereConditions": { user_id: data }
+            'type': 'Delete',
+            "whereConditions": this.allId
           }
-          this.ApiParameter.updatedata('user_info', updateData).subscribe((res: any) => {
-            // console.log(res);
+          this.ApiParameter.makeActinForMultipulData('user_info', updateData).subscribe((res: any) => {
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -87,33 +93,50 @@ export class AlluserdataComponent implements OnInit {
               });
             }
           })
-        } else {
-
         }
+      });
+    }
+  }
 
-      })
+  recoverdata(){
+    if (this.allId.length == 0) {
+      Swal.fire({
+        icon: 'question',
+        text: 'Select one',
+      });
+    } else {
 
-
-    } else if (deleted == 0) {
-
+      // let updateData = {
+      //   "data": {
+      //     "deleted": 0,
+      //   },
+      //   'type': 'Delete',
+      //   "whereConditions": this.allId
+      // }
+      // this.ApiParameter.makeActinForMultipulData('user_info', updateData).subscribe((res: any) => {
+      //   if (res.success) {
+      //     alert('poo');
+      //   }
+      // })
       Swal.fire({
         icon: 'question',
         text: 'Do you want to Recover',
         showCancelButton: true,
       }).then((r: any) => {
+        console.log(r);
         if (r.isConfirmed) {
           let updateData = {
             "data": {
               "deleted": 1,
             },
-            "whereConditions": { user_id: data }
+            'type': 'Delete',
+            "whereConditions": this.allId
           }
-          this.ApiParameter.updatedata('user_info', updateData).subscribe((res: any) => {
-            // console.log(res);
+          this.ApiParameter.makeActinForMultipulData('user_info', updateData).subscribe((res: any) => {
             if (res.success) {
               Swal.fire({
                 icon: 'success',
-                text: "Recoverad"
+                text: "Recovered"
               }).then(() => {
                 this.ngOnInit()
               });
@@ -124,13 +147,15 @@ export class AlluserdataComponent implements OnInit {
               });
             }
           })
-        } else {
-
         }
       });
-
     }
   }
+
+
+
+
+
   publishuser(data: any) {
 
     Swal.fire({
@@ -271,6 +296,10 @@ export class AlluserdataComponent implements OnInit {
       }
     });
   }
+
+
+
+
 
   getAllOnlineData() {
     this.class1 = 'btn btn-primary ';
@@ -461,8 +490,8 @@ export class AlluserdataComponent implements OnInit {
       this.allId.push(parseInt(id));
     } else {
       let index = this.allId.indexOf(parseInt(id));
-      this.allId.splice(index,1);
-      let k= <any>document.getElementById('all');
+      this.allId.splice(index, 1);
+      let k = <any>document.getElementById('all');
       k.checked = false;
     }
     //console.log(this.allId);

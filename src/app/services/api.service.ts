@@ -26,8 +26,12 @@ export class ApiService {
 
   public update(apiData:any){
     return this.http.post(this.appservices.getApipath()+ 'update',JSON.stringify(apiData),{ headers: this.headers })
-
   }
+
+  public makeActinForMultipulData(apiData:any){
+    return this.http.post(this.appservices.getApipath()+ 'makeActinForMultipulData',JSON.stringify(apiData),{ headers: this.headers })
+  }
+  
 
   public save(apiData:any){
     return this.http.post(this.appservices.getApipath()+ 'save',JSON.stringify(apiData),{ headers: this.headers })
