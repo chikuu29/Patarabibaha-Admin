@@ -120,17 +120,7 @@ export class UserfilterComponent implements OnInit {
     { 'name': 'Aurangabad' }
   ]
 
-  religionOptions: any = [
-    { "name": "Hinduism" },
-    { "name": "Islam" },
-    { "name": "Christianity" },
-    { "name": "Sikhism" },
-    { "name": "Buddhism" },
-    { "name": "Jainism" },
-    { "name": "Zoroastrianism" },
-    { "name": "Bahá'í Faith" },
-    { "name": "Judaism" }
-  ]
+  religionOptions: any = []
   religionCasteOptions: any = [
     { "name": "Hinduism" },
     { "name": "Islam" },
@@ -204,15 +194,15 @@ export class UserfilterComponent implements OnInit {
     }
     
     
-    this.ApiParameterScript.fetchdata("user_partnerpreference",apiData).subscribe((res:any)=>{
+    // this.ApiParameterScript.fetchdata("user_partnerpreference",apiData).subscribe((res:any)=>{
     
       
-      if (res.success && res['data'].length>0) {
-        this.partnerPreferenceForm.patchValue(JSON.parse(res['data'][0]['json_data']))
-        this.getstatefilter(this.partnerPreferenceForm.value.user_country)
-        this.getcityfilter(this.partnerPreferenceForm.value.user_state)
-      }
-    })
+    //   if (res.success && res['data'].length>0) {
+    //     this.partnerPreferenceForm.patchValue(JSON.parse(res['data'][0]['json_data']))
+    //     this.getstatefilter(this.partnerPreferenceForm.value.user_country)
+    //     this.getcityfilter(this.partnerPreferenceForm.value.user_state)
+    //   }
+    // })
 
     this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"] }).subscribe((res: any) => {
       
@@ -289,16 +279,13 @@ export class UserfilterComponent implements OnInit {
       }
 
     })
-    this.ApiParameterScript.fetchdata('religion', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('religion', { "projection": ["*"],"whereConditions":{ status: 1 } }).subscribe((res: any) => {
       
       if (res.success && res['data'].length > 0) {
         this.religionOptions = res['data'].map((obj: any) => {
-          if (obj.status == 1) {
             return { name: obj.religion_name };
-          } else {
-            return null
-          }
         });
+        console.log(this.religionOptions);
 
       }
 

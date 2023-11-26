@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import { CommonService } from 'src/app/services/common.service';
 import { jsPDF } from 'jspdf';
@@ -28,6 +28,7 @@ export class MatchpageComponent implements OnInit {
     private activatedroute: ActivatedRoute,
     private commonservice: CommonService,
     private AgePipe: AgePipe,
+    private router :Router
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +39,9 @@ export class MatchpageComponent implements OnInit {
       this.user_id = data;
     });
     this.matches();
+  }
+  userpage(data: any) {
+    this.router.navigate(['/user', data]);
   }
 
   matchByCast() {

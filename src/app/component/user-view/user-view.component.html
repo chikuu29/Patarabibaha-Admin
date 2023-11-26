@@ -1,3 +1,6 @@
+<div class="caption-item">
+  <p-button label="Generated PDF" icon="pi pi-file-pdf" severity="danger" (click)="generatePDF()"></p-button>
+</div>
 <div class="container-fluid">
   <div class="main-body">
     <ng-container *ngIf="userAllData && (userAllData?.user_profile_status == 'Completed' && !userAllData?.user_info?.user_membership_plan_active)">

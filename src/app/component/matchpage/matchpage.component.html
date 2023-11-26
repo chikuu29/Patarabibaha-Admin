@@ -91,7 +91,9 @@
                             </td>
                             <td>{{data.user_dob | age}}</td>
                             <td>{{data.user_gender }}</td>
-                            <td>{{data.auth_phone_no }}</td>
+                            <td><a (click)="userpage(data?.user_id)" class="underline" href="javascript:void(0);">
+                                {{data?.user_id }}
+                            </a></td>
                         </tr>
                     </ng-container>
                 </tbody>

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
+import { jsPDF } from 'jspdf';
 import * as moment from 'moment';
+
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ConfirmationService } from 'primeng/api';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
@@ -12,6 +14,7 @@ import Swal from 'sweetalert2';
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ImageViewOperationComponent } from 'src/app/shared/image-view-operation/image-view-operation.component';
 import { ImageCroperComponent } from 'src/app/shared/image-croper/image-croper.component';
+import { AgePipe } from 'src/app/customPipe/age.pipe';
 
 ApiService
 @Component({
@@ -452,7 +455,8 @@ export class UserViewComponent implements OnInit {
     private _rout: ActivatedRoute,
     private api: ApiService,
     private confirmationService: ConfirmationService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private AgePipe :AgePipe
 
   ) { }
 
@@ -468,7 +472,8 @@ export class UserViewComponent implements OnInit {
         if (res.success) {
 
           this.userAllData = res;
-
+          console.log(this.userAllData);
+          
           this.profileDetailsForm.patchValue({
             profile_id: res?.user_info?.user_id
             , profile_name: res?.user_info?.user_fname + ' ' + res?.user_info?.user_lname, profile_email: res?.user_info?.user_email, profile_phone: ''
@@ -1360,6 +1365,58 @@ export class UserViewComponent implements OnInit {
     const modalRef = this.modalService.open(ImageCroperComponent, { size: 'xl', backdrop: false, scrollable: true });
     modalRef.componentInstance.user_id=this.profile_id
  
+
+  }
+  public generatePDF() {
+    
+    this.blockUI.start("Generating PDF...")
+    var pdfData =[_.cloneDeep(this.userAllData.user_info)];
+    console.log("Click generatePDF", this.userAllData);
+ 
+    const pdf = new jsPDF({
+      unit: 'mm',
+      format: 'a4', // or 'letter', 'a3', etc.
+    });
+
+    // const pdf = new jsPDF();
+    pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
+    // Sample data with text and image URLs
+    _.map(pdfData, (res: any) => res.user_profile_image = "https://admin.choicemarriage.com/api/storage/" + res.user_profile_image)
+    console.log("Click generatePDF", pdfData);
+
+    const data = pdfData
+
+    let yPos = 30;
+    let currentPage = 1;
+    data.forEach((record: any) => {
+      console.log(record);
+      console.log("pdf", pdf.internal.pageSize.getHeight());
+
+      if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
+        pdf.addPage();
+        currentPage++;
+        yPos = 10; // Reset Y position for the new page
+      }
+      pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
+      pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos + 10);
+      pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos + 25);
+      // pdf.text(`Gender: ${record.user_gender}`, 70, yPos + 25);s
+
+      pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos + 40);
+
+      // Draw lines to separate records
+      pdf.line(0, yPos + 60, 210, yPos + 60);
+
+      // Move the Y position for the next record
+      yPos += 70;
+    });
+   
+    const pdfFileName='matching_report_' + `${'5555'}_` + moment().toString() + '.pdf'
+    pdf.save(pdfFileName,{returnPromise:true}).then((res:any)=>{
+      // console.log(res);
+      this.blockUI.stop()
+      
+    });
 
   }
 }
