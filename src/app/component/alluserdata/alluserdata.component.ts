@@ -101,7 +101,7 @@ export class AlluserdataComponent implements OnInit {
     }
   }
 
-  recoverdata(){
+  recoverdata() {
     if (this.allId.length == 0) {
       Swal.fire({
         icon: 'question',
@@ -109,18 +109,7 @@ export class AlluserdataComponent implements OnInit {
       });
     } else {
 
-      // let updateData = {
-      //   "data": {
-      //     "deleted": 0,
-      //   },
-      //   'type': 'Delete',
-      //   "whereConditions": this.allId
-      // }
-      // this.ApiParameter.makeActinForMultipulData('user_info', updateData).subscribe((res: any) => {
-      //   if (res.success) {
-      //     alert('poo');
-      //   }
-      // })
+
       Swal.fire({
         icon: 'question',
         text: 'Do you want to Recover',
@@ -159,145 +148,170 @@ export class AlluserdataComponent implements OnInit {
 
 
 
-  publishuser(data: any) {
+  publishuser() {
+    if (this.allId.length == 0) {
+      Swal.fire({
+        icon: 'question',
+        text: 'Select one',
+      });
+    } else {
 
-    Swal.fire({
-      icon: 'question',
-      text: 'Do you want to publish',
-      showCancelButton: true,
-    }).then((r: any) => {
-      console.log(r);
-      if (r.isConfirmed) {
-        let updateData = {
-          "data": {
-            "status": 1,
-          },
-          "whereConditions": { user_id: data }
-        }
-        this.ApiParameter.updatedata('user_info', updateData).subscribe((res: any) => {
-          // console.log(res);
-          if (res.success) {
-            Swal.fire({
-              icon: 'success',
-              text: "Publish"
-            }).then(() => {
-              this.ngOnInit()
-            });
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              text: res.message
-            });
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want to publish',
+        showCancelButton: true,
+      }).then((r: any) => {
+        console.log(r);
+        if (r.isConfirmed) {
+          let updateData = {
+            "data": {
+              "status": 1,
+            },
+            'type': 'Publish',
+            "whereConditions": this.allId
           }
-        })
-      }
-    });
+          this.ApiParameter.makeActinForMultipulData('user_info', updateData).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: "publish"
+              }).then(() => {
+                this.ngOnInit()
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message
+              });
+            }
+          })
+        }
+      });
+    }
 
   }
-  unpublishuser(data: any) {
+  unpublishuser() {
     // alert(data);
-
-    Swal.fire({
-      icon: 'question',
-      text: 'Do you want to publish',
-      showCancelButton: true,
-    }).then((r: any) => {
-      //console.log(r);
-      if (r.isConfirmed) {
-        let updateData = {
-          "data": {
-            "status": 0,
-          },
-          "whereConditions": { user_id: data }
-        }
-        this.ApiParameter.updatedata('user_info', updateData).subscribe((res: any) => {
-          // console.log(res);
-          if (res.success) {
-            Swal.fire({
-              icon: 'success',
-              text: "Unpublish"
-            }).then(() => {
-              this.ngOnInit()
-            });
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              text: res.message
-            });
+    if (this.allId.length == 0) {
+      Swal.fire({
+        icon: 'question',
+        text: 'Select one',
+      });
+    } else {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want to  Unpublish',
+        showCancelButton: true,
+      }).then((r: any) => {
+        //console.log(r);
+        if (r.isConfirmed) {
+          let updateData = {
+            "data": {
+              "status": 0,
+            },
+            'type': 'UnPublish',
+            "whereConditions": this.allId
           }
-        })
-      }
-    });
+          this.ApiParameter.makeActinForMultipulData('user_info', updateData).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: "Unpublish"
+              }).then(() => {
+                this.ngOnInit()
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message
+              });
+            }
+          })
+        }
+      });
+    }
 
   }
   userpage(data: any) {
     this.router.navigate(['/user', data]);
   }
-  makeonline(data: any) {
-    Swal.fire({
-      icon: 'question',
-      text: 'Do you want make this user online',
-      showCancelButton: true,
-    }).then((r: any) => {
-      //console.log(r);
-      if (r.isConfirmed) {
-        let updateData = {
-          "data": {
-            "online_status": 1,
-          },
-          "whereConditions": { user_id: data }
-        }
-        this.ApiParameter.updatedata('user_info', updateData).subscribe((res: any) => {
-          // console.log(res);
-          if (res.success) {
-            Swal.fire({
-              icon: 'success',
-              text: "Done"
-            }).then(() => {
-              this.ngOnInit()
-            });
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              text: res.message
-            });
+  makeonline() {
+    if (this.allId.length == 0) {
+      Swal.fire({
+        icon: 'question',
+        text: 'Select one',
+      });
+    } else {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want make this user online',
+        showCancelButton: true,
+      }).then((r: any) => {
+        if (r.isConfirmed) {
+          let updateData = {
+            "data": {
+              "online_status": 1,
+            },
+            'type': 'online',
+            "whereConditions": this.allId
           }
-        })
-      }
-    });
+          this.ApiParameter.makeActinForMultipulData('user_info', updateData).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: "online"
+              }).then(() => {
+                this.ngOnInit()
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message
+              });
+            }
+          })
+        }
+      });
+    }
   }
-  makeoffline(data: any) {
-    Swal.fire({
-      icon: 'question',
-      text: 'Do you want make this user offline',
-      showCancelButton: true,
-    }).then((r: any) => {
-      //console.log(r);
-      if (r.isConfirmed) {
-        let updateData = {
-          "data": {
-            "online_status": 0,
-          },
-          "whereConditions": { user_id: data }
-        }
-        this.ApiParameter.updatedata('user_info', updateData).subscribe((res: any) => {
-          // console.log(res);
-          if (res.success) {
-            Swal.fire({
-              icon: 'success',
-              text: "Done"
-            }).then(() => {
-              this.ngOnInit()
-            });
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              text: res.message
-            });
+  makeoffline() {
+    if (this.allId.length == 0) {
+      Swal.fire({
+        icon: 'question',
+        text: 'Select one',
+      });
+    } else {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want make this user offline',
+        showCancelButton: true,
+      }).then((r: any) => {
+        if (r.isConfirmed) {
+          let updateData = {
+            "data": {
+              "online_status": 0,
+            },
+            'type': 'Offline',
+            "whereConditions": this.allId
           }
-        })
-      }
-    });
+          this.ApiParameter.makeActinForMultipulData('user_info', updateData).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: "Offline"
+              }).then(() => {
+                this.ngOnInit()
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message
+              });
+            }
+          })
+        }
+      });
+    }
   }
 
 

@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { jsPDF } from 'jspdf';
 import * as moment from 'moment';
-
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ConfirmationService } from 'primeng/api';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
@@ -15,6 +14,7 @@ import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
 import { ImageViewOperationComponent } from 'src/app/shared/image-view-operation/image-view-operation.component';
 import { ImageCroperComponent } from 'src/app/shared/image-croper/image-croper.component';
 import { AgePipe } from 'src/app/customPipe/age.pipe';
+import { CommonService } from 'src/app/services/common.service';
 
 ApiService
 @Component({
@@ -448,15 +448,17 @@ export class UserViewComponent implements OnInit {
 
   actualUploadedFiles: any[] = []
   imageUrl = "this.appservices.getFilePath()}storage/"
+  finaldata: any;
   constructor(
     private appservices: AppService,
     private ApiParameterScript: ApiParameterScript,
+    private commonservice: CommonService,
     private router: Router,
     private _rout: ActivatedRoute,
     private api: ApiService,
     private confirmationService: ConfirmationService,
     private modalService: NgbModal,
-    private AgePipe :AgePipe
+    private AgePipe: AgePipe
 
   ) { }
 
@@ -465,7 +467,8 @@ export class UserViewComponent implements OnInit {
     this.uploadURL = `${this.appservices.getApipath()}upload?q=${this.profile_id}`
     this.blockUI.start("Loading...")
     this._rout.params.subscribe((res: any) => {
-      this.profile_id = res['profile_id']
+      this.profile_id = res['profile_id'];
+      this.getAllDataById(this.profile_id);
       this.ApiParameterScript.getprofile({ userid: this.profile_id }).subscribe((res: any) => {
 
         this.blockUI.stop();
@@ -473,7 +476,7 @@ export class UserViewComponent implements OnInit {
 
           this.userAllData = res;
           console.log(this.userAllData);
-          
+
           this.profileDetailsForm.patchValue({
             profile_id: res?.user_info?.user_id
             , profile_name: res?.user_info?.user_fname + ' ' + res?.user_info?.user_lname, profile_email: res?.user_info?.user_email, profile_phone: ''
@@ -756,11 +759,11 @@ export class UserViewComponent implements OnInit {
     if (this.horoscopeForm.valid) {
       var updateData = {
         "data": this.horoscopeForm.value,
-        "whereConditions": { user_id: this.profile_id}
+        "whereConditions": { user_id: this.profile_id }
       }
 
       if (this.horoscopeForm.value.user_id == '') {
-        updateData['data']['user_id']=this.profile_id
+        updateData['data']['user_id'] = this.profile_id
         this.ApiParameterScript.savedata('user_horoscope', updateData).subscribe((res: any) => {
 
           if (res.success) {
@@ -1359,20 +1362,43 @@ export class UserViewComponent implements OnInit {
 
   }
 
-  loadUploadComponent(){
+  loadUploadComponent() {
     console.log(this.profile_id);
-    
+
     const modalRef = this.modalService.open(ImageCroperComponent, { size: 'xl', backdrop: false, scrollable: true });
-    modalRef.componentInstance.user_id=this.profile_id
- 
+    modalRef.componentInstance.user_id = this.profile_id
+
 
   }
+  getAllDataById(id: any) {
+    let params = {
+      'id': id
+    }
+    this.commonservice.getAllDataById(params).subscribe((res: any) => {
+
+      if (res.status) {
+        this.finaldata = res['data'][0];
+        console.log(this.finaldata);
+      }
+    });
+  }
   public generatePDF() {
-    
+    var head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']]
+
+    var data2 = [
+      [1, 'ROBERT', 'SOFTWARE DEVELOPER', 'ENGINEERING'],
+      [2, 'CRISTINAO', 'QA', 'TESTING'],
+      [3, 'KROOS', 'MANAGER', 'MANAGEMENT'],
+      [4, 'XYZ', 'DEVELOPER', 'DEVLOPEMENT'],
+      [5, 'ABC', 'CONSULTANT', 'HR'],
+      [73, 'QWE', 'VICE PRESIDENT', 'MANAGEMENT'],
+    ]
+
+
     this.blockUI.start("Generating PDF...")
-    var pdfData =[_.cloneDeep(this.userAllData.user_info)];
+    var pdfData = [_.cloneDeep(this.finaldata)];
     console.log("Click generatePDF", this.userAllData);
- 
+
     const pdf = new jsPDF({
       unit: 'mm',
       format: 'a4', // or 'letter', 'a3', etc.
@@ -1385,38 +1411,101 @@ export class UserViewComponent implements OnInit {
     console.log("Click generatePDF", pdfData);
 
     const data = pdfData
-
+    console.log("data", data);
+    const keyMap = ['user_dob', 'user_height', 'HomeTown',]
     let yPos = 30;
     let currentPage = 1;
     data.forEach((record: any) => {
       console.log(record);
       console.log("pdf", pdf.internal.pageSize.getHeight());
 
-      if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
-        pdf.addPage();
-        currentPage++;
-        yPos = 10; // Reset Y position for the new page
-      }
-      pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
-      pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos + 10);
-      pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos + 25);
-      // pdf.text(`Gender: ${record.user_gender}`, 70, yPos + 25);s
 
-      pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos + 40);
+      pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
+      pdf.textWithLink("ID   :" + record.user_id, 70, yPos += 10, { url: "https://choicemarriage.com/member-profile/" + record.user_id });
+
+      // pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos+=10);
+      // pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos+=10);
+      pdf.text(`Gender: ${record.user_gender}`, 70, yPos += 10);
+      pdf.text(`Marital Status: ${record.user_marital_status ? record.user_marital_status : "NA"}`, 70, yPos += 10);
+      pdf.text(`HomeTown:  ${record.user_city ? record.user_city : "NA"},${record.user_city ? record.user_state : "NA"}`, 70, yPos += 10);
+      // pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos+=10);
 
       // Draw lines to separate records
-      pdf.line(0, yPos + 60, 210, yPos + 60);
-
+      pdf.line(0, 85, 210, 85);
+      console.log("[record]", [record]);
+      pdf.text("BIODATA", 85, yPos + 35)
+      pdf.text(`DOB: ${record.user_dob}`, 10, yPos += 50);
+      pdf.text(`Height: ${record.user_height ? record.user_height : "NA"}`, 10, yPos += 10);
+      pdf.text(`Colour: ${record.user_complextion ? record.user_complextion : "NA"}`, 10, yPos += 10);
+      pdf.text("EDUCATION & OCCUPATION", 70, yPos + 20)
+      // pdf.table(0,60,[],record,{ autoSize: true });
       // Move the Y position for the next record
-      yPos += 70;
+      pdf.text(`Education: ${record.user_highest_education}`, 10, yPos += 50);
+      pdf.text(`Occupation: ${record.user_occupation ? record.user_occupation : "NA"}`, 10, yPos += 10);
+      pdf.text(`Designation: ${record.user_occupation_details ? record.user_occupation_details : "NA"}`, 10, yPos += 10);
+      pdf.text(`Anulal Income:  ${record.user_anual_income ? record.user_anual_income : "NA"}`, 10, yPos += 10);
+      pdf.text(`Job Location:  ${record.user_occupation_location ? record.user_occupation_location : "NA"}`, 10, yPos += 10);
+      pdf.text(`Details Of Job:  ${record.user_occupation_details ? record.user_occupation_details : "NA"}`, 10, yPos += 10);
+      pdf.text(`Rashi:  ${record.user_zodiacs ? record.user_zodiacs : "NA"}`, 10, yPos += 10);
+      pdf.text(`Nakhyatra:  ${record.user_nakhyatra ? record.user_nakhyatra : "NA"}`, 10, yPos += 10);
+      yPos = 30;
+
+
+      // if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
+      pdf.addPage();
+      pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
+      // Sample data with text and image URLs
+      currentPage++;
+      // yPos = 30; // Reset Y position for the new page
+      // }
     });
-   
-    const pdfFileName='matching_report_' + `${'5555'}_` + moment().toString() + '.pdf'
-    pdf.save(pdfFileName,{returnPromise:true}).then((res:any)=>{
+
+    const pdfFileName = 'matching_report_' + `${this.profile_id}_` + moment().toString() + '.pdf'
+    pdf.save(pdfFileName, { returnPromise: true }).then((res: any) => {
       // console.log(res);
       this.blockUI.stop()
-      
+
     });
 
+  }
+  shareData() {
+    console.log(this.finaldata);
+    let type = this.finaldata.user_gender == 'female' ? 'Bride' : 'Groom' ;
+    let link = 'https://choicemarriage.com/member-profile/'+this.finaldata.auth_ID
+    Swal.fire({
+      html: `
+        <div class="">
+        <i class="fa fa-arrow-down" aria-hidden="true"></i> Details of ${type} <i class="fa fa-arrow-down" aria-hidden="true"></i>
+         <div>
+         DOB:-${this.finaldata.user_dob }
+         </div>
+         <div>
+         HEIGHT:-${this.finaldata.user_height}
+         </div>
+         <div>
+         Colour:- ${this.finaldata.user_complextion}
+         </div>
+         <div>
+          QUALIFICATION:- ${this.finaldata.user_highest_education} 
+          </div>
+          <div>
+          OCCUPATION:- ${this.finaldata.user_occupation }`+` `+`${this.finaldata.user_occupation_details}   
+          </div>
+          
+          <div>
+          JOB LOCATION:-  ${this.finaldata.user_occupation_location } 
+          </div>
+          <div>
+          ANNUAL INCOME:-  ${this.finaldata.user_anual_income } 
+          </div>
+          <div>
+          HOME TOWN:- ${this.finaldata. user_Permanent_city } 
+          </div>
+          <div>
+            <a href="https://wa.me?text=${link}"> ${link}</a>
+          </div>
+         </div>
+        `
+    });
   }
 }

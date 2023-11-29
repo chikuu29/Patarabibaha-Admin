@@ -68,6 +68,13 @@ export class CommonService {
   public barCode(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'barCode', apiData, { headers: this.headers });
   }
+  public getAllDataById(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'getAllDataById', apiData, { headers: this.headers });
+  }
+  public filterData(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'filterData', apiData, { headers: this.headers });
+  }
+  
   
   
   

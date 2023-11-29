@@ -38,6 +38,7 @@ export class MatchpageComponent implements OnInit {
       let bytes = CryptoJS.AES.decrypt(res.id, encryptSecretKey);
       let data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
       this.user_id = data;
+      alert(this.user_id);
     });
     this.matches();
   }
@@ -51,8 +52,8 @@ export class MatchpageComponent implements OnInit {
     }
     this.commonservice.matchByCast(data).subscribe((res: any) => {
       if (res.status) {
-        this.finaldata = {};
-        this.finaldata = res['data']
+        //this.finaldata = {};
+        this.finaldata = res['data'];
       }
     });
   }
@@ -86,7 +87,9 @@ export class MatchpageComponent implements OnInit {
 
       if (res.status) {
         this.finaldata = {};
-        this.finaldata = res['data']
+        this.finaldata = res['data'];
+        console.log(this.finaldata);
+        
       }
 
     });
@@ -167,6 +170,7 @@ export class MatchpageComponent implements OnInit {
       // pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos+=10);
       pdf.text(`Gender: ${record.user_gender}`, 70, yPos+=10);
       pdf.text(`Marital Status: ${record.user_marital_status ? record.user_marital_status : "NA"}`, 70, yPos+=10);
+      pdf.text(`HomeTown:  ${record.user_city ? record.user_city : "NA"},${record.user_city ? record.user_state : "NA"}`, 70, yPos+=10);
       // pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos+=10);
 
       // Draw lines to separate records
@@ -176,7 +180,7 @@ export class MatchpageComponent implements OnInit {
       pdf.text(`DOB: ${record.user_dob}`, 10, yPos+=50);
       pdf.text(`Height: ${record.user_height ? record.user_height : "NA"}`, 10, yPos+=10);
       pdf.text(`Colour: ${record.user_complextion ? record.user_complextion : "NA"}`, 10, yPos+=10);
-      pdf.text(`HomeTown:  ${record.user_city ? record.user_city : "NA"},${record.user_city ? record.user_state : "NA"}`, 10, yPos+=10);
+     
 
       pdf.text("EDUCATION & OCCUPATION",70,yPos+20)
       // pdf.table(0,60,[],record,{ autoSize: true });
@@ -188,6 +192,7 @@ export class MatchpageComponent implements OnInit {
       pdf.text(`Job Location:  ${record.user_occupation_location ? record.user_occupation_location : "NA"}`, 10, yPos+=10);
       pdf.text(`Details Of Job:  ${record.user_occupation_details ? record.user_occupation_details : "NA"}`, 10, yPos+=10);
       pdf.text(`Rashi:  ${record.user_zodiacs ? record.user_zodiacs : "NA"}`, 10, yPos+=10);
+      pdf.text(`Nakhyatra:  ${record.user_nakhyatra ? record.user_nakhyatra : "NA"}`, 10, yPos += 10);
       yPos = 30;
 
 

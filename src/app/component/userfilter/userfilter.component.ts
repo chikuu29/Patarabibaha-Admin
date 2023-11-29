@@ -3,7 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { AppService } from 'src/app/services/app.service';
+import { CommonService } from 'src/app/services/common.service';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-userfilter',
@@ -181,7 +183,8 @@ export class UserfilterComponent implements OnInit {
   })
   constructor(
     private ApiParameterScript:ApiParameterScript,
-    private appservices:AppService
+    private appservices:AppService,
+    private commonservice:CommonService
   
   ) { }
 
@@ -204,7 +207,7 @@ export class UserfilterComponent implements OnInit {
     //   }
     // })
 
-    this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"] ,"whereConditions":{ status: 1 } }).subscribe((res: any) => {
       
       if (res.success && res['data'].length > 0) {
         this.ocupationOptions = res['data'].map((obj: any) => {
@@ -223,7 +226,7 @@ export class UserfilterComponent implements OnInit {
 
 
     })
-    this.ApiParameterScript.fetchdata('annual_income', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('annual_income', { "projection": ["*"],"whereConditions":{ status: 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
 
         this.anualIncomeOptions = res['data'].map((obj: any) => {
@@ -237,7 +240,7 @@ export class UserfilterComponent implements OnInit {
       }
     })
 
-    this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"] ,"whereConditions":{ status: 1 } }).subscribe((res: any) => {
       
 
       if (res.success && res['data'].length > 0) {
@@ -258,7 +261,7 @@ export class UserfilterComponent implements OnInit {
 
     })
 
-    this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"] ,"whereConditions":{ status: 1 } }).subscribe((res: any) => {
       
 
 
@@ -295,7 +298,7 @@ export class UserfilterComponent implements OnInit {
 
 
     })
-    this.ApiParameterScript.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('country', { "projection": ["*"] ,"whereConditions":{ status: 1 } }).subscribe((res: any) => {
       
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data'].map((obj: any) => {
@@ -357,17 +360,12 @@ export class UserfilterComponent implements OnInit {
       "isJsonData": true,
       "jsonDataID": { user_ID: this.user_id }
     }
-    this.ApiParameterScript.savedata('user_partnerpreference', updateData).subscribe((res: any) => {
-     
-      if (res.success) {
-        Swal.fire('success', res.message, 'success').then(() => {
-          this.ngOnInit()
-        })
-      } else {
-        Swal.fire('No Data Updated', res.message, 'error')
-      }
+   console.log(this.partnerPreferenceForm.value);
 
-    })
+   this.commonservice.filterData(updateData).subscribe((res:any)=>{
+    
+   })
+   
   }
 
   getstatefilter(country_name: any) {

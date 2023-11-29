@@ -17,16 +17,16 @@
         <i title="RECOVER" (click)="recoverdata()" class="material-icons text-success pointer">delete_outline</i>
     </div>
     <div class="commen">
-        <i title="PUBLISH" class="material-icons pointer text-success">published_with_changes</i>
+        <i title="PUBLISH" (click)="publishuser()" class="material-icons pointer text-success">published_with_changes</i>
     </div>
     <div class="commen">
-        <i title="UNPUBLISH" class="material-icons text-danger pointer">unpublished</i>
+        <i title="UNPUBLISH" (click)=" unpublishuser()" class="material-icons text-danger pointer">unpublished</i>
     </div>
     <div class="commen">
-        <i class="material-icons pointer text-success">done</i>
+        <i  title="Online" class="material-icons pointer text-success" (click)="makeonline()" >done</i>
     </div>
     <div class="commen">
-        <i class="material-icons text-danger pointer">close</i>
+        <i  title="Offline" class="material-icons text-danger pointer" (click)="makeoffline()"  >close</i>
     </div>
 </div>
 <div class="">

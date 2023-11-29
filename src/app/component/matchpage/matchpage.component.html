@@ -38,7 +38,8 @@
                 <span class="fs-5">Showing {{finaldata?.length}} of {{finaldata?.length}} results</span>
             </div>
             <div class="caption-item">
-                <p-button label="Generated PDF" icon="pi pi-file-pdf" severity="danger" (click)="generatePDF()"></p-button>
+                <p-button label="Generated PDF" icon="pi pi-file-pdf" severity="danger"
+                    (click)="generatePDF()"></p-button>
             </div>
             <div class="caption-item">
                 <!-- Search Start -->
@@ -92,8 +93,9 @@
                             <td>{{data.user_dob | age}}</td>
                             <td>{{data.user_gender }}</td>
                             <td><a (click)="userpage(data?.user_id)" class="underline" href="javascript:void(0);">
-                                {{data?.user_id }}
-                            </a></td>
+                                    {{data.user_id }} 
+                                </a>
+                            </td>
                         </tr>
                     </ng-container>
                 </tbody>
