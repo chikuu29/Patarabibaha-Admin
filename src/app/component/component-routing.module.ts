@@ -25,6 +25,9 @@ import { WatermarkComponent } from './watermark/watermark.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { DesignationComponent } from './designation/designation.component';
 import { UserfilterComponent } from './userfilter/userfilter.component';
+import { PhonevalidationComponent } from './phonevalidation/phonevalidation.component';
+import { EmailvalidationComponent } from './emailvalidation/emailvalidation.component';
+
 
 
 const routes: Routes = [
@@ -153,7 +156,20 @@ const routes: Routes = [
         path: 'filter',
         canActivate: [AuthGuard],
         component: UserfilterComponent
+      },{
+        path: 'phone-validation',
+        canActivate: [AuthGuard],
+        component: PhonevalidationComponent
+      },{
+        path: 'email-validation',
+        canActivate: [AuthGuard],
+        component: EmailvalidationComponent
       },
+
+
+
+
+
 
 
 

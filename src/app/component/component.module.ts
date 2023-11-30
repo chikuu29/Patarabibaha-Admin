@@ -36,6 +36,8 @@ import { AgePipe } from '../customPipe/age.pipe';
 import { GraphDataViewComponent } from './graph-data-view/graph-data-view.component';
 import { DesignationComponent } from './designation/designation.component';
 import { UserfilterComponent } from './userfilter/userfilter.component';
+import { PhonevalidationComponent } from './phonevalidation/phonevalidation.component';
+import { EmailvalidationComponent } from './emailvalidation/emailvalidation.component';
 
 
 @NgModule({
@@ -65,7 +67,9 @@ import { UserfilterComponent } from './userfilter/userfilter.component';
     CreateUserComponent,
     GraphDataViewComponent,
     DesignationComponent,
-    UserfilterComponent
+    UserfilterComponent,
+    PhonevalidationComponent,
+    EmailvalidationComponent
   ],
   imports: [
     CommonModule,

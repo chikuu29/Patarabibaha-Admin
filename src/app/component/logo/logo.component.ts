@@ -5,7 +5,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import Swal from 'sweetalert2';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { environment } from 'src/environments/environment';
-environment
+
 @Component({
   selector: 'app-logo',
   templateUrl: './logo.component.html',
