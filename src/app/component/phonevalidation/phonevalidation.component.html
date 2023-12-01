@@ -48,7 +48,7 @@
                   </tr>
               </thead>
               <tbody class="table-body table-striped">
-                  <tr *ngFor="let data of finaldata | fillter:['created_At']:filterText ; index as i">
+                  <tr *ngFor="let data of finaldata | fillter:['created_At']:filterText ; index as i" [class]="data.phone_no_request == 0 ? '':'colorforbg'">
 
                       <td>{{i+1}}</td>
                       <td>

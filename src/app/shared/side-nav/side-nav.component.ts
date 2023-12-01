@@ -12,6 +12,7 @@ export class SideNavComponent implements OnInit {
   usercount: number =0;
   profilephotocount: number=0;
   deliteeeqest: number=0;
+  phoneapprovedata: number = 0;
 
   constructor(
     private ApiParameter: ApiParameterScript,
@@ -23,6 +24,7 @@ export class SideNavComponent implements OnInit {
     this.getuserAprrove();
     this.getProfileImageAprrove();
     this.getDeleteRequestdata();
+    this. phoneapprove();
     // let item = secureCryptoStorage.setItem("authInfo")
     // this.ApiParameter.fetchdata('admin', { "projection": ["*"], "whereConditions": { user_status: "Pending" } }).subscribe((res: any) => {
     //   if (res.success && res['data'].length > 0) {
@@ -33,7 +35,7 @@ export class SideNavComponent implements OnInit {
   }
 
   getuserAprrove(){
-    
+
     this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_status: "Pending" } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.usercount = res['data'].length;
@@ -52,6 +54,13 @@ export class SideNavComponent implements OnInit {
     this.ApiParameter.fetchdata('user_delete_request', { "projection": ["*"], "whereConditions": { states: 0 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.deliteeeqest = res['data'].length;
+      }
+    });
+  }
+  phoneapprove(){
+    this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { phone_no_request: 1 } }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.phoneapprovedata = res['data'].length;
       }
     });
   }

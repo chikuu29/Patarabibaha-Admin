@@ -49,6 +49,7 @@ export class PhonevalidationComponent implements OnInit {
         let updateData = {
           "data": {
             "user_phone_varification": 1,
+            "phone_no_request": 0
           },
           "whereConditions": { id: data }
         }
