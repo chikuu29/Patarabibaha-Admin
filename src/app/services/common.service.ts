@@ -19,7 +19,7 @@ export class CommonService {
       .set("Content-Type", "application/json")
     this.headers = headers;
 
- 
+
 
   }
   public logoUplode(apiData:any){
@@ -28,7 +28,7 @@ export class CommonService {
   public homeLogoUplode(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'homeLogoUplode', apiData, { headers: this.headers });
   }
-  
+
   public bannerUplode(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'bannerUplode', apiData, { headers: this.headers })
   }
@@ -74,13 +74,17 @@ export class CommonService {
   public filterData(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'filterData', apiData, { headers: this.headers });
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  public sendData(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'sendData', apiData, { headers: this.headers });
+  }
+
+
+
+
+
+
+
+
+
+
 }

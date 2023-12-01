@@ -79,7 +79,7 @@
                         <th>User Name</th>
                         <th>Age</th>
                         <th>Gender</th>
-                        <th>Mobile no</th>
+                        <th>Id</th>
                         <th>Created At</th>
                         <th>status</th>
                         <th>Approval</th>
@@ -108,7 +108,7 @@
                                 </a> </td>
                             <td>{{data.user_dob | age}}</td>
                             <td>{{data.user_gender }}</td>
-                            <td>{{data.auth_phone_no }}</td>
+                            <td>{{data.user_id }}</td>
                             <td>{{data.user_creation_date_time | date}}</td>
                             <td>
                                 <p class="badge badge-success" *ngIf="data.status == 1">Publish</p>
