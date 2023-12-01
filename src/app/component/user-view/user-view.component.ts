@@ -136,40 +136,41 @@ export class UserViewComponent implements OnInit {
 
 
   heightOptions: any = [
-    { "name": "Below 4ft 6in - 137cm" },
-    { "name": "4ft 6in - 137cm" },
-    { "name": "4ft 7in - 139cm" },
-    { "name": "4ft 8in - 142cm" },
-    { "name": "4ft 9in - 144cm" },
-    { "name": "4ft 10in - 147cm" },
-    { "name": "4ft 11in - 149cm" },
-    { "name": "5ft - 152cm" },
-    { "name": "5ft 1in - 154cm" },
-    { "name": "5ft 2in - 157cm" },
-    { "name": "5ft 3in - 160cm" },
-    { "name": "5ft 4in - 162cm" },
-    { "name": "5ft 5in - 165cm" },
-    { "name": "5ft 6in - 167cm" },
-    { "name": "5ft 7in - 170cm" },
-    { "name": "5ft 8in - 172cm" },
-    { "name": "5ft 9in - 175cm" },
-    { "name": "5ft 10in - 177cm" },
-    { "name": "5ft 11in - 180cm" },
-    { "name": "6ft - 182cm" },
-    { "name": "6ft 1in - 185cm" },
-    { "name": "6ft 2in - 187cm" },
-    { "name": "6ft 3in - 190cm" },
-    { "name": "6ft 4in - 193cm" },
-    { "name": "6ft 5in - 195cm" },
-    { "name": "6ft 6in - 198cm" },
-    { "name": "6ft 7in - 200cm" },
-    { "name": "6ft 8in - 203cm" },
-    { "name": "6ft 9in - 205cm" },
-    { "name": "6ft 10in - 208cm" },
-    { "name": "6ft 11in - 210cm" },
-    { "name": "7ft - 213cm" },
-    { "name": "Above 7ft - 213cm" }
+    { "name": "Below 4ft 6in - 137cm", "value": 137 },
+    { "name": "4ft 6in - 137cm", "value": 137 },
+    { "name": "4ft 7in - 139cm", "value": 139 },
+    { "name": "4ft 8in - 142cm", "value": 142 },
+    { "name": "4ft 9in - 144cm", "value": 144 },
+    { "name": "4ft 10in - 147cm", "value": 147 },
+    { "name": "4ft 11in - 149cm", "value": 149 },
+    { "name": "5ft - 152cm", "value": 152 },
+    { "name": "5ft 1in - 154cm", "value": 154 },
+    { "name": "5ft 2in - 157cm", "value": 157 },
+    { "name": "5ft 3in - 160cm", "value": 160 },
+    { "name": "5ft 4in - 162cm", "value": 162 },
+    { "name": "5ft 5in - 165cm", "value": 165 },
+    { "name": "5ft 6in - 167cm", "value": 167 },
+    { "name": "5ft 7in - 170cm", "value": 170 },
+    { "name": "5ft 8in - 172cm", "value": 172 },
+    { "name": "5ft 9in - 175cm", "value": 175 },
+    { "name": "5ft 10in - 177cm", "value": 177 },
+    { "name": "5ft 11in - 180cm", "value": 180 },
+    { "name": "6ft - 182cm", "value": 182 },
+    { "name": "6ft 1in - 185cm", "value": 185 },
+    { "name": "6ft 2in - 187cm", "value": 187 },
+    { "name": "6ft 3in - 190cm", "value": 190 },
+    { "name": "6ft 4in - 193cm", "value": 193 },
+    { "name": "6ft 5in - 195cm", "value": 195 },
+    { "name": "6ft 6in - 198cm", "value": 198 },
+    { "name": "6ft 7in - 200cm", "value": 200 },
+    { "name": "6ft 8in - 203cm", "value": 203 },
+    { "name": "6ft 9in - 205cm", "value": 205 },
+    { "name": "6ft 10in - 208cm", "value": 208 },
+    { "name": "6ft 11in - 210cm", "value": 210 },
+    { "name": "7ft - 213cm", "value": 213 },
+    { "name": "Above 7ft - 213cm", "value": 213 }
   ]
+
 
   weightOptions: any = [
     { "name": 40 },
@@ -488,6 +489,8 @@ export class UserViewComponent implements OnInit {
           this.horoscopeForm.patchValue(res['user_horoscope_deatils'])
           this.userFamilyDetailsForm.patchValue(res['user_family'])
           this.habitHobbiesForm.patchValue(res['user_diet_hobbies'])
+          console.log(res['user_physical_details']);
+          
           this.physicalDeatilsForm.patchValue(res['user_physical_details'])
           this.basicDetailsForm.patchValue(res['user_info'])
           this.getSubcaste(this.user_religionDetailsForm.value.user_caste)
@@ -1470,14 +1473,14 @@ export class UserViewComponent implements OnInit {
   }
   shareData() {
     console.log(this.finaldata);
-    let type = this.finaldata.user_gender == 'female' ? 'Bride' : 'Groom' ;
-    let link = 'https://choicemarriage.com/member-profile/'+this.finaldata.auth_ID
+    let type = this.finaldata.user_gender == 'female' ? 'Bride' : 'Groom';
+    let link = 'https://choicemarriage.com/member-profile/' + this.finaldata.auth_ID
     Swal.fire({
       html: `
         <div class="">
         <i class="fa fa-arrow-down" aria-hidden="true"></i> Details of ${type} <i class="fa fa-arrow-down" aria-hidden="true"></i>
          <div>
-         DOB:-${this.finaldata.user_dob }
+         DOB:-${this.finaldata.user_dob}
          </div>
          <div>
          HEIGHT:-${this.finaldata.user_height}
@@ -1489,17 +1492,17 @@ export class UserViewComponent implements OnInit {
           QUALIFICATION:- ${this.finaldata.user_highest_education} 
           </div>
           <div>
-          OCCUPATION:- ${this.finaldata.user_occupation }`+` `+`${this.finaldata.user_occupation_details}   
+          OCCUPATION:- ${this.finaldata.user_occupation}` + ` ` + `${this.finaldata.user_occupation_details}   
           </div>
           
           <div>
-          JOB LOCATION:-  ${this.finaldata.user_occupation_location } 
+          JOB LOCATION:-  ${this.finaldata.user_occupation_location} 
           </div>
           <div>
-          ANNUAL INCOME:-  ${this.finaldata.user_anual_income } 
+          ANNUAL INCOME:-  ${this.finaldata.user_anual_income} 
           </div>
           <div>
-          HOME TOWN:- ${this.finaldata. user_Permanent_city } 
+          HOME TOWN:- ${this.finaldata.user_Permanent_city} 
           </div>
           <div>
             <a href="https://wa.me?text=${link}"> ${link}</a>
