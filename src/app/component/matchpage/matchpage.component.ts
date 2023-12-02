@@ -295,7 +295,14 @@ export class MatchpageComponent implements OnInit {
       };
       console.log(param);
 
-      this.commonservice.sendData(param).subscribe((res: any) => {});
+      this.commonservice.sendData(param).subscribe((res: any) => {
+           if(res.code == 200){
+            Swal.fire({
+              icon:'success',
+                text:'Mail send'
+            });
+           }
+      });
     }
   }
 
