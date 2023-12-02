@@ -1,5 +1,7 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
 
@@ -10,6 +12,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./alluserdata.component.scss']
 })
 export class AlluserdataComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
+  // **************************
   alldata: any;
   finaldata: any = [];
   filterText: string;
@@ -26,6 +30,10 @@ export class AlluserdataComponent implements OnInit {
   class7: any = 'btn btn-primary';
   class8: any = 'btn btn-warning';
   class9: any = 'btn btn-primary';
+  page: any = 1;
+  collectionSize: any = 10
+  pegination_required: boolean = false
+
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router
@@ -35,12 +43,33 @@ export class AlluserdataComponent implements OnInit {
     let all = <any>document.getElementById('all');
     all.checked = false;
     this.allId = [];
-    this.getAllData();
+    this.page = 1;
+    this.collectionSize = 10
+    this.getAllData(0, 10);
     this.date = new Date();
-
   }
 
-  getAllData() {
+  loadDATA(functionName: string) {
+    this.page = 1;
+    this.collectionSize = 10
+    this.pegination_required = false
+    let _this: any = this
+    _this[functionName](0, 10);
+  }
+  getSearchText(event: any) {
+    this.filterText = event
+  }
+  search(search_text: any) {
+    console.log(search_text);
+    this.getAllData(0, 10, true, search_text)
+
+  }
+  onpageChnage() {
+    this.getAllData(this.page * 10 - 10, 10)
+  }
+
+  getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
+    this.pegination_required = true
     this.class1 = 'btn active';
     this.class2 = 'btn btn-primary';
     this.class3 = 'btn btn-primary';
@@ -50,16 +79,37 @@ export class AlluserdataComponent implements OnInit {
     this.class7 = 'btn btn-primary';
     this.class8 = 'btn btn-primary';
     this.class9 = 'btn btn-primary';
-    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID';
-    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
-      if (res.success && res['data'].length > 0) {
+    var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      LIMIT ${limit} OFFSET ${start}`;
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      WHERE a.user_id = '${search_text}' 
+         OR b.auth_ID = '${search_text}' 
+         OR a.user_fname = '${search_text}' 
+         OR a.user_lname = '${search_text}';
+       `;
+    }
+
+
+    // console.log(quary);
+    this.blockUI.start('Loading...')
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      this.blockUI.stop()
+      if (res.success) {
+        this.collectionSize = Math.round(res['data'][0].total_count)
+        // this.collectionSize=
+        console.log(this.collectionSize);
+
         this.finaldata = res['data'];
         console.log(this.finaldata);
       }
     });
   }
-  // data: any, deleted: any
+
   deletedata() {
     if (this.allId.length == 0) {
       Swal.fire({
