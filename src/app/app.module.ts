@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimengModule } from './primeng/primeng.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { ApproveModule } from './approve/approve.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -33,6 +33,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     BrowserAnimationsModule,
     AuthModule,
     NgbModule,
+    NgbPaginationModule,
     SharedModule,
     PagesModule,
     ComponentModule,

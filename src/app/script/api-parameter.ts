@@ -38,14 +38,18 @@ export class ApiParameterScript {
 
      * @param db 
      * @param apiData 
+     * @param offset :Numbser
+     * @param limit :Numbser
      * @returns 
      * @author Suryanarayan Biswal
      * @since 20-10-2022
      */
-    public fetchdata(db: string, apiData: any) {
+    public fetchdata(db: string, apiData: any,offset:Number=0,limit:Number=100) {
         const simpleObservable = new Observable((observer) => {
             try {
                 apiData['table'] = db;
+                apiData['offset']=offset
+                apiData['limit']=limit
                 this.blockUI.start("Please Wait")
                 this.apiservices.getdata(apiData).subscribe(
                     (res: any) => {

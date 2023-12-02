@@ -8,7 +8,7 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { ImageViewOperationComponent } from '../shared/image-view-operation/image-view-operation.component';
 import { AlluserdataComponent } from './alluserdata/alluserdata.component';
 import { MakepaidComponent } from './makepaid/makepaid.component';
@@ -79,6 +79,7 @@ import { EmailvalidationComponent } from './emailvalidation/emailvalidation.comp
     PrimengModule,
     MaterialModule,
     CustomPipeModule,
+    NgbPaginationModule,
     NgbModule,
     SharedModule
   ],
