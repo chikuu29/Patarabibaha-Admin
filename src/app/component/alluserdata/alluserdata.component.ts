@@ -33,6 +33,7 @@ export class AlluserdataComponent implements OnInit {
   page: any = 1;
   collectionSize: any = 10
   pegination_required: boolean = false
+  currentFunction:string = 'getAllData';
 
   constructor(
     private ApiParameter: ApiParameterScript,
@@ -50,9 +51,10 @@ export class AlluserdataComponent implements OnInit {
   }
 
   loadDATA(functionName: string) {
+    this.currentFunction = functionName;
     this.page = 1;
     this.collectionSize = 10
-    this.pegination_required = false
+    this.pegination_required = true
     let _this: any = this
     _this[functionName](0, 10);
   }
@@ -60,55 +62,19 @@ export class AlluserdataComponent implements OnInit {
     this.filterText = event
   }
   search(search_text: any) {
-    console.log(search_text);
-    this.getAllData(0, 10, true, search_text)
+    let _this:any = this;
+    _this[this.currentFunction](0, 10,true,search_text);
+    // console.log(search_text);
+    // this.getAllData(0, 10, true, search_text)
 
   }
   onpageChnage() {
-    this.getAllData(this.page * 10 - 10, 10)
+    let _this:any = this;
+    _this[this.currentFunction](this.page * 10 - 10, 10);
+    //this.getAllData(this.page * 10 - 10, 10)
   }
 
-  getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.pegination_required = true
-    this.class1 = 'btn active';
-    this.class2 = 'btn btn-primary';
-    this.class3 = 'btn btn-primary';
-    this.class4 = 'btn btn-primary';
-    this.class5 = 'btn btn-primary';
-    this.class6 = 'btn btn-primary';
-    this.class7 = 'btn btn-primary';
-    this.class8 = 'btn btn-primary';
-    this.class9 = 'btn btn-primary';
-    var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
-      FROM user_info AS a
-      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-      LIMIT ${limit} OFFSET ${start}`;
-    if (loadSpecificData) {
-      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
-      FROM user_info AS a
-      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-      WHERE a.user_id = '${search_text}' 
-         OR b.auth_ID = '${search_text}' 
-         OR a.user_fname = '${search_text}' 
-         OR a.user_lname = '${search_text}';
-       `;
-    }
-
-
-    // console.log(quary);
-    this.blockUI.start('Loading...')
-    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      this.blockUI.stop()
-      if (res.success) {
-        this.collectionSize = Math.round(res['data'][0].total_count)
-        // this.collectionSize=
-        console.log(this.collectionSize);
-
-        this.finaldata = res['data'];
-        console.log(this.finaldata);
-      }
-    });
-  }
+  
 
   deletedata() {
     if (this.allId.length == 0) {
@@ -365,10 +331,53 @@ export class AlluserdataComponent implements OnInit {
   }
 
 
+  getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
+    this.pegination_required = true
+    this.class1 = 'btn active';
+    this.class2 = 'btn btn-primary';
+    this.class3 = 'btn btn-primary';
+    this.class4 = 'btn btn-primary';
+    this.class5 = 'btn btn-primary';
+    this.class6 = 'btn btn-primary';
+    this.class7 = 'btn btn-primary';
+    this.class8 = 'btn btn-primary';
+    this.class9 = 'btn btn-primary';
+    var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      LIMIT ${limit} OFFSET ${start}`;
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      WHERE a.user_id = '${search_text}' 
+         OR b.auth_ID = '${search_text}' 
+         OR a.user_fname = '${search_text}' 
+         OR a.user_lname = '${search_text}';
+       `;
+    }
 
 
+    // console.log(quary);
+    this.blockUI.start('Loading...')
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      this.blockUI.stop()
+      if (res.success) {
+        this.collectionSize = Math.round(res['data'][0].total_count)
+        // this.collectionSize=
+        console.log(this.collectionSize);
 
-  getAllOnlineData() {
+        this.finaldata = res['data'];
+        console.log(this.finaldata);
+      }
+    });
+  }
+
+
+ 
+
+
+  getAllOnlineData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.class1 = 'btn btn-primary ';
     this.class2 = 'btn active';
     this.class3 = 'btn btn-primary';
@@ -377,10 +386,37 @@ export class AlluserdataComponent implements OnInit {
     this.class6 = 'btn btn-primary';
     this.class7 = 'btn btn-primary';
     this.class9 = 'btn btn-primary';
-    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.online_status=1';
-    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+   // let Quary = `select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where
+   //  a.online_status=1`;
+      let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+          FROM user_info AS a
+          LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
+          a.online_status=1
+          LIMIT ${limit} OFFSET ${start}`
+          if (loadSpecificData) {
+            quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+            FROM user_info AS a
+            LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+            WHERE
+                a.online_status=1
+                AND a.user_id = '${search_text}' 
+               OR b.auth_ID = '${search_text}' 
+               OR a.user_fname = '${search_text}' 
+               OR a.user_lname = '${search_text}';
+             `;
+          }
+
+
+
+
+
+
+
+
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
-      if (res.success && res['data'].length > 0) {
+      if (res.success) {
+        this.collectionSize = Math.round(res['data'][0].total_count)
         this.finaldata = res['data'];
         console.log(this.finaldata);
       } else {
@@ -549,7 +585,7 @@ export class AlluserdataComponent implements OnInit {
         element.checked = false;
       });
     }
-    //console.log(this.allId);
+    console.log(this.allId);
   }
   getId(id: any, e: any) {
 
@@ -561,7 +597,7 @@ export class AlluserdataComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    //console.log(this.allId);
+    console.log(this.allId);
   }
 
 
