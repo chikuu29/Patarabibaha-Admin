@@ -15,6 +15,7 @@ import { ImageViewOperationComponent } from 'src/app/shared/image-view-operation
 import { ImageCroperComponent } from 'src/app/shared/image-croper/image-croper.component';
 import { AgePipe } from 'src/app/customPipe/age.pipe';
 import { CommonService } from 'src/app/services/common.service';
+import { environment } from 'src/environments/environment';
 
 ApiService
 @Component({
@@ -450,6 +451,7 @@ export class UserViewComponent implements OnInit {
   actualUploadedFiles: any[] = []
   imageUrl = "this.appservices.getFilePath()}storage/"
   finaldata: any;
+  logo: any;
   constructor(
     private appservices: AppService,
     private ApiParameterScript: ApiParameterScript,
@@ -459,7 +461,8 @@ export class UserViewComponent implements OnInit {
     private api: ApiService,
     private confirmationService: ConfirmationService,
     private modalService: NgbModal,
-    private AgePipe: AgePipe
+    private AgePipe: AgePipe,
+    
 
   ) { }
 
@@ -490,7 +493,7 @@ export class UserViewComponent implements OnInit {
           this.userFamilyDetailsForm.patchValue(res['user_family'])
           this.habitHobbiesForm.patchValue(res['user_diet_hobbies'])
           console.log(res['user_physical_details']);
-          
+
           this.physicalDeatilsForm.patchValue(res['user_physical_details'])
           this.basicDetailsForm.patchValue(res['user_info'])
           this.getSubcaste(this.user_religionDetailsForm.value.user_caste)
@@ -1296,13 +1299,8 @@ export class UserViewComponent implements OnInit {
   }
 
   public viewMemberimages() {
-
-
     const modalRef = this.modalService.open(ImageViewOperationComponent, { size: 'xl', scrollable: true });
     modalRef.componentInstance.user_id = this.profile_id
-
-
-
   }
 
   getSubcaste(caste: any) {
@@ -1385,6 +1383,22 @@ export class UserViewComponent implements OnInit {
       }
     });
   }
+
+  icone() {
+    this.ApiParameterScript.fetchdata('logo_table', { "projection": ["*"], "whereConditions": { status: 1} }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.logo = res['data'][0].image;
+        console.log(this.logo);
+      }
+    });
+  }
+
+  calculateAge(birthday: Date): number {
+    birthday = new Date(birthday);
+    const ageDifMs: number = Date.now() - birthday.getTime();
+    const ageDate: Date = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
   public generatePDF() {
     var head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']]
 
@@ -1410,7 +1424,13 @@ export class UserViewComponent implements OnInit {
     // const pdf = new jsPDF();
     pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
     // Sample data with text and image URLs
-    _.map(pdfData, (res: any) => res.user_profile_image = "https://admin.choicemarriage.com/api/storage/" + res.user_profile_image)
+    _.map(
+      pdfData,
+      (res: any) =>
+      (res.user_profile_image =
+        environment.baseApiURL + 'storage/' +
+        res.user_profile_image)
+    );
     console.log("Click generatePDF", pdfData);
 
     const data = pdfData
@@ -1424,7 +1444,9 @@ export class UserViewComponent implements OnInit {
 
 
       pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
-      pdf.textWithLink("ID   :" + record.user_id, 70, yPos += 10, { url: "https://choicemarriage.com/member-profile/" + record.user_id });
+      pdf.textWithLink('ID   :' + record.user_id, 70, (yPos += 10), {
+        url: environment.application_url + 'member-profile/' + record.user_id,
+      });
 
       // pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos+=10);
       // pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos+=10);
@@ -1436,9 +1458,9 @@ export class UserViewComponent implements OnInit {
       // Draw lines to separate records
       pdf.line(0, 85, 210, 85);
       console.log("[record]", [record]);
-      pdf.text("BIODATA", 85, yPos + 35)
-      pdf.text(`DOB: ${record.user_dob}`, 10, yPos += 50);
-      pdf.text(`Height: ${record.user_height ? record.user_height : "NA"}`, 10, yPos += 10);
+      pdf.text("BIODATA", 85, yPos + 35);
+      pdf.text(`AGE: ${this. calculateAge(record.user_dob)}`, 10, yPos += 50);
+      pdf.text(`Height: ${record.user_height ? record.user_height : "NA"} cm`, 10, yPos += 10);
       pdf.text(`Colour: ${record.user_complextion ? record.user_complextion : "NA"}`, 10, yPos += 10);
       pdf.text("EDUCATION & OCCUPATION", 70, yPos + 20)
       // pdf.table(0,60,[],record,{ autoSize: true });
@@ -1455,10 +1477,10 @@ export class UserViewComponent implements OnInit {
 
 
       // if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
-      pdf.addPage();
-      pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
+     // pdf.addPage();
+     // pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
       // Sample data with text and image URLs
-      currentPage++;
+      ///currentPage++;
       // yPos = 30; // Reset Y position for the new page
       // }
     });
@@ -1473,12 +1495,17 @@ export class UserViewComponent implements OnInit {
   }
   shareData() {
     console.log(this.finaldata);
-    let type = this.finaldata.user_gender == 'female' ? 'Bride' : 'Groom';
+    let type1 = this.finaldata.user_gender == 'female' ? 'Bride' : 'Groom';
+    let type2 = this.finaldata.user_gender == 'female' ? 'Groom' : 'Bride';
     let link = 'https://choicemarriage.com/member-profile/' + this.finaldata.auth_ID
     Swal.fire({
       html: `
         <div class="">
-        <i class="fa fa-arrow-down" aria-hidden="true"></i> Details of ${type} <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        <div>
+           Required ${type2}
+        </div>
+        <br>
+        <i class="fa fa-arrow-down" aria-hidden="true"></i> Details of ${type1} <i class="fa fa-arrow-down" aria-hidden="true"></i>
          <div>
          DOB:-${this.finaldata.user_dob}
          </div>
@@ -1503,6 +1530,10 @@ export class UserViewComponent implements OnInit {
           </div>
           <div>
           HOME TOWN:- ${this.finaldata.user_Permanent_city} 
+          </div>
+          <br>
+          <div>
+          CLIICK HERE FOR MORE INFORMATION WITH PHOTO
           </div>
           <div>
             <a href="https://wa.me?text=${link}"> ${link}</a>

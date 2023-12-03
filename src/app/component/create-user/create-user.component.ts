@@ -6,6 +6,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/auth.service';
 import { RegisterService } from 'src/app/services/register.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -158,7 +159,8 @@ export class CreateUserComponent implements OnInit {
       "dob": `${this.form2.value.year}-${this.form2.value.month}-${this.form2.value.day}`,
       "email": this.form3.value.email,
       "phone": `${this.form3.value.phone}`,
-      "password": this.form3.value.password
+      "password": this.form3.value.password,
+      "url": environment.application_url
       // "profileID":this.profileID
 
 

@@ -8,6 +8,8 @@ import { AgePipe } from 'src/app/customPipe/age.pipe';
 import * as moment from 'moment';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
+import { ApiParameterScript } from 'src/app/script/api-parameter';
 
 @Component({
   selector: 'app-matchpage',
@@ -25,12 +27,14 @@ export class MatchpageComponent implements OnInit {
   filterText: any;
   finaldata: any;
   allId: any[] = [];
+  logo: any;
   constructor(
     private activatedroute: ActivatedRoute,
     private commonservice: CommonService,
     private AgePipe: AgePipe,
-    private router: Router
-  ) {}
+    private router: Router,
+    private ApiParameter: ApiParameterScript,
+  ) { }
 
   ngOnInit(): void {
     this.activatedroute.params.subscribe((res: any) => {
@@ -40,6 +44,7 @@ export class MatchpageComponent implements OnInit {
       this.user_id = data;
     });
     this.matches();
+    this.icone();
   }
   userpage(data: any) {
     this.router.navigate(['/user', data]);
@@ -117,6 +122,20 @@ export class MatchpageComponent implements OnInit {
       this.premimusMatches();
     }
   }
+  calculateAge(birthday: Date): number {
+    birthday = new Date(birthday);
+    const ageDifMs: number = Date.now() - birthday.getTime();
+    const ageDate: Date = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+  icone() {
+    this.ApiParameter.fetchdata('logo_table', { "projection": ["*"], "whereConditions": { status: 1} }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.logo = res['data'][0].image;
+        console.log(this.logo);
+      }
+    });
+  }
 
   public generatePDF() {
     var head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']];
@@ -140,8 +159,11 @@ export class MatchpageComponent implements OnInit {
     });
 
     // const pdf = new jsPDF();
+    const imageurl = environment.baseApiURL+'storage/logo_image/'+this.logo;
+    console.log(imageurl);
+    
     pdf.addImage(
-      'https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png',
+      "https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png" ,
       'JPEG',
       65,
       5,
@@ -152,9 +174,9 @@ export class MatchpageComponent implements OnInit {
     _.map(
       pdfData,
       (res: any) =>
-        (res.user_profile_image =
-          'https://admin.choicemarriage.com/api/storage/' +
-          res.user_profile_image)
+      (res.user_profile_image =
+        environment.baseApiURL + 'storage/' +
+        res.user_profile_image)
     );
     console.log('Click generatePDF', pdfData);
 
@@ -169,22 +191,20 @@ export class MatchpageComponent implements OnInit {
 
       pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
       pdf.textWithLink('ID   :' + record.user_id, 70, (yPos += 10), {
-        url: 'https://choicemarriage.com/member-profile/' + record.user_id,
+        url: environment.application_url + 'member-profile/' + record.user_id,
       });
 
       // pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos+=10);
       // pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos+=10);
       pdf.text(`Gender: ${record.user_gender}`, 70, (yPos += 10));
       pdf.text(
-        `Marital Status: ${
-          record.user_marital_status ? record.user_marital_status : 'NA'
+        `Marital Status: ${record.user_marital_status ? record.user_marital_status : 'NA'
         }`,
         70,
         (yPos += 10)
       );
       pdf.text(
-        `HomeTown:  ${record.user_city ? record.user_city : 'NA'},${
-          record.user_city ? record.user_state : 'NA'
+        `HomeTown:  ${record.user_city ? record.user_city : 'NA'},${record.user_city ? record.user_state : 'NA'
         }`,
         70,
         (yPos += 10)
@@ -195,7 +215,7 @@ export class MatchpageComponent implements OnInit {
       pdf.line(0, 85, 210, 85);
       console.log('[record]', [record]);
       pdf.text('BIODATA', 85, yPos + 35);
-      pdf.text(`DOB: ${record.user_dob}`, 10, (yPos += 50));
+      pdf.text(`AGE: ${this.calculateAge(record.user_dob)}`, 10, yPos += 50);
       pdf.text(
         `Height: ${record.user_height ? record.user_height : 'NA'}`,
         10,
@@ -217,31 +237,27 @@ export class MatchpageComponent implements OnInit {
         (yPos += 10)
       );
       pdf.text(
-        `Designation: ${
-          record.user_occupation_details ? record.user_occupation_details : 'NA'
+        `Designation: ${record.user_occupation_details ? record.user_occupation_details : 'NA'
         }`,
         10,
         (yPos += 10)
       );
       pdf.text(
-        `Anulal Income:  ${
-          record.user_anual_income ? record.user_anual_income : 'NA'
+        `Anulal Income:  ${record.user_anual_income ? record.user_anual_income : 'NA'
         }`,
         10,
         (yPos += 10)
       );
       pdf.text(
-        `Job Location:  ${
-          record.user_occupation_location
-            ? record.user_occupation_location
-            : 'NA'
+        `Job Location:  ${record.user_occupation_location
+          ? record.user_occupation_location
+          : 'NA'
         }`,
         10,
         (yPos += 10)
       );
       pdf.text(
-        `Details Of Job:  ${
-          record.user_occupation_details ? record.user_occupation_details : 'NA'
+        `Details Of Job:  ${record.user_occupation_details ? record.user_occupation_details : 'NA'
         }`,
         10,
         (yPos += 10)
@@ -261,7 +277,7 @@ export class MatchpageComponent implements OnInit {
       // if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
       pdf.addPage();
       pdf.addImage(
-        'https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png',
+        "https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png",
         'JPEG',
         65,
         5,
@@ -296,12 +312,12 @@ export class MatchpageComponent implements OnInit {
       console.log(param);
 
       this.commonservice.sendData(param).subscribe((res: any) => {
-           if(res.code == 200){
-            Swal.fire({
-              icon:'success',
-                text:'Mail send'
-            });
-           }
+        if (res.code == 200) {
+          Swal.fire({
+            icon: 'success',
+            text: 'Mail send'
+          });
+        }
       });
     }
   }
