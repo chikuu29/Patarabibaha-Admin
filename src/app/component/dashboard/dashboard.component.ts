@@ -24,8 +24,8 @@ export class DashboardComponent implements OnInit {
   allPaidUser: any = 0
   image: any = ''
   filterText: any = ''
-  collectionSize=0
-  page=1
+  collectionSize = 10
+  page = 1
   constructor(
     private apiparameter: ApiParameterScript,
     private appsevices: AppService
@@ -51,12 +51,12 @@ export class DashboardComponent implements OnInit {
     this.laodMemberInfo(typeOfUser, true)
   }
 
-  onpageChnage(){
+  onpageChnage() {
     // console.log(search_text);
     // this.getAllData(0, 10, true, search_text)
     // this.page=1;
 
-    this.collectionSize=0
+    this.collectionSize = 0
     var typeOfUser = "Approved"
     if (this.allPaidUsrClick) typeOfUser = "Paid"
     else if (this.allUserClick) typeOfUser = "All"
@@ -132,9 +132,10 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  laodMemberInfo(typeOfUser: String, searchbtnClick: boolean = false) {
+  laodMemberInfo(typeOfUser: String, searchbtnClick: boolean = false, clickThroughBox: boolean = false) {
 
-    var apiData :any = {
+    if (clickThroughBox) this.page = 1
+    var apiData: any = {
       "projection": ["*"],
       "whereConditions": {}
     }
@@ -158,7 +159,7 @@ export class DashboardComponent implements OnInit {
         this.user_data_message = "All Paid Members"
         apiData = {
           "projection": ["*"],
-          "whereConditions": { "user_membership_plan_active": 1 ,'user_membership_plan_type':'Gold'}
+          "whereConditions": { "user_membership_plan_active": 1, 'user_membership_plan_type': 'Gold' }
         }
 
         break;
@@ -195,17 +196,17 @@ export class DashboardComponent implements OnInit {
     if (searchbtnClick) {
       apiData['whereConditions']['user_id'] = this.filterText
     }
-    
-    var offset=this.page*10-10
-    this.apiparameter.fetchdata('user_info', apiData,offset,10).subscribe((res: any) => {
+
+    var offset = this.page * 10 - 10
+    this.apiparameter.fetchdata('user_info', apiData, offset, 10).subscribe((res: any) => {
       console.log("res", res);
-      
+
       if (res.success && res['data'].length > 0) {
-        this.collectionSize=res['totalCount'];
+        this.collectionSize = res['totalCount'];
         this.userInfoDATA = res['data'];
       } else {
         this.userInfoDATA = [];
-        this.collectionSize=0
+        this.collectionSize = 10
       }
     })
 
