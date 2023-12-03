@@ -34,7 +34,7 @@ export class ViewAuthUserComponent implements OnInit {
       switch (item) {
         case "active":
           query = "SELECT COUNT(auth_ID) as count FROM auth_user WHERE account_status='active'"
-          this.ApiParameterScript.fetchDataFormQuery({ "query": query }).subscribe((res: any) => {
+          this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
             console.log(res);
             if (res.success && res['data'].length > 0) {
 
@@ -50,7 +50,7 @@ export class ViewAuthUserComponent implements OnInit {
 
         case "inactive":
           query = "SELECT COUNT(auth_ID) as count FROM auth_user WHERE account_status='inactive'"
-          this.ApiParameterScript.fetchDataFormQuery({ "query": query }).subscribe((res: any) => {
+          this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
             console.log(res);
             if (res.success && res['data'].length > 0) {
 
@@ -63,7 +63,7 @@ export class ViewAuthUserComponent implements OnInit {
           break;
         case "All":
           query = "SELECT COUNT(auth_ID) as count FROM auth_user"
-          this.ApiParameterScript.fetchDataFormQuery({ "query": query }).subscribe((res: any) => {
+          this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
             console.log(res);
             if (res.success && res['data'].length > 0) {
 
