@@ -60,7 +60,11 @@ export class SideNavComponent implements OnInit {
   phoneapprove(){
     this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { phone_no_request: 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
+        console.log(res['data']);
+
         this.phoneapprovedata = res['data'].length;
+        console.log(this.phoneapprovedata);
+
       }
     });
   }

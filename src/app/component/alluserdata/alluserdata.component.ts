@@ -46,7 +46,9 @@ export class AlluserdataComponent implements OnInit {
     this.allId = [];
     this.page = 1;
     this.collectionSize = 10
-    this.getAllData(0, 10);
+    let _this:any = this;
+    _this[this.currentFunction](this.page * 10 - 10, 10)
+    // this.getAllData(0, 10);
     this.date = new Date();
   }
 
@@ -74,7 +76,7 @@ export class AlluserdataComponent implements OnInit {
     //this.getAllData(this.page * 10 - 10, 10)
   }
 
-  
+
 
   deletedata() {
     if (this.allId.length == 0) {
@@ -350,33 +352,30 @@ export class AlluserdataComponent implements OnInit {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-      WHERE a.user_id = '${search_text}' 
-         OR b.auth_ID = '${search_text}' 
-         OR a.user_fname = '${search_text}' 
+      WHERE a.user_id = '${search_text}'
+         OR b.auth_ID = '${search_text}'
+         OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}';
        `;
     }
+   // console.log(quary);
+
 
 
     // console.log(quary);
     this.blockUI.start('Loading...')
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
-      if (res.success) {
-        this.collectionSize = Math.round(res['data'][0].total_count)
-        // this.collectionSize=
-        console.log(this.collectionSize);
-
+      if (res.success && res['data'].length > 0) {
+        this.collectionSize = Math.round(res['data'][0].total_count);
         this.finaldata = res['data'];
         console.log(this.finaldata);
+      }else{
+        this.collectionSize = 1;
+        this.finaldata = [];
       }
     });
   }
-
-
- 
-
-
   getAllOnlineData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.class1 = 'btn btn-primary ';
     this.class2 = 'btn active';
@@ -399,20 +398,54 @@ export class AlluserdataComponent implements OnInit {
             LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
             WHERE
                 a.online_status=1
-                AND a.user_id = '${search_text}' 
-               OR b.auth_ID = '${search_text}' 
-               OR a.user_fname = '${search_text}' 
+                AND a.user_id = '${search_text}'
+               OR b.auth_ID = '${search_text}'
+               OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}';
              `;
           }
-
-
-
-
-
-
-
-
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.collectionSize = Math.round(res['data'][0].total_count)
+        this.finaldata = res['data'];
+       // console.log(this.finaldata);
+      } else {
+        this.finaldata = [];
+        this.collectionSize =1
+      }
+    });
+  }
+  getAllPublishedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
+    this.class1 = 'btn btn-primary ';
+    this.class2 = 'btn btn-primary';
+    this.class3 = 'btn active';
+    this.class4 = 'btn btn-primary';
+    this.class5 = 'btn btn-primary';
+    this.class6 = 'btn btn-primary';
+    this.class7 = 'btn btn-primary';
+    this.class8 = 'btn btn-primary';
+    this.class9 = 'btn btn-primary';
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+          FROM user_info AS a
+          LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
+          a.status=1
+          LIMIT ${limit} OFFSET ${start}`
+          if (loadSpecificData) {
+            quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+            FROM user_info AS a
+            LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+            WHERE
+                a.online_status=1
+                AND a.user_id = '${search_text}'
+               OR b.auth_ID = '${search_text}'
+               OR a.user_fname = '${search_text}'
+               OR a.user_lname = '${search_text}';
+             `;
+          }
+    // let Quary = `select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where
+    // a.status=1
+    // LIMIT ${limit} OFFSET ${start}`;
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
       if (res.success) {
@@ -424,28 +457,7 @@ export class AlluserdataComponent implements OnInit {
       }
     });
   }
-  getAllPublishedData() {
-    this.class1 = 'btn btn-primary ';
-    this.class2 = 'btn btn-primary';
-    this.class3 = 'btn active';
-    this.class4 = 'btn btn-primary';
-    this.class5 = 'btn btn-primary';
-    this.class6 = 'btn btn-primary';
-    this.class7 = 'btn btn-primary';
-    this.class8 = 'btn btn-primary';
-    this.class9 = 'btn btn-primary';
-    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=1';
-    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
-      if (res.success && res['data'].length > 0) {
-        this.finaldata = res['data'];
-        console.log(this.finaldata);
-      } else {
-        this.finaldata = [];
-      }
-    });
-  }
-  getAllUnpublishedData() {
+  getAllUnpublishedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.class1 = 'btn btn-primary ';
     this.class2 = 'btn btn-primary';
     this.class3 = 'btn btn-primary';
@@ -454,19 +466,39 @@ export class AlluserdataComponent implements OnInit {
     this.class6 = 'btn btn-primary';
     this.class7 = 'btn btn-primary';
     this.class9 = 'btn btn-primary';
-
-    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
-    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
-      if (res.success && res['data'].length > 0) {
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+          FROM user_info AS a
+          LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
+          a.status=0
+          LIMIT ${limit} OFFSET ${start}`
+          if (loadSpecificData) {
+            quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+            FROM user_info AS a
+            LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+            WHERE
+                a.online_status=1
+                AND a.user_id = '${search_text}'
+               OR b.auth_ID = '${search_text}'
+               OR a.user_fname = '${search_text}'
+               OR a.user_lname = '${search_text}';
+             `;
+          }
+    //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      //console.log(res);
+      if (res.success && res['data'].length > 0 ) {
+       // alert('ll')
+        this.collectionSize = Math.round(res['data'][0].total_count)
         this.finaldata = res['data'];
-        console.log(this.finaldata);
+       // console.log(this.finaldata);
       } else {
+        this.collectionSize=1;
         this.finaldata = [];
+       // console.log(this.finaldata);
       }
     });
   }
-  getAllDeletedData() {
+  getAllDeletedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.class1 = 'btn btn-primary ';
     this.class2 = 'btn btn-primary';
     this.class3 = 'btn btn-primary';
@@ -475,18 +507,37 @@ export class AlluserdataComponent implements OnInit {
     this.class6 = 'btn btn-primary';
     this.class7 = 'btn btn-primary';
     this.class9 = 'btn btn-primary';
-    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=0';
-    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+   // let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=0';
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+    FROM user_info AS a
+    LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
+    a.deleted=0
+    LIMIT ${limit} OFFSET ${start}`
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      WHERE
+          a.online_status=1
+          AND a.user_id = '${search_text}'
+         OR b.auth_ID = '${search_text}'
+         OR a.user_fname = '${search_text}'
+         OR a.user_lname = '${search_text}';
+       `;
+    }
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      //console.log(res);
       if (res.success && res['data'].length > 0) {
+        this.collectionSize = Math.round(res['data'][0].total_count);
         this.finaldata = res['data'];
-        console.log(this.finaldata);
+        //console.log(this.finaldata);
       } else {
+        this.collectionSize = 1;
         this.finaldata = [];
       }
     });
   }
-  getAllNotDeletedData() {
+  getAllNotDeletedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.class1 = 'btn btn-primary ';
     this.class2 = 'btn btn-primary';
     this.class3 = 'btn btn-primary';
@@ -496,18 +547,37 @@ export class AlluserdataComponent implements OnInit {
     this.class7 = 'btn btn-primary';
     this.class8 = 'btn btn-primary';
     this.class9 = 'btn btn-primary';
-    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=1';
-    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+    //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=1';
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+    FROM user_info AS a
+    LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
+    a.deleted=1
+    LIMIT ${limit} OFFSET ${start}`
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      WHERE
+          a.online_status=1
+          AND a.user_id = '${search_text}'
+         OR b.auth_ID = '${search_text}'
+         OR a.user_fname = '${search_text}'
+         OR a.user_lname = '${search_text}';
+       `;
+    }
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
+        this.collectionSize = Math.round(res['data'][0].total_count);
         this.finaldata = res['data'];
         console.log(this.finaldata);
       } else {
+        this.collectionSize = 1;
         this.finaldata = [];
       }
     });
   }
-  getAllApprovedData() {
+  getAllApprovedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.class1 = 'btn btn-primary ';
     this.class2 = 'btn btn-primary';
     this.class3 = 'btn btn-primary';
@@ -517,18 +587,37 @@ export class AlluserdataComponent implements OnInit {
     this.class7 = 'btn active';
     this.class8 = 'btn btn-primary';
     this.class9 = 'btn btn-primary';
-    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved"';
-    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+    //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved"';
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+    FROM user_info AS a
+    LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
+    a.user_status="Approved"
+    LIMIT ${limit} OFFSET ${start}`
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      WHERE
+          a.online_status=1
+          AND a.user_id = '${search_text}'
+         OR b.auth_ID = '${search_text}'
+         OR a.user_fname = '${search_text}'
+         OR a.user_lname = '${search_text}';
+       `;
+    }
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
+        this.collectionSize = Math.round(res['data'][0].total_count);
         this.finaldata = res['data'];
         console.log(this.finaldata);
       } else {
+        this.collectionSize = 1;
         this.finaldata = [];
       }
     });
   }
-  getAllPendingData() {
+  getAllPendingData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.class1 = 'btn btn-primary ';
     this.class2 = 'btn btn-primary';
     this.class3 = 'btn btn-primary';
@@ -538,18 +627,36 @@ export class AlluserdataComponent implements OnInit {
     this.class7 = ' btn btn-primary';
     this.class8 = 'btn active';
     this.class9 = 'btn btn-primary';
-    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Pending"';
-    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+   // let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Pending"';
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+    FROM user_info AS a
+    LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
+    a.user_status="Pending"
+    LIMIT ${limit} OFFSET ${start}`
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      WHERE
+          a.online_status=1
+          AND a.user_id = '${search_text}'
+         OR b.auth_ID = '${search_text}'
+         OR a.user_fname = '${search_text}'
+         OR a.user_lname = '${search_text}';
+       `;
+    }
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
+        this.collectionSize = Math.round(res['data'][0].total_count);
         this.finaldata = res['data'];
         console.log(this.finaldata);
       } else {
+        this.collectionSize = 1;
         this.finaldata = [];
       }
     });
   }
-  getAllvaliduserData() {
+  getAllvaliduserData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.class1 = 'btn btn-primary ';
     this.class2 = 'btn btn-primary';
     this.class3 = 'btn btn-primary';
@@ -559,13 +666,33 @@ export class AlluserdataComponent implements OnInit {
     this.class7 = ' btn btn-primary';
     this.class8 = 'btn btn-primary';
     this.class9 = 'btn active';
-    let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved" AND a.deleted=1 AND a.status=1';
-    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+    //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved" AND a.deleted=1 AND a.status=1';
+
+
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+    FROM user_info AS a
+    LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
+    a.user_status="Approved" AND a.deleted=1 AND a.status=1
+    LIMIT ${limit} OFFSET ${start}`
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      WHERE
+          a.online_status=1
+          AND a.user_id = '${search_text}'
+         OR b.auth_ID = '${search_text}'
+         OR a.user_fname = '${search_text}'
+         OR a.user_lname = '${search_text}';
+       `;
+    }
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
+        this.collectionSize = Math.round(res['data'][0].total_count);
         this.finaldata = res['data'];
         console.log(this.finaldata);
       } else {
+        this.collectionSize = 1;
         this.finaldata = [];
       }
     });

@@ -38,6 +38,7 @@ import { DesignationComponent } from './designation/designation.component';
 import { UserfilterComponent } from './userfilter/userfilter.component';
 import { PhonevalidationComponent } from './phonevalidation/phonevalidation.component';
 import { EmailvalidationComponent } from './emailvalidation/emailvalidation.component';
+import { MarriagestatusComponent } from './marriagestatus/marriagestatus.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { EmailvalidationComponent } from './emailvalidation/emailvalidation.comp
     DesignationComponent,
     UserfilterComponent,
     PhonevalidationComponent,
-    EmailvalidationComponent
+    EmailvalidationComponent,
+    MarriagestatusComponent
   ],
   imports: [
     CommonModule,
