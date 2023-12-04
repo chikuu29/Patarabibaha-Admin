@@ -21,9 +21,9 @@
           <table class="table ">
               <thead class="table-header">
                   <tr>
-                      <th>
+                      <!-- <th>
                           <input type="checkbox" class="checkAll" id="all" (change)="checkAll($event)">
-                      </th>
+                      </th> -->
                       <th class="width"></th>
                       <th>#SI</th>
                       <th>User Name</th>
@@ -41,10 +41,10 @@
                   <ng-container
                       *ngFor="let data of finaldata | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
                       <tr>
-                          <td>
+                          <!-- <td>
                               <input type="checkbox" class="check" (change)="getId(data?.Id,$event)"
                                   [value]="data?.user_id">
-                          </td>
+                          </td> -->
                           <td class="width">
                               <p title="Online" class="badge badge-success" *ngIf="data.online_status == 1">
                                   <span></span>
@@ -62,8 +62,9 @@
                           <td>{{data.user_id }}</td>
                           <td>{{data.user_creation_date_time | date}}</td>
                               <td>
-                                <button type="button" (click)="combine(data?.user_id)" [class]="'btn btn-outline-success btn-fw me-2 w-60'">Marriage Status Entry</button>
+                                <button type="button"  [class]="'btn btn-outline-success btn-fw me-2 w-60'">Marriage Status Entry</button>
                               </td>
+                              <!-- (click)="combine(data?.user_id)" -->
                           <!-- <td>
                               <p class="badge badge-success" *ngIf="data.status == 1">Publish</p>
                               <p class="badge badge-danger" *ngIf="data.status == 0">Unpublish</p>

@@ -28,6 +28,7 @@ import { UserfilterComponent } from './userfilter/userfilter.component';
 import { PhonevalidationComponent } from './phonevalidation/phonevalidation.component';
 import { EmailvalidationComponent } from './emailvalidation/emailvalidation.component';
 import { MarriagestatusComponent } from './marriagestatus/marriagestatus.component';
+import { MarriagecombinationComponent } from './marriagecombination/marriagecombination.component';
 
 
 
@@ -169,6 +170,10 @@ const routes: Routes = [
         path: 'marriage',
         canActivate: [AuthGuard],
         component: MarriagestatusComponent
+      },{
+        path: 'marriage-combine/:id',
+        canActivate: [AuthGuard],
+        component: MarriagecombinationComponent
       },
 
 

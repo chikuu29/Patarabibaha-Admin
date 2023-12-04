@@ -39,6 +39,7 @@ import { UserfilterComponent } from './userfilter/userfilter.component';
 import { PhonevalidationComponent } from './phonevalidation/phonevalidation.component';
 import { EmailvalidationComponent } from './emailvalidation/emailvalidation.component';
 import { MarriagestatusComponent } from './marriagestatus/marriagestatus.component';
+import { MarriagecombinationComponent } from './marriagecombination/marriagecombination.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { MarriagestatusComponent } from './marriagestatus/marriagestatus.compone
     UserfilterComponent,
     PhonevalidationComponent,
     EmailvalidationComponent,
-    MarriagestatusComponent
+    MarriagestatusComponent,
+    MarriagecombinationComponent
   ],
   imports: [
     CommonModule,
