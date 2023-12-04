@@ -234,3 +234,22 @@
 }
 
 
+.filter-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px;
+  background-color: #4f29f0; /* Set your desired background color */
+  color: #fff; /* Set your desired text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-icon {
+  width: 25px; /* Set your desired icon size */
+  height: 25px;
+  fill: #fff; /* Set your desired icon color */
+  margin-right: 5px; /* Adjust spacing between icon and text */
+}
+
