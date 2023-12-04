@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { AppService } from 'src/app/services/app.service';
@@ -12,7 +13,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class FillterModalComponent implements OnInit {
 
-  @Input() user_id:string
+ 
   motherTounghOptions: any[] = [];
   countryOption: any = [
     { 'name': 'India' }
@@ -182,29 +183,12 @@ export class FillterModalComponent implements OnInit {
   constructor(
     private ApiParameterScript:ApiParameterScript,
     private appservices:AppService,
-    private commonservice:CommonService
+    private commonservice:CommonService,
+    public modal:NgbActiveModal
   
   ) { }
 
   ngOnInit(): void {
-
-
-    var apiData={
-      "projection":['*'],
-      "whereConditions":{ user_ID: this.user_id }
-    }
-    
-    
-    // this.ApiParameterScript.fetchdata("user_partnerpreference",apiData).subscribe((res:any)=>{
-    
-      
-    //   if (res.success && res['data'].length>0) {
-    //     this.partnerPreferenceForm.patchValue(JSON.parse(res['data'][0]['json_data']))
-    //     this.getstatefilter(this.partnerPreferenceForm.value.user_country)
-    //     this.getcityfilter(this.partnerPreferenceForm.value.user_state)
-    //   }
-    // })
-
     this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"] ,"whereConditions":{ status: 1 } }).subscribe((res: any) => {
       
       if (res.success && res['data'].length > 0) {
@@ -348,23 +332,13 @@ export class FillterModalComponent implements OnInit {
       
       }
     })
-  }
 
-  userupartnerpreferenceForm_submit() {
-    
-    let updateData = {
-      "data": this.partnerPreferenceForm.value,
-      "whereConditions": { user_ID: this.user_id},
-      "isJsonData": true,
-      "jsonDataID": { user_ID: this.user_id }
-    }
-   console.log(this.partnerPreferenceForm.value);
 
-   this.commonservice.filterData(updateData).subscribe((res:any)=>{
-    
-   })
-   
   }
+getSelection(){
+  this.modal.close(this.partnerPreferenceForm)
+}
+
 
   getstatefilter(country_name: any) {
     
