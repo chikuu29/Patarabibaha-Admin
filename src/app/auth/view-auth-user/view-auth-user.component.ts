@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as _ from 'lodash';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 
 @Component({
@@ -8,17 +9,21 @@ import { ApiParameterScript } from 'src/app/script/api-parameter';
 })
 export class ViewAuthUserComponent implements OnInit {
 
-  authDataList:any[]=[]
-  activeAuthUserCount:any=0
-  inactiveAuthUserCount:any=0
-  allAuthUserCount:any=0
+  authDataList: any[] = []
+  activeAuthUserCount: any = 0
+  inactiveAuthUserCount: any = 0
+  allAuthUserCount: any = 0
 
-  activeAuthUserClick:boolean=false
-  inactiveAuthUserClick:boolean=false
-  allAuthUserClick:boolean=false
-  filterText:string
+  activeAuthUserClick: boolean = false
+  inactiveAuthUserClick: boolean = false
+  allAuthUserClick: boolean = false
+  filterText: string
+  collectionSize: number = 0
+  page: number = 1
+  totalCount: number = 0
+  totalFetchrecord:number=0
   constructor(
-    private ApiParameterScript:ApiParameterScript
+    private ApiParameterScript: ApiParameterScript
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +31,22 @@ export class ViewAuthUserComponent implements OnInit {
     this.getAuthMemberDataCount(["All", 'active', 'inactive'])
   }
 
+  getSearchText(event: any) {
+    console.log(event);
+
+    this.filterText = event
+  }
+
+  onpageChnage() {
+    // console.log(this.page);
+    var executeName = "active"
+    if (this.allAuthUserClick) executeName = "All"
+    else if (this.activeAuthUserClick) executeName = "active"
+    else if (this.inactiveAuthUserClick) executeName = "inactive"
+    this.loadAuthData(executeName)
+
+
+  }
 
   getAuthMemberDataCount(countUserList: any) {
     var query = "SELECT COUNT(auth_ID) as count FROM auth_user"
@@ -83,7 +104,7 @@ export class ViewAuthUserComponent implements OnInit {
 
   }
 
-  loadAuthData(typeOfUser:any){
+  loadAuthData(typeOfUser: any) {
     var apiData = {
       "projection": ["*"],
       "whereConditions": {}
@@ -93,7 +114,7 @@ export class ViewAuthUserComponent implements OnInit {
         this.inactiveAuthUserClick = false
         this.allAuthUserClick = false
         this.activeAuthUserClick = true
- 
+
         // this.user_data_message = "All Approved Members"
         apiData = {
           "projection": ["*"],
@@ -107,7 +128,7 @@ export class ViewAuthUserComponent implements OnInit {
         // this.user_data_message = "All Paid Members"
         apiData = {
           "projection": ["*"],
-          "whereConditions": {"account_status": 'inactive' }
+          "whereConditions": { "account_status": 'inactive' }
         }
 
         break;
@@ -119,7 +140,7 @@ export class ViewAuthUserComponent implements OnInit {
         // this.user_data_message = "Total Members"
         apiData = {
           "projection": ["*"],
-          "whereConditions": {  }
+          "whereConditions": {}
         }
         break;
       default:
@@ -129,16 +150,26 @@ export class ViewAuthUserComponent implements OnInit {
         }
         break;
     }
+    // offset =pageNumber* limit-limit
+    let offset = this.page * 10 - 10
 
-    this.ApiParameterScript.fetchdata('auth_user', apiData).subscribe((res: any) => {
-      //console.log(res);
+    this.ApiParameterScript.fetchdata('auth_user', apiData, offset, 10).subscribe((res: any) => {
+  
+   
+      this.totalFetchrecord =offset+res['count']
+      
+      this.totalCount =res['totalCount']
+  
+      
+      this.collectionSize = res['totalCount']
       if (res.success && res['data'].length > 0) {
+       
         this.authDataList = res['data'];
       } else {
         this.authDataList = [];
       }
     })
-    
+
   }
 
 }

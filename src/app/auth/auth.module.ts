@@ -13,6 +13,9 @@ import { ChangeuserpassComponent } from './changeuserpass/changeuserpass.compone
 import { TwostepverificationComponent } from './twostepverification/twostepverification.component';
 import { SubadmincreateComponent } from './subadmincreate/subadmincreate.component';
 import { SubadminviewComponent } from './subadminview/subadminview.component';
+import { SharedModule } from '../shared/shared.module';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -34,7 +37,9 @@ import { SubadminviewComponent } from './subadminview/subadminview.component';
     HttpClientModule,
     MaterialModule,
     PrimengModule,
-    CustomPipeModule
+    CustomPipeModule,
+    SharedModule,
+    NgbPaginationModule
 
   ],
   providers:[AppService]

@@ -70,6 +70,11 @@ export class AlluserdataComponent implements OnInit {
     // this.getAllData(0, 10, true, search_text)
 
   }
+  fillter(event:any){
+    console.log("click fillter",event);
+    
+
+  }
   onpageChnage() {
     let _this:any = this;
     _this[this.currentFunction](this.page * 10 - 10, 10);
