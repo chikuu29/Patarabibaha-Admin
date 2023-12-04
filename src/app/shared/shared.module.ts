@@ -51,7 +51,8 @@ import { FillterModalComponent } from './fillter-modal/fillter-modal.component';
     ImageViewOperationComponent,
     MemberPaymentProcessingTaskComponent,
     SearchComponent,
-    ImageCroperComponent
+    ImageCroperComponent,
+    FillterModalComponent
   ]
 })
 export class SharedModule { }

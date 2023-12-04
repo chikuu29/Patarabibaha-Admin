@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ImageViewOperationComponent } from '../image-view-operation/image-view-operation.component';
+import { FillterModalComponent } from '../fillter-modal/fillter-modal.component';
 
 @Component({
   selector: 'app-search',
@@ -12,11 +15,15 @@ export class SearchComponent implements OnInit {
   @Output() getSerachText = new EventEmitter<string>();
   @Output() clickSearch = new EventEmitter<string>();
   @Output() clickFillter = new EventEmitter<string>();
-  constructor() { }
+  constructor(
+    private modalService: NgbModal,
+  ) { }
 
   ngOnInit(): void {
   }
   clickFillterMethod(search_text:string){
+    const modalRef = this.modalService.open(FillterModalComponent, { size: 'xl', scrollable: true });
+
     this.clickFillter.emit(search_text);
   }
   clickSearchMethod(search_text:string){
