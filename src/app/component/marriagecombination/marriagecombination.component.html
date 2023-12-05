@@ -62,7 +62,7 @@
                           <td>{{data.user_id }}</td>
                           <td>{{data.user_creation_date_time | date}}</td>
                               <td>
-                                <button type="button"  [class]="'btn btn-outline-success btn-fw me-2 w-60'">Marriage Status Entry</button>
+                                <button type="button" (click)="combine(data?.user_id)"  [class]="'btn btn-outline-success btn-fw me-2 w-60'">Marriage With</button>
                               </td>
                               <!-- (click)="combine(data?.user_id)" -->
                           <!-- <td>
@@ -100,3 +100,4 @@
       </div>
   </div>
 </div>
+

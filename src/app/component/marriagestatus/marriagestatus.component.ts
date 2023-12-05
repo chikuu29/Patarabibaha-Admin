@@ -70,7 +70,7 @@ export class MarriagestatusComponent implements OnInit {
 
     var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
-      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID AND a.marriage_status = 0
       LIMIT ${limit} OFFSET ${start}`;
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count

@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { Router } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import Swal from 'sweetalert2';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-marriagecombination',
@@ -45,7 +47,7 @@ export class MarriagecombinationComponent implements OnInit {
           this.getAllData(this.page * 10 - 10, 10);
         }
     });
-    console.log(this.urlid);
+    //console.log(this.urlid);
 
   }
 
@@ -78,7 +80,7 @@ export class MarriagecombinationComponent implements OnInit {
     var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
-      a.user_id <>'${this.urlid}' AND a.user_gender <> '${this.gender}'
+      a.user_id <>'${this.urlid}' AND a.user_gender <> '${this.gender}' AND a.marriage_status = 0
       LIMIT ${limit} OFFSET ${start}`;
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -110,6 +112,61 @@ export class MarriagecombinationComponent implements OnInit {
   }
   userpage(data: any) {
     this.router.navigate(['/user', data]);
+  }
+
+  combine(data:any){
+    Swal.fire({
+      html: `
+      <textarea name="" id="success"  cols="30" rows="10" placeholder="Right if any success story"></textarea>
+    `,
+    }).then((con:any)=>{
+      var val :any =document.getElementById('success');
+      // console.log(con);
+      // console.log(val?.value);
+      if(con.isConfirmed){
+        let updateData = {
+          "data": {
+            "marriage_status": 1,
+          },
+          "whereConditions": { user_id: data }
+        }
+        this.ApiParameter.updatedata('user_info', updateData).subscribe((res: any) => {
+
+        })
+        let updateData1 = {
+          "data": {
+            "marriage_status": 1,
+          },
+          "whereConditions": { user_id: this.urlid }
+        }
+        this.ApiParameter.updatedata('user_info', updateData1).subscribe((res: any) => {
+
+        })
+          if(this.gender == 'male'){
+            // let  marrieddata = {
+            //   "data": {
+            //     "male_userId": this.gotragroup.value.name,
+            //     "female_userId": this.gotragroup.value.name,
+            //     "story": this.gotragroup.value.name,
+            //     "created_At": moment().toISOString()
+            //   },
+            // }
+
+            this.ApiParameter.savedata('gotra', updateData).subscribe((res: any) => {
+              // console.log(res);
+              if (res.success) {
+
+              } })
+          }else{
+
+          }
+      }
+
+
+
+    })
+
+
   }
 
 }
