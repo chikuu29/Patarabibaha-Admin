@@ -1,5 +1,12 @@
 <!-- Search Start -->
-<div class="d-flex gap-2">
+<div class="d-flex gap-2 align-items-center ps-3">
+    <ng-container *ngIf="fillter_btn">
+
+        <!-- <p-button icon="pi pi-filter" style="font-size: 2rem;" severity="success"></p-button> -->
+        <button class="filter-button" (click)="clickFillterMethod(filterText)">
+            <i class="fas fa-filter"></i> <!-- Font Awesome filter icon -->
+        </button>
+    </ng-container>
     <ng-container>
         <div class="search-input">
             <input type="text" (keyup)="changeSearchText(filterText)" [(ngModel)]="filterText"
@@ -17,8 +24,7 @@
     </ng-container>
     <ng-container *ngIf="search_btn">
         <div class="search-button" (click)="clickSearchMethod(filterText)">
-            <input type="text"  [(ngModel)]="filterText"
-                placeholder="Filter by any column" />
+            <input type="text" [(ngModel)]="filterText" placeholder="Filter by any column" />
             <div class="symbol">
                 <svg class="cloud">
                     <use xlink:href="#cloud" />

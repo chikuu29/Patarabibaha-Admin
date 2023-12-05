@@ -16,6 +16,7 @@ import { UpgradePaymentProcessTaskComponent } from './upgrade-payment-process-ta
 import { SearchComponent } from './search/search.component';
 import { ImageCroperComponent } from './image-croper/image-croper.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { FillterModalComponent } from './fillter-modal/fillter-modal.component';
 
 
 
@@ -29,7 +30,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     ViewPageForMembershipplanComponent,
     UpgradePaymentProcessTaskComponent,
     SearchComponent,
-    ImageCroperComponent
+    ImageCroperComponent,
+    FillterModalComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     ImageViewOperationComponent,
     MemberPaymentProcessingTaskComponent,
     SearchComponent,
-    ImageCroperComponent
+    ImageCroperComponent,
+    FillterModalComponent
   ]
 })
 export class SharedModule { }

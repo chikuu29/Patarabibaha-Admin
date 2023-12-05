@@ -35,7 +35,7 @@
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
-                <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" (clickSearch)="search($event)" ></app-search>
+                <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="true" (clickSearch)="search($event)" (clickFillter)="fillter($event)" ></app-search>
             </div>
             <div class="caption-item mt-3" *ngIf="pegination_required">
 
@@ -78,13 +78,15 @@
                                 <input type="checkbox" class="check" (change)="getId(data?.Id,$event)"
                                     [value]="data?.user_id">
                             </td>
-                            <td class="width">
-                                <p title="Online" class="badge badge-success" *ngIf="data.online_status == 1">
+                            <td class="width align-items-center">
+                                <!-- <p title="Online" class="badge badge-success" *ngIf="data.online_status == 1">
                                     <span></span>
-                                </p>
-                                <p title="Offline" class="badge badge-danger" *ngIf="data.online_status == 0">
+                                </p> -->
+                                <p  title="Online" *ngIf="data.online_status == 1" class="text-center"><i class="pi pi-verified" style="color: green"></i></p>
+                                <!-- <p title="Offline" class="badge badge-danger" *ngIf="data.online_status == 0">
                                     <span></span>
-                                </p>
+                                </p> -->
+                                <p  title="Offline" *ngIf="data.online_status == 0" class="text-center"><i class="pi pi-verified" style="color: green"></i></p>
                             </td>
                             <td>{{i+1}}</td>
                             <td> <a (click)="userpage(data?.user_id)" class="underline" href="javascript:void(0);">
