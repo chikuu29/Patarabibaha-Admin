@@ -353,10 +353,14 @@ export class FillterModalComponent implements OnInit {
   getSelection() {
     // { "TABLE NAME": ['field_name'] }
     const tableKeyMapping: any = {
-      "user_info": ['user_id','user_gender'],
-      "user_religion": ['user_religion', '0O']
+      "user_info": ['user_id', 'user_gender','user_marital_status'],
+      "user_religion": ['user_religion'],
+      "user_education_occupations":['user_occupation','user_employed_In']
+      
     }
     const fillterData: any = this.removeBlankProperties(this.partnerPreferenceForm.value)
+    console.log(fillterData);
+    
     console.log(Object.keys(fillterData));
     const filteredtableKeyMappingObject: any = Object.fromEntries(
       Object.entries(tableKeyMapping)
@@ -364,22 +368,36 @@ export class FillterModalComponent implements OnInit {
           this.hasCommonValue(tableKeyMapping[key], Object.keys(fillterData))
         )
     );
+    // console.log("filteredtableKeyMappingObject", filteredtableKeyMappingObject);
+
     var query = ''
-    Object.keys(filteredtableKeyMappingObject).forEach((table, index) => {
-      console.log("index",index);
-      
-      var condition = Object.keys(filteredtableKeyMappingObject).length - 1 != index  ? ' AND ' : ''
-      filteredtableKeyMappingObject[table].forEach((key: string) => {
+    Object.keys(filteredtableKeyMappingObject).forEach((table, i) => {
+      // console.log("index",index);
+      var condition1 = Object.keys(filteredtableKeyMappingObject).length - 1 != i ? true : false
+      // console.log(condition1);
+
+
+      filteredtableKeyMappingObject[table].forEach((key: string, index: number) => {
+        var condition = filteredtableKeyMappingObject[table].length - 1 != index || condition1 ? ' AND ' : ''
+        // console.log("yydyd", condition);
         var gen = ''
         if (fillterData[key] && typeof fillterData[key] === 'string' && fillterData[key] != '') {
-          gen = `${table}.${key}='${fillterData[key]}'${condition}`
+          gen = `${table}.${key}='${fillterData[key]}'`
+          // gen = `${table}.${key}='${fillterData[key]}'${condition}`
           query += gen
         } else if ((fillterData[key] && fillterData[key].length > 0)) {
-          gen = `${table}.${key} IN (${fillterData[key].map((value: any) => `'${value}'`).join(',')}) ${condition}`
+          // gen = `${table}.${key} IN (${fillterData[key].map((value: any) => `'${value}'`).join(',')}) ${condition}`
+          gen = `${table}.${key} IN (${fillterData[key].map((value: any) => `'${value}'`).join(',')})`
           query += gen
         }
+        if(Object.keys(fillterData).includes(key)){
+          query += condition
+        }
+       
       })
     })
+    // console.log("query",query);
+
     this.modal.close({"whereConditions":"WHERE "+query,'isqueryGenerated':Object.keys(filteredtableKeyMappingObject).length>0})
   }
 
