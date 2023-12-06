@@ -24,10 +24,9 @@ export class SearchComponent implements OnInit {
   clickFillterMethod(search_text:string){
     const modalRef = this.modalService.open(FillterModalComponent, { size:'xl',centered:true, scrollable: true,backdrop:false });
     modalRef.result.then((res:any)=>{
-      console.log("search Select",res.value);
-      
+      this.clickFillter.emit(res);
     })
-    this.clickFillter.emit(search_text);
+    
   }
   clickSearchMethod(search_text:string){
     this.clickSearch.emit(search_text);

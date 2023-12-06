@@ -13,7 +13,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class FillterModalComponent implements OnInit {
 
- 
+
   motherTounghOptions: any[] = [];
   countryOption: any = [
     { 'name': 'India' }
@@ -158,39 +158,40 @@ export class FillterModalComponent implements OnInit {
   employeeInOptions: any = [];
 
   anualIncomeOptions: any = [];
-  zodiacsOptions:any=[]
-  nakshatraOptions:any=[]
-  gotraOptions:any=[]
+  zodiacsOptions: any = []
+  nakshatraOptions: any = []
+  gotraOptions: any = []
 
   partnerPreferenceForm = new FormGroup({
-    user_ID: new FormControl('', []),
+    user_id: new FormControl('', []),
+    user_gender: new FormControl([], [Validators.required]),
     user_min_height: new FormControl('', [Validators.required]),
     user_max_height: new FormControl('', [Validators.required]),
-    user_religion: new FormControl('', [Validators.required]),
-    user_country: new FormControl('', [Validators.required]),
-    user_marital_status: new FormControl('', [Validators.required]),
-    user_state: new FormControl('', [Validators.required]),
-    user_city: new FormControl('', [Validators.required]),
-    user_employed_In: new FormControl('', [Validators.required]),
-    user_occupation: new FormControl('', [Validators.required]),
-    user_mother_toungh: new FormControl('', [Validators.required]),
-    user_min_anual_income: new FormControl('', [Validators.required]),
-    user_max_anual_income: new FormControl('', [Validators.required]),
-    user_nakshatra: new FormControl('', [Validators.required]),
-    user_zodiacs: new FormControl('', [Validators.required]),
-    user_gotra: new FormControl('', [Validators.required]),
+    user_religion: new FormControl([], [Validators.required]),
+    user_country: new FormControl([], [Validators.required]),
+    user_marital_status: new FormControl([], [Validators.required]),
+    user_state: new FormControl([], [Validators.required]),
+    user_city: new FormControl([], [Validators.required]),
+    user_employed_In: new FormControl([], [Validators.required]),
+    user_occupation: new FormControl([], [Validators.required]),
+    user_mother_toungh: new FormControl([], [Validators.required]),
+    user_min_anual_income: new FormControl([], [Validators.required]),
+    user_max_anual_income: new FormControl([], [Validators.required]),
+    user_nakshatra: new FormControl([], [Validators.required]),
+    user_zodiacs: new FormControl([], [Validators.required]),
+    user_gotra: new FormControl([], [Validators.required]),
   })
   constructor(
-    private ApiParameterScript:ApiParameterScript,
-    private appservices:AppService,
-    private commonservice:CommonService,
-    public modal:NgbActiveModal
-  
+    private ApiParameterScript: ApiParameterScript,
+    private appservices: AppService,
+    private commonservice: CommonService,
+    public modal: NgbActiveModal
+
   ) { }
 
   ngOnInit(): void {
-    this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"] ,"whereConditions":{ status: 1 } }).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
       if (res.success && res['data'].length > 0) {
         this.ocupationOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -199,7 +200,7 @@ export class FillterModalComponent implements OnInit {
             return null
           }
         });
-        
+
       }
 
 
@@ -208,7 +209,7 @@ export class FillterModalComponent implements OnInit {
 
 
     })
-    this.ApiParameterScript.fetchdata('annual_income', { "projection": ["*"],"whereConditions":{ status: 1 } }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('annual_income', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
 
         this.anualIncomeOptions = res['data'].map((obj: any) => {
@@ -218,12 +219,12 @@ export class FillterModalComponent implements OnInit {
             return null
           }
         });
-        
+
       }
     })
 
-    this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"] ,"whereConditions":{ status: 1 } }).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
 
       if (res.success && res['data'].length > 0) {
 
@@ -235,7 +236,7 @@ export class FillterModalComponent implements OnInit {
           }
         });
 
-        
+
 
 
 
@@ -243,8 +244,8 @@ export class FillterModalComponent implements OnInit {
 
     })
 
-    this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"] ,"whereConditions":{ status: 1 } }).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
 
 
       if (res.success && res['data'].length > 0) {
@@ -264,11 +265,11 @@ export class FillterModalComponent implements OnInit {
       }
 
     })
-    this.ApiParameterScript.fetchdata('religion', { "projection": ["*"],"whereConditions":{ status: 1 } }).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('religion', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
       if (res.success && res['data'].length > 0) {
         this.religionOptions = res['data'].map((obj: any) => {
-            return { name: obj.religion_name };
+          return { name: obj.religion_name };
         });
         console.log(this.religionOptions);
 
@@ -280,8 +281,8 @@ export class FillterModalComponent implements OnInit {
 
 
     })
-    this.ApiParameterScript.fetchdata('country', { "projection": ["*"] ,"whereConditions":{ status: 1 } }).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('country', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -290,11 +291,11 @@ export class FillterModalComponent implements OnInit {
             return null
           }
         });
-        
+
       }
     })
-    this.ApiParameterScript.fetchdata('gotra', { "projection": ["*"] ,"whereConditions":{status:1}}).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('gotra', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
       if (res.success && res['data'].length > 0) {
         this.gotraOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -303,46 +304,107 @@ export class FillterModalComponent implements OnInit {
             return null
           }
         });
-      
+
       }
     })
-    this.ApiParameterScript.fetchdata('nakshatra', { "projection": ["*"] ,"whereConditions":{status:1}}).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('nakshatra', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
       if (res.success && res['data'].length > 0) {
         this.nakshatraOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.nakshatra_name};
+            return { name: obj.nakshatra_name };
           } else {
             return null
           }
         });
-      
+
       }
     })
-    this.ApiParameterScript.fetchdata('zodiacs', { "projection": ["*"] ,"whereConditions":{status:1}}).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('zodiacs', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
       if (res.success && res['data'].length > 0) {
         this.zodiacsOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.name ,display:  `${obj.name} / ${obj.odia_name}`};
+            return { name: obj.name, display: `${obj.name} / ${obj.odia_name}` };
           } else {
             return null
           }
         });
-      
+
       }
     })
 
 
   }
-getSelection(){
-  this.modal.close(this.partnerPreferenceForm)
-}
+  removeBlankProperties(obj: any) {
+    const result: any = {};
+
+    for (const [key, value] of Object.entries(obj)) {
+      if (value !== '' && (!Array.isArray(value) || value.length > 0)) {
+        result[key] = value;
+      }
+    }
+
+    return result;
+  }
+  hasCommonValue(arr1: any, arr2: any) {
+    return _.some(arr2, value => _.includes(arr1, value));
+  }
+  getSelection() {
+    // { "TABLE NAME": ['field_name'] }
+    const tableKeyMapping: any = {
+      "user_info": ['user_id', 'user_gender','user_marital_status'],
+      "user_religion": ['user_religion'],
+      "user_education_occupations":['user_occupation','user_employed_In']
+      
+    }
+    const fillterData: any = this.removeBlankProperties(this.partnerPreferenceForm.value)
+    console.log(fillterData);
+    
+    console.log(Object.keys(fillterData));
+    const filteredtableKeyMappingObject: any = Object.fromEntries(
+      Object.entries(tableKeyMapping)
+        .filter(([key]) =>
+          this.hasCommonValue(tableKeyMapping[key], Object.keys(fillterData))
+        )
+    );
+    // console.log("filteredtableKeyMappingObject", filteredtableKeyMappingObject);
+
+    var query = ''
+    Object.keys(filteredtableKeyMappingObject).forEach((table, i) => {
+      // console.log("index",index);
+      var condition1 = Object.keys(filteredtableKeyMappingObject).length - 1 != i ? true : false
+      // console.log(condition1);
+
+
+      filteredtableKeyMappingObject[table].forEach((key: string, index: number) => {
+        var condition = filteredtableKeyMappingObject[table].length - 1 != index || condition1 ? ' AND ' : ''
+        // console.log("yydyd", condition);
+        var gen = ''
+        if (fillterData[key] && typeof fillterData[key] === 'string' && fillterData[key] != '') {
+          gen = `${table}.${key}='${fillterData[key]}'`
+          // gen = `${table}.${key}='${fillterData[key]}'${condition}`
+          query += gen
+        } else if ((fillterData[key] && fillterData[key].length > 0)) {
+          // gen = `${table}.${key} IN (${fillterData[key].map((value: any) => `'${value}'`).join(',')}) ${condition}`
+          gen = `${table}.${key} IN (${fillterData[key].map((value: any) => `'${value}'`).join(',')})`
+          query += gen
+        }
+        if(Object.keys(fillterData).includes(key)){
+          query += condition
+        }
+       
+      })
+    })
+    // console.log("query",query);
+
+    this.modal.close({"whereConditions":"WHERE "+query,'isqueryGenerated':Object.keys(filteredtableKeyMappingObject).length>0})
+  }
 
 
   getstatefilter(country_name: any) {
-    
-   
+
+
     if (_.isArray(country_name)) {
       let query = `SELECT * FROM state WHERE status=1 AND country_name IN (${"'" + country_name.join("', '") + "'"})`;
       this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
@@ -353,7 +415,7 @@ getSelection(){
             return { name: obj.name };
 
           });
-          
+
 
         } else {
           this.stateOption = []
@@ -371,7 +433,7 @@ getSelection(){
             return { name: obj.name };
 
           });
-          
+
 
         } else {
           this.stateOption = []
@@ -384,12 +446,12 @@ getSelection(){
   }
 
   getcityfilter(state_name: any) {
-    
-  
+
+
     if (_.isArray(state_name)) {
       let query = `SELECT * FROM city WHERE state_name IN (${"'" + state_name.join("', '") + "'"})`;
-      
-      
+
+
       this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
         if (res.success && res['data'].length > 0) {
 
@@ -398,7 +460,7 @@ getSelection(){
             return { name: obj.city_name };
 
           });
-          
+
 
         } else {
           this.cityOption = []

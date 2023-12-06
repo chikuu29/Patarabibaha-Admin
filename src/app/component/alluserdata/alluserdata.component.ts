@@ -33,7 +33,7 @@ export class AlluserdataComponent implements OnInit {
   page: any = 1;
   collectionSize: any = 10
   pegination_required: boolean = false
-  currentFunction:string = 'getAllData';
+  currentFunction: string = 'getAllData';
 
   constructor(
     private ApiParameter: ApiParameterScript,
@@ -64,19 +64,53 @@ export class AlluserdataComponent implements OnInit {
     this.filterText = event
   }
   search(search_text: any) {
-    let _this:any = this;
-    _this[this.currentFunction](0, 10,true,search_text);
+    let _this: any = this;
+    _this[this.currentFunction](0, 10, true, search_text);
     // console.log(search_text);
     // this.getAllData(0, 10, true, search_text)
 
   }
-  fillter(event:any){
-    console.log("click fillter",event);
-    
+  fillter(event: any) {
+    // console.log("click fillter", event);
+    var query = `SELECT * 
+    FROM user_info  
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID 
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID 
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID 
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID 
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID 
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID 
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`
+    if (event.isqueryGenerated) {
+      query = `SELECT * 
+    FROM user_info  
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID 
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID 
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID 
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID 
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID 
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID 
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+    ${event.whereConditions}`
+    }
+    console.log(query);
+
+    this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.collectionSize = res['data'].length
+        // this.collectionSize=
+        // console.log(this.collectionSize);
+
+        this.finaldata = res['data'];
+        // console.log(this.finaldata);
+      }
+
+    })
 
   }
   onpageChnage() {
-    let _this:any = this;
+    let _this: any = this;
     _this[this.currentFunction](this.page * 10 - 10, 10);
     //this.getAllData(this.page * 10 - 10, 10)
   }
@@ -381,6 +415,11 @@ export class AlluserdataComponent implements OnInit {
       }
     });
   }
+
+
+
+
+
   getAllOnlineData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.class1 = 'btn btn-primary ';
     this.class2 = 'btn active';
@@ -390,15 +429,15 @@ export class AlluserdataComponent implements OnInit {
     this.class6 = 'btn btn-primary';
     this.class7 = 'btn btn-primary';
     this.class9 = 'btn btn-primary';
-   // let Quary = `select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where
-   //  a.online_status=1`;
-      let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+    // let Quary = `select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where
+    //  a.online_status=1`;
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
           FROM user_info AS a
           LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
           a.online_status=1
           LIMIT ${limit} OFFSET ${start}`
-          if (loadSpecificData) {
-            quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
             FROM user_info AS a
             LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
             WHERE
@@ -408,49 +447,15 @@ export class AlluserdataComponent implements OnInit {
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}';
              `;
-          }
-    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      console.log(res);
-      if (res.success && res['data'].length > 0) {
-        this.collectionSize = Math.round(res['data'][0].total_count)
-        this.finaldata = res['data'];
-       // console.log(this.finaldata);
-      } else {
-        this.finaldata = [];
-        this.collectionSize =1
-      }
-    });
-  }
-  getAllPublishedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.class1 = 'btn btn-primary ';
-    this.class2 = 'btn btn-primary';
-    this.class3 = 'btn active';
-    this.class4 = 'btn btn-primary';
-    this.class5 = 'btn btn-primary';
-    this.class6 = 'btn btn-primary';
-    this.class7 = 'btn btn-primary';
-    this.class8 = 'btn btn-primary';
-    this.class9 = 'btn btn-primary';
-    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
-          FROM user_info AS a
-          LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
-          a.status=1
-          LIMIT ${limit} OFFSET ${start}`
-          if (loadSpecificData) {
-            quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
-            FROM user_info AS a
-            LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-            WHERE
-                a.online_status=1
-                AND a.user_id = '${search_text}'
-               OR b.auth_ID = '${search_text}'
-               OR a.user_fname = '${search_text}'
-               OR a.user_lname = '${search_text}';
-             `;
-          }
-    // let Quary = `select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where
-    // a.status=1
-    // LIMIT ${limit} OFFSET ${start}`;
+    }
+
+
+
+
+
+
+
+
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
       if (res.success) {
