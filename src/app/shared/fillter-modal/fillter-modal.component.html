@@ -9,6 +9,16 @@
         <form [formGroup]="partnerPreferenceForm" class="w-100">
             <div class="row mb-3">
                 <div class="form-group col-md-4">
+                    <label class="mb-3 text-muted fw-bold">Member ID</label>
+                    <input type="text" pInputText  [style]="{ width: '100%' }" formControlName="user_id"  />
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="mb-3 text-muted fw-bold">Gender</label>
+                    <p-multiSelect [options]="[{name:'male'},{name:'female'}]" placeholder="Select" formControlName="user_gender"
+                        optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+                        [title]="partnerPreferenceForm.value.user_gender"></p-multiSelect>
+                </div>
+                <div class="form-group col-md-4">
                     <label class="mb-3 text-muted fw-bold">Religion</label>
                     <p-multiSelect [options]="religionOptions" placeholder="Select" formControlName="user_religion"
                         optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
@@ -16,24 +26,11 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label class="mb-3 text-muted fw-bold">Marital Status</label>
-
                     <p-multiSelect [options]="maritalOptions" placeholder="Select" formControlName="user_marital_status"
                         optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
                         [title]="partnerPreferenceForm.value.user_marital_status"></p-multiSelect>
 
                 </div>
-                <div class="form-group col-md-4">
-                    <label class="mb-3 text-muted fw-bold">Country Living In</label>
-
-                    <p-multiSelect [options]="countryOption" placeholder="Select" formControlName="user_country"
-                        optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-                        [title]="partnerPreferenceForm.value.user_country"
-                        (onChange)="getstatefilter(partnerPreferenceForm.value.user_country)"
-                        (onRemove)="getstatefilter(partnerPreferenceForm.value.user_country)"></p-multiSelect>
-                </div>
-            </div>
-
-            <div class="row mb-3">
                 <div class="form-group col-md-4">
                     <label class="mb-3 text-muted fw-bold">Country Living In</label>
 
@@ -58,10 +55,8 @@
                         optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
                         [title]="partnerPreferenceForm.value.user_city"></p-multiSelect>
                 </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="form-group col-md-4">
+         
+                <!-- <div class="form-group col-md-4">
                     <label class="mb-3 text-muted fw-bold">Min Height</label>
                     <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name"
                         [showClear]="true" placeholder="Select" [style]="{ width: '100%' }"
@@ -108,7 +103,7 @@
                             </div>
                         </ng-template>
                     </p-dropdown>
-                </div>
+                </div> -->
 
                 <div class="form-group col-md-4">
                     <label class="mb-3 text-muted fw-bold">Mother Tounge</label>
@@ -117,10 +112,7 @@
                         [style]="{ width: '100%' }" display="chip"
                         [title]="partnerPreferenceForm.value.user_mother_toungh"></p-multiSelect>
                 </div>
-            </div>
-
-         
-            <div class="row mb-3">
+          
 
                 <div class="form-group col-md-4">
                     <label class="mb-3 text-muted fw-bold">Occupation</label>
@@ -161,8 +153,7 @@
                     </p-dropdown>
                 </div>
 
-            </div>
-            <div class="row mb-3">
+           
               
                 <div class="form-group col-md-4">
                     <label class="mb-3 text-muted fw-bold">Max Annual Income</label>
@@ -202,10 +193,7 @@
                         [title]="partnerPreferenceForm.value.user_nakshatra"></p-multiSelect>
 
                 </div>
-            </div>
          
-            <div class="row mb-3">
-
                 <div class="form-group col-md-3">
                     <label class="mb-3 text-muted fw-bold">Gotra</label>
                     <p-multiSelect [options]="gotraOptions" placeholder="Select" formControlName="user_gotra"
