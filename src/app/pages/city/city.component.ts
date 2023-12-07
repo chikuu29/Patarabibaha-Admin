@@ -27,10 +27,15 @@ export class CityComponent implements OnInit {
   statealldatabycountry: any;
   countryOption: any;
   stateOption: any;
-  filterText:string
+  filterText:string;
+  collectionSize: number = 0
+  page: number = 1
+  totalCount: number = 0
+  totalFetchrecord:number = 0
   constructor(
     private api: ApiService,
-    private ApiParameter: ApiParameterScript
+    private ApiParameter: ApiParameterScript,
+    private ApiParameterScript: ApiParameterScript
   ) { }
 
   ngOnInit(): void {
@@ -64,7 +69,15 @@ export class CityComponent implements OnInit {
 
 
 
+  getSearchText(event:any){
+    console.log(event);
 
+    this.filterText = event
+  }
+  
+  onpageChnage(){
+    this.fatchdata();
+  }
 
   getstatefilter(country_name: any) {
     console.log(country_name);
@@ -188,9 +201,12 @@ export class CityComponent implements OnInit {
     }
   }
   fatchdata() {
-    this.ApiParameter.fetchdata('city', { "projection": ["*"] }).subscribe((res: any) => {
+    let offset = this.page * 10 - 10
+    this.ApiParameter.fetchdata('city', { "projection": ["*"] },offset, 10).subscribe((res: any) => {
       // console.log(res['data'][0]);
-
+      this.totalFetchrecord = offset+res['count']
+      this.totalCount = res['totalCount']
+      this.collectionSize = res['totalCount']
       if (res.success && res['data'].length > 0) {
         this.allcitydata = res['data'];
         // console.log(this.privacypalicy.patchValue(res['data'][0]));

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { offset } from '@popperjs/core';
 import * as moment from 'moment';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
@@ -19,6 +20,7 @@ export class ContryComponent implements OnInit {
     name: new FormControl('', [Validators.required])
   });
   filterText:any;
+  collectionSize: number = 0
   country: any;
   countryalldata: any;
   page: number = 1;
@@ -26,6 +28,8 @@ export class ContryComponent implements OnInit {
   tableSize: number = 10;
   pageSizes = [10, 20, 50, 100, 500, 1000];
   button: any = 'ADD';
+  totalCount: number = 0
+  totalFetchrecord:number = 0
   constructor(
     private api: ApiService,
     private ApiParameter: ApiParameterScript
@@ -34,12 +38,24 @@ export class ContryComponent implements OnInit {
   ngOnInit(): void {
     this.showCountry();
     this.button = 'ADD';
+    
   }
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
     this.page = 1;
   }
 
+  getSearchText(event: any) {
+    console.log(event);
+
+    this.filterText = event
+  }
+
+  onpageChnage() {
+    this.showCountry()
+  }
+
+  
   //   showFilterData(){
 
   //     this.ApiParameter.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
@@ -136,7 +152,11 @@ export class ContryComponent implements OnInit {
   }
 
   showCountry() {
-    this.ApiParameter.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
+    let offset = this.page * 10 - 10
+    this.ApiParameter.fetchdata('country', { "projection": ["*"] },offset,10).subscribe((res: any) => {
+      this.totalFetchrecord = offset+res['count']
+      this.totalCount = res['totalCount']
+      this.collectionSize = res['totalCount']
       if (res.success && res['data'].length > 0) {
         this.countryalldata = res['data'];
         console.log(this.countryalldata);

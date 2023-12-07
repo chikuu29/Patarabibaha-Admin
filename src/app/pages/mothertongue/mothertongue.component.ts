@@ -18,6 +18,10 @@ export class MothertongueComponent implements OnInit {
   tabledata: any;
   originaldata: any;
   action: any = 'Submit';
+  collectionSize: number = 0
+  page: number = 1
+  totalCount: number = 0
+  totalFetchrecord:number = 0
   constructor(
     private ApiParameter: ApiParameterScript
   ) { }
@@ -28,6 +32,16 @@ export class MothertongueComponent implements OnInit {
     })
     this.getAllData();
     this.action = 'Submit';
+  }
+
+  getSearchText(event: any) {
+    console.log(event);
+
+    this.filterText = event
+  }
+
+  onpageChnage(){
+    this.getAllData()
   }
   public() {
 
@@ -97,7 +111,11 @@ export class MothertongueComponent implements OnInit {
 
   }
   getAllData() {
-    this.ApiParameter.fetchdata('mother_tongue', { "projection": ["*"] }).subscribe((res: any) => {
+    let offset = this.page * 10 - 10
+    this.ApiParameter.fetchdata('mother_tongue', { "projection": ["*"] },offset,10).subscribe((res: any) => {
+      this.totalFetchrecord = offset+res['count']
+      this.totalCount = res['totalCount']
+      this.collectionSize = res['totalCount']
       // console.log(res['data'][0]);
 
       if (res.success) {

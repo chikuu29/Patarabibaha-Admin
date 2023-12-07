@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { offset } from '@popperjs/core';
 @Component({
   selector: 'app-subcaste',
   templateUrl: './subcaste.component.html',
@@ -24,6 +25,10 @@ export class SubcasteComponent implements OnInit {
   button: any = 'Submit';
   castOption: any;
   subcast: any;
+  collectionSize: number = 0
+  page: number = 1
+  totalCount: number = 0
+  totalFetchrecord:number = 0
   ngOnInit(): void {
     this.subcastgroup = new FormGroup({
       id: new FormControl(''),
@@ -35,6 +40,15 @@ export class SubcasteComponent implements OnInit {
     this.button = 'Submit';
   }
 
+  getSearchText(event: any) {
+    console.log(event);
+
+    this.filterText = event
+  }
+  onpageChnage(){
+
+    this.getsubcast()
+  }
   getcast() {
     this.ApiParameter.fetchdata('cast_table', { "projection": ["*"] }).subscribe((res: any) => {
       
@@ -56,9 +70,13 @@ export class SubcasteComponent implements OnInit {
     })
   }
   getsubcast() {
-    this.ApiParameter.fetchdata('sub_cast', { "projection": ["*"] }).subscribe((res: any) => {
+    let offset = this.page * 10 - 10
+    this.ApiParameter.fetchdata('sub_cast', { "projection": ["*"] },offset,10).subscribe((res: any) => {
       // console.log(res['data'][0]);
 
+      this.totalFetchrecord = offset+res['count']
+      this.totalCount = res['totalCount']
+      this.collectionSize = res['totalCount']
       if (res.success) {
         this.subcast = res['data'];
         // console.log(this.privacypalicy.patchValue(res['data'][0]));

@@ -20,6 +20,10 @@ export class GotraComponent implements OnInit {
   });
   filterText:any;
   gotraalldata: any;
+  collectionSize: number = 0
+  page: number = 1
+  totalCount: number = 0
+  totalFetchrecord:number=0
   constructor(
     private ApiParameter: ApiParameterScript
   ) { }
@@ -31,6 +35,17 @@ export class GotraComponent implements OnInit {
     });
     this.button = 'ADD';
    this. showGotra();
+  }
+
+  getSearchText(event: any) {
+    console.log(event);
+
+    this.filterText = event
+  }
+
+  onpageChnage() {
+    this.showGotra()
+
   }
 
   addCountry(){
@@ -106,7 +121,11 @@ export class GotraComponent implements OnInit {
     }
   }
   showGotra() {
-    this.ApiParameter.fetchdata('gotra', { "projection": ["*"] }).subscribe((res: any) => {
+    let offset = this.page * 10 - 10
+    this.ApiParameter.fetchdata('gotra', { "projection": ["*"] },offset,10).subscribe((res: any) => {
+      this.totalFetchrecord = offset+res['count']
+      this.totalCount = res['totalCount']
+      this.collectionSize = res['totalCount']
       if (res.success && res['data'].length > 0) {
         this.gotraalldata = res['data'];
         console.log(this.gotraalldata);
