@@ -34,21 +34,17 @@
 <div class="">
     <div class="table-holder">
         <div class="caption-header">
+            <!-- Search Start -->
+            <div class="caption-item">
+                <app-search (getSerachText)="getSearchText($event)" ></app-search>
+            </div>
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{tabledata?.length}} of {{tabledata?.length}} results</span>
+                <span class="fs-5">Showing {{totalFetchrecord}} of {{totalCount}} results</span>
             </div>
-            <!-- Search Start -->
-            <div class="search">
-                <input type="text" [(ngModel)]="filterText" placeholder="Filter by any column" />
-                <div class="symbol">
-                    <svg class="cloud">
-                        <use xlink:href="#cloud" />
-                    </svg>
-                    <svg class="lens">
-                        <use xlink:href="#lens" />
-                    </svg>
-                </div>
+            <div class="caption-item" *ngIf="collectionSize>0">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="3" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="false" class="" size="lg" (pageChange)="onpageChnage()"></ngb-pagination>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                 <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" id="cloud">

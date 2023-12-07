@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { offset } from '@popperjs/core';
 @Component({
   selector: 'app-highest-education',
   templateUrl: './highest-education.component.html',
@@ -19,6 +20,10 @@ export class HighestEducationComponent implements OnInit {
   });
   filterText:any;
   tabledata: any;
+  collectionSize: number = 0
+  page: number = 1
+  totalCount: number = 0
+  totalFetchrecord:number = 0
   constructor(
     private ApiParameter: ApiParameterScript
   ) { }
@@ -30,6 +35,14 @@ export class HighestEducationComponent implements OnInit {
     })
     this.button = 'Submit'
     this.getAllData();
+  }
+  getSearchText(event: any) {
+    console.log(event);
+
+    this.filterText = event
+  }
+  onpageChnage(){
+
   }
   public() {
     if (this.button == 'Submit') {
@@ -95,7 +108,11 @@ export class HighestEducationComponent implements OnInit {
     }
   }
   getAllData() {
-    this.ApiParameter.fetchdata('highest_education', { "projection": ["*"] }).subscribe((res: any) => {
+    let offset = this.page * 10 - 10
+    this.ApiParameter.fetchdata('highest_education', { "projection": ["*"] },offset,10).subscribe((res: any) => {
+      this.totalFetchrecord = offset+res['count']
+      this.totalCount = res['totalCount']
+      this.collectionSize = res['totalCount']
       // console.log(res['data'][0]);
       if (res.success) {
         //this.privacypalicy.patchValue(res['data'][0])

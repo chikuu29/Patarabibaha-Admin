@@ -17,6 +17,10 @@ export class HomeiconComponent implements OnInit  {
   img: any;
   image: any;
   filterText: any
+  collectionSize: number = 0
+  page: number = 1
+  // totalCount: number = 0
+  // totalFetchrecord:number = 0
   url: any = environment.filePath + 'storage/logo_image/';
   public imageSrc: string = '';
   constructor(
@@ -28,6 +32,15 @@ export class HomeiconComponent implements OnInit  {
     this.fatchdata();
   }
 
+  getSearchText(event: any) {
+    console.log(event);
+
+    this.filterText = event
+  }
+
+  // onpageChnage(){
+  //   this.fatchdata()
+  // }
 
   handleInputChange(e: any) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
@@ -65,7 +78,11 @@ export class HomeiconComponent implements OnInit  {
   }
 
   fatchdata() {
+    // let offset = this.page * 10 - 10
     this.ApiParameter.fetchdata('homepage_icon', { "projection": ["*"] }).subscribe((res: any) => {
+      // this.totalFetchrecord = offset+res['count']
+      // this.totalCount = res['totalCount']
+      // this.collectionSize = res['totalCount']
       if (res.success && res['data'].length > 0) {
         this.image = res['data'];
       }

@@ -38,6 +38,8 @@ import { HomepagecontentComponent } from './homepagecontent/homepagecontent.comp
 import { HomeiconComponent } from './homeicon/homeicon.component';
 import { LogineventComponent } from './loginevent/loginevent.component';
 import { HomepageeventComponent } from './homepageevent/homepageevent.component';
+import { SharedModule } from '../shared/shared.module';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -84,7 +86,9 @@ import { HomepageeventComponent } from './homepageevent/homepageevent.component'
     ReactiveFormsModule,
     PrimengModule,
     MaterialModule,
-    CustomPipeModule
+    CustomPipeModule,
+    SharedModule,
+    NgbPaginationModule
   ]
 })
 export class PagesModule { }

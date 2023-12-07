@@ -63,23 +63,19 @@
 <div class="">
     <div class="table-holder">
         <div class="caption-header">
+            <!-- Search Start -->
             <div class="caption-item">
-                <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{allcitydata?.length}} of {{allcitydata?.length}} results</span>
+                <app-search (getSerachText)="getSearchText($event)" ></app-search>
             </div>
             <div class="caption-item">
-                <!-- Search Start -->
-                <div class="search">
-                    <input type="text" [(ngModel)]="filterText" placeholder="Filter by any column" />
-                    <div class="symbol">
-                        <svg class="cloud">
-                            <use xlink:href="#cloud" />
-                        </svg>
-                        <svg class="lens">
-                            <use xlink:href="#lens" />
-                        </svg>
-                    </div>
-                </div>
+                <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
+                <span class="fs-5">Showing {{totalFetchrecord}} of {{totalCount}} results</span>
+            </div>
+            <div class="caption-item" *ngIf="collectionSize>0">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="3" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="false" class="" size="lg" (pageChange)="onpageChnage()"></ngb-pagination>
+            </div>
+            <div class="caption-item">
                 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                     <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" id="cloud">
                         <path d="M31.714,25.543c3.335-2.17,4.27-6.612,2.084-9.922c-1.247-1.884-3.31-3.077-5.575-3.223h-0.021

@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import * as moment from 'moment';
+import { offset } from '@popperjs/core';
 
 @Component({
   selector: 'app-annualincome',
@@ -18,6 +19,10 @@ export class AnnualincomeComponent implements OnInit {
   allannualincome: any;
   button:any = "ADD";
   filterText:any;
+  collectionSize: number = 0
+  page: number = 1
+  totalCount: number = 0
+  totalFetchrecord:number = 0
   annualincome = new FormGroup({
     id: new FormControl(''),
     annualincome: new FormControl('',[Validators.required])
@@ -53,6 +58,14 @@ export class AnnualincomeComponent implements OnInit {
   //   })
   // }
 
+  getSearchText(event: any) {
+    console.log(event);
+
+    this.filterText = event
+  }
+  onpageChnage(){
+    // this.
+  }
   insert() {
     if (this.button == 'ADD') {
 
@@ -154,7 +167,6 @@ export class AnnualincomeComponent implements OnInit {
     })
   }
   update(data: any) {
-
     this.ApiParameter.fetchdata('annual_income', { "projection": ["*"], "whereConditions": { id: data } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         // this.countryalldata = res['data'];

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { offset } from '@popperjs/core';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
 
@@ -20,6 +21,10 @@ export class AddtypeComponent implements OnInit {
     name :new FormControl('',[])
   });
   filterText:any;
+  collectionSize: number = 0
+  page: number = 1
+  totalCount: number = 0
+  totalFetchrecord:number = 0
   button:any = 'Submit'
   ngOnInit(): void {
     this.button = 'Submit';
@@ -31,6 +36,15 @@ export class AddtypeComponent implements OnInit {
     });
   }
 
+
+  getSearchText(event: any) {
+    console.log(event);
+
+    this.filterText = event
+  }
+  onpageChnage(){
+    this.fatchdata()
+  }
   addtype(){
     if (this.button == 'Submit') {
       if (this.type.valid) {
@@ -96,7 +110,11 @@ export class AddtypeComponent implements OnInit {
   }
 
   fatchdata(){
-    this.ApiParameter.fetchdata('type', { "projection": ["*"] }).subscribe((res: any) => {
+    let offset = this.page * 10 - 10
+    this.ApiParameter.fetchdata('type', { "projection": ["*"] },offset,10).subscribe((res: any) => {
+      this.totalFetchrecord = offset+res['count']
+      this.totalCount = res['totalCount']
+      this.collectionSize = res['totalCount']
       if (res.success && res['data'].length > 0) {
         this.alldata =  res['data'];
         console.log(this.alldata);
