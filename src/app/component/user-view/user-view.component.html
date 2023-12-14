@@ -9,7 +9,9 @@
   </div>
   <div class="main-body">
     <ng-container
-      *ngIf="userAllData && (userAllData?.user_profile_status == 'Completed' && !userAllData?.user_info?.user_membership_plan_active)">
+    *ngIf="userAllData && (userAllData?.user_profile_status == 'Completed' && !userAllData?.user_info?.user_membership_plan_active)"
+      >
+
       <div class="alert alert-warning">
         <h4 class="fw-bold text-success">
           <i class="fa-solid fa-star me-2"></i>Congratulations
@@ -53,7 +55,7 @@
           </span>
           Click Below Button
         </p>
-        <button mat-raised-button color="accent" class="me-2 p-2 w-100" (click)="activeAccount()">Approved</button>
+        <!-- <button mat-raised-button color="accent" class="me-2 p-2 w-100" (click)="activeAccount()">Approved</button> -->
 
       </div>
     </ng-container>

@@ -462,7 +462,7 @@ export class UserViewComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private modalService: NgbModal,
     private AgePipe: AgePipe,
-    
+
 
   ) { }
 
@@ -480,6 +480,17 @@ export class UserViewComponent implements OnInit {
 
           this.userAllData = res;
           console.log(this.userAllData);
+          console.log(this.userAllData.user_profile_status);
+
+          if(this.userAllData.user_profile_status == 'Completed'){
+            let updateData = {
+              "data": {user_all_table_complited : 1},
+              "whereConditions": { user_id: this.profile_id }
+            }
+            this.ApiParameterScript.updatedata('user_info', updateData).subscribe((res: any) => {
+            });
+          }
+
 
           this.profileDetailsForm.patchValue({
             profile_id: res?.user_info?.user_id
@@ -604,7 +615,7 @@ export class UserViewComponent implements OnInit {
     })
 
     this.ApiParameterScript.fetchdata('highest_education', { "projection": ["*"] }).subscribe((res: any) => {
-      // 
+      //
       if (res.success && res['data'].length > 0) {
 
         this.aducationalOptions1 = res['data'].map((obj: any) => {
@@ -625,7 +636,7 @@ export class UserViewComponent implements OnInit {
 
 
     this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"] }).subscribe((res: any) => {
-      // 
+      //
 
 
       if (res.success && res['data'].length > 0) {
@@ -648,7 +659,7 @@ export class UserViewComponent implements OnInit {
 
 
     this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"] }).subscribe((res: any) => {
-      // 
+      //
       if (res.success && res['data'].length > 0) {
         this.ocupationOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -669,7 +680,7 @@ export class UserViewComponent implements OnInit {
 
 
     this.ApiParameterScript.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
-      // 
+      //
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -683,7 +694,7 @@ export class UserViewComponent implements OnInit {
     })
 
     this.ApiParameterScript.fetchdata('religion', { "projection": ["*"] }).subscribe((res: any) => {
-      // 
+      //
       if (res.success && res['data'].length > 0) {
         this.religionOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -703,7 +714,7 @@ export class UserViewComponent implements OnInit {
     })
 
     this.ApiParameterScript.fetchdata('cast_table', { "projection": ["*"] }).subscribe((res: any) => {
-      // 
+      //
       if (res.success && res['data'].length > 0) {
         this.religionCasteOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -717,7 +728,7 @@ export class UserViewComponent implements OnInit {
     })
 
     this.ApiParameterScript.fetchdata('gotra', { "projection": ["*"] }).subscribe((res: any) => {
-      // 
+      //
       if (res.success && res['data'].length > 0) {
         this.gotraOption = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -730,7 +741,7 @@ export class UserViewComponent implements OnInit {
       }
     })
     this.ApiParameterScript.fetchdata('nakshatra', { "projection": ["*"] }).subscribe((res: any) => {
-      // 
+      //
       if (res.success && res['data'].length > 0) {
         this.nakhyatraOption = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -1305,7 +1316,7 @@ export class UserViewComponent implements OnInit {
 
   getSubcaste(caste: any) {
     this.ApiParameterScript.fetchdata('sub_cast', { "projection": ["*"], "whereConditions": { "cast_name": caste } }).subscribe((res: any) => {
-      // 
+      //
       if (res.success && res['data'].length > 0) {
         this.religionSubcasteOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -1516,20 +1527,20 @@ export class UserViewComponent implements OnInit {
          Colour:- ${this.finaldata.user_complextion}
          </div>
          <div>
-          QUALIFICATION:- ${this.finaldata.user_highest_education} 
+          QUALIFICATION:- ${this.finaldata.user_highest_education}
           </div>
           <div>
-          OCCUPATION:- ${this.finaldata.user_occupation}` + ` ` + `${this.finaldata.user_occupation_details}   
+          OCCUPATION:- ${this.finaldata.user_occupation}` + ` ` + `${this.finaldata.user_occupation_details}
           </div>
-          
+
           <div>
-          JOB LOCATION:-  ${this.finaldata.user_occupation_location} 
-          </div>
-          <div>
-          ANNUAL INCOME:-  ${this.finaldata.user_anual_income} 
+          JOB LOCATION:-  ${this.finaldata.user_occupation_location}
           </div>
           <div>
-          HOME TOWN:- ${this.finaldata.user_Permanent_city} 
+          ANNUAL INCOME:-  ${this.finaldata.user_anual_income}
+          </div>
+          <div>
+          HOME TOWN:- ${this.finaldata.user_Permanent_city}
           </div>
           <br>
           <div>
