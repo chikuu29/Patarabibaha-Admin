@@ -484,7 +484,7 @@ export class UserViewComponent implements OnInit {
 
           if(this.userAllData.user_profile_status == 'Completed'){
             let updateData = {
-              "data": {user_all_table_complited : 1},
+              "data": { user_all_table_complited : 1},
               "whereConditions": { user_id: this.profile_id }
             }
             this.ApiParameterScript.updatedata('user_info', updateData).subscribe((res: any) => {
