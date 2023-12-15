@@ -22,7 +22,7 @@ export class MatchmakingComponent implements OnInit {
     this.router.navigate(['/user', data]);
   }
   getAllData() {
-    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status = "Approved" AND a.deleted = 1 AND a.status = 1 AND a.user_has_complete_profile = 1';
+    let Quary =  'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID left join user_partnerpreference as c on a.user_id = c.user_ID  where a.user_status = "Approved" AND a.deleted = 1 AND a.status = 1 AND a.user_has_complete_profile = 1';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
