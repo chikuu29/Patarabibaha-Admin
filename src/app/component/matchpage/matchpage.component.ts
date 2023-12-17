@@ -161,7 +161,7 @@ export class MatchpageComponent implements OnInit {
     // const pdf = new jsPDF();
     const imageurl = environment.baseApiURL+'storage/logo_image/'+this.logo;
     console.log(imageurl);
-    
+
     pdf.addImage(
       "https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png" ,
       'JPEG',

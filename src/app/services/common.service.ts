@@ -14,7 +14,7 @@ export class CommonService {
     console.log("Calling Api Services");
     var headers = new HttpHeaders()
       // .set("Authorization",this.appservices.authStatus._refreshkey)
-      //.set("Access-Control-Allow-Origin", "*")
+      //.set("Access-Control-Allow-Origin", "http://localhost:4200")
       // .set("Content-Type", "application/x-www-form-urlencoded;harset=utf-8")
       .set("Content-Type", "application/json")
     this.headers = headers;
@@ -33,10 +33,10 @@ export class CommonService {
     return this.http.post(this.appservices.getApipath() + 'bannerUplode', apiData, { headers: this.headers })
   }
   public matchByCast(apiData:any){
-    return this.http.post(this.appservices.getApipath() + 'matchByCast', apiData, { headers: this.headers })
+    return this.http.post(this.appservices.getApipath() + 'cast_matches', apiData, { headers: this.headers })
   }
   public premimusMatches(apiData:any){
-    return this.http.post(this.appservices.getApipath() + 'premimusMatches', apiData, { headers: this.headers })
+    return this.http.post(this.appservices.getApipath() + 'premium_matches', apiData, { headers: this.headers })
   }
   public matchesforindivisual(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'matchesforindivisual', apiData, { headers: this.headers })
