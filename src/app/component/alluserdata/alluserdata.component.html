@@ -46,8 +46,8 @@
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
                 <span class="fs-5">Showing {{finaldata?.length}} of {{finaldata?.length}} results</span>
             </div> -->
-          
-           
+
+
         </div>
 
         <div class="mt-3 data-view-container">
@@ -109,21 +109,6 @@
                                 <p class="badge badge-success" *ngIf="data.deleted == 1">Not Deleted</p>
                                 <p class="badge badge-danger" *ngIf="data.deleted == 0">Deleted</p>
                             </td>
-                            <!-- <td> -->
-                            <!-- <i [title]="data.deleted==1 ? ' DELETE':'RECOVER'"
-                                    (click)="deletedata(data.user_id,data.deleted)"
-                                    [class]="data.deleted==1 ? 'material-icons text-danger pointer':'material-icons text-success pointer'">delete_outline</i>
-
-                                <i title="PUBLISH" *ngIf="data.status == 0" (click)="publishuser(data.user_id)"
-                                    class="material-icons pointer text-success">published_with_changes</i>
-                                <i title="UNPUBLISH" *ngIf="data.status == 1" (click)="unpublishuser(data.user_id)"
-                                    class="material-icons text-danger pointer">unpublished</i>
-                                <i class="material-icons pointer text-success" (click)="makeoffline(data.user_id)"
-                                    *ngIf="data.online_status == 1">done</i>
-                                <i class="material-icons text-danger pointer" (click)="makeonline(data.user_id)"
-                                    *ngIf="data.online_status == 0">close</i> -->
-
-                            <!-- </td> -->
                         </tr>
                     </ng-container>
                 </tbody>

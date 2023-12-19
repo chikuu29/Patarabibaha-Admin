@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MassageComponent } from './massage/massage.component';
 import { AuthGuard } from '../auth/auth.guard';
 
+
+
 const routes: Routes = [
   {
     path: '',
@@ -12,6 +14,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: MassageComponent
       },
+
+
+
     ]
   }
 ];

@@ -72,31 +72,31 @@ export class AlluserdataComponent implements OnInit {
   }
   fillter(event: any) {
     // console.log("click fillter", event);
-    var query = `SELECT * 
-    FROM user_info  
-    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID 
-    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID 
-    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID 
-    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID 
-    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID 
-    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID 
+    var query = `SELECT *
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`
     if (event.isqueryGenerated) {
-      query = `SELECT * 
-    FROM user_info  
-    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID 
-    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID 
-    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID 
-    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID 
-    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID 
-    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID 
+      query = `SELECT *
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}`
     }
-    console.log(query);
+    //console.log(query);
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log(res);
+      //console.log(res);
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length
         // this.collectionSize=

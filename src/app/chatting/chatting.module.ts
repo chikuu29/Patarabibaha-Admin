@@ -8,9 +8,11 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { MaterialModule } from '../material/material.module';
 
 
+
 @NgModule({
   declarations: [
-    MassageComponent
+    MassageComponent,
+
   ],
   imports: [
     CommonModule,
