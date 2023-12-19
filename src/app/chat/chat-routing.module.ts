@@ -3,11 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { ChatUserViewComponent } from './chat-user-view/chat-user-view.component';
 import { ChatHomePageComponent } from './chat-home-page/chat-home-page.component';
 import { ChatRoomComponent } from './chat-room/chat-room.component';
+import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -22,13 +23,14 @@ const routes: Routes = [
       },
       {
         path: 'chat/:profile_id',
-        pathMatch:'prefix',
+        pathMatch:'full',
         component: ChatHomePageComponent
       },
       {
         path: ':profile_id/chat_room/:chat_rome_id',
         pathMatch:'full',
-        component: ChatRoomComponent
+        component: ChatRoomComponent,
+        canActivate: [AuthGuard]
       },
 
     ]
