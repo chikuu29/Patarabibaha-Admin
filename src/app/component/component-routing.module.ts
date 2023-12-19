@@ -29,8 +29,7 @@ import { PhonevalidationComponent } from './phonevalidation/phonevalidation.comp
 import { EmailvalidationComponent } from './emailvalidation/emailvalidation.component';
 import { MarriagestatusComponent } from './marriagestatus/marriagestatus.component';
 import { MarriagecombinationComponent } from './marriagecombination/marriagecombination.component';
-import { SenderidComponent } from './senderid/senderid.component';
-import { ReceiveridComponent } from './receiverid/receiverid.component';
+
 import { ViewchatingpageComponent } from './viewchatingpage/viewchatingpage.component';
 
 
@@ -178,21 +177,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: MarriagecombinationComponent
       },
-      {
-        path: 'senderid',
-        canActivate: [AuthGuard],
-        component: SenderidComponent
-      },
-      {
-        path: 'receiverid/:id',
-        canActivate: [AuthGuard],
-        component: ReceiveridComponent
-      },
+      
       {
         path: 'chatingpage/:id',
         canActivate: [AuthGuard],
         component: ViewchatingpageComponent
-      },
+      }
     ]
   }
 

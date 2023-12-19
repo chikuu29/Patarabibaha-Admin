@@ -22,6 +22,7 @@ import { NgbActiveModal, NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-
 import { SharedModule } from './shared/shared.module';
 import { ApproveModule } from './approve/approve.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ChatModule } from './chat/chat.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     NgbModule,
     NgbPaginationModule,
     SharedModule,
+    ChatModule,
     PagesModule,
     ComponentModule,
     MaterialModule,

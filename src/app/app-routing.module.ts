@@ -8,6 +8,11 @@ import { ChattingModule } from './chatting/chatting.module';
 
 const routes: Routes = [
   {
+    path: 'chat',
+    loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
+
+  },
+  {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
 

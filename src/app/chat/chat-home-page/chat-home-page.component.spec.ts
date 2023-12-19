@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReceiveridComponent } from './receiverid.component';
+import { ChatHomePageComponent } from './chat-home-page.component';
 
-describe('ReceiveridComponent', () => {
-  let component: ReceiveridComponent;
-  let fixture: ComponentFixture<ReceiveridComponent>;
+describe('ChatHomePageComponent', () => {
+  let component: ChatHomePageComponent;
+  let fixture: ComponentFixture<ChatHomePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReceiveridComponent ]
+      declarations: [ ChatHomePageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ReceiveridComponent);
+    fixture = TestBed.createComponent(ChatHomePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

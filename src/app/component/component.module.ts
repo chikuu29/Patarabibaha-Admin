@@ -41,8 +41,6 @@ import { EmailvalidationComponent } from './emailvalidation/emailvalidation.comp
 import { MarriagestatusComponent } from './marriagestatus/marriagestatus.component';
 import { MarriagecombinationComponent } from './marriagecombination/marriagecombination.component';
 import { ViewchatingpageComponent } from './viewchatingpage/viewchatingpage.component';
-import { ReceiveridComponent } from './receiverid/receiverid.component';
-import { SenderidComponent } from './senderid/senderid.component';
 
 
 @NgModule({
@@ -78,8 +76,7 @@ import { SenderidComponent } from './senderid/senderid.component';
     MarriagestatusComponent,
     MarriagecombinationComponent,
     ViewchatingpageComponent,
-    ReceiveridComponent,
-    SenderidComponent
+   
   ],
   imports: [
     CommonModule,

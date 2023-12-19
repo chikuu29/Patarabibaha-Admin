@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SenderidComponent } from './senderid.component';
+import { ChatUserViewComponent } from './chat-user-view.component';
 
-describe('SenderidComponent', () => {
-  let component: SenderidComponent;
-  let fixture: ComponentFixture<SenderidComponent>;
+describe('ChatUserViewComponent', () => {
+  let component: ChatUserViewComponent;
+  let fixture: ComponentFixture<ChatUserViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SenderidComponent ]
+      declarations: [ ChatUserViewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SenderidComponent);
+    fixture = TestBed.createComponent(ChatUserViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

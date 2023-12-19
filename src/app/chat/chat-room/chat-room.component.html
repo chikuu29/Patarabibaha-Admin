@@ -1,0 +1,85 @@
+<div class="chat-container-mobail">
+    <div id="chat3 border" style="border-radius: 8px; ">
+        <div class="">
+            <div class=" w-100" style=" box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                <div class="d-flex align-items-center  p-2">
+                    <div class="input-group rounded p-3">
+                        <img [src]="establishConnection.reciver_img" alt="avatar 1" style="width: 45px; height: 45px;"
+                            class="rounded-circle">
+                        <div class="ms-2">
+                            <div class="name fw-bold">
+                                {{establishConnection.reciver_name}}
+                            </div>
+                            <div class="seen text-success fw-bold">
+                                <!-- Today at 12:56 -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3" style="background-color: #cfe5fa; border-radius: 10px; cursor: pointer;"
+                    [routerLink]="'/chat/'+sender_id">
+                        <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;;">
+                <div #chatContainer class=" p-3 chat-holder" data-mdb-perfect-scrollbar="true"
+                    style="position: relative; max-height: 500px;overflow-y: scroll; cursor: pointer; ">
+
+                    <ng-container *ngFor="let chat of message">
+                        <div class="d-flex flex-row "
+                            [ngClass]="messageCreationForm.value.sender_id==chat.sender_id?'justify-content-start':'justify-content-end'">
+                            <img [src]="messageCreationForm.value.sender_id==chat.sender_id?establishConnection.sender_img:establishConnection.reciver_img"
+                            alt="avatar 1" style="width: 45px; height: 45px;" class="rounded-circle">
+                            <div>
+                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;"
+                                    [ngClass]="messageCreationForm.value.sender_id==chat.sender_id?'bg-primary text-light':''">
+                                    {{chat?.message_content}}
+                                </p>
+                                <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
+                                    {{chat?.created_At |date:'h:mm a'}} | {{ chat?.created_At | date:'MMM d'}}
+                                </p>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                </div>
+            </div>
+            <fieldset [disabled]="true">
+                <div class="position-sticky "
+                    style="bottom: -350px; background-color: #ffff;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                    <form [formGroup]="messageCreationForm">
+                        <div class="rounded w-100 p-2">
+                            <!-- <input type="texts" formControlName="message_content" class="form-control rounded border p-3"
+                    placeholder="Search" aria-label="Search" aria-describedby="search-addon" /> -->
+                            <p-dropdown [options]="staticMessageData" optionLabel="name" [filter]="true" filterBy="name"
+                                [showClear]="true" placeholder="Select your message" [style]="{ width: '100%' }"
+                                formControlName="message_content" optionValue="name" styleClass="w-100">
+                                <ng-template pTemplate="selectedItem">
+                                    <div class="country-item country-item-value">
+                                        <div>
+                                            {{
+                                            messageCreationForm.value
+                                            .message_content
+                                            }}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-data pTemplate="item">
+                                    <div class="country-item">
+                                        <div>
+                                            {{ data.name}}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <div class="mt-2 text-center">
+                                <button type="button" class="btn btn-primary w-100" (click)="send()"><i
+                                        class="fas fa-paper-plane me-2"></i>Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
