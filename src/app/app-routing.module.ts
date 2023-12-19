@@ -9,6 +9,7 @@ import { ChattingModule } from './chatting/chatting.module';
 const routes: Routes = [
   {
     path: 'chat',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
 
   },
