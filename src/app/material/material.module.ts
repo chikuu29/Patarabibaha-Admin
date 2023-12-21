@@ -18,7 +18,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 // import { MomentDateAdapter } from '@angular/material-moment-adapter';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -49,8 +49,8 @@ export const MY_FORMATS = {
     MatChipsModule,
     MatSlideToggleModule,
     MatNativeDateModule,
-    MatDatepickerModule
-
+    MatDatepickerModule,
+    MatExpansionModule
 
 
 
@@ -71,7 +71,8 @@ export const MY_FORMATS = {
     MatChipsModule,
     MatSlideToggleModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatExpansionModule
 
 
   ],

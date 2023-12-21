@@ -737,5 +737,9 @@ export class AlluserdataComponent implements OnInit {
     console.log(this.allId);
   }
 
+  viwePlan(data:any){
+      this.router.navigate(['/plan-Deatils',data])
+  }
+
 
 }

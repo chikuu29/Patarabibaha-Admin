@@ -29,8 +29,8 @@ import { PhonevalidationComponent } from './phonevalidation/phonevalidation.comp
 import { EmailvalidationComponent } from './emailvalidation/emailvalidation.component';
 import { MarriagestatusComponent } from './marriagestatus/marriagestatus.component';
 import { MarriagecombinationComponent } from './marriagecombination/marriagecombination.component';
-
 import { ViewchatingpageComponent } from './viewchatingpage/viewchatingpage.component';
+import { PlanDeatilsComponent } from './plan-deatils/plan-deatils.component';
 
 
 
@@ -177,12 +177,17 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: MarriagecombinationComponent
       },
-      
+
       {
         path: 'chatingpage/:id',
         canActivate: [AuthGuard],
         component: ViewchatingpageComponent
-      }
+      },{
+        path: 'plan-Deatils/:id',
+        canActivate: [AuthGuard],
+        component: PlanDeatilsComponent
+      },
+
     ]
   }
 

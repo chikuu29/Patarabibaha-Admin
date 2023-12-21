@@ -31,7 +31,7 @@
         <i title="Offline" class="material-icons text-danger pointer" (click)="makeoffline()">close</i>
     </div>
 </div>
-<div class="">
+<div class="scroll">
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
@@ -67,7 +67,7 @@
                         <th>status</th>
                         <th>Approval</th>
                         <th>Delete Status</th>
-                        <!-- <th>Action</th> -->
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody class="table-body table-striped">
@@ -108,6 +108,10 @@
                             <td>
                                 <p class="badge badge-success" *ngIf="data.deleted == 1">Not Deleted</p>
                                 <p class="badge badge-danger" *ngIf="data.deleted == 0">Deleted</p>
+                            </td>
+                            <td>
+                              <button type="button" (click)="viwePlan(data?.user_id)"
+                              class="btn btn-outline-danger btn-fw w-50">View Plan</button>
                             </td>
                         </tr>
                     </ng-container>

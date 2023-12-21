@@ -41,6 +41,7 @@ import { EmailvalidationComponent } from './emailvalidation/emailvalidation.comp
 import { MarriagestatusComponent } from './marriagestatus/marriagestatus.component';
 import { MarriagecombinationComponent } from './marriagecombination/marriagecombination.component';
 import { ViewchatingpageComponent } from './viewchatingpage/viewchatingpage.component';
+import { PlanDeatilsComponent } from './plan-deatils/plan-deatils.component';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import { ViewchatingpageComponent } from './viewchatingpage/viewchatingpage.comp
     MarriagestatusComponent,
     MarriagecombinationComponent,
     ViewchatingpageComponent,
-   
+    PlanDeatilsComponent,
+
   ],
   imports: [
     CommonModule,
