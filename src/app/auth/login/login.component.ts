@@ -5,6 +5,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { AuthService } from '../auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
 
   @BlockUI() blockUI: NgBlockUI;
+
+  fontendUrl=environment.fontendUrl
   // **************************
   redirectUrl: any = ''
   // Validators.pattern("^W-([A-Z]{5,5})([@_])([0-9]{3,5})$")

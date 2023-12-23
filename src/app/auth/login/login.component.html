@@ -1,45 +1,90 @@
-<!-- <div class="container-scroller"> -->
-    <div class="container-fluid page-body-wrapper full-page-wrapper p-0">
-      <div class="row w-100 m-0" >
-        <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
-          <div class="card col-lg-4 mx-auto " style="border-radius: 10px;">
-            <div class="card-body px-5 py-5">
-              <h3 class="card-title text-left mb-3">Login</h3>
-              <form [formGroup]="loginForm">
-                <div class="form-group">
-                  <label>Username or email *</label>
-                  <input type="text" class="form-control p_input" formControlName="userID" >
-                </div>
-                <div class="form-group">
-                  <label>Password *</label>
-                  <input type="text" class="form-control p_input" formControlName="password">
-                </div>
-                <div class="form-group d-flex align-items-center justify-content-between">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" formControlName="checkme" > Remember me </label>
-                  </div>
-                  <a href="#" class="forgot-pass">Forgot password</a>
-                </div>
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary btn-block enter-btn" [disabled]="!loginForm.valid" (click)="login()">Login</button>
-                </div>
-                <!-- <div class="d-flex">
-                  <button class="btn btn-facebook mr-2 col">
-                    <i class="mdi mdi-facebook"></i> Facebook </button>
-                  <button class="btn btn-google col">
-                    <i class="mdi mdi-google-plus"></i> Google plus </button>
-                </div> -->
-                <!-- <p class="sign-up">Don't have an Account?<a href="#"> Sign Up</a></p> -->
-              </form>
+<!-- <div class="container-fluid page-body-wrapper full-page-wrapper p-0">
+  <div class="row w-100 m-0">
+    <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
+      <div class="card col-lg-4 mx-auto " style="border-radius: 10px;">
+        <div class="card-body px-5 py-5">
+          <h3 class="card-title text-left mb-3">Login</h3>
+          <form [formGroup]="loginForm">
+            <div class="form-group">
+              <label>Username or email *</label>
+              <input type="text" class="form-control p_input" formControlName="userID">
             </div>
+            <div class="form-group">
+              <label>Password *</label>
+              <input type="text" class="form-control p_input" formControlName="password">
+            </div>
+            <div class="form-group d-flex align-items-center justify-content-between">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" formControlName="checkme"> Remember me </label>
+              </div>
+              <a href="#" class="forgot-pass">Forgot password</a>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary btn-block enter-btn" [disabled]="!loginForm.valid"
+                (click)="login()">Login</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+ 
+</div> -->
+
+<div class="container-fluid page-body-wrapper full-page-wrapper p-0">
+  <div class="row w-100 m-0">
+    <div class="container right-panel-active" id="container">
+      <!-- <div class="form-container sign-up-container">
+        <form action="#">
+          <h1>Create Account</h1>
+          <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+          <span>or use your email for registration</span>
+          <input type="text" placeholder="Name" />
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <button>Sign Up</button>
+        </form>
+      </div> -->
+      <div class="form-container sign-in-container">
+        <form [formGroup]="loginForm">
+          <h1>Sign in</h1>
+          <div class="social-container">
+           
+            <!-- <i class="fa-brands fa-uikit"></i> -->
+            <!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> -->
+            <a [href]="fontendUrl" target="_blank" class="social" [title]="fontendUrl"><i class="fa-brands fa-uikit fa-beat-fade"></i> </a>
+            <!-- <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a> -->
+          </div>
+        
+          <span>Enter Your Login Details</span>
+          <input type="text" placeholder="User ID" formControlName="userID" />
+          <input type="password" placeholder="Password" formControlName="password" />
+          <a href="#">Forgot your password?</a>
+          <button (click)="login()">Sign In</button>
+        </form>
+      </div>
+      <!-- <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <p>To keep connected with us please login with your personal info</p>
+            <button class="ghost" id="signIn">Sign In</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Hello, Friend!</h1>
+            <p>Enter your personal details and start journey with us</p>
+            <button class="ghost" id="signUp">Sign Up</button>
           </div>
         </div>
-        <!-- content-wrapper ends -->
-      </div>
-      <!-- row ends -->
+      </div> -->
     </div>
-    <!-- page-body-wrapper ends -->
-  <!-- </div> -->
 
-  <!-- <ngx-ui-loader></ngx-ui-loader> -->
+  </div>
+</div>
