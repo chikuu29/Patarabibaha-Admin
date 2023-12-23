@@ -8,7 +8,8 @@ import { ChatUserViewComponent } from './chat/chat-user-view/chat-user-view.comp
 const routes: Routes = [
   {
     path: 'chat',
-    component:ChatUserViewComponent,
+    // pathMatch:'prefix',
+    // component:ChatUserViewComponent,
     canActivate: [AuthGuard],
     loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
   },

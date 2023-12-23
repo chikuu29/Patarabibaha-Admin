@@ -13,7 +13,7 @@
       <div data-mdb-perfect-scrollbar="true" class="user-holder" style="position: relative;height: 530px;   overflow-y: scroll;">
         <ul class="list-unstyled mb-0">
           <ng-container *ngFor="let connection of total_connection |fillter :['user_fname','user_lname']:filterText">
-            <li class="p-2 border-bottom" style="cursor: pointer;" [routerLink]="'/chat/'+this.profile_id+'/chat_room/'+connection.connection_id  ">
+            <li class="p-2 border-bottom" style="cursor: pointer;" [routerLink]="'/chat/profile/'+this.profile_id+'/chat_room/'+connection.connection_id  ">
               <a class="d-flex justify-content-between">
                 <div class="d-flex flex-row">
                   <div>

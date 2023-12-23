@@ -11,24 +11,24 @@ const routes: Routes = [
     canActivate:[AuthGuard],
     children: [
       // {
-      //   path: '',
+      //   path: 'chat/',
       //   redirectTo: 'chat',
       //   pathMatch: 'full'
       //   // component: DashboardComponent
       // },
       {
-        path: 'chat',
-        // pathMatch:'full',
+        path: '',
+        pathMatch:'full',
         component: ChatUserViewComponent
       },
       {
-        path: 'chat/:profile_id',
-        // pathMatch:'full',
+        path: 'profile/:profile_id',
+        pathMatch:'full',
         component: ChatHomePageComponent
       },
       {
-        path: ':profile_id/chat_room/:chat_rome_id',
-        // pathMatch:'full',
+        path: 'profile/:profile_id/chat_room/:chat_rome_id',
+        pathMatch:'full',
         component: ChatRoomComponent,
         // canActivate: [AuthGuard]
       },
