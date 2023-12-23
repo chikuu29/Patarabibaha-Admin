@@ -62,8 +62,8 @@ export class LoginComponent implements OnInit {
             var expiration_date = new Date(new Date().getTime() + 86400 * 1000).toString();
             this._auth.authentication("res.id", "res.name", res.email, true, "res.role", "res.token", expiration_date);
             console.log(this.redirectUrl);
-            
-            this._router.navigateByUrl(this.redirectUrl)
+            location.href=this.redirectUrl
+            // this._router.navigateByUrl(this.redirectUrl)
           } else {
             this.alert.error(res.message)
             // this.messageService.add({ severity: 'error', summary: 'error', detail: res.message })

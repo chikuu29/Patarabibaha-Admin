@@ -5,7 +5,8 @@
         <a class="sidebar-brand brand-logo-mini" routerLink="/"><span class="fw-bold text-light"
                 style="font-weight: bold !important;">P</span></a>
     </div>
-    <ul class="nav">
+    
+    <ul class="nav" id="sidescollBar">
         <li class="nav-item profile">
             <div class="profile-desc">
                 <div class="profile-pic">
@@ -31,16 +32,7 @@
                             <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
                         </div>
                     </a>
-                    <!-- <a routerLink="/subadmincreate" class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <div class="preview-icon bg-dark rounded-circle">
-                                <i class="mdi mdi-settings text-primary"></i>
-                            </div>
-                        </div>
-                        <div class="preview-item-content">
-                            <p class="preview-subject ellipsis mb-1 text-small">Create User</p>
-                        </div>
-                    </a> -->
+
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
@@ -96,22 +88,7 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <!-- <li class="nav-item menu-items">
-            <a class="nav-link" routerLink="alluserdata">
-                <span class="menu-icon">
-                    <i class="mdi mdi-airplane-landing"></i>
-                </span>
-                <span class="menu-title">All User Data</span>
-            </a>
-        </li> -->
-        <!-- <li class="nav-item menu-items">
-            <a class="nav-link" routerLink="match-makng-page">
-                <span class="menu-icon">
-                    <i class="mdi mdi-airplane-landing"></i>
-                </span>
-                <span class="menu-title">Match Making</span>
-            </a>
-        </li> -->
+
         <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-icon">
@@ -134,57 +111,16 @@
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/match-makng-page">Match Making</a></li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/filter">User Filter</a></li>
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/phone-validation">Phone Validation
-                      <span style="color: red;"> ({{phoneapprovedata}})</span>
-                    </a>
+                            <span style="color: red;"> ({{phoneapprovedata}})</span>
+                        </a>
                     </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/email-validation">Email Validation</a></li>
+                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/email-validation">Email Validation</a>
+                    </li>
 
                 </ul>
             </div>
         </li>
-        <!-- <li class="nav-item menu-items">
-            <a class="nav-link" routerLink="expire-member">
-                <span class="menu-icon">
-                    <i class="mdi mdi-speedometer"></i>
-                </span>
-                <span class="menu-title">Expire Member</span>
-            </a>
-        </li> -->
 
-
-        <!-- <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-icon">
-                    <i class="fa-solid fa-crown"></i>
-                </span>
-                <span class="menu-title">Members</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Add Member</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">All Member</a></li>
-
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-icon">
-                    <i class="fa-solid fa-crown"></i>
-                </span>
-                <span class="menu-title">Membership Plan</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a>
-                    </li>
-                </ul>
-            </div>
-        </li> -->
         <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-icon">
@@ -236,22 +172,8 @@
                 </ul>
             </div>
         </li>
-        <!-- <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/charts/chartjs.html">
-                <span class="menu-icon">
-                    <i class="mdi mdi-chart-bar"></i>
-                </span>
-                <span class="menu-title">UI-Interface</span>
-            </a>
-        </li> -->
-        <!-- <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
-                <span class="menu-icon">
-                    <i class="mdi mdi-contacts"></i>
-                </span>
-                <span class="menu-title">Icons</span>
-            </a>
-        </li> -->
+
+
         <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <span class="menu-icon">
@@ -299,8 +221,9 @@
                     <li class="nav-item m-1"> <a class="nav-link" routerLink="/approve/profileimagepprove-page">Profile
                             Image Approve<span style="color: red;"> ({{profilephotocount}})</span> </a>
                     </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/approve/deleterequest-page">Delete Request<span style="color: red;"> ({{ deliteeeqest }})</span> </a>
-                </li>
+                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/approve/deleterequest-page">Delete
+                            Request<span style="color: red;"> ({{ deliteeeqest }})</span> </a>
+                    </li>
 
 
                 </ul>

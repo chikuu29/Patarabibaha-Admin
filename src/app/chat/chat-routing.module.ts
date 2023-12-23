@@ -8,29 +8,29 @@ import { AuthGuard } from '../auth/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard],
+    canActivate:[AuthGuard],
     children: [
-      {
-        path: '',
-        redirectTo: 'chat',
-        pathMatch: 'full'
-        // component: DashboardComponent
-      },
+      // {
+      //   path: '',
+      //   redirectTo: 'chat',
+      //   pathMatch: 'full'
+      //   // component: DashboardComponent
+      // },
       {
         path: 'chat',
-        pathMatch:'full',
+        // pathMatch:'full',
         component: ChatUserViewComponent
       },
       {
         path: 'chat/:profile_id',
-        pathMatch:'full',
+        // pathMatch:'full',
         component: ChatHomePageComponent
       },
       {
         path: ':profile_id/chat_room/:chat_rome_id',
-        pathMatch:'full',
+        // pathMatch:'full',
         component: ChatRoomComponent,
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
       },
 
     ]

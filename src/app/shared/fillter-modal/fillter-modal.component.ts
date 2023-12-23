@@ -391,7 +391,6 @@ export class FillterModalComponent implements OnInit {
           query += gen
         }
         if(Object.keys(fillterData).includes(key) && Object.keys(filteredtableKeyMappingObject).length>1){
-          console.log("hii");
           query += condition
         }
        

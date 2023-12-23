@@ -2,16 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { ErrorPageComponent } from './pages/error-page/error-page.component';
-import { ApproveModule } from './approve/approve.module';
-import { ChattingModule } from './chatting/chatting.module';
+
+import { ChatUserViewComponent } from './chat/chat-user-view/chat-user-view.component';
 
 const routes: Routes = [
   {
     path: 'chat',
+    component:ChatUserViewComponent,
     canActivate: [AuthGuard],
     loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
-
   },
   {
     path: 'auth',

@@ -1,0 +1,15 @@
+// #sidescollBar {
+//   height: 100vh;
+//   overflow-y: auto;
+//   border: 1px solid #ccc;
+// }
+
+
+
+@media (min-width: 800.98px) {
+  /* Your CSS styles for mobile devices go here */
+  #sidebar{
+    position: fixed;
+    left: 0;
+  }
+}
