@@ -1,24 +1,20 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
 import { AppService } from 'src/app/services/app.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
   headers: any;
-  constructor(private http: HttpClient,private appservices:AppService) {
+  constructor(private http: HttpClient,private appservices:AppService,) {
     console.log("Calling Api Services");
-    var headers = new HttpHeaders()
-      // .set("Authorization",this.appservices.authStatus._refreshkey)
-      //.set("Access-Control-Allow-Origin", "*")
-      // .set("Content-Type", "application/x-www-form-urlencoded;harset=utf-8")
-      .set("Content-Type", "application/json")
+    var headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.appservices.authorizationTokenKey}`,
+      "Content-Type": "application/json"
+    })
     this.headers = headers;
-
- 
-
   }
   public getdata(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'fetch', apiData, { headers: this.headers });

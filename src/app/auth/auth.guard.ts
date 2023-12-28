@@ -23,9 +23,7 @@ export class AuthGuard implements CanActivate {
      
       take(1),
       map(admin => {
-  
-      
-        if (admin && admin.isLogin ) {
+        if (admin && admin.token ) {
           const appConfig = this.appservices.getappconfig;
           let str = state.url
           // let index = str.indexOf('/', str.indexOf('/') + 1);

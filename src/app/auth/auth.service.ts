@@ -59,7 +59,10 @@ export class AuthService {
     var user = new admin(id, name, email, isLogin, role, _refreshkey, expiration_date)
     this.admin.next(user);
     secureCryptoStorage.setItem("authInfo", user);
-    this.autoLogout(new Date(expiration_date).getTime() - new Date().getTime())
+    // console.log("current Data "+ currentDate +" "+moment(currentDate*1000).format('llll'));
+    // console.log("Expaire Data "+ expiration_date +" "+moment(expiration_date*1000).format('llll'));
+    // console.log("ok Data "+ (expiration_date - currentDate) +" "+moment((expiration_date - currentDate)*1000).format('llll'));
+    this.autoLogout(expiration_date)
 
   }
   public autoSignIn() {
@@ -68,24 +71,29 @@ export class AuthService {
     if (!authInfo) {
       return;
     }
-    if (new Date(authInfo.expiration_date).getTime() > new Date().getTime()) {
-      console.log("AUTO LOGIN SUCCESSFULL");
+    const currentDate = Math.floor(new Date().getTime() / 1000);
+    // Convert the current date and time to a Unix timestamp in seconds
+    if (authInfo.expiration_date > currentDate) {
+      console.log("AUTO LOGIN SUCCESSFULL", authInfo);
       this.authentication(authInfo.id, authInfo.name, authInfo.email, true, authInfo.role, authInfo._refreshkey, authInfo.expiration_date)
-
     } else {
-      console.log("YOUR TOKEN EXPIRA");
+      console.log("YOUR TOKEN EXPIRA ON "+moment(authInfo.expiration_date * 1000).format('llll'));
       this.admin.next(null)
       localStorage.clear()
 
     }
 
   }
-  public autoLogout(expiration_date: any) {
-    console.log("activating Auto Logout");
-    // console.log("expiration_date", expiration_date);
+  public autoLogout(expiration_date: number) {
+    const currentDate = Math.floor(new Date().getTime() / 1000);
+    console.log("activating Auto Logout",expiration_date);
+    var delay=(expiration_date-currentDate)*1000;
+    console.log("delay",delay);
+    
+    console.log("expiration_date",moment(expiration_date*1000).format('llll'));
     this.deactiveAutoLogout = setTimeout(() => {
       this.logout()
-    }, expiration_date);
+    }, delay);
 
   }
 
@@ -109,20 +117,20 @@ export class AuthService {
 
     // this.http.post(`${this.getApipath()}auth/logout.php`, { "userID": this.getAuthStatus().id,'token':this.getAuthStatus()._refreshkey }).subscribe((res: any) => {
 
-      // Swal.fire(res.message, 'Bye See You Soon', 'success').then(() => {
-        this.admin.next(null);
-        // this._router.navigateByUrl('/auth/login')
-        location.reload();
-        localStorage.clear();
-        if (this.deactiveAutoLogout) {
-          console.log("deactivating Auto Logout");
-          clearTimeout(this.deactiveAutoLogout)
-        }
-      // })
+    // Swal.fire(res.message, 'Bye See You Soon', 'success').then(() => {
+    this.admin.next(null);
+    // this._router.navigateByUrl('/auth/login')
+    location.reload();
+    localStorage.clear();
+    if (this.deactiveAutoLogout) {
+      console.log("deactivating Auto Logout");
+      clearTimeout(this.deactiveAutoLogout)
+    }
+    // })
 
     // }, (error) => {
     //     console.log(error);
-        
+
     // })
 
 
@@ -137,16 +145,16 @@ export class AuthService {
   }
 
 
-  public generateOTPThroughUserIDTOLOGIN(UserID:any){
+  public generateOTPThroughUserIDTOLOGIN(UserID: any) {
 
-    return this.http.post(`${this.getApipath()}auth/sucure-authentication.php`, {"USERID":UserID})
+    return this.http.post(`${this.getApipath()}auth/sucure-authentication.php`, { "USERID": UserID })
   }
 
-  public validateOTPThroughUserIDTOLOGIN(apiDATA:any){
+  public validateOTPThroughUserIDTOLOGIN(apiDATA: any) {
 
-    return this.http.post(`${this.getApipath()}auth/validate-sucure-authentication.php`,apiDATA )
+    return this.http.post(`${this.getApipath()}auth/validate-sucure-authentication.php`, apiDATA)
   }
 
-  
+
 
 }

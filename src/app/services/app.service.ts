@@ -12,6 +12,7 @@ export class AppService {
   private appConfig: any;
   private appDetailConfig: any;
   private country_state_district_Data: any;
+  private _authorizationTokenKey: any;
   constructor(
     private _auth: AuthService,
   ) {
@@ -19,6 +20,18 @@ export class AppService {
     this.appDetailConfig = appDetailConfig
     this.country_state_district_Data = country_state_district['states']
     console.log("Calling App Services");
+    this.setAuthorizationTokenKey()
+  }
+
+  setAuthorizationTokenKey(): void {
+    this._auth.admin.subscribe((res: any) => {
+      if(res)this._authorizationTokenKey = res.token ? res.token : null;
+        // Replace with the actual token key from 'res'
+    });
+  }
+
+  get authorizationTokenKey() {
+    return this._authorizationTokenKey
   }
   get authStatus() {
     return this._auth.getAuthStatus();
@@ -35,7 +48,7 @@ export class AppService {
   get getappVersion() {
     return this.appDetailConfig.version
   }
-  get country_state_district(){
+  get country_state_district() {
     return this.country_state_district_Data
   }
 

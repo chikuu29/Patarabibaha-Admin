@@ -35,14 +35,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // this.blockUI.start('Please Wait...')
     this.Title.setTitle('Sign in to : Patarabibaha Admin Panel')
-    console.log(this.activeroute.snapshot.queryParamMap.get('redirectUrl'));
-
+    // console.log(this.activeroute.snapshot.queryParamMap.get('redirectUrl'));
     this.redirectUrl = this.activeroute.snapshot.queryParamMap.get('redirectUrl') || '/'
   }
 
   login() {
 
-    console.log(this.loginForm.value);
+    // console.log(this.loginForm.value);
     this.blockUI.start('Please Wait');
     if (this.loginForm.valid) {
 
@@ -63,7 +62,7 @@ export class LoginComponent implements OnInit {
             this.alert.success("Login Successfull")
             // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login Successfull' })
             var expiration_date = new Date(new Date().getTime() + 86400 * 1000).toString();
-            this._auth.authentication("res.id", "res.name", res.email, true, "res.role", "res.token", expiration_date);
+            this._auth.authentication(res.id, res.name, res.email, true, "res.role", res.token, res.exp);
             console.log(this.redirectUrl);
             location.href=this.redirectUrl
             // this._router.navigateByUrl(this.redirectUrl)

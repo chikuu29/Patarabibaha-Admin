@@ -19,5 +19,6 @@ export class AppComponent {
   ngOnInit(): void {
     console.log("App Start");
     this._authServices.autoSignIn();
+    
   }
 }

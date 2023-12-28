@@ -16,8 +16,8 @@ export class admin{
     }
 
     get token(){
-        var currentDate=new Date().getTime();             
-        if( new Date(this.expiration_date).getTime() > currentDate){
+        const currentDate = Math.floor(new Date().getTime() / 1000);           
+        if(this.expiration_date> currentDate){
             return this._refreshkey;
         }
         return null
