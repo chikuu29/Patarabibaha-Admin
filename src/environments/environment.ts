@@ -5,11 +5,11 @@
 export const environment = {
   production: false,
   fontendUrl:"https://choicemarriage.com/",
-  baseApiURL:'http://localhost:8000/',
-  filePath:"http://localhost/matrimonial/",
+  baseApiURL:'http://localhost/backend-api-v1/public/',
+  // filePath:"http://localhost/matrimonial/",
   application_url:"http://localhost:4200/",
   // baseApiURL: 'https://admin.choicemarriage.com/api/',
-  // filePath: "https://admin.choicemarriage.com/api/",
+  filePath: "https://admin.choicemarriage.com/api/",
   // application_url: "https://admin.choicemarriage.com/"
 };
 

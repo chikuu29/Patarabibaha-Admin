@@ -106,6 +106,9 @@
 /* === Import template variables === */
 /*-------------------------------------------------------------------*/
 /* === SCSS Compass Functions === */
+
+
+
 @-moz-keyframes flash {
   0% {
     opacity: 1;
@@ -22473,7 +22476,7 @@ body,
 html {
   overflow-x: hidden;
   padding-right: 0 !important;
-  background-color: #191c24;
+  /* background-color: #191c24; */
 }
 
 *:-moz-full-screen,
@@ -22531,7 +22534,7 @@ code {
 
 /* Footer */
 .footer {
-  background: #000000;
+  /* background: #000000; */
   padding: 20px 1rem;
   transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
@@ -26074,8 +26077,10 @@ div.tagsinput {
 }
 
 .nav-pills.nav-pills-custom .nav-link.active {
-  background: #fc424a;
-  color: #ffffff;
+  background: #D6EAF8;
+  font-weight: bold;
+  color: #0090e7;;
+  /* color: #ffffff; */
 }
 
 /* gradient pills */
@@ -29513,7 +29518,8 @@ div.tagsinput span.tag a {
 /* Navbar */
 .navbar {
   font-weight: normal;
-  background: #191c24;
+  /* background: #191c24; */
+  background: #fafbfb;
   left: 244px !important;
   transition: left 0.25s ease;
   -webkit-transition: left 0.25s ease;
@@ -29532,7 +29538,8 @@ div.tagsinput span.tag a {
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
-  background: #191c24;
+  /* background: #191c24; */
+  background: #fafafb;
   width: 244px;
   height: 70px;
 }
@@ -29544,7 +29551,7 @@ div.tagsinput span.tag a {
 }
 
 .navbar .navbar-brand-wrapper .navbar-brand {
-  color: #38425e;
+  /* color: #38425e; */
   font-size: 1.5rem;
   line-height: 48px;
   margin-right: 0;
@@ -29582,10 +29589,10 @@ div.tagsinput span.tag a {
   -webkit-transition: width 0.25s ease;
   -moz-transition: width 0.25s ease;
   -ms-transition: width 0.25s ease;
-  box-shadow: 20px 19px 34px -15px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 20px 19px 34px -15px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 20px 19px 34px -15px rgba(0, 0, 0, 0.5);
-  color: #ffffff;
+  /* box-shadow: 20px 19px 34px -15px rgba(0, 0, 0, 0.5); */
+  /* -webkit-box-shadow: 20px 19px 34px -15px rgba(0, 0, 0, 0.5); */
+  /* -moz-box-shadow: 20px 19px 34px -15px rgba(0, 0, 0, 0.5); */
+  /* color: #ffffff; */
   padding-left: 15px;
   padding-right: 15px;
   width: 100%;
@@ -29956,7 +29963,7 @@ div.tagsinput span.tag a {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 70px);
-  background: #191c24;
+  background: #fafbfc;
   font-weight: normal;
   padding: 0;
   width: 244px;
@@ -29972,9 +29979,10 @@ div.tagsinput span.tag a {
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
-  background: #191c24;
+  background: #fafbfa;
   width: 244px;
   height: 70px;
+  /* border-bottom:1px solid bla ; */
 }
 
 @media (max-width: 991px) {
@@ -29984,12 +29992,14 @@ div.tagsinput span.tag a {
 }
 
 .sidebar .sidebar-brand-wrapper .sidebar-brand {
-  color: #38425e;
+  /* color: #38425e; */
   font-size: 1.5rem;
   line-height: 48px;
   margin-right: 0;
   padding: 0rem 0rem 0rem 1.3rem;
   width: 100%;
+  text-decoration: none;
+
 }
 
 .sidebar .sidebar-brand-wrapper .sidebar-brand:active,
@@ -30124,7 +30134,7 @@ div.tagsinput span.tag a {
   content: "";
   width: 3px;
   height: 100%;
-  background: #0090e7;
+  /* background: #0090e7; */
   display: inline-block;
   position: absolute;
   left: 0;
@@ -30324,7 +30334,7 @@ div.tagsinput span.tag a {
 
 .sidebar .nav .nav-item.nav-category .nav-link {
   color: #6c7293;
-  font-weight: 500;
+  font-weight: bold;
   font-size: 14px;
   font-weight: 500;
   height: auto;
@@ -30368,24 +30378,28 @@ div.tagsinput span.tag a {
   line-height: 1;
   height: auto;
   border-top: 0;
+  font-weight: bold;
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link.active {
-  color: #ffffff;
-  background: transparent;
+  background: #D6EAF8;
+  font-weight: bold;
+  color: #0090e7;
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link:hover {
-  color: #ffffff;
+  color: #0090e7;
 }
 
 .sidebar .nav.sub-menu .nav-item:hover {
-  background: transparent;
+  background: #D6EAF8;
+  /* background: transparent; */
 }
-
+/* Side Nav Menu  */
 .sidebar .nav:not(.sub-menu)>.nav-item:hover:not(.nav-category):not(.account-dropdown)>.nav-link {
-  background: #0f1015;
-  color: #ffffff;
+  background: #D6EAF8;
+  font-weight: bold;
+  color: #0090e7;
 }
 
 .sidebar .nav .menu-items:nth-child(5n+1) .nav-link .menu-icon i {
@@ -30432,7 +30446,8 @@ div.tagsinput span.tag a {
 }
 
 .sidebar-tinted .sidebar .sidebar-brand-wrapper {
-  background: #fa424a;
+  background: #fa424a; 
+ 
 }
 
 .sidebar-tinted .sidebar .nav .nav-item .nav-link {
@@ -30471,9 +30486,9 @@ div.tagsinput span.tag a {
   font-weight: 500;
 }
 
-.sidebar-tinted .sidebar .nav:not(.sub-menu)>.nav-item:hover:not(.nav-category):not(.account-dropdown)>.nav-link {
+/* .sidebar-tinted .sidebar .nav:not(.sub-menu)>.nav-item:hover:not(.nav-category):not(.account-dropdown)>.nav-link {
   background: rgba(12, 14, 14, 0.1);
-}
+} */
 
 /* Layouts */
 .navbar.fixed-top+.page-body-wrapper {
@@ -30736,7 +30751,7 @@ div.tagsinput span.tag a {
 }
 
 .content-wrapper {
-  background: #000000;
+  background: #fafafb;
   padding: 1.875rem 1.75rem;
   width: 100%;
   -webkit-flex-grow: 1;

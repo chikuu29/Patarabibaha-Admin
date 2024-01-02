@@ -11,7 +11,6 @@ export class ApiService {
   constructor(private http: HttpClient,private appservices:AppService,) {
     console.log("Calling Api Services");
     var headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.appservices.authorizationTokenKey}`,
       "Content-Type": "application/json"
     })
     this.headers = headers;

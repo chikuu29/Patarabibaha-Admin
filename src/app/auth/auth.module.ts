@@ -16,9 +16,6 @@ import { SubadminviewComponent } from './subadminview/subadminview.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
-
-
-
 @NgModule({
   declarations: [
     LoginComponent,

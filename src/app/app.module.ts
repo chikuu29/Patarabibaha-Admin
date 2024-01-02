@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from './services/app.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './auth/auth.module';
 import { PagesModule } from './pages/pages.module';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
@@ -23,7 +23,15 @@ import { SharedModule } from './shared/shared.module';
 import { ApproveModule } from './approve/approve.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ChatModule } from './chat/chat.module';
-
+import { AuthorizationInterceptor } from './utils/authorization.interceptor';
+import { AuthService } from './auth/auth.service';
+export function checkLoginMode(auth: AuthService) {
+  console.log("REBUILDING AUTH STATE....");
+  return () => {
+    // Initialization code, e.g., fetching configuration data
+    return auth.autoSignIn();
+  };
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +64,22 @@ import { ChatModule } from './chat/chat.module';
     ImageCropperModule
     
   ],
-  providers: [AppService,MessageService,ConfirmationService,NgbActiveModal],
+  providers: [
+    AppService,
+    MessageService,
+    ConfirmationService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: checkLoginMode,
+      deps: [AuthService],
+      multi: true, // Indicates that there can be multiple APP_INITIALIZER functions
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
+      multi: true
+    }
+  ],
   entryComponents: [BlockUiCustomTemplateComponent],
   bootstrap: [AppComponent]
 })

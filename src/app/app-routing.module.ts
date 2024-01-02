@@ -4,6 +4,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 import { ChatUserViewComponent } from './chat/chat-user-view/chat-user-view.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   {

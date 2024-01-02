@@ -88,9 +88,6 @@ export class AuthService {
     const currentDate = Math.floor(new Date().getTime() / 1000);
     console.log("activating Auto Logout",expiration_date);
     var delay=(expiration_date-currentDate)*1000;
-    console.log("delay",delay);
-    
-    console.log("expiration_date",moment(expiration_date*1000).format('llll'));
     this.deactiveAutoLogout = setTimeout(() => {
       this.logout()
     }, delay);
