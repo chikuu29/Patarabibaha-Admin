@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   fontendUrl:"https://choicemarriage.com/",
-  baseApiURL:'http://localhost/backend-api-v1/public/',
+  baseApiURL:'http://localhost:8000/',
   // filePath:"http://localhost/matrimonial/",
   application_url:"http://localhost:4200/",
   // baseApiURL: 'https://admin.choicemarriage.com/api/',

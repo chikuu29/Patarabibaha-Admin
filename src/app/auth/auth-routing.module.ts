@@ -12,63 +12,65 @@ import { SubadminviewComponent } from './subadminview/subadminview.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'landing-page',
-    pathMatch: 'full'
-  },
-  {
-    path: 'sign-in',
-    component: LoginComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'view-auth-user',
-    component: ViewAuthUserComponent,
-    canActivate: [AuthGuard],
-    pathMatch: 'full'
-  },
-  {
-    path: 'userpasswordchange',
-    canActivate: [AuthGuard],
-    component:ChangeuserpassComponent ,
-    pathMatch: 'full'
-  },
-  {
-    path: '2wayverification/:id',
-    canActivate: [AuthGuard],
-    component:TwostepverificationComponent ,
-    pathMatch: 'full'
-  },
-  {
-    path: 'subadminview',
-    canActivate: [AuthGuard],
-    component:SubadminviewComponent ,
-    pathMatch: 'full'
-  },
-  {
-    path: 'subadmincreate',
-    canActivate: [AuthGuard],
-    component:SubadmincreateComponent ,
-    pathMatch: 'full'
-  },
-  {
-    path: 'subadmincreate/:id',
-    canActivate: [AuthGuard],
-    component:SubadmincreateComponent ,
-    pathMatch: 'full'
-  },
-  
-  {
-    path: 'error-page',
-    canActivate: [AuthGuard],
-    component:ErrorPageComponent ,
-    pathMatch: 'full'
-  },
- 
+    // component: LoginComponent,
+    children: [
 
+      {
+        path: '',
+        redirectTo: '/landing-page',
+        pathMatch: 'full'
+      },
+      {
+        path: 'sign-in',
+        component: LoginComponent
+        // pathMatch: 'full'
+      },
+      {
+        path: 'view-auth-user',
+        component: ViewAuthUserComponent,
+        canActivate: [AuthGuard],
+        pathMatch: 'full'
+      },
+      {
+        path: 'userpasswordchange',
+        canActivate: [AuthGuard],
+        component: ChangeuserpassComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: '2wayverification/:id',
+        canActivate: [AuthGuard],
+        component: TwostepverificationComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: 'subadminview',
+        canActivate: [AuthGuard],
+        component: SubadminviewComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: 'subadmincreate',
+        canActivate: [AuthGuard],
+        component: SubadmincreateComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: 'subadmincreate/:id',
+        canActivate: [AuthGuard],
+        component: SubadmincreateComponent,
+        pathMatch: 'full'
+      },
 
-  
-  
- 
+      {
+        path: 'error-page',
+        canActivate: [AuthGuard],
+        component: ErrorPageComponent,
+        pathMatch: 'full'
+      }
+    ]
+  },
+
 ];
 
 @NgModule({

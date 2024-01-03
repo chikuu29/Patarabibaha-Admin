@@ -27,6 +27,8 @@ export class AuthGuard implements CanActivate {
 
       take(1),
       map(admin => {
+        console.log("Auth Gaurd",admin);
+        
         if (admin && admin.token) {
           const appConfig = this.appservices.getappconfig;
           let str = state.url

@@ -25,6 +25,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ChatModule } from './chat/chat.module';
 import { AuthorizationInterceptor } from './utils/authorization.interceptor';
 import { AuthService } from './auth/auth.service';
+import { AuthComponent } from './layout/auth/auth.component';
+import { AdminComponent } from './layout/admin/admin.component';
 export function checkLoginMode(auth: AuthService) {
   console.log("REBUILDING AUTH STATE....");
   return () => {
@@ -35,6 +37,8 @@ export function checkLoginMode(auth: AuthService) {
 @NgModule({
   declarations: [
     AppComponent,
+    AuthComponent,
+    AdminComponent
    
   ],
   imports: [

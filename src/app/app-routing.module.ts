@@ -5,40 +5,45 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 
 import { ChatUserViewComponent } from './chat/chat-user-view/chat-user-view.component';
 import { LoginComponent } from './auth/login/login.component';
+import { AuthComponent } from './layout/auth/auth.component';
+import { AdminComponent } from './layout/admin/admin.component';
 
 const routes: Routes = [
-  {
-    path: 'chat',
-    // pathMatch:'prefix',
-    // component:ChatUserViewComponent,
-    canActivate: [AuthGuard],
-    loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
-  },
-  {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
 
-  },
   {
-    path: 'pages',
-    canActivate: [AuthGuard],
+    path: '',
+    // canActivate: [AuthGuard],
+    component: AdminComponent,
     children: [
       {
         path: '',
+        loadChildren: () => import('./component/component.module').then(m => m.ComponentModule)
+      },
+      {
+        path: 'pages',
         loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
-      }
+      },
+      {
+        path: 'chat',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
+      },
     ]
   },
   {
     path: '',
-    canActivate: [AuthGuard],
+    component: AuthComponent,
     children: [
       {
-        path: '',
-        loadChildren: () => import('./component/component.module').then(m=>m.ComponentModule)
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
       }
     ]
+
   },
+  
+
+ 
 
   {
     path: 'approve',
@@ -46,10 +51,10 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./approve/approve.module').then(m=>m.ApproveModule)
+        loadChildren: () => import('./approve/approve.module').then(m => m.ApproveModule)
       }
     ]
-    
+
   },
   {
     path: 'chating',
@@ -57,15 +62,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./chatting/chatting.module').then(m=>m.ChattingModule)
+        loadChildren: () => import('./chatting/chatting.module').then(m => m.ChattingModule)
       }
     ]
-    
+
   },
-
-
-
-
   {
     path: 'error-page',
     canActivate: [AuthGuard],

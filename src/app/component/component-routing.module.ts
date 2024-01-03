@@ -31,16 +31,18 @@ import { MarriagestatusComponent } from './marriagestatus/marriagestatus.compone
 import { MarriagecombinationComponent } from './marriagecombination/marriagecombination.component';
 import { ViewchatingpageComponent } from './viewchatingpage/viewchatingpage.component';
 import { PlanDeatilsComponent } from './plan-deatils/plan-deatils.component';
+import { AdminComponent } from '../layout/admin/admin.component';
 
 
 
 const routes: Routes = [
   {
     path: '',
+    component:AdminComponent,
     children: [
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'landing-page',
         pathMatch: 'full'
         // component: DashboardComponent
       },
@@ -93,7 +95,8 @@ const routes: Routes = [
         path: 'deatils-page',
         canActivate: [AuthGuard],
         component: CouponComponent
-      }, {
+      },
+      {
         path: 'match-makng-page',
         canActivate: [AuthGuard],
         component: MatchmakingComponent
@@ -136,13 +139,13 @@ const routes: Routes = [
       {
         path: 'expire-member',
         canActivate: [AuthGuard],
-        component:  ExpirememberComponent
+        component: ExpirememberComponent
       },
       {
         path: 'sales-report',
         canActivate: [AuthGuard],
-        component:  SalesreportComponent
-      },{
+        component: SalesreportComponent
+      }, {
         path: 'water-page',
         canActivate: [AuthGuard],
         component: WatermarkComponent
@@ -156,23 +159,23 @@ const routes: Routes = [
         path: 'designation',
         canActivate: [AuthGuard],
         component: DesignationComponent
-      },{
+      }, {
         path: 'filter',
         canActivate: [AuthGuard],
         component: UserfilterComponent
-      },{
+      }, {
         path: 'phone-validation',
         canActivate: [AuthGuard],
         component: PhonevalidationComponent
-      },{
+      }, {
         path: 'email-validation',
         canActivate: [AuthGuard],
         component: EmailvalidationComponent
-      },{
+      }, {
         path: 'marriage',
         canActivate: [AuthGuard],
         component: MarriagestatusComponent
-      },{
+      }, {
         path: 'marriage-combine/:id',
         canActivate: [AuthGuard],
         component: MarriagecombinationComponent
@@ -182,7 +185,7 @@ const routes: Routes = [
         path: 'chatingpage/:id',
         canActivate: [AuthGuard],
         component: ViewchatingpageComponent
-      },{
+      }, {
         path: 'plan-Deatils/:id',
         canActivate: [AuthGuard],
         component: PlanDeatilsComponent

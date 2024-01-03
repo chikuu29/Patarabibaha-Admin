@@ -31,6 +31,7 @@ import { HomeiconComponent } from './homeicon/homeicon.component';
 import { HomepagecontentComponent } from './homepagecontent/homepagecontent.component';
 import { HomepageeventComponent } from './homepageevent/homepageevent.component';
 import { LogineventComponent } from './loginevent/loginevent.component';
+import { AdminComponent } from '../layout/admin/admin.component';
 
 
 
@@ -38,6 +39,7 @@ const routes: Routes = [
 
   {
     path: '',
+    component:AdminComponent,
     children: [
       {
         path: '',
