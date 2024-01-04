@@ -27,7 +27,8 @@ const routes: Routes = [
         path: 'chat',
         canActivate: [AuthGuard],
         loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
-      },
+      }
+     
     ]
   },
   {
@@ -75,7 +76,7 @@ const routes: Routes = [
   {
 
     path: "**",
-    redirectTo: "auth/error-page",
+    redirectTo: "/landing-page",
     pathMatch: 'full'
 
   }
