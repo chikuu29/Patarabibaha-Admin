@@ -5,7 +5,7 @@
         <a class="sidebar-brand brand-logo-mini" routerLink="/"><span class="fw-bold"
                 style="font-weight: bold !important;">P</span></a>
     </div>
-    
+
     <ul class="nav" id="sidescollBar">
         <li class="nav-item profile">
             <div class="profile-desc">
@@ -72,223 +72,35 @@
         <li class="nav-item nav-category">
             <span class="nav-link">Navigation</span>
         </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" routerLink="landing-page">
-                <span class="menu-icon">
-                    <i class="mdi mdi-airplane-landing"></i>
-                </span>
-                <span class="menu-title">Landing Page</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" routerLink="dashboard">
-                <span class="menu-icon">
-                    <i class="mdi mdi-speedometer"></i>
-                </span>
-                <span class="menu-title">Dashboard</span>
-            </a>
-        </li>
-
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-icon">
-                    <i class="mdi mdi-laptop"></i>
-                </span>
-                <span class="menu-title">All User Data</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic2">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/create_user">Create User</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/alluserdata">All Members</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/addtopaid">Active To Paid</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/upgrade">Upgrade User Plan</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/spotlight">Spotlight Area</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/login-activity">Login Activity</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/like-activity">Like profile</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/ignore-activity">Ignore profile</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/expire-member">Expire Members</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/match-makng-page">Match Making</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/filter">User Filter</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/phone-validation">Phone Validation
-                            <span style="color: red;"> ({{phoneapprovedata}})</span>
-                        </a>
-                    </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/email-validation">Email Validation</a>
-                    </li>
-
-                </ul>
-            </div>
-        </li>
-
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-icon">
-                    <i class="fa-solid fa-crown"></i>
-                </span>
-                <span class="menu-title">Membership Plan</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" routerLink="/viweplan-page">View Plan</a></li>
-                    <li class="nav-item"> <a class="nav-link" routerLink="/addplan-page">Add Plan</a></li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-icon">
-                    <i class="mdi mdi-laptop"></i>
-                </span>
-                <span class="menu-title">Management</span>
-                <i class="menu-arrow"></i>
-            </a>
-
-            <div class="collapse" id="ui-basic1">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/socialmedia-page">Social Media</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/country-page">Country</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/state-page">State</a> </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/city-page">City</a> </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/zodiacs-page">Zodiacs</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/nakshatra-page">Nakshatra</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/annualincome-page">Annualincome</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/mother-tongue-page">Mother Tongue</a>
-                    </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/employedin-page">Employed In</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/occupation-page">Occupation</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/aditional-education-page">Aditional
-                            Eeducation</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/education-page">Highest Education</a>
-                    </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/religion-page">Religion</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/cast-page">Cast</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/subcast-page">Sub Cast</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/gotra-page">Gotra</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/type-page">Type</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/designation">designation</a></li>
-
-                </ul>
-            </div>
-        </li>
-
-
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <span class="menu-icon">
-                    <i class="mdi mdi-security"></i>
-                </span>
-                <span class="menu-title">UI-Interface</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-                <ul class="nav flex-column sub-menu">
-
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/privacypolicy-page">Privacy Policy</a>
-                    </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/termandcondition-page">Term and
-                            Condition</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/aboutus-page">About Us</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/contactus-page">Contact Us</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/prifixid-page">Prifix Id</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/logo-page">Logo Image</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/banner-page">Banner Image</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/water-page">Water Mark</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/barcode-page">Bar Code</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/home-content">Home Page Content</a></li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/home-icon">Home Icon</a></li>
-
-
-                </ul>
-            </div>
-        </li>
-
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#auth1" aria-expanded="false" aria-controls="auth">
-                <span class="menu-icon">
-                    <i class="mdi mdi-security"></i>
-                </span>
-                <span class="menu-title">Approval Notice</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth1">
-                <ul class="nav flex-column sub-menu">
-
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/approve/userapprove-page">User
-                            Approve<span style="color: red;"> ({{usercount}})</span> </a>
-                    </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/approve/profileimagepprove-page">Profile
-                            Image Approve<span style="color: red;"> ({{profilephotocount}})</span> </a>
-                    </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/approve/deleterequest-page">Delete
-                            Request<span style="color: red;"> ({{ deliteeeqest }})</span> </a>
-                    </li>
-
-
-                </ul>
-            </div>
-        </li>
-
-        <li class="nav-item menu-items">
-            <a class="nav-link" routerLink="/chating">
-                <span class="menu-icon">
-                    <i class="mdi mdi-file-document-box"></i>
-                </span>
-                <span class="menu-title">Chatting Massage</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#authcoup" aria-expanded="false" aria-controls="auth">
-                <span class="menu-icon">
-                    <i class="mdi mdi-security"></i>
-                </span>
-                <span class="menu-title">Coupon Code</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="authcoup">
-                <ul class="nav flex-column sub-menu">
-
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/deatils-page">Deatils</a>
-                    </li>
-
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" routerLink="userpasswordchange">
-                <span class="menu-icon">
-                    <i class="mdi mdi-airplane-landing"></i>
-                </span>
-                <span class="menu-title">Change password</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" routerLink="sales-report">
-                <span class="menu-icon">
-                    <i class="mdi mdi-speedometer"></i>
-                </span>
-                <span class="menu-title">Sales Report</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#authcoupu" aria-expanded="false" aria-controls="auth">
-                <span class="menu-icon">
-                    <i class="mdi mdi-security"></i>
-                </span>
-                <span class="menu-title">Event Menagement</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="authcoupu">
-                <ul class="nav flex-column sub-menu">
-
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/login-event">Login Enent</a>
-                    </li>
-                    <li class="nav-item m-1"> <a class="nav-link" routerLink="/home-event">Home page Event</a>
-                    </li>
-
-                </ul>
-            </div>
+        <li class="nav-item menu-items" *ngFor="let navmenu of navConfig,let i=index">
+           
+            <ng-container *ngIf="navmenu.requiredRouterLink" >
+                <a class="nav-link" [routerLink]="navmenu.requiredRouterLink?[navmenu.routerLink]:[]">
+                    <span class="menu-icon">
+                        <i [class]="navmenu.icon"></i>
+                    </span>
+                    <span class="menu-title">{{navmenu.text}}</span>
+                </a>
+            </ng-container>
+            <ng-container *ngIf="!navmenu.requiredRouterLink">
+                <a class="nav-link" data-toggle="collapse" [href]="'#nav-ui-'+i" aria-expanded="false" >
+                    <span class="menu-icon">
+                        <i [class]="navmenu.icon"></i>
+                    </span>
+                    <span class="menu-title">{{navmenu.text}}</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" [id]="'nav-ui-'+i">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item m-1" *ngFor="let submenu of navmenu['submenu']"> 
+                            <a class="nav-link" [routerLink]="[submenu.routerLink]">{{submenu.text}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </ng-container>
+            
+         
+           
         </li>
     </ul>
 
