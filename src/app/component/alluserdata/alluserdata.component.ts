@@ -793,7 +793,9 @@ export class AlluserdataComponent implements OnInit {
   }
   getId(id: any, e: any) {
 
-    if (e.target.checked) {
+    console.log("hii",e);
+    
+    if (e.checked) {
       this.allId.push(parseInt(id));
     } else {
       let index = this.allId.indexOf(parseInt(id));

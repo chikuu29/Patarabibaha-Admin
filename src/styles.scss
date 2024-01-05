@@ -1,5 +1,87 @@
 // /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
+
+
+.btn.btn-label-danger {
+  background-color: rgba(253, 57, 122, 0.1);
+  color: #fd397a;
+  cursor: text !important;
+}
+.btn.btn-label-success {
+  background-color: rgba(10, 187, 135, 0.1);
+  color: #0abb87;
+  cursor: text !important;
+}
+
+.table-holder {
+  // border-radius: 12px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  .table-caption-holder {
+    padding: 7px;
+    // border-bottom: 2px solid #c1c3c5;
+    align-items: center;
+
+    display: flex;
+    justify-content: space-between;
+  }
+  .table-content-holder {
+    overflow-x: scroll;
+
+    table {
+      th {
+
+        vertical-align: middle;
+        background: #dcdcff;
+        line-height: 2rem;
+        // .table-scroll th {
+          position: sticky;
+          top: 0;
+          // background: #fff;
+          -webkit-position: -webkit-sticky;
+          box-shadow: 0 0 1px #ebedf2;
+          z-index: 9;
+        // }
+      }
+      th:last-child {
+        position: sticky;
+        z-index: 9;
+      }
+
+      .fixed-column {
+        position: sticky;
+        right: 0; /* Stick it to the right side */
+      }
+
+      td {
+        div {
+          text-overflow: ellipsis;
+          display: block;
+          overflow: hidden;
+        }
+        // span {
+        //     // max-width: 0;
+        //     // overflow: hidden;
+        //     // text-overflow: ellipsis;
+        //     // white-space: nowrap;
+        //     // padding: 0.75em;
+        //     // text-align: left;
+        //   }
+      }
+    
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 // .table{
 //   width: 100%;
 // }
@@ -207,3 +289,7 @@
     }
   }
 }
+
+
+// Table View Css Strat Here
+
