@@ -19,6 +19,7 @@ import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/mate
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 // import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -50,7 +51,8 @@ export const MY_FORMATS = {
     MatSlideToggleModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCheckboxModule
 
 
 
@@ -72,7 +74,8 @@ export const MY_FORMATS = {
     MatSlideToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCheckboxModule
 
 
   ],

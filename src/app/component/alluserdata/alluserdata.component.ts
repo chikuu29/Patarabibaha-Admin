@@ -809,4 +809,8 @@ export class AlluserdataComponent implements OnInit {
   }
 
 
+  openNewTab(user_id:any){
+    window.open("/user/"+user_id, '_blank');
+  }
+
 }

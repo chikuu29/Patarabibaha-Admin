@@ -3,8 +3,12 @@
     <ng-container *ngIf="fillter_btn">
 
         <!-- <p-button icon="pi pi-filter" style="font-size: 2rem;" severity="success"></p-button> -->
-        <button class="filter-button" (click)="clickFillterMethod(filterText)">
-            <i class="fas fa-filter"></i> <!-- Font Awesome filter icon -->
+        <!-- <button class="filter-button" (click)="clickFillterMethod(filterText)">
+            <i class="fas fa-filter"></i> 
+        </button> -->
+         <!-- Filter Button -->
+        <button type="button" class="btn btn-outline-primary" (click)="clickFillterMethod(filterText)">
+            <i class="fas fa-filter"></i> Filter
         </button>
     </ng-container>
     <ng-container>
@@ -23,7 +27,7 @@
 
     </ng-container>
     <ng-container *ngIf="search_btn">
-        <div class="search-button" (click)="clickSearchMethod(filterText)">
+        <!-- <div class="search-button" (click)="clickSearchMethod(filterText)">
             <input type="text" [(ngModel)]="filterText" placeholder="Filter by any column" />
             <div class="symbol">
                 <svg class="cloud">
@@ -33,7 +37,12 @@
                     <use xlink:href="#lens" />
                 </svg>
             </div>
-        </div>
+        </div> -->
+        <button type="button" class="btn btn-outline-primary">
+            <i class="fas fa-search"></i> Search
+        </button>
+        
+       
 
     </ng-container>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
