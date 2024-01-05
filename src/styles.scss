@@ -1,71 +1,71 @@
 // /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
-.table{
-  width: 100%;
-}
-.table-holder {
-  // background: #1b2124;
-  // color: #fff;
-  border-radius: 5px;
-  // .caption-header {
+// .table{
+//   width: 100%;
+// }
+// .table-holder {
+//   // background: #1b2124;
+//   // color: #fff;
+//   border-radius: 5px;
+//   // .caption-header {
   
-  //   // box-shadow: 0.063rem 0 1.25rem 0 #c1c3c5;
-  //   padding: 7px;
-  //   padding-bottom: 7px;
-  //   border-bottom: 2px solid #c1c3c5;
-  //   align-items: center;
-  //   display: flex;
-  //   justify-content: space-between;
-  // }
-  .caption-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap; /* Allow items to wrap onto the next line on smaller screens */
-  }
+//   //   // box-shadow: 0.063rem 0 1.25rem 0 #c1c3c5;
+//   //   padding: 7px;
+//   //   padding-bottom: 7px;
+//   //   border-bottom: 2px solid #c1c3c5;
+//   //   align-items: center;
+//   //   display: flex;
+//   //   justify-content: space-between;
+//   // }
+//   .caption-header {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     flex-wrap: wrap; /* Allow items to wrap onto the next line on smaller screens */
+//   }
 
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .caption-header {
-      flex-direction: column; /* Stack items vertically on smaller screens */
-      align-items: stretch;
-    }
+//   /* Responsive styles */
+//   @media (max-width: 768px) {
+//     .caption-header {
+//       flex-direction: column; /* Stack items vertically on smaller screens */
+//       align-items: stretch;
+//     }
   
-    .caption-item {
-      width: 100%; /* Make each item take full width on smaller screens */
-    }
-  }
-  .table-header {
-    background: #5d78ff;
-    th {
-      padding: 14px 14px;
-      color: #fff;
-      font-weight: 500;
-    }
-  }
+//     .caption-item {
+//       width: 100%; /* Make each item take full width on smaller screens */
+//     }
+//   }
+//   .table-header {
+//     background: #5d78ff;
+//     th {
+//       padding: 14px 14px;
+//       color: #fff;
+//       font-weight: 500;
+//     }
+//   }
 
-  .table-body {
+//   .table-body {
   
-    padding: 5px;
+//     padding: 5px;
   
 
-    td {
+//     td {
     
-      // color: #fff;
-      padding: 14px 14px;
-      font-weight: 400;
-    }
-  }
-}
+//       // color: #fff;
+//       padding: 14px 14px;
+//       font-weight: 400;
+//     }
+//   }
+// }
 
-.data-view-container {
-  max-height: 80vh;
-  overflow: scroll;
-}
-.data-view-container::-webkit-scrollbar {
-  display: none;
-  /* for Chrome, Safari, and Opera */
-}
+// .data-view-container {
+//   max-height: 80vh;
+//   overflow: scroll;
+// }
+// .data-view-container::-webkit-scrollbar {
+//   display: none;
+//   /* for Chrome, Safari, and Opera */
+// }
 // ::-webkit-scrollbar {
 //   width: 10px;
 // }

@@ -9538,9 +9538,9 @@ svg {
   vertical-align: middle;
 }
 
-table {
+/* table {
   border-collapse: collapse;
-}
+} */
 
 caption {
   padding-top: 0.9375rem;
@@ -11096,7 +11096,7 @@ pre code {
   }
 }
 
-.table,
+/* .table,
 .jsgrid .jsgrid-table {
   width: 100%;
   margin-bottom: 1rem;
@@ -11385,9 +11385,9 @@ pre code {
 .table-dark.table-hover tbody tr:hover {
   color: #fff;
   background-color: rgba(255, 255, 255, 0.075);
-}
+} */
 
-@media (max-width: 575.98px) {
+/* @media (max-width: 575.98px) {
   .table-responsive-sm {
     display: block;
     width: 100%;
@@ -11632,7 +11632,7 @@ select.tt-query:focus::-ms-value,
 select.tt-hint:focus::-ms-value {
   color: #495057;
   background-color: #2A3038;
-}
+} */
 
 .form-control-file,
 .form-control-range {

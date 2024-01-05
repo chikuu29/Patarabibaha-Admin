@@ -1,122 +1,1168 @@
-<div class="d-flex flex-wrap justify-content-between pb-3">
-    <button type="button" [class]="class1" (click)="loadDATA('getAllData')">All Data</button>
-    <button type="button" [class]="class2" (click)="loadDATA('getAllOnlineData')">Online</button>
-    <button type="button" [class]="class3" (click)="loadDATA('getAllPublishedData')">Published</button>
-    <button type="button" [class]="class4" (click)="loadDATA('getAllUnpublishedData')">Un Published</button>
-    <button type="button" [class]="class5" (click)="loadDATA('getAllDeletedData')">Deleted</button>
-    <button type="button" [class]="class6" (click)="loadDATA('getAllNotDeletedData')">Not Deleted</button>
-    <button type="button" [class]="class7" (click)="loadDATA('getAllApprovedData')">Approve</button>
-    <button type="button" [class]="class8" (click)="loadDATA('getAllPendingData')">Pending</button>
-    <button type="button" [class]="class9" (click)="loadDATA('getAllvaliduserData')">Valid user</button>
-</div>
-
-<div class="outline">
-    <div class="commen">
-        <i title="DELETE" (click)="deletedata()" class="material-icons text-danger pointer">delete_outline</i>
-    </div>
-    <div class="commen">
-        <i title="RECOVER" (click)="recoverdata()" class="material-icons text-success pointer">delete_outline</i>
-    </div>
-    <div class="commen">
-        <i title="PUBLISH" (click)="publishuser()"
-            class="material-icons pointer text-success">published_with_changes</i>
-    </div>
-    <div class="commen">
-        <i title="UNPUBLISH" (click)=" unpublishuser()" class="material-icons text-danger pointer">unpublished</i>
-    </div>
-    <div class="commen">
-        <i title="Online" class="material-icons pointer text-success" (click)="makeonline()">done</i>
-    </div>
-    <div class="commen">
-        <i title="Offline" class="material-icons text-danger pointer" (click)="makeoffline()">close</i>
-    </div>
-</div>
-<div class="scroll">
-    <div class="table-holder">
-        <div class="caption-header">
-            <div class="caption-item">
-                <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="true" (clickSearch)="search($event)" (clickFillter)="fillter($event)" ></app-search>
-            </div>
-            <div class="caption-item mt-3" *ngIf="pegination_required">
-
-                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="3" [rotate]="true" [ellipses]="false"
-                    [boundaryLinks]="false" class="" size="lg" (pageChange)="onpageChnage()"></ngb-pagination>
-            </div>
-            <!-- <div class="caption-item">
-                <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{finaldata?.length}} of {{finaldata?.length}} results</span>
-            </div> -->
 
 
+
+
+
+<div class="kapi-container">
+    <ng-container *ngFor="let kpi of kpiTileConfig;let i=index">
+        <div class="kapi-tile" (click)="loadKpi(kpi.methodName,i)">
+            <i [ngClass]="kpi.iconClass"></i>
+            <span class="ps-2 fw-bold">{{kpi.text}} </span>
+            <ng-container *ngIf="kpi.selectedStatus">
+                <div class="mt-3">
+                    <mat-progress-bar mode="determinate" [value]="100" [color]="'accent'"></mat-progress-bar>
+                </div>
+            </ng-container>
         </div>
+    </ng-container>
+    
+</div>
 
-        <div class="mt-3 data-view-container">
-            <table class="table ">
-                <thead class="table-header">
-                    <tr>
-                        <th>
-                            <input type="checkbox" class="checkAll" id="all" (change)="checkAll($event)">
-                        </th>
-                        <th class="width"></th>
-                        <th>#SI</th>
-                        <th>User Name</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Id</th>
-                        <th>Created At</th>
-                        <th>status</th>
-                        <th>Approval</th>
-                        <th>Delete Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body table-striped">
-                    <ng-container
-                        *ngFor="let data of finaldata | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="check" (change)="getId(data?.Id,$event)"
-                                    [value]="data?.user_id">
-                            </td>
-                            <td class="width align-items-center">
-                                <!-- <p title="Online" class="badge badge-success" *ngIf="data.online_status == 1">
-                                    <span></span>
-                                </p> -->
-                                <p  title="Online" *ngIf="data.online_status == 1" class="text-center"><i class="pi pi-verified" style="color: green"></i></p>
-                                <!-- <p title="Offline" class="badge badge-danger" *ngIf="data.online_status == 0">
-                                    <span></span>
-                                </p> -->
-                                <p  title="Offline" *ngIf="data.online_status == 0" class="text-center"><i class="pi pi-verified" style="color: green"></i></p>
-                            </td>
-                            <td>{{i+1}}</td>
-                            <td> <a (click)="userpage(data?.user_id)" class="underline" href="javascript:void(0);">
-                                    {{data?.user_fname+' '+data?.user_lname }}
-                                </a> </td>
-                            <td>{{data.user_dob | age}}</td>
-                            <td>{{data.user_gender }}</td>
-                            <td>{{data.user_id }}</td>
-                            <td>{{data.user_creation_date_time | date}}</td>
-                            <td>
-                                <p class="badge badge-success" *ngIf="data.status == 1">Publish</p>
-                                <p class="badge badge-danger" *ngIf="data.status == 0">Unpublish</p>
-                            </td>
-                            <td>
-                                <p class="badge badge-success" *ngIf="data.user_status == 'Approved'">Approved
-                                </p>
-                                <p class="badge badge-danger" *ngIf="data.user_status == 'Pending'">Pending</p>
-                            </td>
-                            <td>
-                                <p class="badge badge-success" *ngIf="data.deleted == 1">Not Deleted</p>
-                                <p class="badge badge-danger" *ngIf="data.deleted == 0">Deleted</p>
-                            </td>
-                            <td>
-                              <button type="button" (click)="viwePlan(data?.user_id)"
-                              class="btn btn-outline-danger btn-fw w-50">View Plan</button>
-                            </td>
-                        </tr>
-                    </ng-container>
-                </tbody>
-            </table>
+
+
+<div class="row">
+    <div class="col-xl-12 order-lg-1 order-xl-1">
+        <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+            <div class="table-caption-holder">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">My Open Cases</h3>
+                </div>
+                <div class="outline">
+                    <div class="commen">
+                        <button type="button" class="btn btn-outline-danger" (click)="deletedata()">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </div>
+                    <div class="commen">
+                        <button type="button" class="btn btn-outline-success" (click)="recoverdata()">
+                            <i class="fas fa-recycle"></i> Recover
+                        </button>
+                    </div>
+                    <div class="commen">
+                        <button type="button" class="btn btn-outline-success" (click)="publishuser()">
+                            <i class="fas fa-upload"></i> Publish
+                        </button>
+                    </div>
+                    <div class="commen">
+                        <button type="button" class="btn btn-outline-danger" (click)="unpublishuser()">
+                            <i class="fas fa-download"></i> Unpublish
+                        </button>
+                    </div>
+                    <div class="commen">
+                        <button type="button" class="btn btn-outline-success" (click)="makeonline()">
+                            <i class="fas fa-check-circle"></i> Online
+                        </button>
+                    </div>
+                    <div class="commen">
+                        <button type="button" class="btn btn-outline-danger" (click)="makeoffline()">
+                            <i class="fas fa-times-circle"></i> Offline
+                        </button>
+                    </div>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                   
+                    <!-- <span style="white-space: nowrap; padding-right: 20px;">Cases 1 to 20 of
+                        3291</span> -->
+                    <app-search (getSerachText)="getSearchText($event)"></app-search>
+                </div>
+            </div>
+            <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y"
+                id="grid_scroll_body" style="max-height: 50vh; position: relative;">
+                <div class="inbox-body inbox-body-table">
+                    <div class="table-scroll">
+                        <table class="custom-table table  table-bordered table-striped">
+                            <thead class="flip-content">
+                                <tr>
+
+                                    <th style="cursor: pointer;" title="Member Name">
+                                        Member Name </th>
+                                    <th style="cursor: pointer; width:8%" title="Profile ID">
+                                        Profile ID </th>
+                                    <th style="cursor: pointer; width:8%" title="Created At">
+                                        Created At
+                                    </th>
+
+                                    <th style="cursor: pointer;" title="Age"> Age </th>
+                                    <th style="cursor: pointer; width: 145px;" title="Profile Status"> Profile Status
+                                    </th>
+
+
+                                    <th class="fixed-column" title="Action">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container
+                                    *ngFor="let data of tableData | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
+                                    <tr>
+
+                                        <td [title]="data?.user_fname+' '+data?.user_lname"> {{data?.user_fname+'
+                                            '+data?.user_lname }}</td>
+                                        <td [title]="data?.user_id">
+                                            <div> {{data?.user_id}} </div>
+                                        </td>
+                                        <td title="Due In 9 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel">
+                                                {{data.user_creation_date_time | date:'medium'}}
+                                            </div>
+                                        </td>
+                                        <td [title]="data.user_dob | age">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel">
+                                                {{data.user_dob | age}} Years
+                                            </div>
+                                        </td>
+                                        <td title="Ready for Professional Open">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
+                                                *ngIf="data.status == 1"> Un Publish
+                                            </div>
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"
+                                                *ngIf="data.status == 0"> Publish
+                                            </div>
+
+                                        </td>
+
+                                        <td class="fixed-column">
+                                            <button class="btn btn-brand btn-sm btn-upper" title="View"><i
+                                                    class="fa fa-eye"></i></button>
+                                            <button class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Reference -->
+
+<ng-container *ngIf="false">
+    <div class="row">
+        <div class="col-xl-12 order-lg-1 order-xl-1">
+            <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+                <div class="table-caption-holder">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">My Open Cases</h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <!-- <ngb-pagination role="navigation" style="padding: 10px 15px 0 0;">
+                            <ul class="pagination">
+                                <li class="page-item disabled"><a aria-label="First" class="page-link" href=""
+                                        tabindex="-1"><span aria-hidden="true">««</span></a></li>
+                                <li class="page-item disabled"><a aria-label="Previous" class="page-link" href=""
+                                        tabindex="-1"><span aria-hidden="true">«</span></a></li>
+                                <li class="page-item active"><a class="page-link" href=""> 1
+                                        <span class="sr-only">(current)</span></a></li>
+                                <li class="page-item"><a class="page-link" href=""> 2
+                                    </a></li>
+                                <li class="page-item"><a class="page-link" href=""> 3
+                                    </a></li>
+                                <li class="page-item disabled"><a class="page-link">...</a></li>
+                                <li class="page-item"><a class="page-link" href=""> 165
+                                    </a></li>
+                                <li class="page-item"><a aria-label="Next" class="page-link" href=""><span
+                                            aria-hidden="true">»</span></a></li>
+                                <li class="page-item"><a aria-label="Last" class="page-link" href=""><span
+                                            aria-hidden="true">»»</span></a></li>
+                            </ul>
+                        </ngb-pagination> -->
+                        <span style="white-space: nowrap; padding-right: 20px;">Cases 1 to 20 of
+                            3291</span><button class="btn btn-default setting-green-class" id=""
+                            style="border:none; margin:0;"><i class="fa fa-search"
+                                placement="bottom-right"></i></button>
+                    </div>
+                </div>
+                <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y"
+                    id="grid_scroll_body" style="max-height: 50vh; position: relative;">
+                    <div class="inbox-body inbox-body-table">
+                        <div class="table-scroll">
+                            <table class="custom-table table  table-bordered table-striped">
+                                <thead class="flip-content">
+                                    <tr>
+
+                                        <th style="cursor: pointer;" title="Member Name">
+                                            Member Name </th>
+                                        <th style="cursor: pointer; width:8%" title="Profile ID">
+                                            Profile ID </th>
+                                        <th style="cursor: pointer; width:8%" title="Created At">
+                                            <span><span><i class="fa fa-arrow-down"></i></span><span hidden=""><i
+                                                        class="fa fa-arrow-up"></i></span></span> Created At
+                                        </th>
+
+                                        <th style="cursor: pointer;" title="Age"> Age </th>
+                                        <th style="cursor: pointer; width: 145px;" title="Profile Status"> Profile
+                                            Status
+                                        </th>
+                                        <th style="cursor: pointer;" title="Member Name">
+                                            Member Name </th>
+                                        <th style="cursor: pointer;" title="Member ID"> Member
+                                            ID </th>
+                                        <th style="cursor: pointer;" title="Incident ID">
+                                            Incident ID </th>
+                                        <th style="cursor: pointer;" title="Case ID"> Case ID
+                                        </th>
+                                        <th style="cursor: pointer; width: 40px;" title="Case Type">
+                                            CT </th>
+                                        <th style="cursor: pointer; width: 46px;" title="Medicare Part"> Medicare Part
+                                        </th>
+                                        <th style="cursor: pointer;" title="Category"> Category
+                                        </th>
+                                        <th style="width: 5%;" title="Outreach"> Outreach</th>
+                                        <th style="width: 5%;" title="Task">Task </th>
+                                        <th style="width: 5%;" title="New Message"> New <br> Message</th>
+                                        <th class="fixed-column" title="Action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let item of [1,2,3,6,7,7,7]">
+                                        <tr>
+
+                                            <td title="01-05-2024 12:06:32 PM"> 01-05-2024</td>
+                                            <td title="01-05-2024">
+                                                <div> 01-05-2024 </div>
+                                            </td>
+                                            <td title="Due In 9 Days ">
+                                                <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel">
+                                                    9 Days
+                                                </div>
+                                            </td>
+                                            <td title="Ready For Case Intake Summary">Ready For Case
+                                                Intake Summary</td>
+                                            <td title="Ready for Professional Open"> Ready for
+                                                Professional Open</td>
+                                            <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                            <td title="000000000">000000000</td>
+                                            <td class="hand_cursor_on" title=""> </td>
+                                            <td>
+                                                <div title="NDC_2024_001974"> NDC_001974 </div>
+                                            </td>
+                                            <td title="Standard Grievance">
+                                                <div>SG</div>
+                                            </td>
+                                            <td title="NA">
+                                                <div> NA </div>
+                                            </td>
+                                            <td title=""> </td>
+                                            <td class="hand_cursor_on">
+                                                <div>0 </div>
+                                            </td>
+                                            <td class="hand_cursor_on">
+                                                <div>0 </div>
+                                            </td>
+                                            <td class="hand_cursor_on">
+                                                <div> 0 </div>
+                                            </td>
+                                            <td class="fixed-column">
+                                                <button class="btn btn-brand btn-sm btn-upper" title="View"><i
+                                                        class="fa fa-eye"></i></button>
+                                                <button class="btn btn-brand btn-sm btn-upper"
+                                                    title="Open in new tab"><i
+                                                        class="fa fa-external-link-alt"></i></button>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                    <!-- <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Grievance"
+                                                    class="fa Grievance"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 12:08:10 PM"> 01-05-2024</td>
+                                        <td title="12-01-2023">
+                                            <div> 12-01-2023 </div>
+                                        </td>
+                                        <td title="Overdue by 25 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"> 25 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Intake Summary">Ready For Case
+                                            Intake Summary</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title=""> </td>
+                                        <td>
+                                            <div title="NDC_2024_001975"> NDC_001975 </div>
+                                        </td>
+                                        <td title="Standard Grievance">
+                                            <div>SG</div>
+                                        </td>
+                                        <td title="NA">
+                                            <div> NA </div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Grievance"
+                                                    class="fa Grievance"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 02:45:14 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 9 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 9 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Validation">Ready For Case
+                                            Validation</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title=""> </td>
+                                        <td>
+                                            <div title="NDC_2024_001977"> NDC_001977 </div>
+                                        </td>
+                                        <td title="Standard Grievance">
+                                            <div>SG</div>
+                                        </td>
+                                        <td title="NA">
+                                            <div> NA </div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 04:03:31 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 9 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 9 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Intake Summary">Ready For Case
+                                            Intake Summary</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title=""> </td>
+                                        <td>
+                                            <div title="NDC_2024_001983"> NDC_001983 </div>
+                                        </td>
+                                        <td title="Standard Appeal">
+                                            <div>SA</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 05:19:07 PM"> 01-05-2024</td>
+                                        <td title="01-05-2023">
+                                            <div> 01-05-2023 </div>
+                                        </td>
+                                        <td title="Overdue by 304 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"> 304 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Closing">Ready For Case Closing</td>
+    
+                                        <td title="Ready for Investigation"> Ready for Investigation
+                                        </td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title="INC_2024_001406">001406
+                                        </td>
+                                        <td>
+                                            <div title="POSTC_2024_001180"> POSTC_001180 </div>
+                                        </td>
+                                        <td title="Post Service">
+                                            <div>PS</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title="ADMINISTRATIVE APPEALS"> ADMINISTRATIVE APPEALS
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 2 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr style="background-color: rgb(243, 236, 222);">
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 05:16:16 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 30 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 30 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Intake Summary">Ready For Case
+                                            Intake Summary</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="Patrick Merrill">Patrick Merrill</td>
+                                        <td title="1640006102">1640006102</td>
+                                        <td class="hand_cursor_on" title="COM_INC_2024_001399">001399
+                                        </td>
+                                        <td>
+                                            <div title="COM_APL_2024_007985"> COM_APL_007985 </div>
+    
+                                        </td>
+                                        <td title="Pre-Service Standard Appeals">
+                                            <div>PSA</div>
+                                        </td>
+                                        <td title="">
+                                            <div> NA</div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr style="background-color: rgb(243, 236, 222);">
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 05:08:31 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 30 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 30 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Intake Summary">Ready For Case
+                                            Intake Summary</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="David Jones">David Jones</td>
+                                        <td title="5iXbtKod">5iXbtKod</td>
+                                        <td class="hand_cursor_on" title="COM_INC_2024_001398">001398
+                                        </td>
+                                        <td>
+                                            <div title="COM_APL_2024_007984"> COM_APL_007984 </div>
+    
+                                        </td>
+                                        <td title="Pre-Service Standard Appeals">
+                                            <div>PSA</div>
+                                        </td>
+                                        <td title="">
+                                            <div> NA</div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 04:05:25 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 30 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 30 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Intake Summary">Ready For Case
+                                            Intake Summary</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title="INC_2024_001401">001401
+                                        </td>
+                                        <td>
+                                            <div title="PREC_2024_001175"> PREC_001175 </div>
+                                        </td>
+                                        <td title="Standard Appeal">
+                                            <div>SA</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 11:18:47 AM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 30 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 30 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Closing">Ready For Case Closing</td>
+    
+                                        <td title="Ready for Investigation"> Ready for Investigation
+                                        </td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title="INC_2024_001349">001349
+                                        </td>
+                                        <td>
+                                            <div title="PREC_2024_001137"> PREC_001137 </div>
+                                        </td>
+                                        <td title="Standard Appeal">
+                                            <div>SA</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title="NON-AUTHORIZED SERVICES"> NON-AUTHORIZED SERVICES
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 2 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>3</div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>5</div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 06:28:44 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 60 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 60 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Re-Opened at Plan Level">Ready For
+                                            Re-Opened at Plan Level</td>
+                                        <td title="Ready for Re-Opened at Plan Level"> Ready for
+                                            Re-Opened at Plan Level</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title="INC_2024_001410">001410
+                                        </td>
+                                        <td>
+                                            <div title="POSTC_2024_001184"> POSTC_001184 </div>
+                                        </td>
+                                        <td title="Post Service">
+                                            <div>PS</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title="ADMINISTRATIVE APPEALS"> ADMINISTRATIVE APPEALS
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 2 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>3</div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>5</div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 06:05:31 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 60 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 60 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Re-Opened at Plan Level">Ready For
+                                            Re-Opened at Plan Level</td>
+                                        <td title="Ready for Re-Opened at Plan Level"> Ready for
+                                            Re-Opened at Plan Level</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title="INC_2024_001408">001408
+                                        </td>
+                                        <td>
+                                            <div title="POSTC_2024_001182"> POSTC_001182 </div>
+                                        </td>
+                                        <td title="Post Service">
+                                            <div>PS</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title="ADMINISTRATIVE APPEALS"> ADMINISTRATIVE APPEALS
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 2 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>4</div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>12</div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 04:03:40 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 60 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 60 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Intake Summary">Ready For Case
+                                            Intake Summary</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="Richard Dustin">Richard Dustin</td>
+                                        <td title="AB000001313">AB000001313</td>
+                                        <td class="hand_cursor_on" title="INC_2024_001400">001400
+                                        </td>
+                                        <td>
+                                            <div title="POSTC_2024_001174"> POSTC_001174 </div>
+                                        </td>
+                                        <td title="Post Service">
+                                            <div>PS</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 02:18:23 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 60 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 60 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Closing">Ready For Case Closing</td>
+    
+                                        <td title="Ready for Investigation"> Ready for Investigation
+                                        </td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title="INC_2024_001379">001379
+                                        </td>
+                                        <td>
+                                            <div title="POSTC_2024_001153"> POSTC_001153 </div>
+                                        </td>
+                                        <td title="Post Service">
+                                            <div>PS</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title="ADMINISTRATIVE APPEALS"> ADMINISTRATIVE APPEALS
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 2 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>1</div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>4</div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 03:27:47 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 60 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 60 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Investigation">Ready For Investigation
+                                        </td>
+                                        <td title="Ready for Investigation"> Ready for Investigation
+                                        </td>
+                                        <td title="Jennifer Diaz">Jennifer Diaz</td>
+                                        <td title="AV000001111">AV000001111</td>
+                                        <td class="hand_cursor_on" title="INC_2024_001360">001360
+                                        </td>
+                                        <td>
+                                            <div title="POSTC_2024_001142"> POSTC_001142 </div>
+                                        </td>
+                                        <td title="Post Service">
+                                            <div>PS</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title="ADMINISTRATIVE APPEALS"> ADMINISTRATIVE APPEALS
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 1 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 11:40:17 AM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 60 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 60 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Case Closing">Ready For Case Closing</td>
+    
+                                        <td title="Ready for Invalid Requestor Process"> Ready for
+                                            Invalid Requestor Process</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title="INC_2024_001351">001351
+                                        </td>
+                                        <td>
+                                            <div title="POSTC_2024_001138"> POSTC_001138 </div>
+                                        </td>
+                                        <td title="Post Service">
+                                            <div>PS</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title="ADMINISTRATIVE APPEALS"> ADMINISTRATIVE APPEALS
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 5 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>2</div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>2</div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Grievance"
+                                                    class="fa Grievance"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 11:50:19 AM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 16 Hours 41 Mins">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"> 16 Hours
+                                                41 Mins </div>
+                                        </td>
+                                        <td title="Ready For Case Intake Summary">Ready For Case
+                                            Intake Summary</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title=""> </td>
+                                        <td>
+                                            <div title="NDC_2024_001973"> NDC_001973 </div>
+                                        </td>
+                                        <td title="Expedited Grievance">
+                                            <div>EG</div>
+                                        </td>
+                                        <td title="NA">
+                                            <div> NA </div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 03:21:45 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 19 Hours 47 Mins">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"> 19 Hours
+                                                47 Mins </div>
+                                        </td>
+                                        <td title="Ready For Case Intake Summary">Ready For Case
+                                            Intake Summary</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title=""> </td>
+                                        <td>
+                                            <div title="NDC_2024_001979"> NDC_001979 </div>
+                                        </td>
+                                        <td title="Expedited Appeal">
+                                            <div>EA</div>
+                                        </td>
+                                        <td title="Part B">
+                                            <div> B </div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 03:22:58 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 20 Hours 14 Mins">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"> 20 Hours
+                                                14 Mins </div>
+                                        </td>
+                                        <td title="Ready For Case Intake Summary">Ready For Case
+                                            Intake Summary</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title=""> </td>
+                                        <td>
+                                            <div title="NDC_2024_001980"> NDC_001980 </div>
+                                        </td>
+                                        <td title="Expedited Appeal">
+                                            <div>EA</div>
+                                        </td>
+                                        <td title="Part B">
+                                            <div> B </div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 03:40:02 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 20 Hours 31 Mins">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"> 20 Hours
+                                                31 Mins </div>
+                                        </td>
+                                        <td title="Ready For Case Intake Summary">Ready For Case
+                                            Intake Summary</td>
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="Suryaa Sahoo">Suryaa Sahoo</td>
+                                        <td title="000000000">000000000</td>
+                                        <td class="hand_cursor_on" title=""> </td>
+                                        <td>
+                                            <div title="NDC_2024_001981"> NDC_001981 </div>
+                                        </td>
+                                        <td title="Expedited Appeal">
+                                            <div>EA</div>
+                                        </td>
+                                        <td title="Part C">
+                                            <div> C </div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr>
+                                    <tr class="last-child">
+                                        <td>
+                                            <div class="ag_icon" title="AG Professional"><i title="Appeal"
+                                                    class="fa Appeal"></i>
+                                                AProfessional </div>
+                                        </td>
+                                        <td title="01-05-2024 05:07:38 PM"> 01-05-2024</td>
+                                        <td title="01-05-2024">
+                                            <div> 01-05-2024 </div>
+                                        </td>
+                                        <td title="Due In 7 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> 7 Days
+                                            </div>
+                                        </td>
+                                        <td title="Ready For Good Cause">Ready For Good Cause</td>
+    
+                                        <td title="Ready for Professional Open"> Ready for
+                                            Professional Open</td>
+                                        <td title="David Jones">David Jones</td>
+                                        <td title="KJ5TuyCn">KJ5TuyCn</td>
+                                        <td class="hand_cursor_on" title="INC_2024_001405">001405
+                                        </td>
+                                        <td>
+                                            <div title="PREB_2024_001179"> PREB_001179 </div>
+                                        </td>
+                                        <td title="Standard Appeal">
+                                            <div>SA</div>
+                                        </td>
+                                        <td title="Part B">
+                                            <div> B </div>
+                                        </td>
+                                        <td title=""> </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 1 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div>0 </div>
+                                        </td>
+                                        <td class="hand_cursor_on">
+                                            <div> 0 </div>
+                                        </td>
+                                        <td class="fixed-column"><button class="btn btn-brand btn-sm btn-upper"
+                                                title="View"><i class="fa fa-eye"></i></button><button
+                                                class="btn btn-brand btn-sm btn-upper" title="Open in new tab"><i
+                                                    class="fa fa-external-link-alt"></i></button></td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-container>

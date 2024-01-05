@@ -15,7 +15,7 @@ export class AlluserdataComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   alldata: any;
-  finaldata: any = [];
+  tableData: any = [];
   filterText: string;
 
   allId: any[] = [];
@@ -35,24 +35,91 @@ export class AlluserdataComponent implements OnInit {
   pegination_required: boolean = false
   currentFunction: string = 'getAllData';
 
+  kpiTileConfig: any[] = [
+    {
+      text: 'All Data',
+      iconClass: 'fa-solid fa-users text-primary',
+      methodName: 'getAllData',
+      selectedStatus: false
+    },
+    {
+      text: 'Online',
+      iconClass: 'fa-solid fa-wifi text-success',
+      methodName: 'getAllOnlineData',
+      selectedStatus: false
+    },
+    {
+      text: 'Published',
+      iconClass: 'fa-solid fa-check-circle text-success',
+      methodName: 'getAllPublishedData',
+      selectedStatus: false
+    },
+    {
+      text: 'Un Published',
+      iconClass: 'fa-solid fa-times-circle text-danger',
+      methodName: 'getAllUnpublishedData',
+      selectedStatus: false
+    },
+    {
+      text: 'Deleted',
+      iconClass: 'fas fa-trash text-danger',
+      methodName: 'getAllDeletedData',
+      selectedStatus: false
+    },
+    {
+      text: 'Not Deleted',
+      iconClass: 'fas fa-ban text-danger',
+      methodName: 'getAllNotDeletedData',
+      selectedStatus: false
+    },
+    {
+      text: 'Approve',
+      iconClass: 'fas fa-thumbs-up text-primary',
+      methodName: 'getAllApprovedData',
+      selectedStatus: false
+    },
+    {
+      text: 'Pending',
+      iconClass: 'fas fa-clock text-warning',
+      methodName: 'getAllPendingData',
+      selectedStatus: false
+    },
+    {
+      text: 'Valid user',
+      iconClass: 'fas fa-user-check text-success',
+      methodName: 'getAllvaliduserData',
+      selectedStatus: false
+    }
+  ]
+
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router
   ) { }
   date: any;
   ngOnInit(): void {
-    let all = <any>document.getElementById('all');
-    all.checked = false;
+    // let all = <any>document.getElementById('all');
+    // all.checked = false;
     this.allId = [];
     this.page = 1;
     this.collectionSize = 10
-    let _this:any = this;
-    _this[this.currentFunction](this.page * 10 - 10, 10)
+    // let _this: any = this;
+    // _this[this.currentFunction](this.page * 10 - 10, 10)
+
     // this.getAllData(0, 10);
     this.date = new Date();
+    this.loadKpi("getAllData", 0)
   }
 
-  loadDATA(functionName: string) {
+  loadKpi(functionName: string, kpiNum: number) {
+    this.kpiTileConfig.forEach((e: any, index: number) => {
+      if (kpiNum != index) {
+        e.selectedStatus = false
+      }
+
+    })
+    this.kpiTileConfig[kpiNum]['selectedStatus'] = true
+
     this.currentFunction = functionName;
     this.page = 1;
     this.collectionSize = 10
@@ -102,8 +169,8 @@ export class AlluserdataComponent implements OnInit {
         // this.collectionSize=
         // console.log(this.collectionSize);
 
-        this.finaldata = res['data'];
-        // console.log(this.finaldata);
+        this.tableData = res['data'];
+        // console.log(this.tableData);
       }
 
     })
@@ -397,7 +464,7 @@ export class AlluserdataComponent implements OnInit {
          OR a.user_lname = '${search_text}';
        `;
     }
-   // console.log(quary);
+    // console.log(quary);
 
 
 
@@ -407,11 +474,11 @@ export class AlluserdataComponent implements OnInit {
       this.blockUI.stop()
       if (res.success && res['data'].length > 0) {
         this.collectionSize = Math.round(res['data'][0].total_count);
-        this.finaldata = res['data'];
-        console.log(this.finaldata);
-      }else{
+        this.tableData = res['data'];
+        console.log(this.tableData);
+      } else {
         this.collectionSize = 1;
-        this.finaldata = [];
+        this.tableData = [];
       }
     });
   }
@@ -460,10 +527,10 @@ export class AlluserdataComponent implements OnInit {
       console.log(res);
       if (res.success) {
         this.collectionSize = Math.round(res['data'][0].total_count)
-        this.finaldata = res['data'];
-        console.log(this.finaldata);
+        this.tableData = res['data'];
+        console.log(this.tableData);
       } else {
-        this.finaldata = [];
+        this.tableData = [];
       }
     });
   }
@@ -481,8 +548,8 @@ export class AlluserdataComponent implements OnInit {
           LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
           a.status=0
           LIMIT ${limit} OFFSET ${start}`
-          if (loadSpecificData) {
-            quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
             FROM user_info AS a
             LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
             WHERE
@@ -492,19 +559,19 @@ export class AlluserdataComponent implements OnInit {
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}';
              `;
-          }
+    }
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       //console.log(res);
-      if (res.success && res['data'].length > 0 ) {
-       // alert('ll')
+      if (res.success && res['data'].length > 0) {
+        // alert('ll')
         this.collectionSize = Math.round(res['data'][0].total_count)
-        this.finaldata = res['data'];
-       // console.log(this.finaldata);
+        this.tableData = res['data'];
+        // console.log(this.tableData);
       } else {
-        this.collectionSize=1;
-        this.finaldata = [];
-       // console.log(this.finaldata);
+        this.collectionSize = 1;
+        this.tableData = [];
+        // console.log(this.tableData);
       }
     });
   }
@@ -517,7 +584,7 @@ export class AlluserdataComponent implements OnInit {
     this.class6 = 'btn btn-primary';
     this.class7 = 'btn btn-primary';
     this.class9 = 'btn btn-primary';
-   // let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=0';
+    // let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=0';
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
     LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
@@ -539,11 +606,11 @@ export class AlluserdataComponent implements OnInit {
       //console.log(res);
       if (res.success && res['data'].length > 0) {
         this.collectionSize = Math.round(res['data'][0].total_count);
-        this.finaldata = res['data'];
-        //console.log(this.finaldata);
+        this.tableData = res['data'];
+        //console.log(this.tableData);
       } else {
         this.collectionSize = 1;
-        this.finaldata = [];
+        this.tableData = [];
       }
     });
   }
@@ -579,11 +646,11 @@ export class AlluserdataComponent implements OnInit {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.collectionSize = Math.round(res['data'][0].total_count);
-        this.finaldata = res['data'];
-        console.log(this.finaldata);
+        this.tableData = res['data'];
+        console.log(this.tableData);
       } else {
         this.collectionSize = 1;
-        this.finaldata = [];
+        this.tableData = [];
       }
     });
   }
@@ -619,11 +686,11 @@ export class AlluserdataComponent implements OnInit {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         this.collectionSize = Math.round(res['data'][0].total_count);
-        this.finaldata = res['data'];
-        console.log(this.finaldata);
+        this.tableData = res['data'];
+        console.log(this.tableData);
       } else {
         this.collectionSize = 1;
-        this.finaldata = [];
+        this.tableData = [];
       }
     });
   }
@@ -637,7 +704,7 @@ export class AlluserdataComponent implements OnInit {
     this.class7 = ' btn btn-primary';
     this.class8 = 'btn active';
     this.class9 = 'btn btn-primary';
-   // let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Pending"';
+    // let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Pending"';
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
     LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
@@ -658,11 +725,11 @@ export class AlluserdataComponent implements OnInit {
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.collectionSize = Math.round(res['data'][0].total_count);
-        this.finaldata = res['data'];
-        console.log(this.finaldata);
+        this.tableData = res['data'];
+        console.log(this.tableData);
       } else {
         this.collectionSize = 1;
-        this.finaldata = [];
+        this.tableData = [];
       }
     });
   }
@@ -699,11 +766,11 @@ export class AlluserdataComponent implements OnInit {
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.collectionSize = Math.round(res['data'][0].total_count);
-        this.finaldata = res['data'];
-        console.log(this.finaldata);
+        this.tableData = res['data'];
+        console.log(this.tableData);
       } else {
         this.collectionSize = 1;
-        this.finaldata = [];
+        this.tableData = [];
       }
     });
   }
@@ -713,7 +780,7 @@ export class AlluserdataComponent implements OnInit {
     this.allId = [];
     if (e.target.checked) {
       check.forEach((element: any, key: any) => {
-        this.allId.push(parseInt(this.finaldata[key].Id));
+        this.allId.push(parseInt(this.tableData[key].Id));
         element.checked = true;
       });
     } else {
@@ -737,8 +804,8 @@ export class AlluserdataComponent implements OnInit {
     console.log(this.allId);
   }
 
-  viwePlan(data:any){
-      this.router.navigate(['/plan-Deatils',data])
+  viwePlan(data: any) {
+    this.router.navigate(['/plan-Deatils', data])
   }
 
 
