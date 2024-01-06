@@ -46,6 +46,9 @@
         position: sticky;
         z-index: 9;
       }
+      td:last-child{
+        background-color: #fff;
+      }
 
       .fixed-column {
         position: sticky;
@@ -69,6 +72,13 @@
       }
     
     }
+  }
+  .table-footer-holder{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // text-align: center;
+    padding: 5px;
   }
 }
 

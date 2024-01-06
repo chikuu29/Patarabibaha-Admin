@@ -56,8 +56,7 @@
                 </div>
                 <div class="kt-portlet__head-toolbar">
 
-                    <!-- <span style="white-space: nowrap; padding-right: 20px;">Cases 1 to 20 of
-                        3291</span> -->
+                    
                     <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="true"
                         (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
 
@@ -153,6 +152,17 @@
 
                 </div>
 
+            </div>
+            <div class="table-footer-holder">
+                <div>
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false" [ellipses]="false"
+                    [boundaryLinks]="false" class=""  (pageChange)="onpageChnage()"></ngb-pagination>
+                </div>
+                <div>
+                    <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's {{offset}} to {{totalFetchrecord}} of
+                        {{totalDataCount}}</span>
+                </div>
+               
             </div>
         </div>
     </div>

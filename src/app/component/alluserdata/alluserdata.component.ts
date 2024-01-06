@@ -20,18 +20,13 @@ export class AlluserdataComponent implements OnInit {
 
   allId: any[] = [];
 
+  apiFetchRecordLimit=15
 
-  class1: any = 'btn active';
-  class2: any = 'btn btn-primary';
-  class3: any = 'btn btn-primary';
-  class4: any = 'btn btn-primary';
-  class5: any = 'btn btn-primary';
-  class6: any = 'btn btn-primary';
-  class7: any = 'btn btn-primary';
-  class8: any = 'btn btn-warning';
-  class9: any = 'btn btn-primary';
+
   page: any = 1;
   collectionSize: any = 10
+  offset=1;
+
   pegination_required: boolean = false
   currentFunction: string = 'getAllData';
 
@@ -92,6 +87,10 @@ export class AlluserdataComponent implements OnInit {
     }
   ]
 
+
+  totalDataCount: number = 0
+  totalFetchrecord:number=0
+
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router
@@ -125,7 +124,7 @@ export class AlluserdataComponent implements OnInit {
     this.collectionSize = 10
     this.pegination_required = true
     let _this: any = this
-    _this[functionName](0, 10);
+    _this[functionName](0, this.apiFetchRecordLimit);
   }
   getSearchText(event: any) {
     this.filterText = event
@@ -178,8 +177,8 @@ export class AlluserdataComponent implements OnInit {
   }
   onpageChnage() {
     let _this: any = this;
-    _this[this.currentFunction](this.page * 10 - 10, 10);
-    //this.getAllData(this.page * 10 - 10, 10)
+    _this[this.currentFunction](this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit, this.apiFetchRecordLimit);
+    this.offset=this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit
   }
 
 
@@ -441,15 +440,7 @@ export class AlluserdataComponent implements OnInit {
 
   getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.pegination_required = true
-    this.class1 = 'btn active';
-    this.class2 = 'btn btn-primary';
-    this.class3 = 'btn btn-primary';
-    this.class4 = 'btn btn-primary';
-    this.class5 = 'btn btn-primary';
-    this.class6 = 'btn btn-primary';
-    this.class7 = 'btn btn-primary';
-    this.class8 = 'btn btn-primary';
-    this.class9 = 'btn btn-primary';
+    
     var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
@@ -464,18 +455,23 @@ export class AlluserdataComponent implements OnInit {
          OR a.user_lname = '${search_text}';
        `;
     }
-    // console.log(quary);
-
-
-
-    // console.log(quary);
+   
+    console.log("query",quary);
+    
     this.blockUI.start('Loading...')
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
+     
+      
       if (res.success && res['data'].length > 0) {
-        this.collectionSize = Math.round(res['data'][0].total_count);
+     
+        this.totalDataCount=res['data'][0].total_count;
+        this.totalFetchrecord =start+res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
+       
+        
         this.tableData = res['data'];
-        console.log(this.tableData);
+     
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -488,16 +484,7 @@ export class AlluserdataComponent implements OnInit {
 
 
   getAllOnlineData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.class1 = 'btn btn-primary ';
-    this.class2 = 'btn active';
-    this.class3 = 'btn btn-primary';
-    this.class4 = 'btn btn-primary';
-    this.class5 = 'btn btn-primary';
-    this.class6 = 'btn btn-primary';
-    this.class7 = 'btn btn-primary';
-    this.class9 = 'btn btn-primary';
-    // let Quary = `select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where
-    //  a.online_status=1`;
+   
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
           FROM user_info AS a
           LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
@@ -526,7 +513,9 @@ export class AlluserdataComponent implements OnInit {
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
       if (res.success) {
-        this.collectionSize = Math.round(res['data'][0].total_count)
+        this.totalDataCount=res['data'][0].total_count;
+        this.totalFetchrecord =start+res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
         this.tableData = res['data'];
         console.log(this.tableData);
       } else {
@@ -535,14 +524,7 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllUnpublishedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.class1 = 'btn btn-primary ';
-    this.class2 = 'btn btn-primary';
-    this.class3 = 'btn btn-primary';
-    this.class4 = 'btn active';
-    this.class5 = 'btn btn-primary';
-    this.class6 = 'btn btn-primary';
-    this.class7 = 'btn btn-primary';
-    this.class9 = 'btn btn-primary';
+   
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
           FROM user_info AS a
           LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
@@ -565,7 +547,9 @@ export class AlluserdataComponent implements OnInit {
       //console.log(res);
       if (res.success && res['data'].length > 0) {
         // alert('ll')
-        this.collectionSize = Math.round(res['data'][0].total_count)
+        this.totalDataCount=res['data'][0].total_count;
+        this.totalFetchrecord =start+res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
         this.tableData = res['data'];
         // console.log(this.tableData);
       } else {
@@ -576,14 +560,7 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllDeletedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.class1 = 'btn btn-primary ';
-    this.class2 = 'btn btn-primary';
-    this.class3 = 'btn btn-primary';
-    this.class4 = 'btn btn-primary';
-    this.class5 = 'btn active';
-    this.class6 = 'btn btn-primary';
-    this.class7 = 'btn btn-primary';
-    this.class9 = 'btn btn-primary';
+   
     // let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=0';
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
@@ -605,7 +582,9 @@ export class AlluserdataComponent implements OnInit {
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       //console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.collectionSize = Math.round(res['data'][0].total_count);
+        this.totalDataCount=res['data'][0].total_count;
+        this.totalFetchrecord =start+res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;;
         this.tableData = res['data'];
         //console.log(this.tableData);
       } else {
@@ -615,15 +594,7 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllNotDeletedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.class1 = 'btn btn-primary ';
-    this.class2 = 'btn btn-primary';
-    this.class3 = 'btn btn-primary';
-    this.class4 = 'btn btn-primary';
-    this.class5 = 'btn btn-primary';
-    this.class6 = 'btn active';
-    this.class7 = 'btn btn-primary';
-    this.class8 = 'btn btn-primary';
-    this.class9 = 'btn btn-primary';
+   
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=1';
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
@@ -645,7 +616,9 @@ export class AlluserdataComponent implements OnInit {
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.collectionSize = Math.round(res['data'][0].total_count);
+        this.totalDataCount=res['data'][0].total_count;
+        this.totalFetchrecord =start+res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;;
         this.tableData = res['data'];
         console.log(this.tableData);
       } else {
@@ -655,15 +628,7 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllApprovedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.class1 = 'btn btn-primary ';
-    this.class2 = 'btn btn-primary';
-    this.class3 = 'btn btn-primary';
-    this.class4 = 'btn btn-primary';
-    this.class5 = 'btn btn-primary';
-    this.class6 = 'btn btn-primary';
-    this.class7 = 'btn active';
-    this.class8 = 'btn btn-primary';
-    this.class9 = 'btn btn-primary';
+   
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved"';
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
@@ -685,7 +650,9 @@ export class AlluserdataComponent implements OnInit {
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.collectionSize = Math.round(res['data'][0].total_count);
+        this.totalDataCount=res['data'][0].total_count;
+        this.totalFetchrecord =start+res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;;
         this.tableData = res['data'];
         console.log(this.tableData);
       } else {
@@ -695,15 +662,7 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllPendingData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.class1 = 'btn btn-primary ';
-    this.class2 = 'btn btn-primary';
-    this.class3 = 'btn btn-primary';
-    this.class4 = 'btn btn-primary';
-    this.class5 = 'btn btn-primary';
-    this.class6 = 'btn btn-primary';
-    this.class7 = ' btn btn-primary';
-    this.class8 = 'btn active';
-    this.class9 = 'btn btn-primary';
+   
     // let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Pending"';
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
@@ -724,7 +683,9 @@ export class AlluserdataComponent implements OnInit {
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        this.collectionSize = Math.round(res['data'][0].total_count);
+        this.totalDataCount=res['data'][0].total_count;
+        this.totalFetchrecord =start+res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;;
         this.tableData = res['data'];
         console.log(this.tableData);
       } else {
@@ -734,15 +695,7 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllvaliduserData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.class1 = 'btn btn-primary ';
-    this.class2 = 'btn btn-primary';
-    this.class3 = 'btn btn-primary';
-    this.class4 = 'btn btn-primary';
-    this.class5 = 'btn btn-primary';
-    this.class6 = 'btn btn-primary';
-    this.class7 = ' btn btn-primary';
-    this.class8 = 'btn btn-primary';
-    this.class9 = 'btn active';
+    
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved" AND a.deleted=1 AND a.status=1';
 
 
@@ -765,7 +718,9 @@ export class AlluserdataComponent implements OnInit {
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        this.collectionSize = Math.round(res['data'][0].total_count);
+        this.totalDataCount=res['data'][0].total_count;
+        this.totalFetchrecord =start+res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;;
         this.tableData = res['data'];
         console.log(this.tableData);
       } else {

@@ -9,6 +9,7 @@ import { FillterModalComponent } from '../fillter-modal/fillter-modal.component'
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  @Input() btnWithText:false
   @Input() filterText:any
   @Input() search_btn:boolean=false
   @Input() fillter_btn:boolean=false
