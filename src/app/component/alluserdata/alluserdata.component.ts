@@ -20,7 +20,7 @@ export class AlluserdataComponent implements OnInit {
 
   allId: any[] = [];
 
-  apiFetchRecordLimit=15
+  apiFetchRecordLimit=10
 
 
   page: any = 1;
@@ -97,15 +97,9 @@ export class AlluserdataComponent implements OnInit {
   ) { }
   date: any;
   ngOnInit(): void {
-    // let all = <any>document.getElementById('all');
-    // all.checked = false;
     this.allId = [];
     this.page = 1;
     this.collectionSize = 10
-    // let _this: any = this;
-    // _this[this.currentFunction](this.page * 10 - 10, 10)
-
-    // this.getAllData(0, 10);
     this.date = new Date();
     this.loadKpi("getAllData", 0)
   }
@@ -450,9 +444,7 @@ export class AlluserdataComponent implements OnInit {
      
         this.totalDataCount=res['data'][0].total_count;
         this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
-       
-        
+        this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
         this.tableData = res['data'];
      
       } else {
