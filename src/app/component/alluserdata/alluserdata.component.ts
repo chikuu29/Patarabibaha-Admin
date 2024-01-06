@@ -185,10 +185,8 @@ export class AlluserdataComponent implements OnInit {
 
   deletedata() {
     if (this.allId.length == 0) {
-      Swal.fire({
-        icon: 'question',
-        text: 'Select one',
-      });
+      
+      Swal.fire("Warning","Please select any record",'warning')
     } else {
       Swal.fire({
         icon: 'question',
@@ -226,10 +224,7 @@ export class AlluserdataComponent implements OnInit {
 
   recoverdata() {
     if (this.allId.length == 0) {
-      Swal.fire({
-        icon: 'question',
-        text: 'Select one',
-      });
+      Swal.fire("Warning","Please select any record",'warning')
     } else {
 
 
@@ -273,10 +268,7 @@ export class AlluserdataComponent implements OnInit {
 
   publishuser() {
     if (this.allId.length == 0) {
-      Swal.fire({
-        icon: 'question',
-        text: 'Select one',
-      });
+      Swal.fire("Warning","Please select any record",'warning')
     } else {
 
       Swal.fire({
@@ -316,10 +308,7 @@ export class AlluserdataComponent implements OnInit {
   unpublishuser() {
     // alert(data);
     if (this.allId.length == 0) {
-      Swal.fire({
-        icon: 'question',
-        text: 'Select one',
-      });
+      Swal.fire("Warning","Please select any record",'warning')
     } else {
       Swal.fire({
         icon: 'question',
@@ -360,10 +349,7 @@ export class AlluserdataComponent implements OnInit {
   }
   makeonline() {
     if (this.allId.length == 0) {
-      Swal.fire({
-        icon: 'question',
-        text: 'Select one',
-      });
+      Swal.fire("Warning","Please select any record",'warning')
     } else {
       Swal.fire({
         icon: 'question',
@@ -399,10 +385,7 @@ export class AlluserdataComponent implements OnInit {
   }
   makeoffline() {
     if (this.allId.length == 0) {
-      Swal.fire({
-        icon: 'question',
-        text: 'Select one',
-      });
+      Swal.fire("Warning","Please select any record",'warning')
     } else {
       Swal.fire({
         icon: 'question',
