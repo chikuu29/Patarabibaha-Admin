@@ -1,9 +1,9 @@
-
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 
 @Component({
@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./alluserdata.component.scss']
 })
 export class AlluserdataComponent implements OnInit {
+  @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   alldata: any;
@@ -21,12 +22,10 @@ export class AlluserdataComponent implements OnInit {
   allId: any[] = [];
 
   apiFetchRecordLimit=10
-
-
+  options = [10,15,50,100,500,1000];
   page: any = 1;
   collectionSize: any = 10
   offset=1;
-
   pegination_required: boolean = false
   currentFunction: string = 'getAllData';
 
@@ -102,6 +101,15 @@ export class AlluserdataComponent implements OnInit {
     this.collectionSize = 10
     this.date = new Date();
     this.loadKpi("getAllData", 0)
+  }
+
+  changepaginetdata(event:any){
+   this.page = 1;
+   this.offset=1;
+   this.pegination_required = true;
+   this.apiFetchRecordLimit = Number(event.target.value);
+   let _this: any = this
+   _this[this.currentFunction](0, Number(event.target.value));
   }
 
   loadKpi(functionName: string, kpiNum: number) {
@@ -445,6 +453,7 @@ export class AlluserdataComponent implements OnInit {
         this.totalDataCount=res['data'][0].total_count;
         this.totalFetchrecord =start+res['data'].length
         this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
+       console.log(this.collectionSize);
         this.tableData = res['data'];
      
       } else {
@@ -525,6 +534,7 @@ export class AlluserdataComponent implements OnInit {
         this.totalDataCount=res['data'][0].total_count;
         this.totalFetchrecord =start+res['data'].length
         this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
+        
         this.tableData = res['data'];
         // console.log(this.tableData);
       } else {
@@ -704,19 +714,24 @@ export class AlluserdataComponent implements OnInit {
       }
     });
   }
+  
 
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
+    console.log(check);
+    
     this.allId = [];
     if (e.target.checked) {
-      check.forEach((element: any, key: any) => {
+      check.forEach((checkbox: any,key:any) => {
+        console.log('p');
+        
         this.allId.push(parseInt(this.tableData[key].Id));
-        element.checked = true;
+        checkbox.checked = true;
       });
     } else {
-      check.forEach((element: any) => {
+      check.forEach((checkbox: any,key:any) => {
         this.allId = [];
-        element.checked = false;
+        checkbox.checked = false;
       });
     }
     console.log(this.allId);
@@ -725,7 +740,7 @@ export class AlluserdataComponent implements OnInit {
 
     console.log("hii",e);
     
-    if (e.checked) {
+    if (e.target.checked) {
       this.allId.push(parseInt(id));
     } else {
       let index = this.allId.indexOf(parseInt(id));

@@ -12,7 +12,39 @@
     </ng-container>
 
 </div>
+<div class="outline">
 
+    <div class="commen">
+        <button type="button" class="btn btn-outline-danger" (click)="deletedata()">
+            <i class="fas fa-trash-alt"></i> Delete
+        </button>
+    </div>
+    <div class="commen">
+        <button type="button" class="btn btn-outline-success" (click)="recoverdata()">
+            <i class="fas fa-recycle"></i> Recover
+        </button>
+    </div>
+    <div class="commen">
+        <button type="button" class="btn btn-outline-success" (click)="publishuser()">
+            <i class="fas fa-upload"></i> Publish
+        </button>
+    </div>
+    <div class="commen">
+        <button type="button" class="btn btn-outline-danger" (click)="unpublishuser()">
+            <i class="fas fa-download"></i> Unpublish
+        </button>
+    </div>
+    <div class="commen">
+        <button type="button" class="btn btn-outline-success" (click)="makeonline()">
+            <i class="fas fa-check-circle"></i> Online
+        </button>
+    </div>
+    <div class="commen">
+        <button type="button" class="btn btn-outline-danger" (click)="makeoffline()">
+            <i class="fas fa-times-circle"></i> Offline
+        </button>
+    </div>
+</div>
 
 
 <div class="row">
@@ -22,43 +54,17 @@
                 <!-- <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">My Open Cases</h3>
                 </div> -->
-                
-                <div class="outline">
-                    
-                    <div class="commen">
-                        <button type="button" class="btn btn-outline-danger" (click)="deletedata()">
-                            <i class="fas fa-trash-alt"></i> Delete
-                        </button>
-                    </div>
-                    <div class="commen">
-                        <button type="button" class="btn btn-outline-success" (click)="recoverdata()">
-                            <i class="fas fa-recycle"></i> Recover
-                        </button>
-                    </div>
-                    <div class="commen">
-                        <button type="button" class="btn btn-outline-success" (click)="publishuser()">
-                            <i class="fas fa-upload"></i> Publish
-                        </button>
-                    </div>
-                    <div class="commen">
-                        <button type="button" class="btn btn-outline-danger" (click)="unpublishuser()">
-                            <i class="fas fa-download"></i> Unpublish
-                        </button>
-                    </div>
-                    <div class="commen">
-                        <button type="button" class="btn btn-outline-success" (click)="makeonline()">
-                            <i class="fas fa-check-circle"></i> Online
-                        </button>
-                    </div>
-                    <div class="commen">
-                        <button type="button" class="btn btn-outline-danger" (click)="makeoffline()">
-                            <i class="fas fa-times-circle"></i> Offline
-                        </button>
-                    </div>
+                <div class="dropdown-container">
+                    <select id="dropdown" (change)="changepaginetdata($event)">
+                        <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+                    </select>
+
+
                 </div>
+
                 <div class="kt-portlet__head-toolbar">
 
-                    
+
                     <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="true"
                         (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
 
@@ -73,7 +79,10 @@
                             <thead class="flip-content">
                                 <tr>
                                     <th style="cursor: pointer; width:5%" title="Select Member">
-                                        Select Member </th>
+                                        <input type="checkbox" name="" id="all" (change)="checkAll($event)">
+                                        <!-- <mat-checkbox class="example-margin" (change)="checkAll($event)"
+                                        ></mat-checkbox>--> </th> 
+                                        
                                     <th style="cursor: pointer;width:10%" title="Member Name">
                                         Member Name </th>
                                     <th style="cursor: pointer; width:25%" title="Profile ID">
@@ -98,9 +107,9 @@
                                     <tr>
 
                                         <td class="text-center">
-                                            
-                                            <mat-checkbox class="example-margin" (change)="getId(data?.Id,$event)"
-                                    [value]="data?.user_id"></mat-checkbox>
+                                            <input type="checkbox" class="check" [value]="data?.user_id" (change)="getId(data?.Id,$event)" name="" id="">
+                                            <!-- <mat-checkbox class="check" (change)="getId(data?.Id,$event)"
+                                                [value]="data?.user_id"></mat-checkbox> -->
                                         </td>
                                         <td [title]="data?.user_fname+' '+data?.user_lname"> {{data?.user_fname+'
                                             '+data?.user_lname }}</td>
@@ -119,7 +128,7 @@
                                         </td>
                                         <td [title]="data.user_gender">
                                             <!-- <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"> -->
-                                                {{data.user_gender |uppercase}}
+                                            {{data.user_gender |uppercase}}
                                             <!-- </div> -->
                                         </td>
                                         <td title="Ready for Professional Open">
@@ -134,12 +143,14 @@
 
                                         <td class="fixed-column">
                                             <!-- View Button with Outline Style -->
-                                            <button class="btn btn-outline-primary btn-sm me-2" title="View" [routerLink]="'/user/'+data.user_id">
+                                            <button class="btn btn-outline-primary btn-sm me-2" title="View"
+                                                [routerLink]="'/user/'+data.user_id">
                                                 <i class="fas fa-eye"></i> View
                                             </button>
 
                                             <!-- Open in New Tab Button with Outline Style -->
-                                            <button class="btn btn-outline-primary btn-sm" title="Open in new tab" (click)="openNewTab(data.user_id)">
+                                            <button class="btn btn-outline-primary btn-sm" title="Open in new tab"
+                                                (click)="openNewTab(data.user_id)">
                                                 <i class="fas fa-external-link-alt"></i> Open in New Tab
                                             </button>
 
@@ -157,14 +168,16 @@
             </div>
             <div class="table-footer-holder">
                 <div>
-                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false" [ellipses]="false"
-                    [boundaryLinks]="false" class=""  (pageChange)="onpageChnage()"></ngb-pagination>
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
+                        [ellipses]="false" [boundaryLinks]="false" class=""
+                        (pageChange)="onpageChnage()"></ngb-pagination>
                 </div>
                 <div>
-                    <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's {{offset}} to {{totalFetchrecord}} of
+                    <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
+                        {{offset}} to {{totalFetchrecord}} of
                         {{totalDataCount}}</span>
                 </div>
-               
+
             </div>
         </div>
     </div>

@@ -13,7 +13,15 @@ export class MakepaidComponent implements OnInit {
   finaldata: any = [];
   alldata: any;
   defultdata: any;
-  filterText:string
+  filterText:string;
+  apiFetchRecordLimit=10
+  options = [10,15,50,100,500,1000];
+
+  page: any = 1;
+  collectionSize: any = 10
+  offset=1;
+  currentFunction: string = 'getmembership_plan';
+  pegination_required: boolean = false
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router,
@@ -23,14 +31,17 @@ export class MakepaidComponent implements OnInit {
   ngOnInit(): void {
     //this.getdefultplan();.
     this.getmembership_plan();
-    
+    let _this: any = this
+   _this[this.currentFunction](0,this.apiFetchRecordLimit);
 
   }
+  onpageChnage() {
+    let _this: any = this;
+    _this[this.currentFunction](this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit, this.apiFetchRecordLimit);
+    this.offset=this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit
+  }
   getSearchText(event:any){
- 
     this.filterText=event
-    
-
   }
   getAllData() {
     this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_membership_plan_type: this.defultdata } }).subscribe((res: any) => {
