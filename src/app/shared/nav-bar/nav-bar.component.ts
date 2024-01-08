@@ -16,7 +16,7 @@ export class NavBarComponent implements OnInit {
   }
 
   @Output() isSidenavCoolapedForSmallScreen: EventEmitter<boolean> = new EventEmitter();
-  CoolapedForSmallScreen() {
+  collapedForSmallScreen() {
     this.collapsedForSmallScreen = !this.collapsedForSmallScreen;
     this.isSidenavCoolapedForSmallScreen.emit(this.collapsedForSmallScreen);
   }
