@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  isSidenavCoolapedForSmallScreen:boolean=false
+  isSidenavCoolapedForSmallScreen:boolean=true
   isSidenavCoolapsed: boolean = false;
   constructor() { }
 
@@ -18,6 +18,8 @@ export class AdminComponent implements OnInit {
   }
 
   showSideNavForSmallScreen(data:boolean){
+    console.log(data);
+    
     this.isSidenavCoolapedForSmallScreen=data
   }
 }
