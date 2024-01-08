@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { CryptographyService } from 'src/app/services/cryptography.service';
@@ -9,16 +9,16 @@ import { CryptographyService } from 'src/app/services/cryptography.service';
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
+  @Input() isSidenavCoolapedForSmallScreen=false; 
   usercount: number = 0;
   profilephotocount: number = 0;
   deliteeeqest: number = 0;
   phoneapprovedata: number = 0;
 
-
   navConfig = [
     {
       requiredRouterLink: true,
-      routerLink: "/landing-page",
+      routerLink: "landing-page",
       icon: "mdi mdi-airplane-landing",
       text: "Landing Page",
       hidden: false,
@@ -26,7 +26,7 @@ export class SideNavComponent implements OnInit {
     },
     {
       requiredRouterLink: true,
-      routerLink: "/dashboard",
+      routerLink: "dashboard",
       icon: "mdi mdi-speedometer",
       text: "Dashboard",
       hidden: false,
@@ -269,4 +269,14 @@ export class SideNavComponent implements OnInit {
     });
   }
 
+  public activeSubmenu(index: number) {
+    this.navConfig[index];
+    console.log(this.navConfig[index]);
+    if (this.navConfig[index].submenuActive) {
+      this.navConfig[index]["submenuActive"] = false
+    } else {
+      this.navConfig[index]["submenuActive"] = true
+    }
+
+  }
 }

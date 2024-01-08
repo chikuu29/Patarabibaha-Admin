@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DOCUMENT } from '@angular/common';
 @Component({
@@ -7,6 +7,19 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
+  collapsed: boolean = false
+  collapsedForSmallScreen:boolean=false
+  @Output() isSidenavCoolapsed: EventEmitter<boolean> = new EventEmitter();
+  collapsedSideNav() {
+    this.collapsed = !this.collapsed;
+    this.isSidenavCoolapsed.emit(this.collapsed);
+  }
+
+  @Output() isSidenavCoolapedForSmallScreen: EventEmitter<boolean> = new EventEmitter();
+  CoolapedForSmallScreen() {
+    this.collapsedForSmallScreen = !this.collapsedForSmallScreen;
+    this.isSidenavCoolapedForSmallScreen.emit(this.collapsedForSmallScreen);
+  }
   elem: any;
   activeFullScreenMode: boolean = false
   constructor(

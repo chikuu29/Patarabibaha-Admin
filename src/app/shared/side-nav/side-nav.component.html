@@ -1,4 +1,4 @@
-<nav class="sidebar sidebar-offcanvas" id="sidebar" style="height: 100%;">
+<nav class="sidebar sidebar-offcanvas " id="sidebar" style="height: 100%;" [ngClass]="isSidenavCoolapedForSmallScreen?'active':''">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
         <a class="sidebar-brand brand-logo " routerLink="/"><span class="fw-bold"
                 style="font-weight: bold !important;">Patarbibaha</span></a>
@@ -73,9 +73,9 @@
             <span class="nav-link">Navigation</span>
         </li>
         <li class="nav-item menu-items" *ngFor="let navmenu of navConfig,let i=index">
-           
-            <ng-container *ngIf="navmenu.requiredRouterLink" >
-                <a class="nav-link" [routerLink]="navmenu.requiredRouterLink?[navmenu.routerLink]:[]">
+
+            <ng-container *ngIf="navmenu.requiredRouterLink">
+                <a class="nav-link" [routerLink]="navmenu.requiredRouterLink?[navmenu.routerLink]:[]" (click)="activeSubmenu(i)">
                     <span class="menu-icon">
                         <i [class]="navmenu.icon"></i>
                     </span>
@@ -83,24 +83,26 @@
                 </a>
             </ng-container>
             <ng-container *ngIf="!navmenu.requiredRouterLink">
-                <a class="nav-link" data-toggle="collapse" [href]="'#nav-ui-'+i" aria-expanded="false" >
+                <a class="nav-link"  (click)="activeSubmenu(i)"
+                    [ngClass]="navmenu['submenu'] && navmenu.submenuActive?'collapse':''">
                     <span class="menu-icon">
                         <i [class]="navmenu.icon"></i>
                     </span>
                     <span class="menu-title">{{navmenu.text}}</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" [id]="'nav-ui-'+i">
+                <div class="collapse" [id]="'nav-ui-'+i"
+                    [ngClass]="navmenu['submenu'] && navmenu.submenuActive?'show':'hide'">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item m-1" *ngFor="let submenu of navmenu['submenu']"> 
+                        <li class="nav-item m-1" *ngFor="let submenu of navmenu['submenu']">
                             <a class="nav-link" [routerLink]="[submenu.routerLink]">{{submenu.text}}</a>
                         </li>
                     </ul>
                 </div>
             </ng-container>
-            
-         
-           
+
+
+
         </li>
     </ul>
 

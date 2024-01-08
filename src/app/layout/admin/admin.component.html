@@ -1,7 +1,7 @@
-<div class="container-scroller">
-    <app-side-nav></app-side-nav>
+<div class="container-scroller" [ngClass]="isSidenavCoolapsed?'sidebar-icon-only':'sidebar-hidden'">
+    <app-side-nav [isSidenavCoolapedForSmallScreen]="isSidenavCoolapedForSmallScreen"></app-side-nav>
     <div class="container-fluid page-body-wrapper" style="padding: 0px;">
-        <app-nav-bar></app-nav-bar>
+        <app-nav-bar (isSidenavCoolapsed)="Show($event)" (isSidenavCoolapedForSmallScreen)="showSideNavForSmallScreen($event)"></app-nav-bar>
         <div class="main-panel ">
             <div class="content-wrapper">
                 <router-outlet></router-outlet>

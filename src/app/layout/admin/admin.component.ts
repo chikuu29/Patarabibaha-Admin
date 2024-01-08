@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
+  isSidenavCoolapedForSmallScreen:boolean=false
+  isSidenavCoolapsed: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
   }
+  Show(data: boolean) {
+    this.isSidenavCoolapsed = data;
+  }
 
+  showSideNavForSmallScreen(data:boolean){
+    this.isSidenavCoolapedForSmallScreen=data
+  }
 }
