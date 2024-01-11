@@ -425,7 +425,6 @@ export class AlluserdataComponent implements OnInit {
 
   getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.pegination_required = true
-    
     var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
@@ -441,7 +440,7 @@ export class AlluserdataComponent implements OnInit {
        `;
     }
    
-    console.log("query",quary);
+    //console.log("query",quary);
     
     this.blockUI.start('Loading...')
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {

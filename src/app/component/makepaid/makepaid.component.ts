@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { MemberPaymentProcessingTaskComponent } from 'src/app/shared/member-payment-processing-task/member-payment-processing-task.component';
 
@@ -10,6 +11,8 @@ import { MemberPaymentProcessingTaskComponent } from 'src/app/shared/member-paym
   styleUrls: ['./makepaid.component.scss']
 })
 export class MakepaidComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
+  // **************************
   finaldata: any = [];
   alldata: any;
   defultdata: any;
@@ -20,8 +23,11 @@ export class MakepaidComponent implements OnInit {
   page: any = 1;
   collectionSize: any = 10
   offset=1;
-  currentFunction: string = 'getmembership_plan';
+  currentFunction: string = 'getAllData';
   pegination_required: boolean = false
+  tableData: any;
+  totalDataCount: any;
+  totalFetchrecord: any;
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router,
@@ -31,10 +37,25 @@ export class MakepaidComponent implements OnInit {
   ngOnInit(): void {
     //this.getdefultplan();.
     this.getmembership_plan();
-    let _this: any = this
-   _this[this.currentFunction](0,this.apiFetchRecordLimit);
+    //let _this: any = this
+  // _this[this.currentFunction](0,this.apiFetchRecordLimit);
 
   }
+  search(search_text: any) {
+    let _this: any = this;
+    _this[this.currentFunction](0, 10, true, search_text);
+    // console.log(search_text);
+    // this.getAllData(0, 10, true, search_text)
+
+  }
+  changepaginetdata(event:any){
+    this.page = 1;
+    this.offset=1;
+    this.pegination_required = true;
+    this.apiFetchRecordLimit = Number(event.target.value);
+    let _this: any = this
+    _this[this.currentFunction](0, Number(event.target.value));
+   }
   onpageChnage() {
     let _this: any = this;
     _this[this.currentFunction](this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit, this.apiFetchRecordLimit);
@@ -43,13 +64,76 @@ export class MakepaidComponent implements OnInit {
   getSearchText(event:any){
     this.filterText=event
   }
-  getAllData() {
-    this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_membership_plan_type: this.defultdata } }).subscribe((res: any) => {
+  getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
+
+
+
+
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      WHERE user_membership_plan_type = '${this.defultdata}'
+      LIMIT ${limit} OFFSET ${start}`;
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      WHERE a.user_id = '${search_text}'
+         OR b.auth_ID = '${search_text}'
+         OR a.user_fname = '${search_text}'
+         OR a.user_lname = '${search_text}'
+         AND a.user_membership_plan_type = '${this.defultdata}';
+       `;
+    }
+
+
+
+
+    // let quary = `SELECT * , COUNT(*) OVER () AS total_count from user_info where user_membership_plan_type = '${this.defultdata}' LIMIT ${limit} OFFSET ${start}`
+    // if (loadSpecificData) {
+    //   quary = `SELECT * , COUNT(*) OVER () AS total_count from user_info where 
+    //   WHERE 
+    //       user_id = '${search_text}'
+    //      OR user_fname = '${search_text}'
+    //      OR user_lname = '${search_text}'
+    //      OR user_email = ${search_text}'
+    //      OR user_whatsapp_no = 
+    //      AND user_membership_plan_type = '${this.defultdata};
+    //    `;
+    // }
+
+console.log(quary);
+
+
+
+
+
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      this.blockUI.stop()
+     
+      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
-        this.finaldata = res['data'];
-        console.log(this.finaldata);
+     
+        this.totalDataCount=res['data'][0].total_count;
+        this.totalFetchrecord =start+res['data'].length
+        this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
+         console.log(this.collectionSize);
+        this.tableData = res['data'];
+     
+      } else {
+        this.collectionSize = 1;
+        this.tableData = [];
       }
-    })
+      console.log(this.tableData);
+      
+    });
+    // this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_membership_plan_type: this.defultdata } }).subscribe((res: any) => {
+    //   if (res.success && res['data'].length > 0) {
+    //     this.finaldata = res['data'];
+    //     console.log(this.finaldata);
+    //   }
+    // })
   }
   userpage(data: any) {
     this.router.navigate(['/user', data]);
@@ -62,7 +146,9 @@ export class MakepaidComponent implements OnInit {
     this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"], "whereConditions": { membership_plan_default: 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.defultdata = res['data'][0].membership_plan_type;
-        this.getAllData();
+        // this.getAllData(0,this.apiFetchRecordLimit);
+        let _this: any = this;
+        _this[this.currentFunction](0,this.apiFetchRecordLimit);
         console.log(this.defultdata);
       }
     })
