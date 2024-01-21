@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   @BlockUI() blockUI: NgBlockUI;
 
-  fontendUrl=environment.fontendUrl
+  fontendUrl = environment.fontendUrl
   // **************************
   redirectUrl: any = ''
   // Validators.pattern("^W-([A-Z]{5,5})([@_])([0-9]{3,5})$")
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
             var expiration_date = new Date(new Date().getTime() + 86400 * 1000).toString();
             this._auth.authentication(res.id, res.name, res.email, true, "admin", res.token, res.exp);
             console.log(this.redirectUrl);
-            location.href=this.redirectUrl
+            location.href = this.redirectUrl
             // this._router.navigateByUrl(this.redirectUrl)
           } else {
             this.alert.error(res.message)
