@@ -19,71 +19,120 @@
         </div>
     </div>
 </div>
-<div class="">
-    <div class="table-holder">
-        <div class="caption-header">
-            <!-- Search Start -->
-            <div class="caption-item">
-                <app-search (getSerachText)="getSearchText($event)"></app-search>
-            </div>
-            <div class="caption-item">
-                <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{totalFetchrecord}} of {{totalCount}} results</span>
-            </div>
-            <div class="caption-item" *ngIf="collectionSize>0">
-                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="3" [rotate]="true" [ellipses]="false"
-                    [boundaryLinks]="false" class="" size="lg" (pageChange)="onpageChnage()"></ngb-pagination>
-                </div>
-            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" id="cloud">
-                    <path d="M31.714,25.543c3.335-2.17,4.27-6.612,2.084-9.922c-1.247-1.884-3.31-3.077-5.575-3.223h-0.021
-              C27.148,6.68,21.624,2.89,15.862,3.931c-3.308,0.597-6.134,2.715-7.618,5.708c-4.763,0.2-8.46,4.194-8.257,8.919
-              c0.202,4.726,4.227,8.392,8.991,8.192h4.873h13.934C27.784,26.751,30.252,26.54,31.714,25.543z" />
-                </symbol>
-                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="lens">
-                    <path d="M15.656,13.692l-3.257-3.229c2.087-3.079,1.261-7.252-1.845-9.321c-3.106-2.068-7.315-1.25-9.402,1.83
-              s-1.261,7.252,1.845,9.32c1.123,0.748,2.446,1.146,3.799,1.142c1.273-0.016,2.515-0.39,3.583-1.076l3.257,3.229
-              c0.531,0.541,1.404,0.553,1.95,0.025c0.009-0.008,0.018-0.017,0.026-0.025C16.112,15.059,16.131,14.242,15.656,13.692z M2.845,6.631
-              c0.023-2.188,1.832-3.942,4.039-3.918c2.206,0.024,3.976,1.816,3.951,4.004c-0.023,2.171-1.805,3.918-3.995,3.918
-              C4.622,10.623,2.833,8.831,2.845,6.631L2.845,6.631z" />
-                </symbol>
-            </svg>
-            <!-- Search End -->
-        </div>
-        <div class="mt-3 data-view-container">
-            <table class="table ">
-                <thead class="table-header">
-                    <tr>
-                        <th>#SI</th>
-                        <th>Country Nmae</th>
-                        <th>Created At</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body table-striped">
-                    <ng-container *ngFor="let data of countryalldata | fillter:['name']:filterText ; index as i">
-                        <tr>
 
-                            <td>{{i+1}}</td>
-                            <td>{{data.name}}</td>
-                            <td>{{data.created_At | date}}</td>
-                            <td>
-                                <p class="badge badge-danger" *ngIf="data.status == 0">
-                                    NOT PUBLISHED
-                                </p>
-                                <p class="badge badge-success" *ngIf="data.status == 1">PUBLISHED</p>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-warning btn-fw me-2 w-50"
-                                    (click)="update(data.id)">Edit</button>
-                                <button type="button" class="btn btn-outline-danger btn-fw w-50"
-                                    (click)="delete(data.id,data.name)">Delete</button>
-                            </td>
-                        </tr>
-                    </ng-container>
-                </tbody>
-            </table>
+
+<div class="row">
+    <div class="col-xl-12 order-lg-1 order-xl-1">
+        <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+            <div class="table-caption-holder">
+                <!-- <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">My Open Cases</h3>
+                </div> -->
+                <div class="dropdown-container">
+                    <!-- <select id="dropdown" (change)="changepaginetdata($event)">
+                        <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+                    </select> -->
+
+
+                </div>
+
+                <div class="kt-portlet__head-toolbar">
+
+
+                    <app-search (getSerachText)="getSearchText($event)" [search_btn]="true"
+                        [fillter_btn]="false"></app-search>
+
+
+                </div>
+            </div>
+            <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y"
+                id="grid_scroll_body" style="max-height: 50vh; position: relative;">
+                <div class="inbox-body inbox-body-table">
+                    <div class="table-scroll">
+                        <table class="custom-table table  table-bordered table-striped">
+                            <thead class="flip-content">
+                                <tr>
+
+
+                                    <th style="cursor: pointer;width:10%" title=" Country Name ">
+                                        Country Name </th>
+                                    <th style="cursor: pointer; width:25%" title="Created At">
+                                        Created At </th>
+                                    <th style="cursor: pointer; width:25%" title="Status">
+                                        Status </th>
+                                    <th class="fixed-column" style="cursor: pointer; width:10%" title="Action">Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container
+                                    *ngFor="let data of countryalldata | fillter:['name','status']:filterText ; index as i">
+                                    <tr>
+
+
+
+                                        <td [title]="data?.name">
+                                            <div> {{data?.name |uppercase}} </div>
+                                        </td>
+                                        <td title="Due In 9 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel">
+                                                {{data.created_At | date:'medium'}}
+                                            </div>
+                                        </td>
+
+
+                                        <td title="Ready for Professional Open">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
+                                                *ngIf="data.status == 1"> PUBLISHED
+                                            </div>
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"
+                                                *ngIf="data.status == 0"> NOT PUBLISHED
+                                            </div>
+
+                                        </td>
+
+                                        <td class="fixed-column">
+                                            <!-- View Button with Outline Style -->
+                                            <button class="btn btn-outline-primary btn-sm me-2" title="Edit"
+                                            (click)="update(data.id)">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </button>
+
+                                            <button class="btn btn-outline-danger btn-sm me-2" title="Delete"
+                                            (click)="delete(data.id,data.name)">
+                                                <i class="fas fa-trash-alt"></i> Delete
+                                            </button>
+
+                                            
+
+                                            <!-- Open in New Tab Button with Outline Style -->
+
+
+                                        </td>
+                                    </tr>
+                                </ng-container>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="table-footer-holder">
+                <div>
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
+                        [ellipses]="false" [boundaryLinks]="false" class=""
+                        (pageChange)="onpageChnage()"></ngb-pagination>
+                </div>
+                <div>
+                    <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
+                        {{offset}} to {{totalFetchrecord}} of
+                        {{totalCount}}</span>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

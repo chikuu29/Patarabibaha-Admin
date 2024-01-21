@@ -30,6 +30,7 @@ export class ContryComponent implements OnInit {
   button: any = 'ADD';
   totalCount: number = 0
   totalFetchrecord:number = 0
+  offset=1;
   constructor(
     private api: ApiService,
     private ApiParameter: ApiParameterScript
@@ -152,9 +153,9 @@ export class ContryComponent implements OnInit {
   }
 
   showCountry() {
-    let offset = this.page * 10 - 10
-    this.ApiParameter.fetchdata('country', { "projection": ["*"] },offset,10).subscribe((res: any) => {
-      this.totalFetchrecord = offset+res['count']
+    this.offset = this.page * 10 - 10
+    this.ApiParameter.fetchdata('country', { "projection": ["*"] },this.offset,10).subscribe((res: any) => {
+      this.totalFetchrecord =  this.offset+res['count']
       this.totalCount = res['totalCount']
       this.collectionSize = res['totalCount']
       if (res.success && res['data'].length > 0) {
