@@ -1,4 +1,155 @@
-<div class="">
+<div class="row">
+    <div class="col-xl-12 order-lg-1 order-xl-1">
+        <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+            <div class="table-caption-holder">
+                <div class="dropdown-container">
+                    <select id="dropdown" (change)="changepaginetdata($event)">
+                        <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+                    </select>
+
+
+                </div>
+
+                <div class="kt-portlet__head-toolbar">
+
+
+                    <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="true"
+                        (clickSearch)="search($event)"></app-search>
+                </div>
+            </div>
+            <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y"
+                id="grid_scroll_body" style="max-height: 50vh; position: relative;">
+                <div class="inbox-body inbox-body-table">
+                    <div class="table-scroll">
+                        <table class="custom-table table  table-bordered table-striped">
+                            <thead class="flip-content">
+                                <tr>
+                                    <th style="cursor: pointer; width:5%" title="Select Member">#SI</th>
+                                    <th style="cursor: pointer;width:10%" title="Member Name">User Id</th>
+                                    <th style="cursor: pointer; width:25%" title="Profile ID">Login Count</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container
+                                    *ngFor="let data of like_activity | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
+
+                                    <tr>
+
+                                        <td>{{i+1}}</td>
+                                        <td>
+                                            {{ data.liked_by_profile_id }}
+                                        </td>
+                                        <td>{{ data.count }}</td>
+                                        <td>
+                                            <button type="button" (click)="details(data.liked_by_profile_id)"
+                                            class="btn btn-outline-primary btn-sm me-2">View Details </button>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="table-footer-holder">
+                <div>
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
+                        [ellipses]="false" [boundaryLinks]="false" class=""
+                        (pageChange)="onpageChnage()"></ngb-pagination>
+                </div>
+                <div>
+                    <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
+                        {{offset}} to {{totalFetchrecord}} of
+                        {{totalDataCount}}</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="">
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
@@ -6,7 +157,6 @@
                 <span class="fs-5">Showing of results</span>
             </div>
             <div class="caption-item">
-                <!-- Search Start -->
                 <div class="search">
                     <input type="text" [(ngModel)]="filterText" placeholder="Filter by any column" />
                     <div class="symbol">
@@ -32,7 +182,6 @@
                       C4.622,10.623,2.833,8.831,2.845,6.631L2.845,6.631z" />
                     </symbol>
                 </svg>
-                <!-- Search End -->
             </div>
         </div>
         <div class="mt-3 data-view-container">
@@ -65,4 +214,4 @@
         </div>
 
     </div>
-</div>
+</div> -->

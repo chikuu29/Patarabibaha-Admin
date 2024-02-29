@@ -1,15 +1,178 @@
-<div class="">
+
+<div class="row">
+    <div class="col-xl-12 order-lg-1 order-xl-1">
+        <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+            <div class="table-caption-holder">
+                
+                <div class="dropdown-container">
+                    <select id="dropdown" (change)="changepaginetdata($event)">
+                        <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+                    </select>
+
+
+                </div>
+
+                <div class="kt-portlet__head-toolbar">
+
+
+                    <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="true"
+                        (clickSearch)="search($event)" ></app-search>
+
+                        <!-- (clickFillter)="fillter($event)" -->
+
+
+                </div>
+            </div>
+            <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y"
+                id="grid_scroll_body" style="max-height: 50vh; position: relative;">
+                <div class="inbox-body inbox-body-table">
+                    <div class="table-scroll">
+                        <table class="custom-table table  table-bordered table-striped">
+                            <thead class="flip-content">
+                                <tr>
+
+                                    <th style="cursor: pointer; width:5%" title="Select Member">#SI</th>
+                        <th style="cursor: pointer;width:10%" title="Member Name">User Name</th>
+                        <th style="cursor: pointer; width:25%" title="Profile ID">Gender</th>
+                        <th style="cursor: pointer; width:25%" title="Created At">Approval</th>
+                        <th>Action</th>
+                                    <!-- <th style="cursor: pointer; width:5%" title="Select Member">
+                                        </th> 
+                                        
+                                    <th style="cursor: pointer;width:10%" title="Member Name">
+                                        Member Name </th>
+                                    <th style="cursor: pointer; width:25%" title="Profile ID">
+                                        Profile ID </th>
+                                    <th style="cursor: pointer; width:25%" title="Created At">
+                                        Created At
+                                    </th>
+
+                                    <th style="cursor: pointer;" title="Age"> Age </th>
+                                    <th style="cursor: pointer;" title="Gender"> Gender </th>
+                                    <th style="cursor: pointer; width: 145px;" title="Profile Status"> Profile Status
+                                    </th>
+
+
+                                    <th style="cursor: pointer; width:10%" title="Action">Action  
+                                    </th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container
+                                    *ngFor="let data of tableData | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
+                                    <!-- <tr>
+
+                                        <td class="text-center">
+                                           
+                                        </td>
+                                        <td [title]="data?.user_fname+' '+data?.user_lname"> {{data?.user_fname+'
+                                            '+data?.user_lname }}</td>
+                                        <td [title]="data?.user_id">
+                                            <div> {{data?.user_id}} </div>
+                                        </td>
+                                        <td title="Due In 9 Days ">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel">
+                                                {{data.user_creation_date_time | date:'medium'}}
+                                            </div>
+                                        </td>
+                                        <td [title]="data.user_dob | age">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel">
+                                                {{data.user_dob | age}} Years
+                                            </div>
+                                        </td>
+                                        <td [title]="data.user_gender">
+                                            {{data.user_gender |uppercase}}
+                                          
+                                        </td>
+                                        <td title="Ready for Professional Open">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
+                                                *ngIf="data.status == 1"> Un Publish
+                                            </div>
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"
+                                                *ngIf="data.status == 0"> Publish
+                                            </div>
+
+                                        </td>
+
+                                        <td >
+                                            <button class="btn btn-outline-primary btn-sm me-2" title="View"
+                                                [routerLink]="'/user/'+data.user_id">
+                                                <i class="fas fa-eye"></i> View
+                                            </button>
+
+                                            <button class="btn btn-outline-primary btn-sm" title="Open in new tab"
+                                                >
+                                                <i class="fas fa-external-link-alt"></i> Open in New Tab
+                                            </button>
+                                            (click)="openNewTab(data.user_id)"
+
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+
+                                        <td>{{i+1}}</td>
+                                        <td> <a (click)="userpage(data.user_id)" class="underline" href="javascript:void(0);">
+                                                {{data.user_fname+' '+data.user_lname }}
+                                            </a> </td>
+            
+                                        <td>{{data.user_gender }}</td>
+            
+            
+                                        <td>
+                                            <p class="badge badge-success" *ngIf="data.user_status == 'Approved'">Approved
+                                            </p>
+                                            <p class="badge badge-danger" *ngIf="data.user_status == 'Pending'">Pending</p>
+                                        </td>
+                                        <td>
+                                            <button class="button-83" role="button" (click)="makeMemberAsPaid(data)">Approve As
+                                                Paid</button>
+            
+            
+            
+            
+                                        </td>
+                                    </tr>
+                                </ng-container>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="table-footer-holder">
+                <div>
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
+                        [ellipses]="false" [boundaryLinks]="false" class=""
+                        (pageChange)="onpageChnage()"></ngb-pagination>
+                </div>
+                <div>
+                    <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
+                        {{offset}} to {{totalFetchrecord}} of
+                        {{totalDataCount}}</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+
+
+<!-- <div class="">
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
                 <span class="fs-5">Showing of results</span>
-                <!-- countryalldata.length {{}} -->
-                <!-- {{countryalldata.length}}  -->
+                
 
             </div>
             <div class="caption-item">
-                <!-- <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button> -->
+            
               <app-search (getSerachText)="getSearchText($event)"></app-search>
             </div>
         </div>
@@ -43,7 +206,7 @@
                             </td>
 
                             <td>
-                                <!-- Button trigger modal -->
+                                
                                 <button class="button-83" role="button" (click)="makeMemberAsPaid(data)">Approve As
                                     Paid</button>
 
@@ -57,4 +220,4 @@
             </table>
         </div>
     </div>
-</div>
+</div> -->

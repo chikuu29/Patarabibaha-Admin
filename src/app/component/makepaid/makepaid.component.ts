@@ -19,7 +19,6 @@ export class MakepaidComponent implements OnInit {
   filterText:string;
   apiFetchRecordLimit=10
   options = [10,15,50,100,500,1000];
-
   page: any = 1;
   collectionSize: any = 10
   offset=1;
@@ -65,14 +64,10 @@ export class MakepaidComponent implements OnInit {
     this.filterText=event
   }
   getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-
-
-
-
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-      WHERE user_membership_plan_type = '${this.defultdata}'
+      WHERE a.user_membership_plan_type = '${this.defultdata}'
       LIMIT ${limit} OFFSET ${start}`;
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -85,55 +80,20 @@ export class MakepaidComponent implements OnInit {
          AND a.user_membership_plan_type = '${this.defultdata}';
        `;
     }
-
-
-
-
-    // let quary = `SELECT * , COUNT(*) OVER () AS total_count from user_info where user_membership_plan_type = '${this.defultdata}' LIMIT ${limit} OFFSET ${start}`
-    // if (loadSpecificData) {
-    //   quary = `SELECT * , COUNT(*) OVER () AS total_count from user_info where 
-    //   WHERE 
-    //       user_id = '${search_text}'
-    //      OR user_fname = '${search_text}'
-    //      OR user_lname = '${search_text}'
-    //      OR user_email = ${search_text}'
-    //      OR user_whatsapp_no = 
-    //      AND user_membership_plan_type = '${this.defultdata};
-    //    `;
-    // }
-
-console.log(quary);
-
-
-
-
-
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
-     
       console.log(res);
-      
       if (res.success && res['data'].length > 0) {
-     
         this.totalDataCount=res['data'][0].total_count;
         this.totalFetchrecord =start+res['data'].length
         this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
          console.log(this.collectionSize);
         this.tableData = res['data'];
-     
       } else {
         this.collectionSize = 1;
         this.tableData = [];
       }
-      console.log(this.tableData);
-      
     });
-    // this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_membership_plan_type: this.defultdata } }).subscribe((res: any) => {
-    //   if (res.success && res['data'].length > 0) {
-    //     this.finaldata = res['data'];
-    //     console.log(this.finaldata);
-    //   }
-    // })
   }
   userpage(data: any) {
     this.router.navigate(['/user', data]);
@@ -153,15 +113,4 @@ console.log(quary);
       }
     })
   }
-
-  // getdefultplan() {
-
-  //   this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {
-  //     if (res.success && res['data'].length > 0) {
-  //         this.defultdata = res['data'];
-  //         console.log(this.defultdata);
-  //     }
-  //   });
-  // }
-
 }

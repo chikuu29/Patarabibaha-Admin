@@ -2,15 +2,144 @@
     <a routerLink="/spotlight"><button type="button" class="btn btn-secondary btn-lg btn-block">Make
             Spotlight</button></a>
 </div>
-<div class="">
+
+
+
+
+
+
+<div class="row">
+    <div class="col-xl-12 order-lg-1 order-xl-1">
+        <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+            <div class="table-caption-holder">
+
+
+                <div class="p-3">
+                    <button type="button" (click)="change()" [class]="'btn btn-primary btn-lg btn-block'">{{ name
+                        }}</button>
+                   
+                </div>
+                
+                <div class="dropdown-container">
+                    <select id="dropdown" (change)="changepaginetdata($event)">
+                        <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+                    </select>
+
+
+                </div>
+
+                <div class="kt-portlet__head-toolbar">
+
+
+                    <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="true"
+                        (clickSearch)="search($event)" ></app-search>
+                </div>
+            </div>
+            <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y"
+                id="grid_scroll_body" style="max-height: 50vh; position: relative;">
+                <div class="inbox-body inbox-body-table">
+                    <div class="table-scroll">
+                        <table class="custom-table table  table-bordered table-striped">
+                            <thead class="flip-content">
+                                <tr>
+                        <th style="cursor: pointer; width:5%" title="Select Member">#SI</th>
+                        <th style="cursor: pointer;width:10%" title="Member Name">User Name</th>
+                        <th style="cursor: pointer; width:25%" title="Profile ID">Gender</th>
+                        <th style="cursor: pointer; width:25%" title="Created At">Approval</th>
+                        <th>Action</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container
+                                    *ngFor="let data of finaldata | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
+                                   
+                                    <tr>
+
+                                        <td>{{i+1}}</td>
+                                        <td> <a (click)="userpage(data.user_id)" class="underline" href="javascript:void(0);">
+                                                {{data.user_fname+' '+data.user_lname }}
+                                            </a> </td>
+            
+                                        <td>{{data.user_gender }}</td>
+            
+            
+                                        <td>
+                                            <p class="badge badge-success" *ngIf="data.user_status == 'Approved'">Approved
+                                            </p>
+                                            <p class="badge badge-danger" *ngIf="data.user_status == 'Pending'">Pending</p>
+                                        </td>
+            
+                                        <td>
+                                            
+                                            <button class="button-83"
+                                                (click)="remove(data.user_fname,data.user_lname,data.user_id)"
+                                                role="button">Remove</button>
+            
+            
+            
+            
+                                        </td>
+                                    </tr>
+                                </ng-container>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="table-footer-holder">
+                <div>
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
+                        [ellipses]="false" [boundaryLinks]="false" class=""
+                        (pageChange)="onpageChnage()"></ngb-pagination>
+                </div>
+                <div>
+                    <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
+                        {{offset}} to {{totalFetchrecord}} of
+                        {{totalDataCount}}</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="">
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
                 <span class="fs-5">Showing of results</span>
-                <!-- countryalldata.length {{}} -->
-                <!-- {{countryalldata.length}}  -->
-
+               
             </div>
             <div class="caption-item">
                 <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
@@ -21,7 +150,7 @@
             <div class="p-3">
                 <button type="button" (click)="change()" [class]="'btn btn-primary btn-lg btn-block'">{{ name
                     }}</button>
-                <!-- <button (click)="female()" type="button" [class]="femaleclass">FEMALE</button> -->
+               
             </div>
             <table class="table ">
                 <thead class="table-header">
@@ -52,7 +181,7 @@
                             </td>
 
                             <td>
-                                <!-- Button trigger modal -->
+                                
                                 <button class="button-83"
                                     (click)="remove(data.user_fname,data.user_lname,data.user_id)"
                                     role="button">Remove</button>
@@ -67,4 +196,4 @@
             </table>
         </div>
     </div>
-</div>
+</div> -->

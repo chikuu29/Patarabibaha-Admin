@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { CommonService } from 'src/app/services/common.service';
-import * as CryptoJS from 'crypto-js'; 
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-likeprofileview',
@@ -14,31 +14,138 @@ import * as CryptoJS from 'crypto-js';
 export class LikeprofileviewComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
-  filterText:any;
+  filterText: any;
   like_activity: any;
-  countele:number;
+  countele: number;
+  login_activity: any;
+  class1: string = 'btn btn-primary btn-lg btn-block';
+  class2: string = 'btn btn-primary btn-lg btn-block d-none';
+  femaleclass: any;
+  maleclass: any;
+  name: string = 'FEMALE';
+  finaldata: any = [];
+  alldata: any;
+  defultdata: any;
+  apiFetchRecordLimit = 10
+  options = [10, 15, 50, 100, 500, 1000];
+  page: any = 1;
+  collectionSize: any = 10
+  offset = 1;
+  pegination_required: boolean = false;
+  currentFunction: string = 'fatchdata';
+  totalDataCount: any;
+  totalFetchrecord: any;
   constructor(
     private ApiParameter: ApiParameterScript,
-    private router:Router ,
-    private CommonService:CommonService
+    private router: Router,
+    private CommonService: CommonService
   ) { }
 
   ngOnInit(): void {
-    this.fatchdata()
+    this.fatchdata(0, this.collectionSize);
   }
-  details(data:string){
+  changepaginetdata(event: any) {
+    this.page = 1;
+    this.offset = 1;
+    this.pegination_required = true;
+    this.apiFetchRecordLimit = Number(event.target.value);
+    let _this: any = this
+    _this[this.currentFunction](0, Number(event.target.value));
+  }
+  getSearchText(event: any) {
+    this.filterText = event
+  }
+  onpageChnage() {
+    let _this: any = this;
+    _this[this.currentFunction](this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit, this.apiFetchRecordLimit);
+    this.offset = this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit
+  }
+  search(search_text: any) {
+    let _this: any = this;
+    _this[this.currentFunction](0, 10, true, search_text);
+  }
+  userpage(data: any) {
+    this.router.navigate(['/user', data]);
+  }
+  details(data: string) {
     let kye = 'Lipun';
-    let encripted = CryptoJS.AES.encrypt(JSON.stringify(data),kye).toString();
-    this.router.navigate(['like-activity/details',encripted]);
+    let encripted = CryptoJS.AES.encrypt(JSON.stringify(data), kye).toString();
+    this.router.navigate(['like-activity/details', encripted]);
   }
-  fatchdata() {
-    this.CommonService.getLikeCount().subscribe((res: any) => {
+  fatchdata(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
+
+
+    
+
+
+    let quary = `SELECT a.liked_by_profile_id, COUNT(*) AS count ,COUNT(*) OVER () AS total_count
+    FROM user_like AS a
+    LEFT JOIN user_info AS b ON a.liked_by_profile_id = b.user_id
+    LEFT JOIN auth_user AS c ON a.liked_by_profile_id = c.auth_ID
+    GROUP BY  a.liked_by_profile_id
+    ORDER BY a.id DESC
+    LIMIT ${limit} OFFSET ${start}
+    `;
+    
+  if (loadSpecificData) {
+    quary = `SELECT a.liked_by_profile_id, COUNT(*) AS count ,COUNT(*) OVER () AS total_count
+    FROM user_like AS a
+    LEFT JOIN user_info AS b ON a.liked_by_profile_id = b.user_id
+    LEFT JOIN auth_user AS c ON a.liked_by_profile_id = c.auth_ID
+    GROUP BY a.user_id
+    ORDER BY a.id DESC
+  WHERE a.liked_by_profile_id = '${search_text}'
+     OR c.auth_ID = '${search_text}'
+     OR b.user_fname = '${search_text}'
+     OR b.user_lname = '${search_text}'
+     OR c.auth_phone_no like '%${search_text}%'
+   `;
+  }
+    console.log(quary);
+
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      this.blockUI.stop()
       console.log(res);
       if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length
+        this.collectionSize = Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        console.log(this.collectionSize);
         this.like_activity = res['data'];
-        this.countele= this.like_activity.length;
+      } else {
+        this.collectionSize = 1;
+        this.like_activity = [];
       }
-    })
+      console.log(this.like_activity);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // this.CommonService.getLikeCount().subscribe((res: any) => {
+    //   //console.log(res);
+    //   if (res.success && res['data'].length > 0) {
+    //     this.like_activity = res['data'];
+    //     this.countele = this.like_activity.length;
+    //   }
+    // })
   }
 
 }

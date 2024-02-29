@@ -1,7 +1,16 @@
-<div class="d-flex justify-content-around pading">
-    <button type="button" [class]="class1" (click)="getExpireData()">Expire Users</button>
-    <button type="button" [class]="class2" (click)="freeUser()">Free Users</button>
-    <button type="button" [class]="class3" (click)="premiumUser()">Premium Users</button>
+<div class="kapi-container">
+    <ng-container *ngFor="let kpi of kpiTileConfig;let i=index">
+        <div class="kapi-tile" (click)="loadKpi(kpi.methodName,i)">
+            <i [ngClass]="kpi.iconClass"></i>
+            <span class="ps-2 fw-bold">{{kpi.text}} </span>
+            <ng-container *ngIf="kpi.selectedStatus">
+                <div class="mt-3">
+                    <mat-progress-bar mode="determinate" [value]="100" [color]="'accent'"></mat-progress-bar>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+
 </div>
 <div class="">
     <div class="table-holder">

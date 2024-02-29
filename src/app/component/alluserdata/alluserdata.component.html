@@ -58,8 +58,6 @@
                     <select id="dropdown" (change)="changepaginetdata($event)">
                         <option *ngFor="let option of options" [value]="option">{{ option }}</option>
                     </select>
-
-
                 </div>
 
                 <div class="kt-portlet__head-toolbar">
@@ -67,12 +65,10 @@
 
                     <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="true"
                         (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
-
-
                 </div>
             </div>
             <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y"
-                id="grid_scroll_body" style="max-height: 50vh; position: relative;">
+                id="grid_scroll_body" style="max-height: 75vh; position: relative;">
                 <div class="inbox-body inbox-body-table">
                     <div class="table-scroll">
                         <table class="custom-table table  table-bordered table-striped">
@@ -81,8 +77,9 @@
                                     <th style="cursor: pointer; width:5%" title="Select Member">
                                         <input type="checkbox" name="" id="all" (change)="checkAll($event)">
                                         <!-- <mat-checkbox class="example-margin" (change)="checkAll($event)"
-                                        ></mat-checkbox>--> </th> 
-                                        
+                                        ></mat-checkbox>-->
+                                    </th>
+
                                     <th style="cursor: pointer;width:10%" title="Member Name">
                                         Member Name </th>
                                     <th style="cursor: pointer; width:25%" title="Profile ID">
@@ -90,24 +87,28 @@
                                     <th style="cursor: pointer; width:25%" title="Created At">
                                         Created At
                                     </th>
-
                                     <th style="cursor: pointer;" title="Age"> Age </th>
                                     <th style="cursor: pointer;" title="Gender"> Gender </th>
                                     <th style="cursor: pointer; width: 145px;" title="Profile Status"> Profile Status
                                     </th>
-
-
-                                    <th class="fixed-column" style="cursor: pointer; width:10%" title="Action">Action
+                                    <th style="cursor: pointer; width: 145px;" title="Profile Status"> Delete Status
                                     </th>
+                                    <th style="cursor: pointer; width: 145px;" title="Profile Status"> User Privacy States
+                                    </th>
+                                    <th style="cursor: pointer; width: 145px;" title="Profile Status"> Complit Status
+                                    </th>
+                                    <th style="cursor: pointer; width:10%" title="Action">Action
+                                    </th>
+                                    <!-- class="fixed-column" -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <ng-container
                                     *ngFor="let data of tableData | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
                                     <tr>
-
                                         <td class="text-center">
-                                            <input type="checkbox" class="check" [value]="data?.user_id" (change)="getId(data?.Id,$event)" name="" id="">
+                                            <input type="checkbox" class="check" [value]="data?.user_id"
+                                                (change)="getId(data?.Id,$event)" name="" id="">
                                             <!-- <mat-checkbox class="check" (change)="getId(data?.Id,$event)"
                                                 [value]="data?.user_id"></mat-checkbox> -->
                                         </td>
@@ -132,26 +133,50 @@
                                             <!-- </div> -->
                                         </td>
                                         <td title="Ready for Professional Open">
-                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
-                                                *ngIf="data.status == 1"> Un Publish
-                                            </div>
                                             <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"
-                                                *ngIf="data.status == 0"> Publish
+                                                *ngIf="data.status == 1"> Publish
                                             </div>
-
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
+                                                *ngIf="data.status == 0"> Un Publish
+                                            </div>
+                                        </td>
+                                        <td title="Ready for Professional Open">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"
+                                                *ngIf="data.deleted == 1"> Not Deleted
+                                            </div>
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
+                                                *ngIf="data.deleted == 0"> Deleted
+                                            </div>
+                                        </td>
+                                        <td title="Ready for Professional Open">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"
+                                                *ngIf="data.user_privacy == 'public'"> Public
+                                            </div>
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
+                                                *ngIf="data.user_privacy == 'private'"> Private
+                                            </div>
                                         </td>
 
-                                        <td class="fixed-column">
+                                        <td title="Ready for Professional Open">
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"
+                                                *ngIf="data.user_all_table_complited == 1 "> Complited
+                                            </div>
+                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
+                                                *ngIf="data.user_all_table_complited == 0"> Not Complited
+                                            </div>
+                                        </td>
+                                        
+                                        <td>
+                                            <!-- class="fixed-column" -->
                                             <!-- View Button with Outline Style -->
                                             <button class="btn btn-outline-primary btn-sm me-2" title="View"
                                                 [routerLink]="'/user/'+data.user_id">
                                                 <i class="fas fa-eye"></i> View
                                             </button>
-
                                             <!-- Open in New Tab Button with Outline Style -->
                                             <button class="btn btn-outline-primary btn-sm" title="Open in new tab"
-                                                (click)="openNewTab(data.user_id)">
-                                                <i class="fas fa-external-link-alt"></i> Open in New Tab
+                                                (click)="viwePlan(data.user_id)">
+                                                <i class="fas fa-external-link-alt"></i> View Plan
                                             </button>
 
                                         </td>
