@@ -29963,7 +29963,7 @@ div.tagsinput span.tag a {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 70px);
-  background: #fafbfc;
+  /* background: #fafbfc; */
   font-weight: normal;
   padding: 0;
   width: 244px;
@@ -29972,6 +29972,7 @@ div.tagsinput span.tag a {
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
+
 }
 
 .sidebar .sidebar-brand-wrapper {
@@ -29979,7 +29980,7 @@ div.tagsinput span.tag a {
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
-  background: #fafbfa;
+  /* background: #fafbfa; */
   width: 244px;
   height: 70px;
   /* border-bottom:1px solid bla ; */
