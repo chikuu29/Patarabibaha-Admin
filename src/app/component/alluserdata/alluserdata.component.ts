@@ -187,7 +187,7 @@ export class AlluserdataComponent implements OnInit {
 
   deletedata() {
     if (this.allId.length == 0) {
-      
+
       Swal.fire("Warning","Please select any record",'warning')
     } else {
       Swal.fire({
@@ -428,6 +428,7 @@ export class AlluserdataComponent implements OnInit {
     var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      ORDER BY a.user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -437,24 +438,25 @@ export class AlluserdataComponent implements OnInit {
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}';
+         ORDER BY a.user_creation_date_time DESC
        `;
     }
-   
-    //console.log("query",quary);
-    
+
+    console.log("query",quary);
+
     this.blockUI.start('Loading...')
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
-     
-      
+
+
       if (res.success && res['data'].length > 0) {
-     
+
         this.totalDataCount=res['data'][0].total_count;
         this.totalFetchrecord =start+res['data'].length
         this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
        console.log(this.collectionSize);
         this.tableData = res['data'];
-     
+
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -467,11 +469,12 @@ export class AlluserdataComponent implements OnInit {
 
 
   getAllOnlineData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-   
+
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
           FROM user_info AS a
           LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
           a.online_status=1
+          ORDER BY a.user_creation_date_time DESC
           LIMIT ${limit} OFFSET ${start}`
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -482,7 +485,8 @@ export class AlluserdataComponent implements OnInit {
                 AND a.user_id = '${search_text}'
                OR b.auth_ID = '${search_text}'
                OR a.user_fname = '${search_text}'
-               OR a.user_lname = '${search_text}';
+               OR a.user_lname = '${search_text}'
+               ORDER BY a.user_creation_date_time DESC;
              `;
     }
 
@@ -507,11 +511,12 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllUnpublishedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-   
+
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
           FROM user_info AS a
           LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
           a.status=0
+          ORDER BY a.user_creation_date_time DESC
           LIMIT ${limit} OFFSET ${start}`
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -522,7 +527,8 @@ export class AlluserdataComponent implements OnInit {
                 AND a.user_id = '${search_text}'
                OR b.auth_ID = '${search_text}'
                OR a.user_fname = '${search_text}'
-               OR a.user_lname = '${search_text}';
+               OR a.user_lname = '${search_text}'
+               ORDER BY a.user_creation_date_time DESC;
              `;
     }
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
@@ -533,7 +539,7 @@ export class AlluserdataComponent implements OnInit {
         this.totalDataCount=res['data'][0].total_count;
         this.totalFetchrecord =start+res['data'].length
         this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
-        
+
         this.tableData = res['data'];
         // console.log(this.tableData);
       } else {
@@ -544,12 +550,13 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllDeletedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-   
+
     // let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=0';
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
     LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
     a.deleted=0
+    ORDER BY a.user_creation_date_time DESC
     LIMIT ${limit} OFFSET ${start}`
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -560,7 +567,8 @@ export class AlluserdataComponent implements OnInit {
           AND a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
-         OR a.user_lname = '${search_text}';
+         OR a.user_lname = '${search_text}'
+         ORDER BY a.user_creation_date_time DESC;
        `;
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -578,12 +586,13 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllNotDeletedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-   
+
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=1';
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
     LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
     a.deleted=1
+    ORDER BY a.user_creation_date_time DESC
     LIMIT ${limit} OFFSET ${start}`
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -594,7 +603,8 @@ export class AlluserdataComponent implements OnInit {
           AND a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
-         OR a.user_lname = '${search_text}';
+         OR a.user_lname = '${search_text}'
+         ORDER BY a.user_creation_date_time DESC;
        `;
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -612,7 +622,7 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllApprovedData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-   
+
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved"';
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
@@ -646,12 +656,13 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllPendingData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-   
+
     // let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Pending"';
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
     LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
     a.user_status="Pending"
+    ORDER BY a.user_creation_date_time DESC
     LIMIT ${limit} OFFSET ${start}`
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -662,7 +673,8 @@ export class AlluserdataComponent implements OnInit {
           AND a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
-         OR a.user_lname = '${search_text}';
+         OR a.user_lname = '${search_text}'
+         ORDER BY a.user_creation_date_time DESC;
        `;
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -679,7 +691,7 @@ export class AlluserdataComponent implements OnInit {
     });
   }
   getAllvaliduserData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    
+
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved" AND a.deleted=1 AND a.status=1';
 
 
@@ -687,6 +699,7 @@ export class AlluserdataComponent implements OnInit {
     FROM user_info AS a
     LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
     a.user_status="Approved" AND a.deleted=1 AND a.status=1
+    ORDER BY a.user_creation_date_time DESC
     LIMIT ${limit} OFFSET ${start}`
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -697,7 +710,8 @@ export class AlluserdataComponent implements OnInit {
           AND a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
-         OR a.user_lname = '${search_text}';
+         OR a.user_lname = '${search_text}'
+         ORDER BY a.user_creation_date_time DESC;
        `;
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -713,17 +727,17 @@ export class AlluserdataComponent implements OnInit {
       }
     });
   }
-  
+
 
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
     console.log(check);
-    
+
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any,key:any) => {
         console.log('p');
-        
+
         this.allId.push(parseInt(this.tableData[key].Id));
         checkbox.checked = true;
       });
@@ -738,7 +752,7 @@ export class AlluserdataComponent implements OnInit {
   getId(id: any, e: any) {
 
     console.log("hii",e);
-    
+
     if (e.target.checked) {
       this.allId.push(parseInt(id));
     } else {
