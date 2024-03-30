@@ -16,6 +16,7 @@
 .table-holder {
   // border-radius: 12px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 12px;
   .table-caption-holder {
     padding: 7px;
     // border-bottom: 2px solid #c1c3c5;
@@ -26,6 +27,8 @@
   }
   .table-content-holder {
     overflow-x: scroll;
+    padding-left: 8px;
+    padding-right: 8px;
 
     table {
       th {

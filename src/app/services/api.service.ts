@@ -18,52 +18,49 @@ export class ApiService {
   public getdata(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'fetch', apiData, { headers: this.headers });
   }
-
-  public update(apiData:any){
-    return this.http.post(this.appservices.getApipath()+ 'update',JSON.stringify(apiData),{ headers: this.headers })
-  }
-
-  public makeActinForMultipulData(apiData:any){
+    public makeActinForMultipulData(apiData:any){
     return this.http.post(this.appservices.getApipath()+ 'makeActinForMultipulData',JSON.stringify(apiData),{ headers: this.headers })
   }
+
+  public update(apiData: any) {
+    return this.http.post(this.appservices.getApipath() + 'update', apiData, { headers: this.headers })
+
+  }
+
+
   
 
   public save(apiData:any){
-    return this.http.post(this.appservices.getApipath()+ 'save',JSON.stringify(apiData),{ headers: this.headers })
+    return this.http.post(this.appservices.getApipath() + 'save', apiData, { headers: this.headers })
   }
 
   public delete(apiData:any){
-    return this.http.post(this.appservices.getApipath()+ 'delete',JSON.stringify(apiData),{ headers: this.headers })
+    const options = {
+      body: apiData  // Data to be sent in the body of the request
+    };
+
+    return this.http.delete(this.appservices.getApipath() + 'delete', options)
   }
 
-  public addmedicine(apiData:any){
-    return this.http.post(this.appservices.getApipath()+ 'medicine/creatmed.php',apiData,{ headers: this.headers })
-  }
 
 
-     /**
-  * @param requestId ,100(For Adding New product) ,101(For Updating Product)
-  * @param apiData ,
-  * @author Suryanarayan Biswal
-  * @since 01-11-2022
-  */
-  public requsting_E_Commerce_Product_Api(requestId:any,apiData:any){
-    return this.http.post(this.appservices.getApipath()+ `shop/create_Selling_Product.php?request_id=${requestId}&token=admin_waywala`,apiData,{ headers: this.headers })
-  }
+
+
   
   public fetchDataQueryApi(query:any){
-    return this.http.post(this.appservices.getApipath()+'getDataFormQuery',query,{headers:this.headers})
+    // return this.http.get(this.appservices.getApipath() + 'generic/getDataFormQuery.php?token='+this.appservices.authStatus._refreshkey+'&query='+encodeURIComponent(JSON.stringify(query)));
+    return this.http.post(this.appservices.getApipath() + 'getDataFormQuery', query, { headers: this.headers })
   }
 
   public deleteImage(apiData:any){
-    return this.http.post(this.appservices.getApipath()+ `shop/delete_image.php`,apiData,{headers:this.headers})
+    return this.http.post(this.appservices.getApipath() + `shop/delete_image.php`, apiData)
   }
   public socialMediaLink(apiData:any){
-    return this.http.post(this.appservices.getApipath()+ `socialMediaLink`,apiData,{headers:this.headers})
+    return this.http.post(this.appservices.getApipath() + `socialMediaLink`, apiData)
   }
 
   public getSocialMediaLink(){
-    return this.http.post(this.appservices.getApipath()+ `getsocialMediaLink`,{headers:this.headers})
+    return this.http.get(this.appservices.getApipath() + `getsocialMediaLink`)
   }
 
   public insertCountry(param:any){

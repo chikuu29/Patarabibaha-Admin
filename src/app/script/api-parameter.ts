@@ -40,20 +40,24 @@ export class ApiParameterScript {
      * @param apiData 
      * @param offset :Numbser
      * @param limit :Numbser
-     * @returns 
+     * @param order_by 
+     * @example "column_name"
      * @author Suryanarayan Biswal
      * @since 20-10-2022
      */
-    public fetchdata(db: string, apiData: any,offset:Number=0,limit:Number=100) {
+    public fetchdata(db: string, apiData: any, offset: Number = 0, limit: Number = 100, order_by?: string) {
         const simpleObservable = new Observable((observer) => {
             try {
                 apiData['table'] = db;
                 apiData['offset']=offset
                 apiData['limit']=limit
+                apiData['order_by'] = order_by && order_by !== '' ? order_by : ''
                 this.blockUI.start("Please Wait")
-                this.apiservices.getdata(apiData).subscribe(
+                const encryptedData=this.cryptography.encryptData(apiData)
+                this.apiservices.getdata(encryptedData).subscribe(
                     (res: any) => {
                         this.blockUI.stop()
+                        res = JSON.parse(this.cryptography.decryptData(JSON.stringify(res)));
                         observer.next(res);
                         observer.complete();
                     }, (err: any) => {
@@ -71,12 +75,37 @@ export class ApiParameterScript {
         });
         return simpleObservable;
     }
+    // public unsecuredFatchquary(db: string, apiData: any) {
+    //     const simpleObservable = new Observable((observer) => {
+    //         try {
+    //             apiData['table'] = db;
+    //             this.blockUI.start("Please Wait")
+    //             this.apiservices.unsecuredFatchquary(apiData).subscribe(
+    //                 (res: any) => {
+    //                     this.blockUI.stop()
+    //                     observer.next(res);
+    //                     observer.complete();
+    //                 }, (err: any) => {
+    //                     this.blockUI.stop()
+    //                     observer.next(err);
+    //                     observer.complete();
+    //                 }
+    //             )
+    //         } catch (error) {
+    //             this.blockUI.stop()
+    //             console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+    //             observer.next(error);
+    //             observer.complete();
+    //         }
+    //     });
+    //     return simpleObservable;
+    // }
 
 
     /**
      * {
              "table":"country_table",
-             "data":[],
+            "data":{},
              "whereConditions":{
                  "country_name":"INDIA"
              ]
@@ -93,21 +122,11 @@ export class ApiParameterScript {
         const simpleObservable = new Observable((observer) => {
             try {
                 apiData['table'] = db;
-                // const appConfig = this.appservices.getappconfig;
-                // const loginInfo = this.appservices.authStatus;
-                // let getrole = loginInfo['role'] ? loginInfo['role'] : '';
-                // let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
-                // let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
-                // if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
-                //     apiData['loginInfo'] = loginInfo;
-                this.apiservices.update(apiData).subscribe((res: any) => {
+                const encryptedData=this.cryptography.encryptData(apiData)
+                this.apiservices.update(encryptedData).subscribe((res: any) => {
                     observer.next(res);
                     observer.complete();
                 })
-                // } else {
-                //     observer.next({ "success": false, "message": "Permission Denied To Update Database" });
-                //     observer.complete();
-                // }
             } catch (error) {
                 console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
                 observer.next(error);
@@ -120,15 +139,11 @@ export class ApiParameterScript {
 
     /**
     * {
-        "data":"case_status='accepted'",
-        "db":"agriculture_case",
-        "loginInfo":{
-                        "email":"cchiku1999@gmail.com",
-                            "id": "SURYA1234",
-                            "isLogin": true,
-                            "name": "SURYANARAYAN BISWAL",
-                            "role": "agri"
-                    }
+    {
+          "data": {"name":"test"},
+          "whereConditions": { user_ID: this.appservices.authStatus.profile_id },
+          "isJsonData":true,
+          "jsonDataID":{user_ID: this.appservices.authStatus.profile_id}//if isJsonData=true
         
         }
 
@@ -142,6 +157,9 @@ export class ApiParameterScript {
         const simpleObservable = new Observable((observer) => {
             try {
                 apiData['table'] = db;
+                apiData['isJsonData'] = apiData['isJsonData'] ? apiData['isJsonData'] : false;
+                apiData['jsonDataID'] = apiData['isJsonData'] ? apiData['jsonDataID'] : {}
+                console.log(apiData);
                 // const appConfig = this.appservices.getappconfig;
                 // const loginInfo = this.appservices.authStatus;
                 // let getrole = loginInfo['role'] ? loginInfo['role'] : '';
@@ -149,7 +167,8 @@ export class ApiParameterScript {
                 // let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
                 // if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
                 //     apiData['loginInfo'] = loginInfo;
-                this.apiservices.save(apiData).subscribe((res: any) => {
+                const encryptedData=this.cryptography.encryptData(apiData)
+                this.apiservices.save(encryptedData).subscribe((res: any) => {
                     observer.next(res);
                     observer.complete();
                 })
@@ -167,16 +186,11 @@ export class ApiParameterScript {
     }
 
     /**
-    * {
-            "table":"country_table",
-            "whereConditions":{
-                "country_name":"INDIA"
-            ]
-    }
 
     * @param db 
+   * @example "DB_NAME"
     * @param apiData 
-    * @returns 
+   * @example  {"whereConditions": { user_ID: this.appservices.authStatus.profile_id }}
     * @author Suryanarayan Biswal
     * @since 20-10-2022
     */
@@ -184,10 +198,10 @@ export class ApiParameterScript {
         const simpleObservable = new Observable((observer) => {
             try {
                 apiData['table'] = db;
-                // if (apiData['multidelete'] == undefined) {
-                //     apiData['multidelete'] = false
-                //     apiData['data'] = ''
-                // }
+                if (apiData['multidelete'] == undefined) {
+                    apiData['multidelete'] = false
+                    apiData['data'] = ''
+                }
                 // const appConfig = this.appservices.getappconfig;
                 // const loginInfo = this.appservices.authStatus;
                 // let getrole = loginInfo['role'] ? loginInfo['role'] : '';
@@ -195,7 +209,8 @@ export class ApiParameterScript {
                 // let outhForDelete = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForDelete'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForDelete'].includes(db) : false : false;
                 // if (appConfig['roleConfig'][getrole] && (outh && outhForDelete)) {
                 //     apiData['loginInfo'] = loginInfo;
-                    this.apiservices.delete(apiData).subscribe((res: any) => {
+                const encryptedData=this.cryptography.encryptData(apiData)
+                this.apiservices.delete(encryptedData).subscribe((res: any) => {
                         observer.next(res);
                         observer.complete();
                     })
@@ -230,40 +245,7 @@ export class ApiParameterScript {
                    }
        
        }
-  * @param requestId ,100(For Adding New product) ,101(For Updating Product)
-   * @param db 
-   * @param apiData 
-   * @returns 
-   * @author Suryanarayan Biswal
-   * @since 01-11-2022
    */
-    public create_Product_For_Sell(db: string, apiData: any, request_id: any) {
-        const simpleObservable = new Observable((observer) => {
-            try {
-                // apiData['db'] = db;
-                const appConfig = this.appservices.getappconfig;
-                const loginInfo = this.appservices.authStatus;
-                let getrole = loginInfo['role'] ? loginInfo['role'] : '';
-                let outh = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcess'].includes(db) : false;
-                let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
-                if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
-                    apiData['loginInfo'] = loginInfo;
-                    this.apiservices.requsting_E_Commerce_Product_Api(request_id, apiData).subscribe((res: any) => {
-                        observer.next(res);
-                        observer.complete();
-                    })
-                } else {
-                    observer.next({ "success": false, "message": "Permission Denied To Update Database" });
-                    observer.complete();
-                }
-            } catch (error) {
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
-                observer.next(error);
-                observer.complete();
-            }
-        });
-        return simpleObservable;
-    }
     public fetchDataFormQuery(query: any) {
         const simpleObservable = new Observable((observer) => {
             try {
