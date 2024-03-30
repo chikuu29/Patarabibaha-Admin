@@ -39,7 +39,7 @@ export function checkLoginMode(auth: AuthService) {
     AppComponent,
     AuthComponent,
     AdminComponent
-   
+
   ],
   imports: [
     BrowserModule,
@@ -66,7 +66,7 @@ export function checkLoginMode(auth: AuthService) {
     ),
     ToastrModule.forRoot(),
     ImageCropperModule
-    
+
   ],
   providers: [
     AppService,

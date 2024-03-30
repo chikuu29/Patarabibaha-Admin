@@ -8,7 +8,9 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { MaterialModule } from '../material/material.module';
 import { DeleterequestComponent } from './deleterequest/deleterequest.component';
 import { ProfileimagepproveComponent } from './profileimagepprove/profileimagepprove.component';
-
+import { SharedModule } from '../shared/shared.module';
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 
 
 
@@ -17,7 +19,6 @@ import { ProfileimagepproveComponent } from './profileimagepprove/profileimagepp
     UserapproveComponent,
     ProfileimagepproveComponent,
     DeleterequestComponent,
-    
   ],
   imports: [
     CommonModule,
@@ -25,7 +26,10 @@ import { ProfileimagepproveComponent } from './profileimagepprove/profileimagepp
     FormsModule,
     ReactiveFormsModule,
     PrimengModule,
-    MaterialModule
+    SharedModule,
+    NgbPaginationModule,
+    NgbModule,
+    CustomPipeModule
   ]
 })
 export class ApproveModule { }

@@ -23,7 +23,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: DeleterequestComponent
       },
-      
+
     ]
   }
 ];

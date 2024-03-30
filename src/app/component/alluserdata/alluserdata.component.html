@@ -51,9 +51,6 @@
     <div class="col-xl-12 order-lg-1 order-xl-1">
         <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
             <div class="table-caption-holder">
-                <!-- <div class="kt-portlet__head-label">
-                    <h3 class="kt-portlet__head-title">My Open Cases</h3>
-                </div> -->
                 <div class="dropdown-container">
                     <select id="dropdown" (change)="changepaginetdata($event)">
                         <option *ngFor="let option of options" [value]="option">{{ option }}</option>

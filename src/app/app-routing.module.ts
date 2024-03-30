@@ -27,8 +27,13 @@ const routes: Routes = [
         path: 'chat',
         canActivate: [AuthGuard],
         loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
+      },
+      {
+        path:'approve',
+        canActivate: [AuthGuard],
+        loadChildren: ()=> import('./approve/approve.module').then(m=>m.ApproveModule)
       }
-     
+
     ]
   },
   {
@@ -42,9 +47,9 @@ const routes: Routes = [
     ]
 
   },
-  
 
- 
+
+
 
   {
     path: 'approve',

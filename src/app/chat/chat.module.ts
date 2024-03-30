@@ -29,7 +29,6 @@ import { ChatRoomComponent } from './chat-room/chat-room.component';
         MaterialModule,
         ReactiveFormsModule,
         FormsModule
-        
     ]
 })
 export class ChatModule { }

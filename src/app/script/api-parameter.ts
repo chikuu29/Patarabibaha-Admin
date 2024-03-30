@@ -26,80 +26,57 @@ export class ApiParameterScript {
     }
 
 
-    /**
+   /**
      * {
             "table":"country_table",
             "projection":["*"],
             "whereConditions":[
                 ["country_name", "INDIA"]
-        
+
           ]
         }
 
-     * @param db 
-     * @param apiData 
+     * @param db
+     * @param apiData
      * @param offset :Numbser
      * @param limit :Numbser
-     * @param order_by 
+     * @param order_by
      * @example "column_name"
      * @author Suryanarayan Biswal
      * @since 20-10-2022
      */
-    public fetchdata(db: string, apiData: any, offset: Number = 0, limit: Number = 100, order_by?: string) {
-        const simpleObservable = new Observable((observer) => {
-            try {
-                apiData['table'] = db;
-                apiData['offset']=offset
-                apiData['limit']=limit
-                apiData['order_by'] = order_by && order_by !== '' ? order_by : ''
-                this.blockUI.start("Please Wait")
-                const encryptedData=this.cryptography.encryptData(apiData)
-                this.apiservices.getdata(encryptedData).subscribe(
-                    (res: any) => {
-                        this.blockUI.stop()
-                        res = JSON.parse(this.cryptography.decryptData(JSON.stringify(res)));
-                        observer.next(res);
-                        observer.complete();
-                    }, (err: any) => {
-                        this.blockUI.stop()
-                        observer.next(err);
-                        observer.complete();
-                    }
-                )
-            } catch (error) {
-                this.blockUI.stop()
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
-                observer.next(error);
-                observer.complete();
-            }
-        });
-        return simpleObservable;
-    }
-    // public unsecuredFatchquary(db: string, apiData: any) {
-    //     const simpleObservable = new Observable((observer) => {
-    //         try {
-    //             apiData['table'] = db;
-    //             this.blockUI.start("Please Wait")
-    //             this.apiservices.unsecuredFatchquary(apiData).subscribe(
-    //                 (res: any) => {
-    //                     this.blockUI.stop()
-    //                     observer.next(res);
-    //                     observer.complete();
-    //                 }, (err: any) => {
-    //                     this.blockUI.stop()
-    //                     observer.next(err);
-    //                     observer.complete();
-    //                 }
-    //             )
-    //         } catch (error) {
-    //             this.blockUI.stop()
-    //             console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
-    //             observer.next(error);
-    //             observer.complete();
-    //         }
-    //     });
-    //     return simpleObservable;
-    // }
+        public fetchdata(db: string, apiData: any, offset: Number = 0, limit: Number = 100, order_by?: string) {
+          const simpleObservable = new Observable((observer) => {
+              try {
+                  apiData['table'] = db;
+                  apiData['offset'] = offset
+                  apiData['limit'] = limit
+                  apiData['order_by'] = order_by && order_by !== '' ? order_by : ''
+                  this.blockUI.start("Please Wait")
+                  const encryptedData=this.cryptography.encryptData(apiData)
+                  this.apiservices.getdata(encryptedData).subscribe(
+                      (res: any) => {
+
+
+                          this.blockUI.stop()
+                          res = JSON.parse(this.cryptography.decryptData(JSON.stringify(res)));
+                          observer.next(res);
+                          observer.complete();
+                      }, (err: any) => {
+                          this.blockUI.stop()
+                          observer.next(err);
+                          observer.complete();
+                      }
+                  )
+              } catch (error) {
+                  this.blockUI.stop()
+                  console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                  observer.next(error);
+                  observer.complete();
+              }
+          });
+          return simpleObservable;
+      }
 
 
     /**
@@ -109,12 +86,12 @@ export class ApiParameterScript {
              "whereConditions":{
                  "country_name":"INDIA"
              ]
-         } Upadte data parametr formate 
- 
- 
-     * @param db 
-     * @param apiData 
-     * @returns 
+         } Upadte data parametr formate
+
+
+     * @param db
+     * @param apiData
+     * @returns
      * @author Suryanarayan Biswal
      * @since 20-10-2022
      */
@@ -139,17 +116,21 @@ export class ApiParameterScript {
 
     /**
     * {
-    {
-          "data": {"name":"test"},
-          "whereConditions": { user_ID: this.appservices.authStatus.profile_id },
-          "isJsonData":true,
-          "jsonDataID":{user_ID: this.appservices.authStatus.profile_id}//if isJsonData=true
-        
+        "data":"case_status='accepted'",
+        "db":"agriculture_case",
+        "loginInfo":{
+                        "email":"cchiku1999@gmail.com",
+                            "id": "SURYA1234",
+                            "isLogin": true,
+                            "name": "SURYANARAYAN BISWAL",
+                            "role": "agri"
+                    }
+
         }
 
-    * @param db 
-    * @param apiData 
-    * @returns 
+    * @param db
+    * @param apiData
+    * @returns
     * @author Suryanarayan Biswal
     * @since 20-10-2022
     */
@@ -187,10 +168,9 @@ export class ApiParameterScript {
 
     /**
 
-    * @param db 
-   * @example "DB_NAME"
-    * @param apiData 
-   * @example  {"whereConditions": { user_ID: this.appservices.authStatus.profile_id }}
+    * @param db
+    * @param apiData
+    * @returns
     * @author Suryanarayan Biswal
     * @since 20-10-2022
     */
@@ -243,8 +223,14 @@ export class ApiParameterScript {
                            "name": "SURYANARAYAN BISWAL",
                            "role": "agri"
                    }
-       
+
        }
+  * @param requestId ,100(For Adding New product) ,101(For Updating Product)
+   * @param db
+   * @param apiData
+   * @returns
+   * @author Suryanarayan Biswal
+   * @since 01-11-2022
    */
     public fetchDataFormQuery(query: any) {
         const simpleObservable = new Observable((observer) => {
@@ -281,9 +267,9 @@ export class ApiParameterScript {
     }
 
     /**
-       * @param FilePath 
-       * @param FileName 
-       * @returns 
+       * @param FilePath
+       * @param FileName
+       * @returns
        * @author Suryanarayan Biswal
        * @since 01-11-2022
        */
@@ -324,13 +310,13 @@ export class ApiParameterScript {
 
     /**
         * {
-           
+
             "user_id":''
-            
+
             }
-    
-        * @param apiData 
-        * @returns 
+
+        * @param apiData
+        * @returns
         * @author Suryanarayan Biswal
         * @since 11-06-2023
         */
@@ -352,13 +338,13 @@ export class ApiParameterScript {
         return simpleObservable;
     }
 
-    /* @param apiData 
-    * @returns 
+    /* @param apiData
+    * @returns
     * @author Suryanarayan Biswal
     * @since 11-06-2023
     */
 public makeActinForMultipulData(db:any ,apidata: any) {
-     
+
     const simpleObservable = new Observable((observer) => {
         try {
             apidata['table'] = db;

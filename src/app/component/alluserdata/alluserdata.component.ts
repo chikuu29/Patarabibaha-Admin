@@ -442,7 +442,7 @@ export class AlluserdataComponent implements OnInit {
        `;
     }
 
-    console.log("query",quary);
+   // console.log("query",quary);
 
     this.blockUI.start('Loading...')
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
