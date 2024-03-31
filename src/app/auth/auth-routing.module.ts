@@ -32,7 +32,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'userpasswordchange',
+        path: 'pass',
         canActivate: [AuthGuard],
         component: ChangeuserpassComponent,
         pathMatch: 'full'

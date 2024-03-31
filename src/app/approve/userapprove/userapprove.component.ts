@@ -37,7 +37,7 @@ export class UserapproveComponent implements OnInit {
 
   ngOnInit(): void {
     this.getuserAprrove(0, this.totalFetchrecord);
-    console.log(this.totalDataCount);
+    //console.log(this.totalDataCount);
   }
 
   getuserAprrove(
