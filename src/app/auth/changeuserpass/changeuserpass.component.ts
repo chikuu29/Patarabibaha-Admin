@@ -58,9 +58,9 @@ export class ChangeuserpassComponent implements OnInit {
       Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a inner join auth_user as b on a.user_id = b.auth_ID
             WHERE
             user_id = '${search_text}'
-           OR user_full_name = '${search_text}'
-           OR user_email = '${search_text}'
-           OR user_phone_no = '${search_text}'
+           OR a.user_full_name = '${search_text}'
+           OR a.user_email = '${search_text}'
+           OR b.auth_phone_no = '${search_text}'
            ORDER BY user_creation_date_time DESC ;
             `;
     }

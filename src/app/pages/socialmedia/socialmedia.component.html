@@ -1,40 +1,55 @@
 <div class="col-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Add Social Media Links</h4>
-            <!-- <p class="card-description"> Basic form elements </p> -->
-            <form [formGroup]="socialMediaForm">
-                <div class="form-group">
-                    <label >Facebook Link <i class="fa-brands fa-facebook" style="color: #0b61f4;"></i></label>
-                    <input type="text" class="form-control" formControlName="fb" placeholder="Facebook Link">
-                </div>
-                <div class="form-group">
-                    <label >Twitter Link <i class="fa-brands fa-twitter" style="color: #0b61f4;"></i></label>
-                    <input type="text" class="form-control" formControlName="tw"  placeholder="Twitter Link">
-                </div>
-                <div class="form-group">
-                    <label >Whatsapp <i class="fa-brands fa-whatsapp" style="color: #4bb823;"></i></label>
-                    <input type="text" class="form-control" formControlName="wh" placeholder="Whatsapp No">
-                </div>
-                <div class="form-group">
-                    <label >Youtube Link <i class="fa-brands fa-youtube" style="color: #f50a0a;"></i></label>
-                    <input type="text" class="form-control" formControlName="yo" placeholder="Youtube Link">
-
-                </div>
-               
-                <div class="form-group">
-                    <label >Linkedin Link <i class="fa-brands fa-linkedin" style="color: #0b61f4;"></i></label>
-                    <input type="text" class="form-control"  formControlName="li" placeholder="Linkdin Link">
-                </div>
-                <div class="form-group">
-                    <label >Application Link <i class="fa-brands fa-linkedin" style="color: #0b61f4;"></i></label>
-                    <input type="text" class="form-control"  formControlName="ai" placeholder="Linkdin Link">
-                </div>
-              
-                <button type="button" class="btn btn-primary btn-md mr-2 p-2" (click)="socialMediaSubmit()">Update</button>
-                <button class="btn btn-danger btn-md p-2">Cancel</button>
-            </form>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Add Social Media Links</h4>
+      <!-- <p class="card-description"> Basic form elements </p> -->
+      <form [formGroup]="socialMediaForm">
+        <div class="form-group">
+          <label>Facebook Link <i class="fa-brands fa-facebook" style="color: #0b61f4;"></i></label>
+          <input type="text" class="form-control" formControlName="facebook_link" placeholder="Facebook Link">
         </div>
-    </div>
-</div>
+        <div class="form-group">
+          <label>Twitter Link <i class="fa-brands fa-twitter" style="color: #0b61f4;"></i></label>
+          <input type="text" class="form-control" formControlName="twitter_link" placeholder="Twitter Link">
+        </div>
+        <div class="form-group">
+          <label>Whatsapp <i class="fa-brands fa-whatsapp" style="color: #4bb823;"></i></label>
+          <input type="text" class="form-control" formControlName="whatsapp_no" placeholder="Whatsapp No">
+        </div>
+        <div class="form-group">
+          <label>Youtube Link <i class="fa-brands fa-youtube" style="color: #f50a0a;"></i></label>
+          <input type="text" class="form-control" formControlName="youtub_link" placeholder="Youtube Link">
+        </div>
+        <div class="form-group">
+          <label>LinkedIn Link <i class="fa-brands fa-linkedin" style="color: #0b61f4;"></i></label>
+          <input type="text" class="form-control" formControlName="linkedin_link" placeholder="LinkedIn Link">
+        </div>
+        <!-- Add three more fields -->
+        <div class="form-group">
+          <label>Instagram Link <i class="fa-brands fa-instagram" style="color: #8a3ab9;"></i></label>
+          <input type="text" class="form-control" formControlName="insta_id" placeholder="Instagram Link">
+        </div>
+        <div class="form-group">
+          <label>iOS App Link <i class="fa-brands fa-apple" style="color: #000;"></i></label>
+          <input type="text" class="form-control" formControlName="application_link_ios" placeholder="iOS App Link">
+        </div>
+        <div class="form-group">
+          <label>Android App Link <i class="fa-brands fa-android" style="color: #a4c639;"></i></label>
+          <input type="text" class="form-control" formControlName="application_link_and" placeholder="Android App Link">
+        </div>
+        <div class="form-group">
+          <label>Phone Number <i class="fas fa-phone" style="color: #000;"></i></label>
+          <input type="tel" class="form-control" formControlName="phone_no" placeholder="Phone Number">
+        </div>
+        <div class="form-group">
+          <label>Email Address <i class="fas fa-envelope" style="color: #ff6600;"></i></label>
+          <input type="email" class="form-control" formControlName="gmail_id" placeholder="Email Address">
+        </div>
 
+        <!-- End of three new fields -->
+        <button type="button" class="btn btn-primary btn-md mr-2 p-2" (click)="socialMediaSubmit()">Update</button>
+        <button class="btn btn-danger btn-md p-2">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
