@@ -18,9 +18,7 @@ export class AlluserdataComponent implements OnInit {
   alldata: any;
   tableData: any = [];
   filterText: string;
-
   allId: any[] = [];
-
   apiFetchRecordLimit=10
   options = [10,15,50,100,500,1000];
   page: any = 1;

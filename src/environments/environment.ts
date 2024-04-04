@@ -14,7 +14,7 @@ export const environment = {
 
 
   baseApiURL:'http://localhost:8000/',
-  filePath:"http://localhost:4200/",
+  filePath:"http://localhost/",
   application_url:"https://choicemarriage.com/"
 };
 
