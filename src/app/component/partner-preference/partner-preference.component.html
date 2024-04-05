@@ -1,7 +1,6 @@
-
 <!-- <div class="container"> -->
-    <div class="card mt-3 p-3">
-        <div class="d-flex">
+<div class="mt-3 p-3">
+  <!-- <div class="d-flex">
             <h2 class="fw-bold fs-4 text-muted">Partner Preference</h2>
             <ng-container *ngIf="partnerPreferenceForm.valid">
                 <span class="ms-2"><img src="/assets/img/icons/checkmark.png" alt="checkmark.png" srcset="" width="25px"
@@ -15,226 +14,428 @@
         <div class="mb-3">
             <mat-progress-bar mode="determinate" color="accent"
                 [value]="partnerPreferenceForm.valid ? 100 : 0"></mat-progress-bar>
+        </div> -->
+  <div>
+
+    <ng-container *ngIf="!showOnlyRegistrationPage">
+      <form [formGroup]="partnerPreferenceForm">
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label class="mb-1">Marital Status</label>
+
+            <p-multiSelect [options]="maritalOptions" placeholder="Select" formControlName="user_marital_status"
+              optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_marital_status"></p-multiSelect>
+
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">From Age</label>
+
+            <p-dropdown [options]="ageOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+              placeholder="Select" [style]="{ width: '100%' }" formControlName="from_user_age" optionValue="name">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{
+                    partnerPreferenceForm.value
+                    .from_user_age | formatdropdown
+                    }}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{ item.name }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+
+
+
+
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">To Age</label>
+            <p-dropdown [options]="ageOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+              placeholder="Select" [style]="{ width: '100%' }" formControlName="to_user_age" optionValue="name">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{
+                    partnerPreferenceForm.value
+                    .to_user_age | formatdropdown
+                    }}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{ item.name }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Min Height</label>
+            <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+              placeholder="Select" [style]="{ width: '100%' }" formControlName="user_min_height" optionValue="value">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{
+                    partnerPreferenceForm.value
+                    .user_min_height | formatdropdown
+                    }}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{ item.name }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Max Height</label>
+            <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+              placeholder="Select" [style]="{ width: '100%' }" formControlName="user_max_height" optionValue="value">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{
+                    partnerPreferenceForm.value
+                    .user_max_height | formatdropdown
+                    }}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{ item.name }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Min Annual Income</label>
+            <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name"
+              [showClear]="true" placeholder="Min Annual Income" [style]="{ width: '100%' }"
+              formControlName="user_min_anual_income" optionValue="name">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{
+                    partnerPreferenceForm.value
+                    .user_min_anual_income | formatdropdown
+                    }}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-anualincome pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{ anualincome.name | currency : "INR" }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Max Annual Income</label>
+            <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name"
+              [showClear]="true" placeholder="Max Annual Income" [style]="{ width: '100%' }"
+              formControlName="user_max_anual_income" optionValue="name">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{
+                    partnerPreferenceForm.value
+                    .user_max_anual_income | formatdropdown
+                    }}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-anualincome pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{ anualincome.name | currency : "INR" }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Occupation</label>
+            <p-multiSelect [options]="ocupationOptions" placeholder="Select" formControlName="user_occupation"
+              optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_occupation"></p-multiSelect>
+
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Employed In</label>
+            <p-multiSelect [options]="employeeInOptions" placeholder="Select" formControlName="user_employed_In"
+              optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_employed_In"></p-multiSelect>
+
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Religion</label>
+            <p-multiSelect [options]="religionOptions" placeholder="Select" formControlName="user_religion"
+              optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_religion"></p-multiSelect>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Cast</label>
+            <p-multiSelect [options]="cast" placeholder="Select" formControlName="user_cast" optionLabel="name"
+              optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_cast"></p-multiSelect>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Mother Tounge</label>
+            <p-multiSelect [options]="motherTounghOptions" placeholder="Select" formControlName="user_mother_toungh"
+              optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_mother_toungh"></p-multiSelect>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Country Living In</label>
+
+            <p-multiSelect [options]="countryOption" placeholder="Select" formControlName="user_country"
+              optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_country"
+              (onChange)="getstatefilter(partnerPreferenceForm.value.user_country)"
+              (onRemove)="getstatefilter(partnerPreferenceForm.value.user_country)"></p-multiSelect>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">
+              State Living In</label>
+            <p-multiSelect [options]="stateOption" placeholder="Select" formControlName="user_state" optionLabel="name"
+              optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_state"
+              (onChange)="getcityfilter(partnerPreferenceForm.value.user_state)"
+              (onRemove)="getcityfilter(partnerPreferenceForm.value.user_state)"></p-multiSelect>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label class="mb-1">City Living In</label>
+            <p-multiSelect [options]="cityOption" placeholder="Select" formControlName="user_city" optionLabel="name"
+              optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_city"></p-multiSelect>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Zodiacs</label>
+            <p-multiSelect [options]="zodiacsOptions" placeholder="Select" formControlName="user_zodiacs"
+              optionLabel="display" optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_zodiacs"></p-multiSelect>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Nakshatra</label>
+            <p-multiSelect [options]="nakshatraOptions" placeholder="Select" formControlName="user_nakshatra"
+              optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_nakshatra"></p-multiSelect>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Gotra</label>
+            <p-multiSelect [options]="gotraOptions" placeholder="Select" formControlName="user_gotra" optionLabel="name"
+              optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_gotra"></p-multiSelect>
+          </div>
         </div>
-        <div>
-            <form [formGroup]="partnerPreferenceForm">
-                <div class="row mb-3">
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Religion</label>
-                        <p-multiSelect [options]="religionOptions" placeholder="Select" formControlName="user_religion"
-                            optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_religion"></p-multiSelect>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Marital Status</label>
 
-                        <p-multiSelect [options]="maritalOptions" placeholder="Select"
-                            formControlName="user_marital_status" optionLabel="name" optionValue="name"
-                            [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_marital_status"></p-multiSelect>
+      </form>
+    </ng-container>
+    <ng-container *ngIf="showOnlyRegistrationPage">
+      <form [formGroup]="partnerPreferenceForm">
+        <div class="row mb-3">
+          <div class="form-group col-md-12">
+            <label class="mb-1">Marital Status</label>
 
-                    </div>
-                </div>
+            <p-multiSelect [options]="maritalOptions" placeholder="Select" formControlName="user_marital_status"
+              optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_marital_status"></p-multiSelect>
 
-                <div class="row mb-3">
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Country Living In</label>
-
-                        <p-multiSelect [options]="countryOption" placeholder="Select" formControlName="user_country"
-                            optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_country"
-                            (onChange)="getstatefilter(partnerPreferenceForm.value.user_country)"
-                            (onRemove)="getstatefilter(partnerPreferenceForm.value.user_country)"></p-multiSelect>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">
-                            State Living In</label>
-                        <p-multiSelect [options]="stateOption" placeholder="Select" formControlName="user_state"
-                            optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_state"
-                            (onChange)="getcityfilter(partnerPreferenceForm.value.user_state)"
-                            (onRemove)="getcityfilter(partnerPreferenceForm.value.user_state)"></p-multiSelect>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">City Living In</label>
-                        <p-multiSelect [options]="cityOption" placeholder="Select" formControlName="user_city"
-                            optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_city"></p-multiSelect>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Mother Tounge</label>
-                        <p-multiSelect [options]="motherTounghOptions" placeholder="Select"
-                            formControlName="user_mother_toungh" optionLabel="name" optionValue="name"
-                            [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_mother_toungh"></p-multiSelect>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Min Height</label>
-                        <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name"
-                            [showClear]="true" placeholder="Select" [style]="{ width: '100%' }"
-                            formControlName="user_min_height" optionValue="value">
-                            <ng-template pTemplate="selectedItem">
-                                <div class="country-item country-item-value">
-                                    <div>
-                                        {{
-                                        partnerPreferenceForm.value
-                                        .user_min_height | formatdropdown
-                                        }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                            <ng-template let-item pTemplate="item">
-                                <div class="country-item">
-                                    <div>
-                                        {{ item.name }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </p-dropdown>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Max Height</label>
-                        <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name"
-                            [showClear]="true" placeholder="Select" [style]="{ width: '100%' }"
-                            formControlName="user_max_height" optionValue="value">
-                            <ng-template pTemplate="selectedItem">
-                                <div class="country-item country-item-value">
-                                    <div>
-                                        {{
-                                        partnerPreferenceForm.value
-                                        .user_max_height | formatdropdown
-                                        }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                            <ng-template let-item pTemplate="item">
-                                <div class="country-item">
-                                    <div>
-                                        {{ item.name }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </p-dropdown>
-                    </div>
-                </div>
-                <div class="row mb-3">
-
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Occupation</label>
-                        <p-multiSelect [options]="ocupationOptions" placeholder="Select"
-                            formControlName="user_occupation" optionLabel="name" optionValue="name"
-                            [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_occupation"></p-multiSelect>
-
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Employed In</label>
-                        <p-multiSelect [options]="employeeInOptions" placeholder="Select"
-                            formControlName="user_employed_In" optionLabel="name" optionValue="name"
-                            [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_employed_In"></p-multiSelect>
-
-                    </div>
-
-                </div>
-                <div class="row mb-3">
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Min Annual Income</label>
-                        <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name"
-                            [showClear]="true" placeholder="Min Annual Income" [style]="{ width: '100%' }"
-                            formControlName="user_min_anual_income" optionValue="name">
-                            <ng-template pTemplate="selectedItem">
-                                <div class="country-item country-item-value">
-                                    <div>
-                                        {{
-                                        partnerPreferenceForm.value
-                                        .user_min_anual_income | formatdropdown
-                                        }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                            <ng-template let-anualincome pTemplate="item">
-                                <div class="country-item">
-                                    <div>
-                                        {{ anualincome.name | currency : "INR" }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </p-dropdown>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Max Annual Income</label>
-                        <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name"
-                            [showClear]="true" placeholder="Max Annual Income" [style]="{ width: '100%' }"
-                            formControlName="user_max_anual_income" optionValue="name">
-                            <ng-template pTemplate="selectedItem">
-                                <div class="country-item country-item-value">
-                                    <div>
-                                        {{
-                                        partnerPreferenceForm.value
-                                        .user_max_anual_income | formatdropdown
-                                        }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                            <ng-template let-anualincome pTemplate="item">
-                                <div class="country-item">
-                                    <div>
-                                        {{ anualincome.name | currency : "INR" }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </p-dropdown>
-                    </div>
-                </div>
-                <div class="row mb-3">
-
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Zodiacs</label>
-                        <p-multiSelect [options]="zodiacsOptions" placeholder="Select"
-                            formControlName="user_zodiacs" optionLabel="display" optionValue="name"
-                            [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_zodiacs"></p-multiSelect>
-
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Nakshatra</label>
-                        <p-multiSelect [options]="nakshatraOptions" placeholder="Select"
-                            formControlName="user_nakshatra" optionLabel="name" optionValue="name"
-                            [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_nakshatra"></p-multiSelect>
-
-                    </div>
-
-                </div>
-                <div class="row mb-3">
-
-                    <div class="form-group col-md-6">
-                        <label class="mb-3 text-muted fw-bold">Gotra</label>
-                        <p-multiSelect [options]="gotraOptions" placeholder="Select"
-                            formControlName="user_gotra" optionLabel="name" optionValue="name"
-                            [style]="{ width: '100%' }" display="chip"
-                            [title]="partnerPreferenceForm.value.user_gotra"></p-multiSelect>
-
-                    </div>
-                  
-
-                </div>
-            </form>
-            <div class="row mt-2">
-                <div class="col-sm-12">
-                    <button mat-raised-button color="accent" (click)="userupartnerpreferenceForm_submit()" class="me-2">
-                        Update
-                    </button>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label class="mb-1">Religion</label>
+            <p-multiSelect [options]="religionOptions" placeholder="Select" formControlName="user_religion"
+              optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_religion"></p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="form-group col-md-12">
+            <label class="mb-1">Cast</label>
+            <p-multiSelect [options]="cast" placeholder="Select" formControlName="user_cast" optionLabel="name"
+              optionValue="name" [style]="{ width: '100%' }" display="chip"
+              [title]="partnerPreferenceForm.value.user_cast"></p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label class="mb-1">From Age</label>
+
+            <p-dropdown [options]="ageOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+              placeholder="Select" [style]="{ width: '100%' }" formControlName="from_user_age" optionValue="name">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{
+                    partnerPreferenceForm.value
+                    .from_user_age | formatdropdown
+                    }}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{ item.name }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <p-multiSelect [options]="ageOptions" placeholder="Select" formControlName="user_age"
+                [style]="{ width: '100%' }" display="chip"
+                [title]="partnerPreferenceForm.value.user_age"></p-multiSelect> -->
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">To Age</label>
+
+            <p-dropdown [options]="ageOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+              placeholder="Select" [style]="{ width: '100%' }" formControlName="to_user_age" optionValue="name">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{
+                    partnerPreferenceForm.value
+                    .to_user_age | formatdropdown
+                    }}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{ item.name }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <p-multiSelect [options]="ageOptions" placeholder="Select" formControlName="user_age"
+                [style]="{ width: '100%' }" display="chip"
+                [title]="partnerPreferenceForm.value.user_age"></p-multiSelect> -->
+          </div>
+
+
+        </div>
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label class="mb-1">Min Height</label>
+            <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+              placeholder="Select" [style]="{ width: '100%' }" formControlName="user_min_height" optionValue="value">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{
+                    partnerPreferenceForm.value
+                    .user_min_height | formatdropdown
+                    }}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{ item.name }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="mb-1">Max Height</label>
+            <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+              placeholder="Select" [style]="{ width: '100%' }" formControlName="user_max_height" optionValue="value">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{
+                    partnerPreferenceForm.value
+                    .user_max_height | formatdropdown
+                    }}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{ item.name }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+        <!-- <a type="button" class="btn w-100 text-center bg-[green] text-white hover:bg-[green]" id="submitBtn"
+            (click)="userupartnerpreferenceForm_submit()">Save</a> -->
+
+        <button type="button"
+          class="btn w-100 text-center py-2 border border-transparent rounded-[5px] shadow-sm text-[14px] text-[#FFFFFF] font-semibold bg-[#D10A11] hover:bg-[#D10A11]  focus:outline-none focus:ring-2 hover:text-[#fff] focus:ring-offset-2 next"
+          (click)="userupartnerpreferenceFormSubmitForReg()">Save</button>
+      </form>
+    </ng-container>
+    <ng-container *ngIf="!showOnlyRegistrationPage">
+      <div class="row mt-2">
+        <div class="col-sm-12">
+          <button class="btn bg-branding text-white px-5 mt-4 btn-lg" type="button"
+            (click)="userupartnerpreferenceForm_submit()">Save</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+</div>
 <!-- </div> -->

@@ -5,17 +5,15 @@
 export const environment = {
   production: false,
   fontendUrl:"https://choicemarriage.com/",
+
+  baseApiURL: 'https://choicemarriage.com/backend-api/public/',
+  filePath:"https://choicemarriage.com/",
+  application_url: "https://admin.choicemarriage.com/"
+
+
   // baseApiURL:'http://localhost:8000/',
-  // filePath:"http://localhost/matrimonial/",
- // application_url:"http://localhost:4200/",
-  //baseApiURL: 'https://choicemarriage.com/backend-api/public/',
-  //filePath:"https://choicemarriage.com/",
-  // application_url: "https://admin.choicemarriage.com/"
-
-
-  baseApiURL:'http://localhost:8000/',
-  filePath:"http://localhost/",
-  application_url:"https://choicemarriage.com/"
+  // filePath:"http://localhost/",
+  // application_url:"https://choicemarriage.com/"
 };
 
 /*

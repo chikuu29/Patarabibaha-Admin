@@ -48,7 +48,8 @@ export class UserViewComponent implements OnInit {
     { "name": "Widowed" },
     { "name": "Separated" }
   ]
-
+  stateOption1: any = [];
+  cityOption1: any = [];
 
   religionOptions: any = []
   religionCasteOptions: any = [
@@ -482,9 +483,9 @@ export class UserViewComponent implements OnInit {
           console.log(this.userAllData);
           console.log(this.userAllData.user_profile_status);
 
-          if(this.userAllData.user_profile_status == 'Completed'){
+          if (this.userAllData.user_profile_status == 'Completed') {
             let updateData = {
-              "data": { user_all_table_complited : 1},
+              "data": { user_all_table_complited: 1 },
               "whereConditions": { user_id: this.profile_id }
             }
             this.ApiParameterScript.updatedata('user_info', updateData).subscribe((res: any) => {
@@ -558,6 +559,24 @@ export class UserViewComponent implements OnInit {
       })
 
     })
+    this.ApiParameterScript.fetchdata(
+      'country',
+      { projection: ['*'], whereConditions: { status: 1 } },
+      0,
+      250
+    ).subscribe((res: any) => {
+
+      if (res.success && res['data'].length > 0) {
+        this.countryOption = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.name };
+          } else {
+            return null;
+          }
+        });
+        // console.log("countryOption", this.countryOption);
+      }
+    });
 
     this.ApiParameterScript.fetchdata('annual_income', { "projection": ["*"] }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
@@ -679,19 +698,19 @@ export class UserViewComponent implements OnInit {
     })
 
 
-    this.ApiParameterScript.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
-      //
-      if (res.success && res['data'].length > 0) {
-        this.countryOption = res['data'].map((obj: any) => {
-          if (obj.status == 1) {
-            return { name: obj.name };
-          } else {
-            return null
-          }
-        });
+    // this.ApiParameterScript.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
+    //   //
+    //   if (res.success && res['data'].length > 0) {
+    //     this.countryOption = res['data'].map((obj: any) => {
+    //       if (obj.status == 1) {
+    //         return { name: obj.name };
+    //       } else {
+    //         return null
+    //       }
+    //     });
 
-      }
-    })
+    //   }
+    // })
 
     this.ApiParameterScript.fetchdata('religion', { "projection": ["*"] }).subscribe((res: any) => {
       //
@@ -1396,7 +1415,7 @@ export class UserViewComponent implements OnInit {
   }
 
   icone() {
-    this.ApiParameterScript.fetchdata('logo_table', { "projection": ["*"], "whereConditions": { status: 1} }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('logo_table', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.logo = res['data'][0].image;
         console.log(this.logo);
@@ -1470,7 +1489,7 @@ export class UserViewComponent implements OnInit {
       pdf.line(0, 85, 210, 85);
       console.log("[record]", [record]);
       pdf.text("BIODATA", 85, yPos + 35);
-      pdf.text(`AGE: ${this. calculateAge(record.user_dob)}`, 10, yPos += 50);
+      pdf.text(`AGE: ${this.calculateAge(record.user_dob)}`, 10, yPos += 50);
       pdf.text(`Height: ${record.user_height ? record.user_height : "NA"} cm`, 10, yPos += 10);
       pdf.text(`Colour: ${record.user_complextion ? record.user_complextion : "NA"}`, 10, yPos += 10);
       pdf.text("EDUCATION & OCCUPATION", 70, yPos + 20)
@@ -1488,8 +1507,8 @@ export class UserViewComponent implements OnInit {
 
 
       // if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
-     // pdf.addPage();
-     // pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
+      // pdf.addPage();
+      // pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
       // Sample data with text and image URLs
       ///currentPage++;
       // yPos = 30; // Reset Y position for the new page
@@ -1552,5 +1571,85 @@ export class UserViewComponent implements OnInit {
          </div>
         `
     });
+  }
+
+  getstatefilter1(country_name: any) {
+    if (_.isArray(country_name)) {
+      let query = `SELECT * FROM state WHERE status=1 AND country_name IN (${"'" + country_name.join("', '") + "'"
+        })`;
+      this.ApiParameterScript.fetchDataFormQuery(query).subscribe(
+        (res: any) => {
+          if (res.success && res['data'].length > 0) {
+            this.stateOption1 = res['data'].map((obj: any) => {
+              return { name: obj.name };
+            });
+          } else {
+            this.stateOption1 = [];
+            // this.partnerPreferenceForm.controls.user_state.reset();
+          }
+        }
+      );
+    } else {
+      this.ApiParameterScript.fetchdata(
+        'state',
+        {
+          projection: ['*'],
+          whereConditions: { country_name: country_name, status: 1 },
+        },
+        0,
+        10000000
+      ).subscribe((res: any) => {
+        // console.log(res);
+
+        if (res.success && res['data'].length > 0) {
+          this.stateOption1 = res['data'].map((obj: any) => {
+            return { name: obj.name };
+          });
+
+          //console.log(this.stateOption);
+        } else {
+          this.stateOption1 = [];
+          // this.partnerPreferenceForm.controls.user_state.reset();
+        }
+      });
+    }
+  }
+  getcityfilter1(state_name: any) {
+    if (_.isArray(state_name)) {
+      let query = `SELECT * FROM city WHERE state_name IN (${"'" + state_name.join("', '") + "'"
+        })`;
+
+      this.ApiParameterScript.fetchDataFormQuery(query).subscribe(
+        (res: any) => {
+          if (res.success && res['data'].length > 0) {
+            this.cityOption1 = res['data'].map((obj: any) => {
+              return { name: obj.city_name };
+            });
+          } else {
+            this.cityOption1 = [];
+            // this.partnerPreferenceForm.controls.user_city.reset();
+          }
+        }
+      );
+    } else {
+      this.ApiParameterScript.fetchdata(
+        'city',
+        {
+          projection: ['*'],
+          whereConditions: { state_name: state_name, status: 1 },
+        },
+        0,
+        100000000000
+      ).subscribe((res: any) => {
+        if (res.success && res['data'].length > 0) {
+          this.cityOption1 = res['data'].map((obj: any) => {
+            return { name: obj.city_name };
+          });
+        } else {
+          this.cityOption1 = [];
+          // this.partnerPreferenceForm.controls.user_city.reset();
+        }
+      });
+    }
   }
 }

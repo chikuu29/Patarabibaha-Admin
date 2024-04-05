@@ -11,7 +11,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./partner-preference.component.scss']
 })
 export class PartnerPreferenceComponent implements OnInit {
+
+  @Input() showOnlyRegistrationPage:boolean=false
   @Input() user_id:string
+
   motherTounghOptions: any[] = [];
   countryOption: any = [
     { 'name': 'India' }
@@ -51,7 +54,7 @@ export class PartnerPreferenceComponent implements OnInit {
     { "name": "6ft 11in - 210cm", "value": 210 },
     { "name": "7ft - 213cm", "value": 213 },
     { "name": "Above 7ft - 213cm", "value": 213 }
-]
+  ]
 
   stateOption: any = [
     { 'name': 'Andhra Pradesh' },
@@ -162,14 +165,41 @@ export class PartnerPreferenceComponent implements OnInit {
     { "name": "Widowed" },
     { "name": "Separated" }
   ]
+
+  ageOptions:any = [
+    { "name": 18 },
+    { "name": 19 },
+    { "name": 20 },
+    { "name": 21 },
+    { "name": 22 },
+    { "name": 23 },
+    { "name": 24 },
+    { "name": 25 },
+    { "name": 26 },
+    { "name": 27 },
+    { "name": 28 },
+    { "name": 29 },
+    { "name": 30 },
+    { "name": 31 },
+    { "name": 32 },
+    { "name": 33 },
+    { "name": 34 },
+    { "name": 35 },
+    { "name": 36 },
+    { "name": 37 },
+    { "name": 38 },
+    { "name": 39 },
+    { "name": 40 }
+]
+
   ocupationOptions: any = []
 
   employeeInOptions: any = [];
 
   anualIncomeOptions: any = [];
-  zodiacsOptions:any=[]
-  nakshatraOptions:any=[]
-  gotraOptions:any=[]
+  zodiacsOptions: any = []
+  nakshatraOptions: any = []
+  gotraOptions: any = []
 
   partnerPreferenceForm = new FormGroup({
     user_ID: new FormControl('', []),
@@ -188,26 +218,24 @@ export class PartnerPreferenceComponent implements OnInit {
     user_nakshatra: new FormControl('', [Validators.required]),
     user_zodiacs: new FormControl('', [Validators.required]),
     user_gotra: new FormControl('', [Validators.required]),
+    to_user_age:new FormControl('',[]),
+    from_user_age:new FormControl('',[]),
+    user_cast:new FormControl('', [Validators.required])
   })
+  cast: any = [];
   constructor(
-    private ApiParameterScript:ApiParameterScript,
-    private appservices:AppService
-  
+    private ApiParameterScript: ApiParameterScript,
+    private appservices: AppService
   ) { }
 
   ngOnInit(): void {
 
-
-    var apiData={
-      "projection":['*'],
-      "whereConditions":{ user_ID: this.user_id }
+    var apiData = {
+      "projection": ['*'],
+      "whereConditions": { user_ID: this.user_id }
     }
-    
-    
-    this.ApiParameterScript.fetchdata("user_partnerpreference",apiData).subscribe((res:any)=>{
-    
-      
-      if (res.success && res['data'].length>0) {
+    this.ApiParameterScript.fetchdata("user_partnerpreference", apiData).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
         this.partnerPreferenceForm.patchValue(JSON.parse(res['data'][0]['json_data']))
         this.getstatefilter(this.partnerPreferenceForm.value.user_country)
         this.getcityfilter(this.partnerPreferenceForm.value.user_state)
@@ -215,7 +243,7 @@ export class PartnerPreferenceComponent implements OnInit {
     })
 
     this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"] }).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.ocupationOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -224,7 +252,7 @@ export class PartnerPreferenceComponent implements OnInit {
             return null
           }
         });
-        
+
       }
 
 
@@ -243,15 +271,13 @@ export class PartnerPreferenceComponent implements OnInit {
             return null
           }
         });
-        
+
       }
     })
 
     this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"] }).subscribe((res: any) => {
-      
 
       if (res.success && res['data'].length > 0) {
-
         this.motherTounghOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.mother_tongue_name };
@@ -260,7 +286,7 @@ export class PartnerPreferenceComponent implements OnInit {
           }
         });
 
-        
+
 
 
 
@@ -269,7 +295,7 @@ export class PartnerPreferenceComponent implements OnInit {
     })
 
     this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"] }).subscribe((res: any) => {
-      
+
 
 
       if (res.success && res['data'].length > 0) {
@@ -290,7 +316,7 @@ export class PartnerPreferenceComponent implements OnInit {
 
     })
     this.ApiParameterScript.fetchdata('religion', { "projection": ["*"] }).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.religionOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -308,8 +334,8 @@ export class PartnerPreferenceComponent implements OnInit {
 
 
     })
-    this.ApiParameterScript.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('country', { "projection": ["*"], "whereConditions": { status: 1 } }, 0, 250).subscribe((res: any) => {
+
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -318,11 +344,11 @@ export class PartnerPreferenceComponent implements OnInit {
             return null
           }
         });
-        
+
       }
     })
-    this.ApiParameterScript.fetchdata('gotra', { "projection": ["*"] ,"whereConditions":{status:1}}).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('gotra', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
       if (res.success && res['data'].length > 0) {
         this.gotraOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -331,50 +357,64 @@ export class PartnerPreferenceComponent implements OnInit {
             return null
           }
         });
-      
+
       }
     })
-    this.ApiParameterScript.fetchdata('nakshatra', { "projection": ["*"] ,"whereConditions":{status:1}}).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('cast_table', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
+      if (res.success && res['data'].length > 0) {
+        this.cast = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.cast_name };
+          } else {
+            return null
+          }
+        });
+
+      }
+    })
+    this.ApiParameterScript.fetchdata('nakshatra', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
       if (res.success && res['data'].length > 0) {
         this.nakshatraOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.nakshatra_name};
+            return { name: obj.nakshatra_name };
           } else {
             return null
           }
         });
-      
+
       }
     })
-    this.ApiParameterScript.fetchdata('zodiacs', { "projection": ["*"] ,"whereConditions":{status:1}}).subscribe((res: any) => {
-      
+    this.ApiParameterScript.fetchdata('zodiacs', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+
       if (res.success && res['data'].length > 0) {
         this.zodiacsOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.name ,display:  `${obj.name} / ${obj.odia_name}`};
+            return { name: obj.name, display: `${obj.name} / ${obj.odia_name}` };
           } else {
             return null
           }
         });
-      
+
       }
     })
   }
 
   userupartnerpreferenceForm_submit() {
-    
+
     let updateData = {
       "data": this.partnerPreferenceForm.value,
-      "whereConditions": { user_ID: this.user_id},
+      "whereConditions": { user_ID: this.user_id },
       "isJsonData": true,
       "jsonDataID": { user_ID: this.user_id }
     }
     this.ApiParameterScript.savedata('user_partnerpreference', updateData).subscribe((res: any) => {
-     
+
       if (res.success) {
         Swal.fire('success', res.message, 'success').then(() => {
-          this.ngOnInit()
+          this.ngOnInit();
+          location.reload();
         })
       } else {
         Swal.fire('No Data Updated', res.message, 'error')
@@ -384,8 +424,8 @@ export class PartnerPreferenceComponent implements OnInit {
   }
 
   getstatefilter(country_name: any) {
-    
-   
+
+
     if (_.isArray(country_name)) {
       let query = `SELECT * FROM state WHERE status=1 AND country_name IN (${"'" + country_name.join("', '") + "'"})`;
       this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
@@ -396,7 +436,7 @@ export class PartnerPreferenceComponent implements OnInit {
             return { name: obj.name };
 
           });
-          
+
 
         } else {
           this.stateOption = []
@@ -414,7 +454,7 @@ export class PartnerPreferenceComponent implements OnInit {
             return { name: obj.name };
 
           });
-          
+
 
         } else {
           this.stateOption = []
@@ -427,12 +467,10 @@ export class PartnerPreferenceComponent implements OnInit {
   }
 
   getcityfilter(state_name: any) {
-    
-  
+
+
     if (_.isArray(state_name)) {
       let query = `SELECT * FROM city WHERE state_name IN (${"'" + state_name.join("', '") + "'"})`;
-      
-      
       this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
         if (res.success && res['data'].length > 0) {
 
@@ -441,7 +479,7 @@ export class PartnerPreferenceComponent implements OnInit {
             return { name: obj.city_name };
 
           });
-          
+
 
         } else {
           this.cityOption = []
@@ -468,5 +506,59 @@ export class PartnerPreferenceComponent implements OnInit {
       });
     }
 
+  }
+  userupartnerpreferenceFormSubmitForReg() {
+    let updateData = {
+      data: this.partnerPreferenceForm.value,
+      whereConditions: { user_ID: this.user_id },
+      isJsonData: true,
+      jsonDataID: { user_ID: this.user_id },
+    };
+    this.ApiParameterScript.savedata(
+      'user_partnerpreference',
+      updateData
+    ).subscribe((res: any) => {
+      if (res.success) {
+        Swal.fire({
+          icon: 'success',
+          title: res.message,
+          text: 'success',
+          allowOutsideClick: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.ApiParameterScript.getprofile({
+              userid: this.user_id,
+            }).subscribe((res: any) => {
+              if (res.success) {
+                if (res?.user_profile_status == 'Completed') {
+                  let change = {
+                    data: {
+                      user_all_table_complited: 1,
+                    },
+                    whereConditions: {
+                      user_id: this.user_id,
+                    },
+                  };
+                  this.ApiParameterScript.updatedata(
+                    'user_info',
+                    change
+                  ).subscribe((res: any) => {
+                    console.log(res);
+
+                    if (res.success) {
+                      location.reload();
+                    } else {
+                      location.reload();
+                    }
+                  });
+                }
+              }
+            });
+          }
+        });
+      } else {
+        Swal.fire('No Data Updated', res.message, 'error');
+      }
+    });
   }
 }
