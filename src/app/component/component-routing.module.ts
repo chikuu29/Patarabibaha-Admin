@@ -32,6 +32,8 @@ import { MarriagecombinationComponent } from './marriagecombination/marriagecomb
 import { ViewchatingpageComponent } from './viewchatingpage/viewchatingpage.component';
 import { PlanDeatilsComponent } from './plan-deatils/plan-deatils.component';
 import { AdminComponent } from '../layout/admin/admin.component';
+import { HoroscopeComponent } from './horoscope/horoscope.component';
+import { ContactusComponent } from '../pages/contactus/contactus.component';
 
 
 
@@ -190,6 +192,20 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: PlanDeatilsComponent
       },
+      {
+        path: 'horoscope-viwe',
+        canActivate: [AuthGuard],
+        component: HoroscopeComponent
+      },{
+        path: 'contactus-view',
+        canActivate: [AuthGuard],
+        component: ContactusComponent
+      }
+
+
+
+
+
 
     ]
   }

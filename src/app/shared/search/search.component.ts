@@ -27,7 +27,7 @@ export class SearchComponent implements OnInit {
     modalRef.result.then((res:any)=>{
       this.clickFillter.emit(res);
     })
-    
+
   }
   clickSearchMethod(search_text:string){
     this.clickSearch.emit(search_text);

@@ -9,7 +9,7 @@ import { CryptographyService } from 'src/app/services/cryptography.service';
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
-  @Input() isSidenavCoolapedForSmallScreen=false; 
+  @Input() isSidenavCoolapedForSmallScreen=false;
   usercount: number = 0;
   profilephotocount: number = 0;
   deliteeeqest: number = 0;
@@ -43,6 +43,18 @@ export class SideNavComponent implements OnInit {
           routerLink: '/create_user',
           icon: 'fa-solid fa-file-signature',
           text: 'Create User',
+          id: 'admin-01'
+        },
+        {
+          routerLink: '/contactus-view',
+          icon: 'fa-solid fa-file-signature',
+          text: 'Contactus View',
+          id: 'admin-01'
+        },
+        {
+          routerLink: '/horoscope-viwe',
+          icon: 'fa-solid fa-file-signature',
+          text: 'Horoscope Viwe',
           id: 'admin-01'
         },
         {
@@ -127,7 +139,8 @@ export class SideNavComponent implements OnInit {
       submenuActive: false,
       submenu: [
         { routerLink: '/viweplan-page', text: 'View Plan' },
-        { routerLink: '/addplan-page', text: 'Add Plan' }
+        { routerLink: '/addplan-page', text: 'Add Plan' },
+        { routerLink: '/type-page', text: 'Type' }
       ]
     },
     {
@@ -153,7 +166,7 @@ export class SideNavComponent implements OnInit {
         { routerLink: '/cast-page', text: 'Cast' },
         { routerLink: '/subcast-page', text: 'Sub Cast' },
         { routerLink: '/gotra-page', text: 'Gotra' },
-        { routerLink: '/type-page', text: 'Type' },
+
         { routerLink: '/designation', text: 'designation' }
       ]
     },

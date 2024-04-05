@@ -77,6 +77,9 @@ export class CommonService {
   public sendData(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'sendData', apiData, { headers: this.headers });
   }
+  deleteRequest(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'deleteRequest', apiData, { headers: this.headers });
+  }
 
 
 

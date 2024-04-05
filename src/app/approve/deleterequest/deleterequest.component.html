@@ -1,7 +1,7 @@
-<div class="col-lg grid-margin stretch-card">
+<div class="col-lg grid-margin stretch-card" *ngIf="false">
     <div class="card">
         <div class="card-body">
-          
+
             <div class="table-responsive">
                 <table class="table text-center">
                     <thead>
@@ -36,4 +36,85 @@
 
         </div>
     </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xl-12 order-lg-1 order-xl-1">
+    <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+      <div class="table-caption-holder">
+        <div class="dropdown-container">
+          <select id="dropdown" (change)="changepaginetdata($event)">
+            <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+
+        <div class="kt-portlet__head-toolbar">
+
+
+          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="false"
+            (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
+        </div>
+      </div>
+      <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y" id="grid_scroll_body"
+        style="max-height: 75vh; position: relative;">
+        <div class="inbox-body inbox-body-table">
+          <div class="table-scroll">
+            <table class="custom-table table  table-bordered table-striped">
+              <thead class="flip-content">
+                  <tr>
+                    <th style="cursor: pointer; width:1%">#SI</th>
+                    <th style="cursor: pointer; width:25%" >ID</th>
+                    <th style="cursor: pointer; width:25%" >User Name</th>
+                    <th style="cursor: pointer; width:25%" >Mobile Number</th>
+                    <th style="cursor: pointer; width:25%" >Email</th>
+                    <th style="cursor: pointer; width:25%" >Whatsapp</th>
+                    <th style="cursor: pointer; width:25%" >Cause</th>
+
+                    <th style="cursor: pointer; width:25%" >Created</th>
+                    <th style="cursor: pointer; width:25%" >Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container
+                  *ngFor="let data of tableData | fillter:['user_full_name','user_id','user_email','user_phone_no']:filterText ; index as i">
+                  <tr>
+                    <td>{{i+1}}</td>
+                    <td (click)="approve(data.user_id)">{{ data.user_id }}</td>
+                    <td>{{ data.user_name }}</td>
+                    <td>{{ data.user_phone_number }}</td>
+                    <td>{{  data.user_mailid }}</td>
+                    <td>{{ data.user_whatsapp_number }}</td>
+                    <td>
+                    <button  (click)="viewCase(data.user_cause)" type="button" class="btn btn-outline-primary btn-sm me-2">Viwe</button>
+                    </td>
+                    <td>{{ data.created_At | date:'dd-MM-YYYY' }}</td>
+                    <td>
+                    <button  (click)="deleted(data.user_id)" type="button" class="btn btn-outline-primary btn-sm me-2">Approve</button>
+                    </td>
+                  </tr>
+                </ng-container>
+
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="table-footer-holder">
+        <div>
+          <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
+            [ellipses]="false" [boundaryLinks]="false" class="" (pageChange)="onpageChnage()"></ngb-pagination>
+        </div>
+        <div>
+          <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
+            {{offset}} to {{totalFetchrecord}} of
+            {{totalDataCount}}</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>

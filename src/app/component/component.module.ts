@@ -42,6 +42,8 @@ import { MarriagestatusComponent } from './marriagestatus/marriagestatus.compone
 import { MarriagecombinationComponent } from './marriagecombination/marriagecombination.component';
 import { ViewchatingpageComponent } from './viewchatingpage/viewchatingpage.component';
 import { PlanDeatilsComponent } from './plan-deatils/plan-deatils.component';
+import { ContactviewComponent } from './contactview/contactview.component';
+import { HoroscopeComponent } from './horoscope/horoscope.component';
 
 
 @NgModule({
@@ -78,6 +80,8 @@ import { PlanDeatilsComponent } from './plan-deatils/plan-deatils.component';
     MarriagecombinationComponent,
     ViewchatingpageComponent,
     PlanDeatilsComponent,
+    ContactviewComponent,
+    HoroscopeComponent,
 
   ],
   imports: [

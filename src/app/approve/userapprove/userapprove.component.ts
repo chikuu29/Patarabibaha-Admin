@@ -104,7 +104,7 @@ export class UserapproveComponent implements OnInit {
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-    // console.log("click fillter", event);
+     console.log("click fillter", event);
     var query = `SELECT *
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
