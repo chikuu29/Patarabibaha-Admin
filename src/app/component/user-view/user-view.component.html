@@ -55,7 +55,7 @@
           </span>
           Click Below Button
         </p>
-        <!-- <button mat-raised-button color="accent" class="me-2 p-2 w-100" (click)="activeAccount()">Approved</button> -->
+        <button mat-raised-button color="accent" class="me-2 p-2 w-100" (click)="activeAccount()">Approved</button>
 
       </div>
     </ng-container>
@@ -431,7 +431,7 @@
                 [value]="horoscopeForm.valid ? 100 : 0"></mat-progress-bar>
             </div>
             <div>
-             
+
               <form [formGroup]="horoscopeForm">
                 <div class="row mb-4">
                   <label class="mb-3  fw-bold text-danger">Horoscope</label>
@@ -440,7 +440,7 @@
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
                 </div>
-    
+
                 <ng-container *ngIf="this.horoscopeForm.value.user_horoscope=='Yes'">
                   <div class="row mb-4">
                     <label class="mb-3  fw-bold text-danger">Mangalik </label>
@@ -521,7 +521,7 @@
                   <div class="row mb-3">
                     <label class="mb-1">Birth Of Time
                     </label>
-                  
+
                     <input type="time" class="form-control" formControlName="user_dateoftime" id="Time of Birth"
                       aria-describedby="Time of Birth" placeholder="Time of Birth">
                   </div>
@@ -529,7 +529,7 @@
                     <label class="mb-1">Birth Of Place
                     </label>
                     <mat-form-field appearance="outline" class="flex-fill w-100">
-    
+
                       <input formControlName="user_dateofplace" matInput placeholder="Date Of Place" />
                     </mat-form-field>
                   </div>
@@ -1176,9 +1176,9 @@
               <form [formGroup]="locationDetailsForm">
                 <div class="row mb-3">
                   <label class="mb-1">Current Address</label>
-    
+
                   <mat-form-field appearance="outline" class="flex-fill w-100">
-    
+
                     <textarea formControlName="user_Address" matInput cols="30" rows="10"></textarea>
                   </mat-form-field>
                 </div>
@@ -1267,7 +1267,7 @@
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
                 </div>
-    
+
                 <div class="mb-3">
                   <div class="d-flex">
                     <h2 class="fw-bold fs-4 text-muted">
@@ -1291,7 +1291,7 @@
                   <div class="row mb-3">
                     <label class="mb-1">Permanent Address</label>
                     <mat-form-field appearance="outline" class="flex-fill w-100">
-    
+
                       <textarea formControlName="user_Permanent_Address" matInput cols="30" rows="10"></textarea>
                     </mat-form-field>
                   </div>

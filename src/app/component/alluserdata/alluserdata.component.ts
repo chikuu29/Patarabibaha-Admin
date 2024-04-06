@@ -137,7 +137,7 @@ export class AlluserdataComponent implements OnInit {
 
   }
   fillter(event: any) {
-    // console.log("click fillter", event);
+     console.log("click fillter", event);
     var query = `SELECT *
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -159,7 +159,7 @@ export class AlluserdataComponent implements OnInit {
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}`
     }
-    //console.log(query);
+    console.log(query);
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
       //console.log(res);

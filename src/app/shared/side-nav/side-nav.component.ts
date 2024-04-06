@@ -46,7 +46,7 @@ export class SideNavComponent implements OnInit {
           id: 'admin-01'
         },
         {
-          routerLink: '/contactus-view',
+          routerLink: '/contact-view',
           icon: 'fa-solid fa-file-signature',
           text: 'Contactus View',
           id: 'admin-01'
@@ -110,12 +110,6 @@ export class SideNavComponent implements OnInit {
           icon: 'fa-solid fa-heart',
           text: 'Match Making',
           id: 'admin-10'
-        },
-        {
-          routerLink: '/filter',
-          icon: 'fa-solid fa-filter',
-          text: 'User Filter',
-          id: 'admin-11'
         },
         {
           routerLink: '/phone-validation',

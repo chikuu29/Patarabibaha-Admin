@@ -33,7 +33,8 @@ import { ViewchatingpageComponent } from './viewchatingpage/viewchatingpage.comp
 import { PlanDeatilsComponent } from './plan-deatils/plan-deatils.component';
 import { AdminComponent } from '../layout/admin/admin.component';
 import { HoroscopeComponent } from './horoscope/horoscope.component';
-import { ContactusComponent } from '../pages/contactus/contactus.component';
+import { ContactviewComponent } from './contactview/contactview.component';
+
 
 
 
@@ -197,9 +198,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: HoroscopeComponent
       },{
-        path: 'contactus-view',
+        path: 'contact-view',
         canActivate: [AuthGuard],
-        component: ContactusComponent
+        component: ContactviewComponent
       }
 
 
