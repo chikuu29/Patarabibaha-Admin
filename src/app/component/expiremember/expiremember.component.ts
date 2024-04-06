@@ -143,19 +143,19 @@ export class ExpirememberComponent implements OnInit {
     _this[functionName](0, this.apiFetchRecordLimit);
   }
 
-  getExpireData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {555555555555555555555555
-    let Quary = `select * , COUNT(*) OVER () AS total_count from auth_user as a 
-    Join user_info as b join user_plan_deatils as c on 
-        a.auth_ID = b.user_id 
-    AND b.user_id = c.user_id 
+  getExpireData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
+    let Quary = `select * , COUNT(*) OVER () AS total_count from auth_user as a
+    Join user_info as b join user_plan_deatils as c on
+        a.auth_ID = b.user_id
+    AND b.user_id = c.user_id
     where c.active_status = 1 AND c.plan_ending_date < now()
     LIMIT ${limit} OFFSET ${start}
     `;
     if (loadSpecificData) {
-      Quary=`select * , COUNT(*) OVER () AS total_count from auth_user as a 
-      Join user_info as b join user_plan_deatils as c on 
-          a.auth_ID = b.user_id 
-      AND b.user_id = c.user_id 
+      Quary=`select * , COUNT(*) OVER () AS total_count from auth_user as a
+      Join user_info as b join user_plan_deatils as c on
+          a.auth_ID = b.user_id
+      AND b.user_id = c.user_id
       where c.active_status = 1 AND c.plan_ending_date < now()
       WHERE b.user_id = '${search_text}'
       OR a.auth_ID = '${search_text}'

@@ -26,6 +26,7 @@ export class AddplanComponent implements OnInit {
     'membership_plan_no_of_contact': new FormControl('', [Validators.required]),
     'membership_plan_show_contact_number_other': new FormControl('', [Validators.required]),
   });
+  typechange:boolean = true;
   typedata:any;
   constructor(
     private api :ApiService,
@@ -34,15 +35,18 @@ export class AddplanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fatchtype();
+
     this.activatedroute.params.subscribe((res:any)=>{
       console.log(res.id);
-      if(res.id == undefined){
-
+      if(res.id == undefined || res.id == ''){
+        this.fatchtype();
+        this.typechange= false;
       }else{
         this.getdatafromedit(res.id);
+        this.fatchtypeused();
+        this.typechange= true;
       }
-      
+
     })
   }
 
@@ -56,8 +60,8 @@ export class AddplanComponent implements OnInit {
     return this.memberplan.get('membership_plan_amount')
   }
   get curency() {
-   
-    
+
+
     return this.memberplan.get('membership_plan_currency')
   }
   get discount() {
@@ -210,7 +214,7 @@ export class AddplanComponent implements OnInit {
             });
           }
       });
-      
+
     }
 
   }
@@ -224,6 +228,13 @@ export class AddplanComponent implements OnInit {
 
   fatchtype(){
     this.ApiParameter.fetchdata('type', { "projection": ["*"],"whereConditions": { used: 0 } }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.typedata = res['data'];
+      }
+    })
+  }
+  fatchtypeused(){
+    this.ApiParameter.fetchdata('type', { "projection": ["*"],"whereConditions": { used: 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.typedata = res['data'];
       }
