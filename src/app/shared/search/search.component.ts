@@ -16,6 +16,7 @@ export class SearchComponent implements OnInit {
   @Output() getSerachText = new EventEmitter<string>();
   @Output() clickSearch = new EventEmitter<string>();
   @Output() clickFillter = new EventEmitter<string>();
+  public selectedFillterValue:any={}
   constructor(
     private modalService: NgbModal,
   ) { }
@@ -24,7 +25,9 @@ export class SearchComponent implements OnInit {
   }
   clickFillterMethod(search_text:string){
     const modalRef = this.modalService.open(FillterModalComponent, { size:'xl',centered:true, scrollable: true,backdrop:false });
+    modalRef.componentInstance.selectedFillterValue=this.selectedFillterValue
     modalRef.result.then((res:any)=>{
+      this.selectedFillterValue=res.selectedFillterValue
       this.clickFillter.emit(res);
     })
 

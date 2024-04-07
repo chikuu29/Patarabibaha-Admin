@@ -6,7 +6,7 @@
 <div class="modal-body">
 
   <!-- <div> -->
-  <form [formGroup]="partnerPreferenceForm" class="w-100">
+  <form [formGroup]="fillterForm" class="w-100">
     <div class="row mb-3">
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Member ID</label>
@@ -16,25 +16,25 @@
         <label class="mb-3 text-muted fw-bold">Gender</label>
         <p-multiSelect [options]="[{name:'male'},{name:'female'}]" placeholder="Select" formControlName="user_gender"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_gender"></p-multiSelect>
+          [title]="fillterForm.value.user_gender"></p-multiSelect>
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Religion</label>
         <p-multiSelect [options]="religionOptions" placeholder="Select" formControlName="user_religion"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_religion"></p-multiSelect>
+          [title]="fillterForm.value.user_religion"></p-multiSelect>
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Caste</label>
         <p-multiSelect [options]="religionCasteOptions" placeholder="Select" formControlName="user_religion"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_caste"></p-multiSelect>
+          [title]="fillterForm.value.user_caste"></p-multiSelect>
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Marital Status</label>
         <p-multiSelect [options]="maritalOptions" placeholder="Select" formControlName="user_marital_status"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_marital_status"></p-multiSelect>
+          [title]="fillterForm.value.user_marital_status"></p-multiSelect>
 
       </div>
       <div class="form-group col-md-4">
@@ -42,23 +42,23 @@
 
         <p-multiSelect [options]="countryOption" placeholder="Select" formControlName="user_country" optionLabel="name"
           optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_country"
-          (onChange)="getstatefilter(partnerPreferenceForm.value.user_country)"
-          (onRemove)="getstatefilter(partnerPreferenceForm.value.user_country)"></p-multiSelect>
+          [title]="fillterForm.value.user_country"
+          (onChange)="getstatefilter(fillterForm.value.user_country)"
+          (onRemove)="getstatefilter(fillterForm.value.user_country)"></p-multiSelect>
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">
           State Living In</label>
         <p-multiSelect [options]="stateOption" placeholder="Select" formControlName="user_state" optionLabel="name"
-          optionValue="name" [style]="{ width: '100%' }" display="chip" [title]="partnerPreferenceForm.value.user_state"
-          (onChange)="getcityfilter(partnerPreferenceForm.value.user_state)"
-          (onRemove)="getcityfilter(partnerPreferenceForm.value.user_state)"></p-multiSelect>
+          optionValue="name" [style]="{ width: '100%' }" display="chip" [title]="fillterForm.value.user_state"
+          (onChange)="getcityfilter(fillterForm.value.user_state)"
+          (onRemove)="getcityfilter(fillterForm.value.user_state)"></p-multiSelect>
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">City Living In</label>
         <p-multiSelect [options]="cityOption" placeholder="Select" formControlName="user_city" optionLabel="name"
           optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_city"></p-multiSelect>
+          [title]="fillterForm.value.user_city"></p-multiSelect>
       </div>
 
       <div class="form-group col-md-4">
@@ -69,7 +69,7 @@
             <div class="country-item country-item-value">
               <div>
                 {{
-                partnerPreferenceForm.value
+                fillterForm.value
                 .user_min_height | formatdropdown
                 }}
               </div>
@@ -92,7 +92,7 @@
             <div class="country-item country-item-value">
               <div>
                 {{
-                partnerPreferenceForm.value
+                fillterForm.value
                 .user_max_height | formatdropdown
                 }}
               </div>
@@ -112,7 +112,7 @@
         <label class="mb-3 text-muted fw-bold">Mother Tounge</label>
         <p-multiSelect [options]="motherTounghOptions" placeholder="Select" formControlName="user_mother_toungh"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_mother_toungh"></p-multiSelect>
+          [title]="fillterForm.value.user_mother_toungh"></p-multiSelect>
       </div>
 
 
@@ -120,14 +120,14 @@
         <label class="mb-3 text-muted fw-bold">Occupation</label>
         <p-multiSelect [options]="ocupationOptions" placeholder="Select" formControlName="user_occupation"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_occupation"></p-multiSelect>
+          [title]="fillterForm.value.user_occupation"></p-multiSelect>
 
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Employed In</label>
         <p-multiSelect [options]="employeeInOptions" placeholder="Select" formControlName="user_employed_In"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_employed_In"></p-multiSelect>
+          [title]="fillterForm.value.user_employed_In"></p-multiSelect>
 
       </div>
       <div class="form-group col-md-4">
@@ -139,7 +139,7 @@
             <div class="country-item country-item-value">
               <div>
                 {{
-                partnerPreferenceForm.value
+                fillterForm.value
                 .user_min_anual_income | formatdropdown
                 }}
               </div>
@@ -166,7 +166,7 @@
             <div class="country-item country-item-value">
               <div>
                 {{
-                partnerPreferenceForm.value
+                fillterForm.value
                 .user_max_anual_income | formatdropdown
                 }}
               </div>
@@ -185,14 +185,14 @@
         <label class="mb-3 text-muted fw-bold">Zodiacs</label>
         <p-multiSelect [options]="zodiacsOptions" placeholder="Select" formControlName="user_zodiacs"
           optionLabel="display" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_zodiacs"></p-multiSelect>
+          [title]="fillterForm.value.user_zodiacs"></p-multiSelect>
 
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Nakshatra</label>
         <p-multiSelect [options]="nakshatraOptions" placeholder="Select" formControlName="user_nakshatra"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_nakshatra"></p-multiSelect>
+          [title]="fillterForm.value.user_nakshatra"></p-multiSelect>
 
       </div>
 
@@ -200,7 +200,7 @@
         <label class="mb-3 text-muted fw-bold">Gotra</label>
         <p-multiSelect [options]="gotraOptions" placeholder="Select" formControlName="user_gotra" optionLabel="name"
           optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="partnerPreferenceForm.value.user_gotra"></p-multiSelect>
+          [title]="fillterForm.value.user_gotra"></p-multiSelect>
       </div>
     </div>
   </form>

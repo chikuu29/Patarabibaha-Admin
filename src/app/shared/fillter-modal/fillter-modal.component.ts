@@ -151,7 +151,7 @@ export class FillterModalComponent implements OnInit {
   nakshatraOptions: any = []
   gotraOptions: any = []
 
-  partnerPreferenceForm = new FormGroup({
+  fillterForm = new FormGroup({
     user_id: new FormControl('', []),
     user_gender: new FormControl([], [Validators.required]),
     user_min_height: new FormControl('', [Validators.required]),
@@ -171,6 +171,8 @@ export class FillterModalComponent implements OnInit {
     user_gotra: new FormControl([], [Validators.required]),
     user_caste: new FormControl([], [Validators.required]),
   })
+
+  @Input() selectedFillterValue: any = {}
   constructor(
     private ApiParameterScript: ApiParameterScript,
     private appservices: AppService,
@@ -180,6 +182,7 @@ export class FillterModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
 
       if (res.success && res['data'].length > 0) {
@@ -337,7 +340,9 @@ export class FillterModalComponent implements OnInit {
 
       }
     })
-
+    if (Object.keys(this.selectedFillterValue).length > 0) {
+      this.fillterForm.patchValue(this.selectedFillterValue)
+    }
 
   }
   removeBlankProperties(obj: any) {
@@ -363,9 +368,9 @@ export class FillterModalComponent implements OnInit {
       "user_locations": ["user_country", "user_state", "user_city"]
 
     }
-    const fillterData: any = this.removeBlankProperties(this.partnerPreferenceForm.value)
-    const filteredtableKeyMappingObject = _.pickBy( _.mapValues(tableKeyMapping, values => values.filter((value:any) => Object.keys(fillterData).includes(value))), values => values.length > 0);
- 
+    const fillterData: any = this.removeBlankProperties(this.fillterForm.value)
+    const filteredtableKeyMappingObject = _.pickBy(_.mapValues(tableKeyMapping, values => values.filter((value: any) => Object.keys(fillterData).includes(value))), values => values.length > 0);
+
     var query = ''
     Object.keys(filteredtableKeyMappingObject).forEach((table, i) => {
       // console.log("index",index);
@@ -390,7 +395,12 @@ export class FillterModalComponent implements OnInit {
 
       })
     })
-    this.modal.close({ "whereConditions": "WHERE " + query, 'isqueryGenerated': Object.keys(filteredtableKeyMappingObject).length > 0 })
+    this.modal.close(
+      {
+        "whereConditions": "WHERE " + query,
+        'isqueryGenerated': Object.keys(filteredtableKeyMappingObject).length > 0,
+        'selectedFillterValue': this.fillterForm.value
+      })
   }
 
 
@@ -411,7 +421,7 @@ export class FillterModalComponent implements OnInit {
 
         } else {
           this.stateOption = []
-          this.partnerPreferenceForm.controls.user_state.reset()
+          this.fillterForm.controls.user_state.reset()
         }
 
       })
@@ -429,7 +439,7 @@ export class FillterModalComponent implements OnInit {
 
         } else {
           this.stateOption = []
-          this.partnerPreferenceForm.controls.user_state.reset()
+          this.fillterForm.controls.user_state.reset()
         }
 
       });
@@ -456,7 +466,7 @@ export class FillterModalComponent implements OnInit {
 
         } else {
           this.cityOption = []
-          this.partnerPreferenceForm.controls.user_city.reset()
+          this.fillterForm.controls.user_city.reset()
         }
 
       })
@@ -473,7 +483,7 @@ export class FillterModalComponent implements OnInit {
 
         } else {
           this.cityOption = []
-          this.partnerPreferenceForm.controls.user_city.reset()
+          this.fillterForm.controls.user_city.reset()
         }
 
       });
