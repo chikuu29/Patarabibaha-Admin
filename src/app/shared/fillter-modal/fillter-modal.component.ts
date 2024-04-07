@@ -364,8 +364,6 @@ export class FillterModalComponent implements OnInit {
 
     }
     const fillterData: any = this.removeBlankProperties(this.partnerPreferenceForm.value)
-   
-
     const filteredtableKeyMappingObject = _.pickBy( _.mapValues(tableKeyMapping, values => values.filter((value:any) => Object.keys(fillterData).includes(value))), values => values.length > 0);
  
     var query = ''
