@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
@@ -19,11 +19,11 @@ export class AlluserdataComponent implements OnInit {
   tableData: any = [];
   filterText: string;
   allId: any[] = [];
-  apiFetchRecordLimit=10
-  options = [10,15,50,100,500,1000];
+  apiFetchRecordLimit = 10
+  options = [10, 15, 50, 100, 500, 1000];
   page: any = 1;
   collectionSize: any = 10
-  offset=1;
+  offset = 1;
   pegination_required: boolean = false
   currentFunction: string = 'getAllData';
 
@@ -86,7 +86,7 @@ export class AlluserdataComponent implements OnInit {
 
 
   totalDataCount: number = 0
-  totalFetchrecord:number=0
+  totalFetchrecord: number = 0
 
   constructor(
     private ApiParameter: ApiParameterScript,
@@ -101,13 +101,13 @@ export class AlluserdataComponent implements OnInit {
     this.loadKpi("getAllData", 0)
   }
 
-  changepaginetdata(event:any){
-   this.page = 1;
-   this.offset=1;
-   this.pegination_required = true;
-   this.apiFetchRecordLimit = Number(event.target.value);
-   let _this: any = this
-   _this[this.currentFunction](0, Number(event.target.value));
+  changepaginetdata(event: any) {
+    this.page = 1;
+    this.offset = 1;
+    this.pegination_required = true;
+    this.apiFetchRecordLimit = Number(event.target.value);
+    let _this: any = this
+    _this[this.currentFunction](0, Number(event.target.value));
   }
 
   loadKpi(functionName: string, kpiNum: number) {
@@ -137,7 +137,7 @@ export class AlluserdataComponent implements OnInit {
 
   }
   fillter(event: any) {
-     console.log("click fillter", event);
+    console.log("click fillter", event);
     var query = `SELECT *
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -159,9 +159,9 @@ export class AlluserdataComponent implements OnInit {
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}`
     }
- 
+
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log("Filtter Record",res);
+      console.log("Filtter Record", res);
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length
         // this.collectionSize=
@@ -169,8 +169,8 @@ export class AlluserdataComponent implements OnInit {
 
         this.tableData = res['data'];
         // console.log(this.tableData);
-      }else{
-        this.tableData=[]
+      } else {
+        this.tableData = []
       }
 
     })
@@ -179,7 +179,7 @@ export class AlluserdataComponent implements OnInit {
   onpageChnage() {
     let _this: any = this;
     _this[this.currentFunction](this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit, this.apiFetchRecordLimit);
-    this.offset=this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit
+    this.offset = this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit
   }
 
 
@@ -187,7 +187,7 @@ export class AlluserdataComponent implements OnInit {
   deletedata() {
     if (this.allId.length == 0) {
 
-      Swal.fire("Warning","Please select any record",'warning')
+      Swal.fire("Warning", "Please select any record", 'warning')
     } else {
       Swal.fire({
         icon: 'question',
@@ -225,7 +225,7 @@ export class AlluserdataComponent implements OnInit {
 
   recoverdata() {
     if (this.allId.length == 0) {
-      Swal.fire("Warning","Please select any record",'warning')
+      Swal.fire("Warning", "Please select any record", 'warning')
     } else {
 
 
@@ -269,7 +269,7 @@ export class AlluserdataComponent implements OnInit {
 
   publishuser() {
     if (this.allId.length == 0) {
-      Swal.fire("Warning","Please select any record",'warning')
+      Swal.fire("Warning", "Please select any record", 'warning')
     } else {
 
       Swal.fire({
@@ -309,7 +309,7 @@ export class AlluserdataComponent implements OnInit {
   unpublishuser() {
     // alert(data);
     if (this.allId.length == 0) {
-      Swal.fire("Warning","Please select any record",'warning')
+      Swal.fire("Warning", "Please select any record", 'warning')
     } else {
       Swal.fire({
         icon: 'question',
@@ -350,7 +350,7 @@ export class AlluserdataComponent implements OnInit {
   }
   makeonline() {
     if (this.allId.length == 0) {
-      Swal.fire("Warning","Please select any record",'warning')
+      Swal.fire("Warning", "Please select any record", 'warning')
     } else {
       Swal.fire({
         icon: 'question',
@@ -386,7 +386,7 @@ export class AlluserdataComponent implements OnInit {
   }
   makeoffline() {
     if (this.allId.length == 0) {
-      Swal.fire("Warning","Please select any record",'warning')
+      Swal.fire("Warning", "Please select any record", 'warning')
     } else {
       Swal.fire({
         icon: 'question',
@@ -429,6 +429,8 @@ export class AlluserdataComponent implements OnInit {
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       ORDER BY a.user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
+   
+
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
@@ -436,24 +438,26 @@ export class AlluserdataComponent implements OnInit {
       WHERE a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
-         OR a.user_lname = '${search_text}';
+         OR a.user_lname = '${search_text}'
          ORDER BY a.user_creation_date_time DESC
        `;
     }
 
-   // console.log("query",quary);
+    // console.log("query",quary);
 
     this.blockUI.start('Loading...')
+
+    
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
-
-
+       
+   
       if (res.success && res['data'].length > 0) {
 
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
-       console.log(this.collectionSize);
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length
+        this.collectionSize = Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        console.log(this.collectionSize);
         this.tableData = res['data'];
 
       } else {
@@ -499,9 +503,9 @@ export class AlluserdataComponent implements OnInit {
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
       if (res.success) {
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.tableData = res['data'];
         console.log(this.tableData);
       } else {
@@ -535,9 +539,9 @@ export class AlluserdataComponent implements OnInit {
       //console.log(res);
       if (res.success && res['data'].length > 0) {
         // alert('ll')
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
 
         this.tableData = res['data'];
         // console.log(this.tableData);
@@ -573,9 +577,9 @@ export class AlluserdataComponent implements OnInit {
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       //console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;;
         this.tableData = res['data'];
         //console.log(this.tableData);
       } else {
@@ -609,9 +613,9 @@ export class AlluserdataComponent implements OnInit {
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;;
         this.tableData = res['data'];
         console.log(this.tableData);
       } else {
@@ -643,9 +647,9 @@ export class AlluserdataComponent implements OnInit {
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;;
         this.tableData = res['data'];
         console.log(this.tableData);
       } else {
@@ -678,9 +682,9 @@ export class AlluserdataComponent implements OnInit {
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;;
         this.tableData = res['data'];
         console.log(this.tableData);
       } else {
@@ -715,9 +719,9 @@ export class AlluserdataComponent implements OnInit {
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.round(res['data'][0].total_count/this.apiFetchRecordLimit)*10;;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length
+        this.collectionSize = Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;;
         this.tableData = res['data'];
         console.log(this.tableData);
       } else {
@@ -734,14 +738,14 @@ export class AlluserdataComponent implements OnInit {
 
     this.allId = [];
     if (e.target.checked) {
-      check.forEach((checkbox: any,key:any) => {
+      check.forEach((checkbox: any, key: any) => {
         console.log('p');
 
         this.allId.push(parseInt(this.tableData[key].Id));
         checkbox.checked = true;
       });
     } else {
-      check.forEach((checkbox: any,key:any) => {
+      check.forEach((checkbox: any, key: any) => {
         this.allId = [];
         checkbox.checked = false;
       });
@@ -750,7 +754,7 @@ export class AlluserdataComponent implements OnInit {
   }
   getId(id: any, e: any) {
 
-    console.log("hii",e);
+    console.log("hii", e);
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -768,8 +772,8 @@ export class AlluserdataComponent implements OnInit {
   }
 
 
-  openNewTab(user_id:any){
-    window.open("/user/"+user_id, '_blank');
+  openNewTab(user_id: any) {
+    window.open("/user/" + user_id, '_blank');
   }
 
 }

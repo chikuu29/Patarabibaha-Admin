@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageViewOperationComponent } from '../image-view-operation/image-view-operation.component';
 import { FillterModalComponent } from '../fillter-modal/fillter-modal.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-search',
@@ -33,7 +34,14 @@ export class SearchComponent implements OnInit {
 
   }
   clickSearchMethod(search_text:string){
-    this.clickSearch.emit(search_text);
+    console.log("Search Click",search_text);
+    
+    if(search_text && search_text !=''){
+      this.clickSearch.emit(search_text);
+    }else{
+      Swal.fire('Warning',"Search Field Can't Be Empty",'info')
+    }
+   
   }
   changeSearchText(search_text: string) {
     this.getSerachText.emit(search_text);
