@@ -166,7 +166,7 @@ export class FillterModalComponent implements OnInit {
     user_mother_toungh: new FormControl([], [Validators.required]),
     user_min_anual_income: new FormControl([], [Validators.required]),
     user_max_anual_income: new FormControl([], [Validators.required]),
-    user_nakshatra: new FormControl([], [Validators.required]),
+    user_nakhyatra: new FormControl([], [Validators.required]),
     user_zodiacs: new FormControl([], [Validators.required]),
     user_gotra: new FormControl([], [Validators.required]),
     user_caste: new FormControl([], [Validators.required]),
@@ -365,7 +365,8 @@ export class FillterModalComponent implements OnInit {
       "user_info": ['user_id', 'user_gender', 'user_marital_status'],
       "user_religion": ['user_religion', 'user_caste'],
       "user_education_occupations": ['user_occupation', 'user_employed_In'],
-      "user_locations": ["user_country", "user_state", "user_city"]
+      "user_locations": ["user_country", "user_state", "user_city"],
+      "user_horoscope":["user_gotra",'user_nakhyatra','user_zodiacs']
 
     }
     const fillterData: any = this.removeBlankProperties(this.fillterForm.value)
