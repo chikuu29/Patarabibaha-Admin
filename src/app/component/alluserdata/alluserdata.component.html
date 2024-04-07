@@ -112,7 +112,7 @@
                                         <td [title]="data?.user_fname+' '+data?.user_lname"> {{data?.user_fname+'
                                             '+data?.user_lname }}</td>
                                         <td [title]="data?.user_id">
-                                            <div> {{data?.user_id}} </div>
+                                            <div> {{data?.user_id || data?.user_ID}} </div>
                                         </td>
                                         <td title="Due In 9 Days ">
                                             <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel">

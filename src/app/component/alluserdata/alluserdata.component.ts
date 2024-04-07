@@ -162,6 +162,9 @@ export class AlluserdataComponent implements OnInit {
     ${event.whereConditions}`
     }
 
+    console.log(query);
+    
+
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
       console.log("Filtter Record", res);
       if (res.success && res['data'].length > 0) {
@@ -431,7 +434,7 @@ export class AlluserdataComponent implements OnInit {
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       ORDER BY a.user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
-   
+
 
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -449,11 +452,11 @@ export class AlluserdataComponent implements OnInit {
 
     this.blockUI.start('Loading...')
 
-    
+
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
-       
-   
+
+
       if (res.success && res['data'].length > 0) {
 
         this.totalDataCount = res['data'][0].total_count;

@@ -150,26 +150,90 @@ export class FillterModalComponent implements OnInit {
   zodiacsOptions: any = []
   nakshatraOptions: any = []
   gotraOptions: any = []
+  ageOption: any = [
+    { "value": 1 },
+    { "value": 2 },
+    { "value": 3 },
+    { "value": 4 },
+    { "value": 5 },
+    { "value": 6 },
+    { "value": 7 },
+    { "value": 8 },
+    { "value": 9 },
+    { "value": 10 },
+    { "value": 11 },
+    { "value": 12 },
+    { "value": 13 },
+    { "value": 14 },
+    { "value": 15 },
+    { "value": 16 },
+    { "value": 17 },
+    { "value": 18 },
+    { "value": 19 },
+    { "value": 20 },
+    { "value": 21 },
+    { "value": 22 },
+    { "value": 23 },
+    { "value": 24 },
+    { "value": 25 },
+    { "value": 26 },
+    { "value": 27 },
+    { "value": 28 },
+    { "value": 29 },
+    { "value": 30 },
+    { "value": 31 },
+    { "value": 32 },
+    { "value": 33 },
+    { "value": 34 },
+    { "value": 35 },
+    { "value": 36 },
+    { "value": 37 },
+    { "value": 38 },
+    { "value": 39 },
+    { "value": 40 },
+    { "value": 41 },
+    { "value": 42 },
+    { "value": 43 },
+    { "value": 44 },
+    { "value": 45 },
+    { "value": 46 },
+    { "value": 47 },
+    { "value": 48 },
+    { "value": 49 },
+    { "value": 50 },
+    { "value": 51 },
+    { "value": 52 },
+    { "value": 53 },
+    { "value": 54 },
+    { "value": 55 },
+    { "value": 56 },
+    { "value": 57 },
+    { "value": 58 },
+    { "value": 59 },
+    { "value": 60 }
+  ]
 
   fillterForm = new FormGroup({
     user_id: new FormControl('', []),
-    user_gender: new FormControl([], [Validators.required]),
-    user_min_height: new FormControl('', [Validators.required]),
-    user_max_height: new FormControl('', [Validators.required]),
-    user_religion: new FormControl([], [Validators.required]),
-    user_country: new FormControl([], [Validators.required]),
-    user_marital_status: new FormControl([], [Validators.required]),
-    user_state: new FormControl([], [Validators.required]),
-    user_city: new FormControl([], [Validators.required]),
-    user_employed_In: new FormControl([], [Validators.required]),
-    user_occupation: new FormControl([], [Validators.required]),
-    user_mother_toungh: new FormControl([], [Validators.required]),
-    user_min_anual_income: new FormControl([], [Validators.required]),
-    user_max_anual_income: new FormControl([], [Validators.required]),
-    user_nakhyatra: new FormControl([], [Validators.required]),
-    user_zodiacs: new FormControl([], [Validators.required]),
-    user_gotra: new FormControl([], [Validators.required]),
-    user_caste: new FormControl([], [Validators.required]),
+    user_gender: new FormControl([], []),
+    user_min_age: new FormControl(18, [Validators.required]),
+    user_max_age: new FormControl(50, [Validators.required]),
+    user_min_height: new FormControl(1, [Validators.required]),
+    user_max_height: new FormControl(300, [Validators.required]),
+    user_religion: new FormControl([], []),
+    user_country: new FormControl([], []),
+    user_marital_status: new FormControl([], []),
+    user_state: new FormControl([], []),
+    user_city: new FormControl([], []),
+    user_employed_In: new FormControl([], []),
+    user_occupation: new FormControl([], []),
+    user_mother_toungh: new FormControl([], []),
+    user_min_anual_income: new FormControl(0, [Validators.required]),
+    user_max_anual_income: new FormControl(9999999, [Validators.required]),
+    user_nakhyatra: new FormControl([], []),
+    user_zodiacs: new FormControl([], []),
+    user_gotra: new FormControl([], []),
+    user_caste: new FormControl([], []),
   })
 
   @Input() selectedFillterValue: any = {}
@@ -366,11 +430,17 @@ export class FillterModalComponent implements OnInit {
       "user_religion": ['user_religion', 'user_caste'],
       "user_education_occupations": ['user_occupation', 'user_employed_In'],
       "user_locations": ["user_country", "user_state", "user_city"],
-      "user_horoscope":["user_gotra",'user_nakhyatra','user_zodiacs']
+      "user_horoscope": ["user_gotra", 'user_nakhyatra', 'user_zodiacs']
 
     }
     const fillterData: any = this.removeBlankProperties(this.fillterForm.value)
+
+    console.log("fillterData", fillterData);
+
     const filteredtableKeyMappingObject = _.pickBy(_.mapValues(tableKeyMapping, values => values.filter((value: any) => Object.keys(fillterData).includes(value))), values => values.length > 0);
+
+
+    console.log(filteredtableKeyMappingObject);
 
     var query = ''
     Object.keys(filteredtableKeyMappingObject).forEach((table, i) => {
@@ -396,12 +466,17 @@ export class FillterModalComponent implements OnInit {
 
       })
     })
+
+
+    console.log("Query", query);
+
     this.modal.close(
       {
-        "whereConditions": "WHERE " + query,
-        'isqueryGenerated': Object.keys(filteredtableKeyMappingObject).length > 0,
+        "whereConditions": `WHERE  user_info.user_age BETWEEN ${this.fillterForm.value.user_min_age} AND ${this.fillterForm.value.user_max_age} AND user_physical_details.user_height BETWEEN ${this.fillterForm.value.user_min_height} AND ${this.fillterForm.value.user_max_height} AND user_education_occupations.user_anual_income BETWEEN ${this.fillterForm.value.user_min_anual_income} AND ${this.fillterForm.value.user_max_anual_income}  ${query=='' ? ' ' : "AND"} ` + query,
+        'isqueryGenerated': true,
         'selectedFillterValue': this.fillterForm.value
-      })
+      }
+    )
   }
 
 
