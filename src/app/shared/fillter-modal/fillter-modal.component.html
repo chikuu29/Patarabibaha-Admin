@@ -25,6 +25,12 @@
                         [title]="partnerPreferenceForm.value.user_religion"></p-multiSelect>
                 </div>
                 <div class="form-group col-md-4">
+                    <label class="mb-3 text-muted fw-bold">Caste</label>
+                    <p-multiSelect [options]="religionCasteOptions" placeholder="Select" formControlName="user_religion"
+                        optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+                        [title]="partnerPreferenceForm.value.user_caste"></p-multiSelect>
+                </div>
+                <div class="form-group col-md-4">
                     <label class="mb-3 text-muted fw-bold">Marital Status</label>
                     <p-multiSelect [options]="maritalOptions" placeholder="Select" formControlName="user_marital_status"
                         optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"

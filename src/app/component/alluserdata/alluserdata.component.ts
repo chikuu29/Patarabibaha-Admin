@@ -159,10 +159,9 @@ export class AlluserdataComponent implements OnInit {
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}`
     }
-    console.log(query);
-
+ 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      //console.log(res);
+      console.log("Filtter Record",res);
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length
         // this.collectionSize=
@@ -170,6 +169,8 @@ export class AlluserdataComponent implements OnInit {
 
         this.tableData = res['data'];
         // console.log(this.tableData);
+      }else{
+        this.tableData=[]
       }
 
     })

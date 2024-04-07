@@ -122,18 +122,7 @@ export class FillterModalComponent implements OnInit {
   ]
 
   religionOptions: any = []
-  religionCasteOptions: any = [
-    { "name": "Hinduism" },
-    { "name": "Islam" },
-    { "name": "Christianity" },
-    { "name": "Sikhism" },
-    { "name": "Buddhism" },
-    { "name": "Jainism" },
-    { "name": "Zoroastrianism" },
-    { "name": "Bahá'í Faith" },
-    { "name": "Judaism" }
-  ]
-
+  religionCasteOptions: any = []
   religionSubcasteOptions: any = [
     { "name": "Hinduism" },
     { "name": "Islam" },
@@ -180,6 +169,7 @@ export class FillterModalComponent implements OnInit {
     user_nakshatra: new FormControl([], [Validators.required]),
     user_zodiacs: new FormControl([], [Validators.required]),
     user_gotra: new FormControl([], [Validators.required]),
+    user_caste: new FormControl([], [Validators.required]),
   })
   constructor(
     private ApiParameterScript: ApiParameterScript,
@@ -281,6 +271,20 @@ export class FillterModalComponent implements OnInit {
 
 
     })
+
+    this.ApiParameterScript.fetchdata('cast_table', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+      //
+      if (res.success && res['data'].length > 0) {
+        this.religionCasteOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.cast_name };
+          } else {
+            return null
+          }
+        });
+
+      }
+    })
     this.ApiParameterScript.fetchdata('country', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
 
       if (res.success && res['data'].length > 0) {
@@ -353,28 +357,22 @@ export class FillterModalComponent implements OnInit {
   getSelection() {
     // { "TABLE NAME": ['field_name'] }
     const tableKeyMapping: any = {
-      "user_info": ['user_id', 'user_gender','user_marital_status'],
-      "user_religion": ['user_religion'],
-      "user_education_occupations":['user_occupation','user_employed_In']
-      
+      "user_info": ['user_id', 'user_gender', 'user_marital_status'],
+      "user_religion": ['user_religion', 'user_caste'],
+      "user_education_occupations": ['user_occupation', 'user_employed_In'],
+      "user_locations": ["user_country", "user_state", "user_city"]
+
     }
     const fillterData: any = this.removeBlankProperties(this.partnerPreferenceForm.value)
-    console.log(fillterData);
-    
-    console.log(Object.keys(fillterData));
-    const filteredtableKeyMappingObject: any = Object.fromEntries(
-      Object.entries(tableKeyMapping)
-        .filter(([key]) =>
-          this.hasCommonValue(tableKeyMapping[key], Object.keys(fillterData))
-        )
-    );
-    // console.log("filteredtableKeyMappingObject", filteredtableKeyMappingObject);
+   
 
+    const filteredtableKeyMappingObject = _.pickBy( _.mapValues(tableKeyMapping, values => values.filter((value:any) => Object.keys(fillterData).includes(value))), values => values.length > 0);
+ 
     var query = ''
     Object.keys(filteredtableKeyMappingObject).forEach((table, i) => {
       // console.log("index",index);
       var condition1 = Object.keys(filteredtableKeyMappingObject).length - 1 != i ? true : false
-      // console.log(condition1);
+
 
 
       filteredtableKeyMappingObject[table].forEach((key: string, index: number) => {
@@ -383,22 +381,18 @@ export class FillterModalComponent implements OnInit {
         var gen = ''
         if (fillterData[key] && typeof fillterData[key] === 'string' && fillterData[key] != '') {
           gen = `${table}.${key}='${fillterData[key]}'`
-          // gen = `${table}.${key}='${fillterData[key]}'${condition}`
           query += gen
         } else if ((fillterData[key] && fillterData[key].length > 0)) {
-          // gen = `${table}.${key} IN (${fillterData[key].map((value: any) => `'${value}'`).join(',')}) ${condition}`
           gen = `${table}.${key} IN (${fillterData[key].map((value: any) => `'${value}'`).join(',')})`
           query += gen
         }
-        if(Object.keys(fillterData).includes(key) && Object.keys(filteredtableKeyMappingObject).length>1){
+        if (Object.keys(fillterData).includes(key) && Object.keys(fillterData).length > 1) {
           query += condition
         }
-       
+
       })
     })
-    // console.log("query",query);
-
-    this.modal.close({"whereConditions":"WHERE "+query,'isqueryGenerated':Object.keys(filteredtableKeyMappingObject).length>0})
+    this.modal.close({ "whereConditions": "WHERE " + query, 'isqueryGenerated': Object.keys(filteredtableKeyMappingObject).length > 0 })
   }
 
 
