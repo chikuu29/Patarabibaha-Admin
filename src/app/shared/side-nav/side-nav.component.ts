@@ -54,7 +54,7 @@ export class SideNavComponent implements OnInit {
         {
           routerLink: '/horoscope-viwe',
           icon: 'fa-solid fa-file-signature',
-          text: 'Horoscope Viwe',
+          text: 'Horoscope View',
           id: 'admin-01'
         },
         {

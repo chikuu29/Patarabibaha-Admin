@@ -84,8 +84,12 @@
     padding: 5px;
   }
 }
-
-
+.custom-backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Light black with some transparency */
+}
+.custom-backdrop-border{
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
 
 
 

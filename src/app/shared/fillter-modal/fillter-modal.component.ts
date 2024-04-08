@@ -150,6 +150,7 @@ export class FillterModalComponent implements OnInit {
   zodiacsOptions: any = []
   nakshatraOptions: any = []
   gotraOptions: any = []
+  aducationalOptions:any=[]
   ageOption: any = [
     { "value": 1 },
     { "value": 2 },
@@ -213,11 +214,29 @@ export class FillterModalComponent implements OnInit {
     { "value": 60 }
   ]
 
+  bodyTpeOptions: any = [
+    { "name": "Athletic" },
+    { "name": "Slim" },
+    { "name": "Muscular" },
+    { "name": "Curvy" },
+    { "name": "Toned" },
+    { "name": "Petite" },
+    { "name": "Husky" },
+    { "name": "Slim" }
+  ]
+  physicalStatusOptions: any = [
+    { "name": "Normal" },
+    { "name": "Physical Chalenges" }
+  ]
   fillterForm = new FormGroup({
     user_id: new FormControl('', []),
     user_gender: new FormControl([], []),
+    user_complextion: new FormControl([], []),
     user_min_age: new FormControl(18, [Validators.required]),
     user_max_age: new FormControl(50, [Validators.required]),
+    user_body_type: new FormControl([], []),
+    user_mangalik: new FormControl([], []),
+    user_highest_education: new FormControl([], []),
     user_min_height: new FormControl(1, [Validators.required]),
     user_max_height: new FormControl(300, [Validators.required]),
     user_religion: new FormControl([], []),
@@ -246,6 +265,26 @@ export class FillterModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.ApiParameterScript.fetchdata('highest_education', { "projection": ["*"] }).subscribe((res: any) => {
+      //
+      if (res.success && res['data'].length > 0) {
+
+        this.aducationalOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.highest_education_name };
+          } else {
+            return null
+          }
+        });
+
+
+
+
+
+      }
+
+    })
 
     this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
 
@@ -427,11 +466,11 @@ export class FillterModalComponent implements OnInit {
     // { "TABLE NAME": ['field_name'] }
     const tableKeyMapping: any = {
       "user_info": ['user_id', 'user_gender', 'user_marital_status'],
-      "user_religion": [, 'user_caste','user_religion'],
-      "user_education_occupations": ['user_occupation', 'user_employed_In'],
+      "user_religion": ['user_caste','user_religion'],
+      "user_education_occupations": ['user_occupation', 'user_employed_In','user_highest_education'],
       "user_locations": ["user_country", "user_state", "user_city"],
-      "user_horoscope": ["user_gotra", 'user_nakhyatra', 'user_zodiacs']
-
+      "user_horoscope": ["user_gotra", 'user_nakhyatra', 'user_zodiacs','user_mangalik'],
+      "user_physical_details": ["user_body_type","user_complextion"]
     }
     const fillterData: any = this.removeBlankProperties(this.fillterForm.value)
 

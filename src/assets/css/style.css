@@ -26077,7 +26077,7 @@ div.tagsinput {
 }
 
 .nav-pills.nav-pills-custom .nav-link.active {
-  background: #D6EAF8;
+  background: #dcdcff;
   font-weight: bold;
   color: #0090e7;;
   /* color: #ffffff; */
@@ -30129,7 +30129,7 @@ div.tagsinput span.tag a {
 .sidebar .nav .nav-item.active>.nav-link {
   /* background: #6c7293; */
   position: relative;
-  background: #D6EAF8;
+  background: #dcdcff;
   font-weight: bold;
   color: #0090e7;
 }
@@ -30372,7 +30372,7 @@ div.tagsinput span.tag a {
 }
 
 .sidebar .nav.sub-menu .nav-item {
-  padding: 0;
+  padding: 3px;
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link {
@@ -30387,7 +30387,7 @@ div.tagsinput span.tag a {
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link.active {
-  background: #D6EAF8;
+  background: #dcdcff;
   font-weight: bold;
   color: #0090e7;
 }
@@ -30397,12 +30397,19 @@ div.tagsinput span.tag a {
 }
 
 .sidebar .nav.sub-menu .nav-item:hover {
-  background: #D6EAF8;
+  background: #dcdcff;
+  border-radius: 12px;
+  /* background: transparent; */
+}
+
+.sidebar .nav.sub-menu .nav-item.active{
+  background: #dcdcff;
+  border-radius: 12px;
   /* background: transparent; */
 }
 /* Side Nav Menu  */
 .sidebar .nav:not(.sub-menu)>.nav-item:hover:not(.nav-category):not(.account-dropdown)>.nav-link {
-  background: #D6EAF8;
+  background: #dcdcff;
   font-weight: bold;
   color: #0090e7;
 }
