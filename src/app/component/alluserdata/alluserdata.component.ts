@@ -141,7 +141,7 @@ export class AlluserdataComponent implements OnInit {
   fillter(event: any) {
     this.pegination_required = false;
     console.log('click fillter', event);
-    var query = `SELECT *
+    var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
     LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
@@ -152,7 +152,7 @@ export class AlluserdataComponent implements OnInit {
     LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`;
     if (event.isqueryGenerated) {
-      query = `SELECT *
+      query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
     LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
@@ -171,6 +171,7 @@ export class AlluserdataComponent implements OnInit {
       console.log('Filtter Record', res);
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
+        this.totalDataCount = res['data'][0].total_count;
         // this.collectionSize=
         // console.log(this.collectionSize);
 
