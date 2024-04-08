@@ -139,6 +139,7 @@ export class AlluserdataComponent implements OnInit {
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
+    this.pegination_required = false;
     console.log('click fillter', event);
     var query = `SELECT *
     FROM user_info

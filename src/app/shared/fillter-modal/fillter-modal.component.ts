@@ -427,7 +427,7 @@ export class FillterModalComponent implements OnInit {
     // { "TABLE NAME": ['field_name'] }
     const tableKeyMapping: any = {
       "user_info": ['user_id', 'user_gender', 'user_marital_status'],
-      "user_religion": ['user_religion', 'user_caste'],
+      "user_religion": [, 'user_caste','user_religion'],
       "user_education_occupations": ['user_occupation', 'user_employed_In'],
       "user_locations": ["user_country", "user_state", "user_city"],
       "user_horoscope": ["user_gotra", 'user_nakhyatra', 'user_zodiacs']
