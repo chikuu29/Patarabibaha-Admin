@@ -1,70 +1,166 @@
 <div class="col-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-titleb text-muted text-center"><button mat-flat-button color="accent" class="fw-bold">ADD
-                    MASSAGE</button></h4>
-            <form class="form-inline" [formGroup]="cahting">
-                <label class="sr-only" for="inlineFormInputName2">Name</label>
-                <mat-form-field isReadonly appearance="outline" class="flex-fill w-100">
-                    <mat-label>Message</mat-label>
-                    <input matInput placeholder="Message" formControlName="name" type="text" />
-                    <mat-error>Please Enter Message</mat-error>
-                </mat-form-field>
-                <button type="submit" (click)="addMessage()"
-                    class="btn btn-primary  btn-lg mb-3 w-100">{{button}}</button>
-                <button type="submit" (click)="cahting.reset();button='ADD'"
-                    class="btn btn-danger  btn-lg mb-3 w-100" [hidden]="button=='ADD'">Cancle</button>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-titleb text-muted text-center"><button mat-flat-button color="accent" class="fw-bold">ADD
+          MASSAGE</button></h4>
+      <form class="form-inline" [formGroup]="cahting">
+        <label class="sr-only" for="inlineFormInputName2">Name</label>
+        <mat-form-field isReadonly appearance="outline" class="flex-fill w-100">
+          <mat-label>Message</mat-label>
+          <input matInput placeholder="Message" formControlName="name" type="text" />
+          <mat-error>Please Enter Message</mat-error>
+        </mat-form-field>
+        <button type="submit" (click)="addMessage()" class="btn btn-primary  btn-lg mb-3 w-100">{{button}}</button>
+        <button type="submit" (click)="cahting.reset();button='ADD'" class="btn btn-danger  btn-lg mb-3 w-100"
+          [hidden]="button=='ADD'">Cancle</button>
 
-            </form>
-        </div>
+      </form>
     </div>
+  </div>
 </div>
- <div class="">
-    <div class="table-holder">
-        <div class="caption-header">
-            <div class="caption-item">
-                <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{"0"}} of {{"0"}} results</span>
-            </div>
-            <div class="caption-item">
-                <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
+<div class="" *ngIf="false">
+  <div class="table-holder">
+    <div class="caption-header">
+      <div class="caption-item">
+        <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
+        <span class="fs-5">Showing {{"0"}} of {{"0"}} results</span>
+      </div>
+      <div class="caption-item">
+        <button pButton pRipple type="button" icon="pi pi-search" label="Find" class="me-2"></button>
 
-            </div>
-        </div>
-        <div class="mt-3 data-view-container">
-            <table class="table ">
-                <thead class="table-header">
-                    <tr>
-                        <th >#SI</th>
-                        <th >Country Nmae</th>
-                        <th >Created At</th>
-                        <th >Status</th>
-                        <th >Action</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body table-striped">
-                    <ng-container *ngFor="let data of massagedata ; index as i">
-                        <tr>
-
-                            <td>{{i+1}}</td>
-                            <td>{{data.name}}</td>
-                            <td>{{data.created_At | date}}</td>
-                            <td>
-                                <p class="badge badge-danger" *ngIf="data.status == 0">
-                                    NOT PUBLISHED
-                                </p>
-                                <p class="badge badge-success" *ngIf="data.status == 1">PUBLISHED</p>
-                            </td>
-                            <td>
-                                <button type="button" (click)="update(data.id)" class="btn btn-outline-warning btn-fw me-2 w-50"
-                                    >Edit</button>
-                                    
-                                <button type="button" class="btn btn-outline-danger btn-fw w-50">Delete</button>
-                            </td>
-                        </tr>
-                    </ng-container>
-                </tbody>
-            </table>
-        </div>
+      </div>
     </div>
-</div> 
+    <div class="mt-3 data-view-container">
+      <table class="table ">
+        <thead class="table-header">
+          <tr>
+            <th>#SI</th>
+            <th>Country Nmae</th>
+            <th>Created At</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-body table-striped">
+          <ng-container *ngFor="let data of massagedata ; index as i">
+            <tr>
+
+              <td>{{i+1}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.created_At | date}}</td>
+              <td>
+                <p class="badge badge-danger" *ngIf="data.status == 0">
+                  NOT PUBLISHED
+                </p>
+                <p class="badge badge-success" *ngIf="data.status == 1">PUBLISHED</p>
+              </td>
+              <td>
+                <button type="button" (click)="update(data.id)"
+                  class="btn btn-outline-warning btn-fw me-2 w-50">Edit</button>
+
+                <button type="button" class="btn btn-outline-danger btn-fw w-50">Delete</button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="outline">
+  <div class="commen">
+    <button type="button" class="btn btn-outline-success" (click)="publishuser()">
+      <i class="fas fa-upload"></i> Publish
+    </button>
+  </div>
+  <div class="commen">
+    <button type="button" class="btn btn-outline-danger" (click)="unpublishuser()">
+      <i class="fas fa-download"></i> Unpublish
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-12 order-lg-1 order-xl-1">
+    <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+      <div class="table-caption-holder">
+        <div class="dropdown-container">
+          <select id="dropdown" (change)="changepaginetdata($event)">
+            <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+
+        <div class="kt-portlet__head-toolbar">
+
+
+          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="false"
+            (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
+        </div>
+      </div>
+      <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y" id="grid_scroll_body"
+        style="max-height: 75vh; position: relative;">
+        <div class="inbox-body inbox-body-table">
+          <div class="table-scroll">
+            <table class="custom-table table  table-bordered table-striped">
+              <thead class="flip-content">
+                <tr>
+                  <th style="cursor: pointer; width:5%" title="Select Member">
+                    <input type="checkbox" name="" id="all" (change)="checkAll($event)">
+                    <!-- <mat-checkbox class="example-margin" (change)="checkAll($event)"
+                    ></mat-checkbox>-->
+                  </th>
+                  <th style="cursor: pointer;width:1%">#SI</th>
+                  <th style="cursor: pointer;width:25%">Country Nmae</th>
+                  <th style="cursor: pointer;width:25%">Created At</th>
+                  <th style="cursor: pointer;width:25%">Status</th>
+                  <th style="cursor: pointer;width:25%">Action</th>
+                </tr>
+              </thead>
+              <tbody class="table-body table-striped">
+                <ng-container *ngFor="let data of finaldata | fillter:['name'] :filterText ; index as i">
+                  <tr>
+                    <td class="text-center">
+                      <input type="checkbox" class="check" [value]="data?.user_id" (change)="getId(data?.Id,$event)"
+                        name="" id="">
+                      <!-- <mat-checkbox class="check" (change)="getId(data?.Id,$event)"
+                          [value]="data?.user_id"></mat-checkbox> -->
+                    </td>
+                    <td>{{i+1}}</td>
+                    <td>{{data.name}}</td>
+                    <td>{{data.created_At | date}}</td>
+                    <td>
+                      <p class="badge badge-danger" *ngIf="data.status == 0">
+                        NOT PUBLISHED
+                      </p>
+                      <p class="badge badge-success" *ngIf="data.status == 1">PUBLISHED</p>
+                    </td>
+                    <td>
+                      <button type="button" (click)="update(data.id)"
+                        class="btn btn-outline-primary btn-sm me-2">Edit</button>
+
+                      <button type="button" class="btn btn-outline-danger btn-sm me-2">Delete</button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="table-footer-holder">
+        <div>
+          <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
+            [ellipses]="false" [boundaryLinks]="false" class="" (pageChange)="onpageChnage()"></ngb-pagination>
+        </div>
+        <div>
+          <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
+            {{offset}} to {{totalFetchrecord}} of
+            {{totalDataCount}}</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

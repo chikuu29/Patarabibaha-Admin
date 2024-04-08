@@ -6,7 +6,9 @@ import { MassageComponent } from './massage/massage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrimengModule } from '../primeng/primeng.module';
 import { MaterialModule } from '../material/material.module';
-
+import { SharedModule } from '../shared/shared.module';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 
 
 @NgModule({
@@ -21,7 +23,10 @@ import { MaterialModule } from '../material/material.module';
     FormsModule,
     ReactiveFormsModule,
     PrimengModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule,
+    CustomPipeModule,
+    NgbPaginationModule
   ]
 })
 export class ChattingModule { }

@@ -39,6 +39,17 @@ const routes: Routes = [
         ]
 
       },
+      {
+        path: 'chating',
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./chatting/chatting.module').then(m => m.ChattingModule)
+          }
+        ]
+
+      },
     ]
   },
   {
@@ -57,17 +68,7 @@ const routes: Routes = [
 
 
 
-  {
-    path: 'chating',
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./chatting/chatting.module').then(m => m.ChattingModule)
-      }
-    ]
 
-  },
   {
     path: 'error-page',
     canActivate: [AuthGuard],

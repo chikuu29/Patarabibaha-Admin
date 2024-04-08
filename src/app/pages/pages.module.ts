@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { PagesRoutingModule } from './pages-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -77,7 +76,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     HomeiconComponent,
     LogineventComponent,
     HomepageeventComponent
-   
+
   ],
   imports: [
     CommonModule,
