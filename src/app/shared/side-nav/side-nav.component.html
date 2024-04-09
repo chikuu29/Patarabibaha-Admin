@@ -79,7 +79,7 @@
                     <span class="menu-icon">
                         <i [class]="navmenu.icon"></i>
                     </span>
-                    <span class="menu-title">{{navmenu.text}}</span>
+                    <span class="menu-title">{{navmenu.text}} </span>
                 </a>
             </ng-container>
             <ng-container *ngIf="!navmenu.requiredRouterLink">
@@ -95,7 +95,7 @@
                     [ngClass]="navmenu['submenu'] && navmenu.submenuActive?'show':'hide'">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item m-1 " routerLinkActive="active" *ngFor="let submenu of navmenu['submenu']">
-                            <a class="nav-link" [routerLink]="[submenu.routerLink]">{{submenu.text}}</a>
+                            <a class="nav-link" [routerLink]="[submenu.routerLink]">{{submenu.text}} </a>
                         </li>
                     </ul>
                 </div>

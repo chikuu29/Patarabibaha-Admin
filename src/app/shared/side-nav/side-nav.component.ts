@@ -160,7 +160,6 @@ export class SideNavComponent implements OnInit {
         { routerLink: '/cast-page', text: 'Cast' },
         { routerLink: '/subcast-page', text: 'Sub Cast' },
         { routerLink: '/gotra-page', text: 'Gotra' },
-
         { routerLink: '/designation', text: 'designation' }
       ]
     },
@@ -191,9 +190,9 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        { routerLink: '/approve/userapprove-page', text: 'User Approve', badge: '{{usercount}}' },
-        { routerLink: '/approve/profileimagepprove-page', text: 'Profile Image Approve', badge: '{{profilephotocount}}' },
-        { routerLink: '/approve/deleterequest-page', text: 'Delete Request', badge: '{{ deliteeeqest }}' }
+        { routerLink: '/approve/userapprove-page', text: 'User Approve', badge: this.usercount },
+        { routerLink: '/approve/profileimagepprove-page', text: 'Profile Image Approve', badge: this.profilephotocount },
+        { routerLink: '/approve/deleterequest-page', text: 'Delete Request', badge: this.deliteeeqest  }
       ]
     },
     {
@@ -212,11 +211,6 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false
     },
-
-
-
-
-
   ]
 
 
@@ -228,17 +222,11 @@ export class SideNavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.getuserAprrove();
     this.getProfileImageAprrove();
     this.getDeleteRequestdata();
     this.phoneapprove();
-    // let item = secureCryptoStorage.setItem("authInfo")
-    // this.ApiParameter.fetchdata('admin', { "projection": ["*"], "whereConditions": { user_status: "Pending" } }).subscribe((res: any) => {
-    //   if (res.success && res['data'].length > 0) {
-    //     this.usercount = res['data'].length;
-    //     //console.log();
-    //   }
-    // });
   }
 
   getuserAprrove() {
