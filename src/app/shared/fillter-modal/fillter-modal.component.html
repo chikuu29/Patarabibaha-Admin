@@ -5,7 +5,7 @@
 </div>
 <div class="modal-body">
 
-  <!-- <div> -->
+
   <form [formGroup]="fillterForm" class="w-100">
     <div class="row mb-3">
       <div class="form-group col-md-4">
@@ -20,7 +20,18 @@
         <label class="mb-3 text-muted fw-bold">Max Age</label>
         <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_max_age" />
       </div>
-
+      <div class="form-group col-md-4">
+        <label class="mb-3 text-muted fw-bold">Body Type</label>
+        <p-multiSelect [options]="bodyTpeOptions" placeholder="Select" formControlName="user_body_type"
+          optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+          [title]="fillterForm.value.user_body_type"></p-multiSelect>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="mb-3 text-muted fw-bold">Body Complex</label>
+        <p-multiSelect [options]="physicalStatusOptions" placeholder="Select" formControlName="user_complextion"
+          optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+          [title]="fillterForm.value.user_complextion"></p-multiSelect>
+      </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Gender</label>
         <p-multiSelect [options]="[{name:'male'},{name:'female'}]" placeholder="Select" formControlName="user_gender"
@@ -50,8 +61,7 @@
         <label class="mb-3 text-muted fw-bold">Country Living In</label>
 
         <p-multiSelect [options]="countryOption" placeholder="Select" formControlName="user_country" optionLabel="name"
-          optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="fillterForm.value.user_country"
+          optionValue="name" [style]="{ width: '100%' }" display="chip" [title]="fillterForm.value.user_country"
           (onChange)="getstatefilter(fillterForm.value.user_country)"
           (onRemove)="getstatefilter(fillterForm.value.user_country)"></p-multiSelect>
       </div>
@@ -85,7 +95,13 @@
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
           [title]="fillterForm.value.user_mother_toungh"></p-multiSelect>
       </div>
+      <div class="form-group col-md-4">
+        <label class="mb-3 text-muted fw-bold">Qualification</label>
+        <p-multiSelect [options]="aducationalOptions" placeholder="Select" formControlName="user_highest_education"
+          optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+          [title]="fillterForm.value.user_highest_education"></p-multiSelect>
 
+      </div>
 
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Occupation</label>
@@ -112,6 +128,12 @@
         <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_max_anual_income" />
       </div>
       <div class="form-group col-md-4">
+        <label class="mb-3 text-muted fw-bold">Mangalik</label>
+        <p-multiSelect [options]="[{name:'Yes'},{name:'No'}]" placeholder="Select" formControlName="user_mangalik"
+          optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+          [title]="fillterForm.value.user_mangalik"></p-multiSelect>
+      </div>
+      <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Zodiacs</label>
         <p-multiSelect [options]="zodiacsOptions" placeholder="Select" formControlName="user_zodiacs"
           optionLabel="display" optionValue="name" [style]="{ width: '100%' }" display="chip"
@@ -134,11 +156,12 @@
       </div>
     </div>
   </form>
-  <!-- </div> -->
+
 
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-danger btn-lg" (click)="modal.dismiss('cancel click')">Close</button>
-  <button type="button" class="btn btn-primary btn-lg" [disabled]="!fillterForm.valid" (click)="getSelection()">Search</button>
+  <!-- <button type="button" class="btn btn-danger " (click)="modal.dismiss('cancel click')">Close</button> -->
+  <button type="button" class="btn btn-primary btn-lg " [disabled]="!fillterForm.valid" (click)="getSelection()"><i
+      class="fa-solid fa-magnifying-glass"></i> &nbsp;Search</button>
 </div>

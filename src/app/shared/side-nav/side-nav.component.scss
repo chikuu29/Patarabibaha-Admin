@@ -4,199 +4,183 @@
 //   border: 1px solid #ccc;
 // }
 
-
-
-@media (min-width: 800.98px) {
+@media only screen and (min-width: 1024px) {
   /* Your CSS styles for mobile devices go here */
-  // #sidebar{
-  //   position: fixed;
-  //   left: 0;
-  // }
-//   #sidescollBar {
-//   height: 100vh;
-//   overflow-y: auto;
-//   border: 1px solid #ccc;
-// }
+  #sidebar {
+    position: fixed;
+    left: 0;
+  }
+  #sidescollBar {
+    height: 100vh;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+  }
 }
 
-@import url('https://fonts.googleapis.com/css?family=Averia+Serif+Libre|Bubblegum+Sans|Caveat+Brush|Chewy|Lobster+Two');
+// @import url('https://fonts.googleapis.com/css?family=Averia+Serif+Libre|Bubblegum+Sans|Caveat+Brush|Chewy|Lobster+Two');
 
 * {
-
-    text-decoration: none;
-    margin: 0;
-    padding: 0;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 
 .sidenav {
-    // background: #222;
-    background: #ffffff;
-    transition: all .6s ease;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    width: 0rem;
-    height: 100vh;
-    // box-shadow: 0.050rem 0 1.25rem 0 #cdd6e7;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+  // background: #222;
+  background: #ffffff;
+  transition: all 0.6s ease;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 0rem;
+  height: 100vh;
+  // box-shadow: 0.050rem 0 1.25rem 0 #cdd6e7;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
 
-    .logo-container {
-        display: flex;
-        align-items: center;
-        // padding: 0px;
-        width: 100%;
-        // border-bottom: 5px solid rgb(228, 85, 85);
+  .logo-container {
+    display: flex;
+    align-items: center;
+    // padding: 0px;
+    width: 100%;
+    // border-bottom: 5px solid rgb(228, 85, 85);
 
-        .logo {
-            animation: rotation 8s infinite linear;
-        }
-
-        .logo-text {
-            font-weight: 700;
-            font-size: 25px;
-            color: skyblue;
-            cursor: pointer;
-            font-family: Lobster Two, cursive;
-            transition: width 2s;
-
-        }
-
-        @keyframes rotation {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(359deg);
-            }
-        }
-
-
+    .logo {
+      animation: rotation 8s infinite linear;
     }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 25px;
+      color: skyblue;
+      cursor: pointer;
+      font-family: Lobster Two, cursive;
+      transition: width 2s;
+    }
+
+    @keyframes rotation {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(359deg);
+      }
+    }
+  }
 }
 
 .sidenav-collapsed {
-    width: 15rem;
+  width: 15rem;
 }
 
 .navmenu {
-    overflow-y: scroll;
-    list-style: none;
-    padding: 0.938rem;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: calc(100% - 3.65rem);
-    cursor: pointer;
-    .navmenu-item {
+  overflow-y: scroll;
+  list-style: none;
+  padding: 0.938rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100% - 3.65rem);
+  cursor: pointer;
+  .navmenu-item {
+    width: 100%;
+    margin-bottom: 0.626rem;
+    .navmenu-item-link {
+      display: flex;
+      align-items: center;
+      height: 3rem;
+      // color: #f3f3f3;
+      color: #000;
+      transition: color 0.3s ease;
+
+      .navmenu-item-link-icon {
+        font-size: 22px;
+        width: 2rem;
+        min-width: 2rem;
+        margin: 0 0.5rem;
+        text-align: center;
+      }
+
+      .navmenu-item-link-text {
+        margin-left: 0.1rem;
+        font-weight: 500;
+      }
+    }
+    .submenu {
+      display: none;
+      transition: 3s;
+      list-style: none;
+      padding-left: 0.938rem;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: calc(100% - 3.65rem);
+      cursor: pointer;
+      .submenu-item {
         width: 100%;
-        margin-bottom: 0.626rem;
-        .navmenu-item-link {
-            display: flex;
-            align-items: center;
-            height: 3rem;
-            // color: #f3f3f3;
-            color: #000;
-            transition: color .3s ease;
-
-            .navmenu-item-link-icon {
-                font-size: 22px;
-                width: 2rem;
-                min-width: 2rem;
-                margin: 0 0.5rem;
-                text-align: center;
-            }
-
-            .navmenu-item-link-text {
-                margin-left: 0.1rem;
-                font-weight: 500;
-            }
+        padding: 3px;
+        // margin-bottom: 0.0rem;
+        .submenu-item-link {
+          display: flex;
+          align-items: center;
+          height: 2rem;
+          color: #000;
+          transition: color 0.3s ease;
+          .submenu-item-link-icon {
+            font-size: 15px;
+            width: 2rem;
+            min-width: 2rem;
+            margin: 0 0.5rem;
+            text-align: center;
+          }
+          .submenu-item-link-text {
+            margin-left: 0.1rem;
+            font-weight: 400;
+          }
         }
-        .submenu {
-            display: none;
-            transition: 3s;
-            list-style: none;
-            padding-left: 0.938rem;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: calc(100% - 3.65rem);
-            cursor: pointer;
-            .submenu-item {
-                width: 100%;
-                padding: 3px;
-                // margin-bottom: 0.0rem;
-                .submenu-item-link {
-                    display: flex;
-                    align-items: center;
-                    height: 2rem;
-                    color: #000;
-                    transition: color .3s ease;
-                    .submenu-item-link-icon {
-                        font-size: 15px;
-                        width: 2rem;
-                        min-width: 2rem;
-                        margin: 0 0.5rem;
-                        text-align: center;
-                    }
-                    .submenu-item-link-text {
-                        margin-left: 0.1rem;
-                        font-weight: 400;
-                    }
-                }
-        
-            }
-            .submenu-item-link:hover {
-                .submenu-item-link-text {
-                    // background-color: skyblue;
-                    color: #5d78ff;
-                    // border-radius: 5px;
-                }
-                .submenu-item-link-icon{
-                    color: #5d78ff;
-                }
-        
-        
-            }
-            .active {
-                // background-color: skyblue;
-                color: #5d78ff;
-                // border-radius: 5px;
-        
-            }
+      }
+      .submenu-item-link:hover {
+        .submenu-item-link-text {
+          // background-color: skyblue;
+          color: #5d78ff;
+          // border-radius: 5px;
         }
-
-    }
-
-    .navmenu-item-link:hover {
-        background-color: rgba(77,89,149,.06);
-        border-radius: 5px;
-        
-        .navmenu-item-link-text {
-            // background-color: skyblue;
-            color: rgb(70, 192, 240);
-            // border-radius: 5px;
+        .submenu-item-link-icon {
+          color: #5d78ff;
         }
-
-        .navmenu-item-link-icon {
-            color: rgb(70, 192, 240);
-        }
-        span{
-            color: rgb(70, 192, 240);
-        }
-
-
-    }
-
-    .active {
+      }
+      .active {
         // background-color: skyblue;
-        color: skyblue;
+        color: #5d78ff;
         // border-radius: 5px;
+      }
+    }
+  }
 
+  .navmenu-item-link:hover {
+    background-color: rgba(77, 89, 149, 0.06);
+    border-radius: 5px;
+
+    .navmenu-item-link-text {
+      // background-color: skyblue;
+      color: rgb(70, 192, 240);
+      // border-radius: 5px;
     }
 
+    .navmenu-item-link-icon {
+      color: rgb(70, 192, 240);
+    }
+    span {
+      color: rgb(70, 192, 240);
+    }
+  }
 
+  .active {
+    // background-color: skyblue;
+    color: skyblue;
+    // border-radius: 5px;
+  }
 }
 
