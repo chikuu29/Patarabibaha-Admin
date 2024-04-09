@@ -29997,8 +29997,9 @@ div.tagsinput span.tag a {
   font-size: 1.5rem;
   line-height: 48px;
   margin-right: 0;
-  padding: 0rem 0rem 0rem 1.3rem;
+  /* padding: 0rem 0rem 0rem 1.3rem; */
   width: 100%;
+  background-color: #ffffff;
   text-decoration: none;
 
 }

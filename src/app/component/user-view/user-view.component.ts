@@ -38,7 +38,7 @@ export class UserViewComponent implements OnInit {
 
 
   profileCreatedBy: string[] = ['GUEST']
-  genderOptions: string[] = ['male', 'female'];
+  genderOptions: string[] = ['Male', "Female"];
   profileOptions: string[] = ['myself', 'my son', 'my daughter', 'my brother', 'my sister', 'my friend', 'my relative'];
   motherTounghOptions: any[] = [];
   maritalOptions: any = [
@@ -492,10 +492,12 @@ export class UserViewComponent implements OnInit {
             });
           }
 
-
+         console.log(res.user_info);
+         
           this.profileDetailsForm.patchValue({
             profile_id: res?.user_info?.user_id
-            , profile_name: res?.user_info?.user_fname + ' ' + res?.user_info?.user_lname, profile_email: res?.user_info?.user_email, profile_phone: ''
+            , profile_name: res?.user_info?.user_fname + ' ' + res?.user_info?.user_lname, profile_email: res?.user_info?.user_email,
+            profile_phone: res?.user_info?.user_phone_no 
           });
           this.user_religionDetailsForm.patchValue(res['user_religion'])
           this.education_occupationDetailsForm.patchValue(res['user_education_occupations'])
