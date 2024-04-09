@@ -54,7 +54,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: AdminComponent,
+    component: AuthComponent,
     children: [
       {
         path: 'auth',
