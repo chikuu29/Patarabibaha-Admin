@@ -9,236 +9,224 @@ import { CommonService } from 'src/app/services/common.service';
 @Component({
   selector: 'app-fillter-modal',
   templateUrl: './fillter-modal.component.html',
-  styleUrls: ['./fillter-modal.component.scss']
+  styleUrls: ['./fillter-modal.component.scss'],
 })
 export class FillterModalComponent implements OnInit {
-
-
   motherTounghOptions: any[] = [];
-  countryOption: any = [
-    { 'name': 'India' }
-
-  ]
+  countryOption: any = [{ name: 'India' }];
   heightOptions: any = [
-    { "name": "Below 4ft 6in - 137cm" },
-    { "name": "4ft 6in - 137cm" },
-    { "name": "4ft 7in - 139cm" },
-    { "name": "4ft 8in - 142cm" },
-    { "name": "4ft 9in - 144cm" },
-    { "name": "4ft 10in - 147cm" },
-    { "name": "4ft 11in - 149cm" },
-    { "name": "5ft - 152cm" },
-    { "name": "5ft 1in - 154cm" },
-    { "name": "5ft 2in - 157cm" },
-    { "name": "5ft 3in - 160cm" },
-    { "name": "5ft 4in - 162cm" },
-    { "name": "5ft 5in - 165cm" },
-    { "name": "5ft 6in - 167cm" },
-    { "name": "5ft 7in - 170cm" },
-    { "name": "5ft 8in - 172cm" },
-    { "name": "5ft 9in - 175cm" },
-    { "name": "5ft 10in - 177cm" },
-    { "name": "5ft 11in - 180cm" },
-    { "name": "6ft - 182cm" },
-    { "name": "6ft 1in - 185cm" },
-    { "name": "6ft 2in - 187cm" },
-    { "name": "6ft 3in - 190cm" },
-    { "name": "6ft 4in - 193cm" },
-    { "name": "6ft 5in - 195cm" },
-    { "name": "6ft 6in - 198cm" },
-    { "name": "6ft 7in - 200cm" },
-    { "name": "6ft 8in - 203cm" },
-    { "name": "6ft 9in - 205cm" },
-    { "name": "6ft 10in - 208cm" },
-    { "name": "6ft 11in - 210cm" },
-    { "name": "7ft - 213cm" },
-    { "name": "Above 7ft - 213cm" }
-  ]
+    { name: 'Below 4ft 6in - 137cm', value: 137 },
+    { name: '4ft 6in - 137cm', value: 137 },
+    { name: '4ft 7in - 139cm', value: 139 },
+    { name: '4ft 8in - 142cm', value: 142 },
+    { name: '4ft 9in - 144cm', value: 144 },
+    { name: '4ft 10in - 147cm', value: 147 },
+    { name: '4ft 11in - 149cm', value: 149 },
+    { name: '5ft - 152cm', value: 152 },
+    { name: '5ft 1in - 154cm', value: 154 },
+    { name: '5ft 2in - 157cm', value: 157 },
+    { name: '5ft 3in - 160cm', value: 160 },
+    { name: '5ft 4in - 162cm', value: 162 },
+    { name: '5ft 5in - 165cm', value: 165 },
+    { name: '5ft 6in - 167cm', value: 167 },
+    { name: '5ft 7in - 170cm', value: 170 },
+    { name: '5ft 8in - 172cm', value: 172 },
+    { name: '5ft 9in - 175cm', value: 175 },
+    { name: '5ft 10in - 177cm', value: 177 },
+    { name: '5ft 11in - 180cm', value: 180 },
+    { name: '6ft - 182cm', value: 182 },
+    { name: '6ft 1in - 185cm', value: 185 },
+    { name: '6ft 2in - 187cm', value: 187 },
+    { name: '6ft 3in - 190cm', value: 190 },
+    { name: '6ft 4in - 193cm', value: 193 },
+    { name: '6ft 5in - 195cm', value: 195 },
+    { name: '6ft 6in - 198cm', value: 198 },
+    { name: '6ft 7in - 200cm', value: 200 },
+    { name: '6ft 8in - 203cm', value: 203 },
+    { name: '6ft 9in - 205cm', value: 205 },
+    { name: '6ft 10in - 208cm', value: 208 },
+    { name: '6ft 11in - 210cm', value: 210 },
+    { name: '7ft - 213cm', value: 213 },
+    { name: 'Above 7ft - 213cm', value: 213 },
+  ];
   stateOption: any = [
-    { 'name': 'Andhra Pradesh' },
-    { 'name': 'Arunachal Pradesh' },
-    { 'name': 'Assam' },
-    { 'name': 'Bihar' },
-    { 'name': 'Chhattisgarh' },
-    { 'name': 'Goa' },
-    { 'name': 'Gujarat' },
-    { 'name': 'Haryana' },
-    { 'name': 'Himachal Pradesh' },
-    { 'name': 'Jharkhand' },
-    { 'name': 'Karnataka' },
-    { 'name': 'Kerala' },
-    { 'name': 'Madhya Pradesh' },
-    { 'name': 'Maharashtra' },
-    { 'name': 'Manipur' },
-    { 'name': 'Meghalaya' },
-    { 'name': 'Mizoram' },
-    { 'name': 'Nagaland' },
-    { 'name': 'Odisha' },
-    { 'name': 'Punjab' },
-    { 'name': 'Rajasthan' },
-    { 'name': 'Sikkim' },
-    { 'name': 'Tamil Nadu' },
-    { 'name': 'Telangana' },
-    { 'name': 'Tripura' },
-    { 'name': 'Uttar Pradesh' },
-    { 'name': 'Uttarakhand' },
-    { 'name': 'West Bengal' }
-  ]
+    { name: 'Andhra Pradesh' },
+    { name: 'Arunachal Pradesh' },
+    { name: 'Assam' },
+    { name: 'Bihar' },
+    { name: 'Chhattisgarh' },
+    { name: 'Goa' },
+    { name: 'Gujarat' },
+    { name: 'Haryana' },
+    { name: 'Himachal Pradesh' },
+    { name: 'Jharkhand' },
+    { name: 'Karnataka' },
+    { name: 'Kerala' },
+    { name: 'Madhya Pradesh' },
+    { name: 'Maharashtra' },
+    { name: 'Manipur' },
+    { name: 'Meghalaya' },
+    { name: 'Mizoram' },
+    { name: 'Nagaland' },
+    { name: 'Odisha' },
+    { name: 'Punjab' },
+    { name: 'Rajasthan' },
+    { name: 'Sikkim' },
+    { name: 'Tamil Nadu' },
+    { name: 'Telangana' },
+    { name: 'Tripura' },
+    { name: 'Uttar Pradesh' },
+    { name: 'Uttarakhand' },
+    { name: 'West Bengal' },
+  ];
   cityOption: any = [
-    { 'name': 'Puri' },
-    { 'name': 'Khordha' },
-    { 'name': 'Cuttack' },
-    { 'name': 'Bhubaneswar' },
-    { 'name': 'Mumbai' },
-    { 'name': 'Delhi' },
-    { 'name': 'Bangalore' },
-    { 'name': 'Kolkata' },
-    { 'name': 'Chennai' },
-    { 'name': 'Hyderabad' },
-    { 'name': 'Ahmedabad' },
-    { 'name': 'Pune' },
-    { 'name': 'Surat' },
-    { 'name': 'Jaipur' },
-    { 'name': 'Lucknow' },
-    { 'name': 'Kanpur' },
-    { 'name': 'Nagpur' },
-    { 'name': 'Patna' },
-    { 'name': 'Indore' },
-    { 'name': 'Vadodara' },
-    { 'name': 'Bhopal' },
-    { 'name': 'Coimbatore' },
-    { 'name': 'Ludhiana' },
-    { 'name': 'Kochi' },
-    { 'name': 'Visakhapatnam' },
-    { 'name': 'Agra' },
-    { 'name': 'Varanasi' },
-    { 'name': 'Madurai' },
-    { 'name': 'Meerut' },
-    { 'name': 'Nashik' },
-    { 'name': 'Rajkot' },
-    { 'name': 'Amritsar' },
-    { 'name': 'Srinagar' },
-    { 'name': 'Aurangabad' }
-  ]
+    { name: 'Puri' },
+    { name: 'Khordha' },
+    { name: 'Cuttack' },
+    { name: 'Bhubaneswar' },
+    { name: 'Mumbai' },
+    { name: 'Delhi' },
+    { name: 'Bangalore' },
+    { name: 'Kolkata' },
+    { name: 'Chennai' },
+    { name: 'Hyderabad' },
+    { name: 'Ahmedabad' },
+    { name: 'Pune' },
+    { name: 'Surat' },
+    { name: 'Jaipur' },
+    { name: 'Lucknow' },
+    { name: 'Kanpur' },
+    { name: 'Nagpur' },
+    { name: 'Patna' },
+    { name: 'Indore' },
+    { name: 'Vadodara' },
+    { name: 'Bhopal' },
+    { name: 'Coimbatore' },
+    { name: 'Ludhiana' },
+    { name: 'Kochi' },
+    { name: 'Visakhapatnam' },
+    { name: 'Agra' },
+    { name: 'Varanasi' },
+    { name: 'Madurai' },
+    { name: 'Meerut' },
+    { name: 'Nashik' },
+    { name: 'Rajkot' },
+    { name: 'Amritsar' },
+    { name: 'Srinagar' },
+    { name: 'Aurangabad' },
+  ];
 
-  religionOptions: any = []
-  religionCasteOptions: any = []
+  religionOptions: any = [];
+  religionCasteOptions: any = [];
   religionSubcasteOptions: any = [
-    { "name": "Hinduism" },
-    { "name": "Islam" },
-    { "name": "Christianity" },
-    { "name": "Sikhism" },
-    { "name": "Buddhism" },
-    { "name": "Jainism" },
-    { "name": "Zoroastrianism" },
-    { "name": "Bahá'í Faith" },
-    { "name": "Judaism" }
-  ]
+    { name: 'Hinduism' },
+    { name: 'Islam' },
+    { name: 'Christianity' },
+    { name: 'Sikhism' },
+    { name: 'Buddhism' },
+    { name: 'Jainism' },
+    { name: 'Zoroastrianism' },
+    { name: "Bahá'í Faith" },
+    { name: 'Judaism' },
+  ];
 
   maritalOptions: any = [
-    { "name": "Single" },
-    { "name": "Married" },
-    { "name": "Divorced" },
-    { "name": "Widowed" },
-    { "name": "Separated" }
-  ]
-  ocupationOptions: any = []
+    { name: 'Single' },
+    { name: 'Married' },
+    { name: 'Divorced' },
+    { name: 'Widowed' },
+    { name: 'Separated' },
+  ];
+  ocupationOptions: any = [];
 
   employeeInOptions: any = [];
 
   anualIncomeOptions: any = [];
-  zodiacsOptions: any = []
-  nakshatraOptions: any = []
-  gotraOptions: any = []
-  aducationalOptions:any=[]
-  ageOption: any = [
-    { "value": 1 },
-    { "value": 2 },
-    { "value": 3 },
-    { "value": 4 },
-    { "value": 5 },
-    { "value": 6 },
-    { "value": 7 },
-    { "value": 8 },
-    { "value": 9 },
-    { "value": 10 },
-    { "value": 11 },
-    { "value": 12 },
-    { "value": 13 },
-    { "value": 14 },
-    { "value": 15 },
-    { "value": 16 },
-    { "value": 17 },
-    { "value": 18 },
-    { "value": 19 },
-    { "value": 20 },
-    { "value": 21 },
-    { "value": 22 },
-    { "value": 23 },
-    { "value": 24 },
-    { "value": 25 },
-    { "value": 26 },
-    { "value": 27 },
-    { "value": 28 },
-    { "value": 29 },
-    { "value": 30 },
-    { "value": 31 },
-    { "value": 32 },
-    { "value": 33 },
-    { "value": 34 },
-    { "value": 35 },
-    { "value": 36 },
-    { "value": 37 },
-    { "value": 38 },
-    { "value": 39 },
-    { "value": 40 },
-    { "value": 41 },
-    { "value": 42 },
-    { "value": 43 },
-    { "value": 44 },
-    { "value": 45 },
-    { "value": 46 },
-    { "value": 47 },
-    { "value": 48 },
-    { "value": 49 },
-    { "value": 50 },
-    { "value": 51 },
-    { "value": 52 },
-    { "value": 53 },
-    { "value": 54 },
-    { "value": 55 },
-    { "value": 56 },
-    { "value": 57 },
-    { "value": 58 },
-    { "value": 59 },
-    { "value": 60 }
-  ]
-
+  zodiacsOptions: any = [];
+  nakshatraOptions: any = [];
+  gotraOptions: any = [];
+  aducationalOptions: any = [];
+  ageOptions: any = [
+    { name: 18 },
+    { name: 19 },
+    { name: 20 },
+    { name: 21 },
+    { name: 22 },
+    { name: 23 },
+    { name: 24 },
+    { name: 25 },
+    { name: 26 },
+    { name: 27 },
+    { name: 28 },
+    { name: 29 },
+    { name: 30 },
+    { name: 31 },
+    { name: 32 },
+    { name: 33 },
+    { name: 34 },
+    { name: 35 },
+    { name: 36 },
+    { name: 37 },
+    { name: 38 },
+    { name: 39 },
+    { name: 40 },
+    { name: 41 },
+    { name: 42 },
+    { name: 43 },
+    { name: 44 },
+    { name: 45 },
+    { name: 46 },
+    { name: 47 },
+    { name: 48 },
+    { name: 49 },
+    { name: 50 },
+  ];
+  colour: any = [
+    { name: 'Wheatish' },
+    { name: 'Very Fair' },
+    { name: 'Fair' },
+    { name: 'Wheatish Brown' },
+    { name: 'Dark' },
+  ];
   bodyTpeOptions: any = [
-    { "name": "Athletic" },
-    { "name": "Slim" },
-    { "name": "Muscular" },
-    { "name": "Curvy" },
-    { "name": "Toned" },
-    { "name": "Petite" },
-    { "name": "Husky" },
-    { "name": "Slim" }
-  ]
+    { name: 'Athletic' },
+    { name: 'Slim' },
+    { name: 'Muscular' },
+    { name: 'Curvy' },
+    { name: 'Toned' },
+    { name: 'Petite' },
+    { name: 'Husky' },
+    { name: 'Slim' },
+  ];
   physicalStatusOptions: any = [
-    { "name": "Normal" },
-    { "name": "Physical Chalenges" }
-  ]
+    { name: 'Normal' },
+    { name: 'Physical Chalenges' },
+  ];
+  familystatusOptions: any = [
+    { name: 'Rich' },
+    { name: 'Middle Class' },
+    { name: 'Upper Middle Class' },
+    { name: 'Upper Class' },
+    { name: 'Lower Middle Class' },
+    { name: 'Upper-Lower Class' },
+    { name: 'Lower Class' },
+  ];
+  familyvalueOptions: any = [
+    { name: 'Traditional' },
+    { name: 'Moderate' },
+    { name: 'Doesnot Matter' }
+  ];
   fillterForm = new FormGroup({
     user_id: new FormControl('', []),
     user_gender: new FormControl([], []),
-    user_complextion: new FormControl([], []),
+    user_physical_status: new FormControl([], []),
     user_min_age: new FormControl(18, [Validators.required]),
     user_max_age: new FormControl(50, [Validators.required]),
     user_body_type: new FormControl([], []),
     user_mangalik: new FormControl([], []),
     user_highest_education: new FormControl([], []),
-    user_min_height: new FormControl(1, [Validators.required]),
-    user_max_height: new FormControl(300, [Validators.required]),
+    user_min_height: new FormControl(137, [Validators.required]),
+    user_max_height: new FormControl(213, [Validators.required]),
     user_religion: new FormControl([], []),
     user_country: new FormControl([], []),
     user_marital_status: new FormControl([], []),
@@ -253,200 +241,213 @@ export class FillterModalComponent implements OnInit {
     user_zodiacs: new FormControl([], []),
     user_gotra: new FormControl([], []),
     user_caste: new FormControl([], []),
-  })
+    user_complextion: new FormControl([], []),
+    user_deg: new FormControl([], []),
+    user_family_value: new FormControl([], []),
+    user_family_status: new FormControl([], []),
+  });
 
-  @Input() selectedFillterValue: any = {}
+  @Input() selectedFillterValue: any = {};
+  degOptions: any;
   constructor(
     private ApiParameterScript: ApiParameterScript,
     private appservices: AppService,
     private commonservice: CommonService,
     public modal: NgbActiveModal
-
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
-    this.ApiParameterScript.fetchdata('highest_education', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('highest_education', {
+      projection: ['*'],
+    }).subscribe((res: any) => {
       //
       if (res.success && res['data'].length > 0) {
-
         this.aducationalOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.highest_education_name };
           } else {
-            return null
+            return null;
           }
         });
-
-
-
-
-
       }
+    });
 
-    })
-
-    this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
-
+    this.ApiParameterScript.fetchdata('occupation', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.ocupationOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.occupation_name };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-
-
-
-
-
-
-    })
-    this.ApiParameterScript.fetchdata('annual_income', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+    });
+    this.ApiParameterScript.fetchdata('annual_income', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-
         this.anualIncomeOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.annualincome };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-    })
+    });
 
-    this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
-
-
+    this.ApiParameterScript.fetchdata('mother_tongue', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-
         this.motherTounghOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.mother_tongue_name };
           } else {
-            return null
+            return null;
           }
         });
-
-
-
-
-
       }
+    });
 
-    })
-
-    this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
-
-
-
+    this.ApiParameterScript.fetchdata('employer_in', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-
         this.employeeInOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.Employer_in_name };
           } else {
-            return null
+            return null;
           }
         });
-
-
-
-
-
       }
-
-    })
-    this.ApiParameterScript.fetchdata('religion', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
-
+    });
+    this.ApiParameterScript.fetchdata('designation', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.degOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.designation };
+          } else {
+            return null;
+          }
+        });
+      }
+    });
+    this.ApiParameterScript.fetchdata('religion', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.religionOptions = res['data'].map((obj: any) => {
           return { name: obj.religion_name };
         });
         console.log(this.religionOptions);
-
       }
+    });
 
-
-
-
-
-
-    })
-
-    this.ApiParameterScript.fetchdata('cast_table', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('cast_table', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       //
       if (res.success && res['data'].length > 0) {
         this.religionCasteOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.cast_name };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-    })
-    this.ApiParameterScript.fetchdata('country', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
-
+    });
+    this.ApiParameterScript.fetchdata('country', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.name };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-    })
-    this.ApiParameterScript.fetchdata('gotra', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
-
+    });
+    this.ApiParameterScript.fetchdata('annual_income', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.anualIncomeOptions = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.annualincome };
+          } else {
+            return null;
+          }
+        });
+        console.log(this.anualIncomeOptions);
+      }
+    });
+    this.ApiParameterScript.fetchdata('gotra', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.gotraOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.name };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-    })
-    this.ApiParameterScript.fetchdata('nakshatra', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
-
+    });
+    this.ApiParameterScript.fetchdata('nakshatra', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.nakshatraOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.nakshatra_name };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-    })
-    this.ApiParameterScript.fetchdata('zodiacs', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
-
+    });
+    this.ApiParameterScript.fetchdata('zodiacs', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.zodiacsOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.name, display: `${obj.name} / ${obj.odia_name}` };
+            return {
+              name: obj.name,
+              display: `${obj.name} / ${obj.odia_name}`,
+            };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-    })
+    });
     if (Object.keys(this.selectedFillterValue).length > 0) {
-      this.fillterForm.patchValue(this.selectedFillterValue)
+      this.fillterForm.patchValue(this.selectedFillterValue);
     }
-
   }
   removeBlankProperties(obj: any) {
     const result: any = {};
@@ -460,152 +461,174 @@ export class FillterModalComponent implements OnInit {
     return result;
   }
   hasCommonValue(arr1: any, arr2: any) {
-    return _.some(arr2, value => _.includes(arr1, value));
+    return _.some(arr2, (value) => _.includes(arr1, value));
   }
   getSelection() {
     // { "TABLE NAME": ['field_name'] }
     const tableKeyMapping: any = {
-      "user_info": ['user_id', 'user_gender', 'user_marital_status'],
-      "user_religion": ['user_caste','user_religion'],
-      "user_education_occupations": ['user_occupation', 'user_employed_In','user_highest_education'],
-      "user_locations": ["user_country", "user_state", "user_city"],
-      "user_horoscope": ["user_gotra", 'user_nakhyatra', 'user_zodiacs','user_mangalik'],
-      "user_physical_details": ["user_body_type","user_complextion"]
-    }
-    const fillterData: any = this.removeBlankProperties(this.fillterForm.value)
+      user_info: ['user_id', 'user_gender', 'user_marital_status'],
+      user_religion: ['user_caste', 'user_religion'],
+      user_education_occupations: [
+        'user_occupation',
+        'user_employed_In',
+        'user_highest_education',
+        'user_deg',
+      ],
+      user_locations: ['user_country', 'user_state', 'user_city'],
+      user_horoscope: [
+        'user_gotra',
+        'user_nakhyatra',
+        'user_zodiacs',
+        'user_mangalik',
+      ],
+      user_physical_details: [
+        'user_body_type',
+        'user_physical_status',
+        'user_complextion',
+      ],
+      user_family: ['user_family_value', 'user_family_status'],
+    };
+    const fillterData: any = this.removeBlankProperties(this.fillterForm.value);
 
-    console.log("fillterData", fillterData);
+    console.log('fillterData', fillterData);
 
-    const filteredtableKeyMappingObject = _.pickBy(_.mapValues(tableKeyMapping, values => values.filter((value: any) => Object.keys(fillterData).includes(value))), values => values.length > 0);
-
+    const filteredtableKeyMappingObject = _.pickBy(
+      _.mapValues(tableKeyMapping, (values) =>
+        values.filter((value: any) => Object.keys(fillterData).includes(value))
+      ),
+      (values) => values.length > 0
+    );
 
     console.log(filteredtableKeyMappingObject);
 
-    var query = ''
+    var query = '';
     Object.keys(filteredtableKeyMappingObject).forEach((table, i) => {
       // console.log("index",index);
-      var condition1 = Object.keys(filteredtableKeyMappingObject).length - 1 != i ? true : false
+      var condition1 =
+        Object.keys(filteredtableKeyMappingObject).length - 1 != i
+          ? true
+          : false;
 
-
-
-      filteredtableKeyMappingObject[table].forEach((key: string, index: number) => {
-        var condition = filteredtableKeyMappingObject[table].length - 1 != index || condition1 ? ' AND ' : ''
-        // console.log("yydyd", condition);
-        var gen = ''
-        if (fillterData[key] && typeof fillterData[key] === 'string' && fillterData[key] != '') {
-          gen = `${table}.${key}='${fillterData[key]}'`
-          query += gen
-        } else if ((fillterData[key] && fillterData[key].length > 0)) {
-          gen = `${table}.${key} IN (${fillterData[key].map((value: any) => `'${value}'`).join(',')})`
-          query += gen
+      filteredtableKeyMappingObject[table].forEach(
+        (key: string, index: number) => {
+          var condition =
+            filteredtableKeyMappingObject[table].length - 1 != index ||
+            condition1
+              ? ' AND '
+              : '';
+          // console.log("yydyd", condition);
+          var gen = '';
+          if (
+            fillterData[key] &&
+            typeof fillterData[key] === 'string' &&
+            fillterData[key] != ''
+          ) {
+            gen = `${table}.${key}='${fillterData[key]}'`;
+            query += gen;
+          } else if (fillterData[key] && fillterData[key].length > 0) {
+            gen = `${table}.${key} IN (${fillterData[key]
+              .map((value: any) => `'${value}'`)
+              .join(',')})`;
+            query += gen;
+          }
+          if (
+            Object.keys(fillterData).includes(key) &&
+            Object.keys(fillterData).length > 1
+          ) {
+            query += condition;
+          }
         }
-        if (Object.keys(fillterData).includes(key) && Object.keys(fillterData).length > 1) {
-          query += condition
-        }
+      );
+    });
 
-      })
-    })
+    console.log('Query', query);
 
-
-    console.log("Query", query);
-
-    this.modal.close(
-      {
-        "whereConditions": `WHERE  user_info.user_age BETWEEN ${this.fillterForm.value.user_min_age} AND ${this.fillterForm.value.user_max_age} AND user_physical_details.user_height BETWEEN ${this.fillterForm.value.user_min_height} AND ${this.fillterForm.value.user_max_height} AND user_education_occupations.user_anual_income BETWEEN ${this.fillterForm.value.user_min_anual_income} AND ${this.fillterForm.value.user_max_anual_income}  ${query=='' ? ' ' : "AND"} ` + query,
-        'isqueryGenerated': true,
-        'selectedFillterValue': this.fillterForm.value
-      }
-    )
+    this.modal.close({
+      whereConditions:
+        `WHERE  user_info.user_age BETWEEN ${
+          this.fillterForm.value.user_min_age
+        } AND ${
+          this.fillterForm.value.user_max_age
+        } AND user_physical_details.user_height BETWEEN ${
+          this.fillterForm.value.user_min_height
+        } AND ${
+          this.fillterForm.value.user_max_height
+        } AND user_education_occupations.user_anual_income BETWEEN ${
+          this.fillterForm.value.user_min_anual_income
+        } AND ${this.fillterForm.value.user_max_anual_income}  ${
+          query == '' ? ' ' : 'AND'
+        } ` + query,
+      isqueryGenerated: true,
+      selectedFillterValue: this.fillterForm.value,
+    });
   }
 
-
   getstatefilter(country_name: any) {
-
-
     if (_.isArray(country_name)) {
-      let query = `SELECT * FROM state WHERE status=1 AND country_name IN (${"'" + country_name.join("', '") + "'"})`;
-      this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
-        if (res.success && res['data'].length > 0) {
-
-          this.stateOption = res['data'].map((obj: any) => {
-
-            return { name: obj.name };
-
-          });
-
-
-        } else {
-          this.stateOption = []
-          this.fillterForm.controls.user_state.reset()
+      let query = `SELECT * FROM state WHERE status=1 AND country_name IN (${
+        "'" + country_name.join("', '") + "'"
+      })`;
+      this.ApiParameterScript.fetchDataFormQuery(query).subscribe(
+        (res: any) => {
+          if (res.success && res['data'].length > 0) {
+            this.stateOption = res['data'].map((obj: any) => {
+              return { name: obj.name };
+            });
+          } else {
+            this.stateOption = [];
+            this.fillterForm.controls.user_state.reset();
+          }
         }
-
-      })
-
+      );
     } else {
-      this.ApiParameterScript.fetchdata('state', { "projection": ["*"], "whereConditions": { "country_name": country_name, "status": 1 } }).subscribe((res: any) => {
+      this.ApiParameterScript.fetchdata('state', {
+        projection: ['*'],
+        whereConditions: { country_name: country_name, status: 1 },
+      }).subscribe((res: any) => {
         if (res.success && res['data'].length > 0) {
-
           this.stateOption = res['data'].map((obj: any) => {
-
             return { name: obj.name };
-
           });
-
-
         } else {
-          this.stateOption = []
-          this.fillterForm.controls.user_state.reset()
+          this.stateOption = [];
+          this.fillterForm.controls.user_state.reset();
         }
-
       });
     }
-
   }
 
   getcityfilter(state_name: any) {
-
-
     if (_.isArray(state_name)) {
-      let query = `SELECT * FROM city WHERE state_name IN (${"'" + state_name.join("', '") + "'"})`;
+      let query = `SELECT * FROM city WHERE state_name IN (${
+        "'" + state_name.join("', '") + "'"
+      })`;
 
-
-      this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
-        if (res.success && res['data'].length > 0) {
-
-          this.cityOption = res['data'].map((obj: any) => {
-
-            return { name: obj.city_name };
-
-          });
-
-
-        } else {
-          this.cityOption = []
-          this.fillterForm.controls.user_city.reset()
+      this.ApiParameterScript.fetchDataFormQuery(query).subscribe(
+        (res: any) => {
+          if (res.success && res['data'].length > 0) {
+            this.cityOption = res['data'].map((obj: any) => {
+              return { name: obj.city_name };
+            });
+          } else {
+            this.cityOption = [];
+            this.fillterForm.controls.user_city.reset();
+          }
         }
-
-      })
-
+      );
     } else {
-      this.ApiParameterScript.fetchdata('city', { "projection": ["*"], "whereConditions": { "state_name": state_name } }).subscribe((res: any) => {
+      this.ApiParameterScript.fetchdata('city', {
+        projection: ['*'],
+        whereConditions: { state_name: state_name },
+      }).subscribe((res: any) => {
         if (res.success && res['data'].length > 0) {
-
           this.cityOption = res['data'].map((obj: any) => {
-
             return { name: obj.city_name };
-
           });
-
         } else {
-          this.cityOption = []
-          this.fillterForm.controls.user_city.reset()
+          this.cityOption = [];
+          this.fillterForm.controls.user_city.reset();
         }
-
       });
     }
-
   }
-
 }
-
-

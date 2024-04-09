@@ -14,11 +14,31 @@
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Min Age</label>
-        <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_min_age" />
+        <p-dropdown [options]="ageOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="false"
+          placeholder="Select" [style]="{ width: '100%' }" formControlName="user_min_age" optionValue="name">
+          <ng-template let-item pTemplate="item">
+            <div class="country-item">
+              <div>
+                {{ item.name }}
+              </div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <!-- <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_min_age" /> -->
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Max Age</label>
-        <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_max_age" />
+        <p-dropdown [options]="ageOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="false"
+          placeholder="Select" [style]="{ width: '100%' }" formControlName="user_max_age" optionValue="name">
+          <ng-template let-item pTemplate="item">
+            <div class="country-item">
+              <div>
+                {{ item.name }}
+              </div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <!-- <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_max_age" /> -->
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Body Type</label>
@@ -28,9 +48,9 @@
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Body Complex</label>
-        <p-multiSelect [options]="physicalStatusOptions" placeholder="Select" formControlName="user_complextion"
+        <p-multiSelect [options]="physicalStatusOptions" placeholder="Select" formControlName="user_physical_status"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="fillterForm.value.user_complextion"></p-multiSelect>
+          [title]="fillterForm.value.user_physical_status"></p-multiSelect>
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Gender</label>
@@ -82,11 +102,31 @@
 
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Min Height</label>
-        <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_min_height" />
+        <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="false"
+          placeholder="Select" [style]="{ width: '100%' }" formControlName="user_min_height" optionValue="value">
+          <ng-template let-item pTemplate="item">
+            <div class="country-item">
+              <div>
+                {{ item.name }}
+              </div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <!-- <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_min_height" /> -->
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Max Height</label>
-        <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_max_height" />
+        <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="false"
+          placeholder="Select" [style]="{ width: '100%' }" formControlName="user_max_height" optionValue="value">
+          <ng-template let-item pTemplate="item">
+            <div class="country-item">
+              <div>
+                {{ item.name }}
+              </div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <!-- <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_max_height" /> -->
       </div>
 
       <div class="form-group col-md-4">
@@ -118,21 +158,75 @@
 
       </div>
 
+      <div class="form-group col-md-4">
+        <label class="mb-3 text-muted fw-bold">Designation</label>
+        <p-multiSelect [options]="degOptions" placeholder="Select" formControlName="user_deg"
+          optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+          [title]="fillterForm.value.user_employed_In"></p-multiSelect>
+
+      </div>
+
 
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Min Annual Income</label>
-        <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_min_anual_income" />
+
+        <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+          placeholder="Min Annual Income" [style]="{ width: '100%' }" formControlName="user_min_anual_income"
+          optionValue="name" [ngModel]="anualIncomeOptions[0].name">
+          <ng-template let-anualincome pTemplate="item">
+            <div class="country-item">
+              <div>
+                {{ anualincome.name | currency : "INR" }}
+              </div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+
+        <!-- <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_min_anual_income" /> -->
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Max Annual Income</label>
-        <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_max_anual_income" />
+        <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+          placeholder="Min Annual Income" [style]="{ width: '100%' }" formControlName="user_max_anual_income"
+          optionValue="name" [ngModel]="anualIncomeOptions[anualIncomeOptions?.length-1].name">
+          <ng-template let-anualincome pTemplate="item">
+            <div class="country-item">
+              <div>
+                {{ anualincome.name | currency : "INR" }}
+              </div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <!-- <input type="number" pInputText [style]="{ width: '100%' }" formControlName="user_max_anual_income" /> -->
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Mangalik</label>
-        <p-multiSelect [options]="[{name:'Yes'},{name:'No'}]" placeholder="Select" formControlName="user_mangalik"
-          optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
-          [title]="fillterForm.value.user_mangalik"></p-multiSelect>
+
+
+
+        <p-dropdown [options]="[{name:'Yes'},{name:'No'}]" optionLabel="name" [filter]="false" filterBy="name" [showClear]="true"
+        placeholder="Mangalik" [style]="{ width: '100%' }" formControlName="user_mangalik"
+        optionValue="name" >
+        <ng-template let-item pTemplate="item">
+          <div class="country-item">
+            <div>
+              {{ item.name  }}
+            </div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+        <!-- <p-multiSelect [options]="[{name:'Yes'},{name:'No'}]" placeholder="Select" formControlName="user_mangalik"
+        optionLabel="name" optionValue="name" [style]="{ 'width': '100%' }" [panelStyle]="{'max-height': '200px'}"></p-multiSelect> -->
+
       </div>
+      <div class="form-group col-md-4">
+        <label class="mb-3 text-muted fw-bold">Colour</label>
+        <p-multiSelect [options]="colour" placeholder="Select" formControlName="user_complextion"
+          optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
+          [title]="fillterForm.value.user_complextion"></p-multiSelect>
+
+      </div>
+
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Zodiacs</label>
         <p-multiSelect [options]="zodiacsOptions" placeholder="Select" formControlName="user_zodiacs"
@@ -140,6 +234,7 @@
           [title]="fillterForm.value.user_zodiacs"></p-multiSelect>
 
       </div>
+
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Nakshatra</label>
         <p-multiSelect [options]="nakshatraOptions" placeholder="Select" formControlName="user_nakhyatra"
@@ -148,9 +243,21 @@
 
       </div>
 
-      <div class="form-group col-md-3">
+      <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Gotra</label>
         <p-multiSelect [options]="gotraOptions" placeholder="Select" formControlName="user_gotra" optionLabel="name"
+          optionValue="name" [style]="{ width: '100%' }" display="chip"
+          [title]="fillterForm.value.user_gotra"></p-multiSelect>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="mb-3 text-muted fw-bold">Famile Value</label>
+        <p-multiSelect [options]="familyvalueOptions" placeholder="Select" formControlName="user_family_value" optionLabel="name"
+          optionValue="name" [style]="{ width: '100%' }" display="chip"
+          [title]="fillterForm.value.user_gotra"></p-multiSelect>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="mb-3 text-muted fw-bold">Famile Status</label>
+        <p-multiSelect [options]="familystatusOptions" placeholder="Select" formControlName="user_family_status" optionLabel="name"
           optionValue="name" [style]="{ width: '100%' }" display="chip"
           [title]="fillterForm.value.user_gotra"></p-multiSelect>
       </div>

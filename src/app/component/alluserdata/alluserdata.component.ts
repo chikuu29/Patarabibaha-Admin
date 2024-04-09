@@ -174,10 +174,14 @@ export class AlluserdataComponent implements OnInit {
         this.totalDataCount = res['data'][0].total_count;
         // this.collectionSize=
         // console.log(this.collectionSize);
-
+        this.offset = 1 ;
+        this.totalFetchrecord = this.collectionSize
         this.tableData = res['data'];
         // console.log(this.tableData);
       } else {
+        this.offset = 0 ;
+        this.totalFetchrecord = 0
+        this.collectionSize = 0;
         this.tableData = [];
       }
     });
