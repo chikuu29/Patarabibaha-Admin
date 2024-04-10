@@ -1,108 +1,77 @@
 <div class="modal-header">
-    <h4 class="modal-title text-muted " id="modal-title">{{allProfileImage_Data.length}} images Found </h4>
-    <button type="button" class="btn-close" aria-describedby="modal-title"
-        (click)="modal.dismiss('Cross click')"></button>
+  <h4 class="modal-title text-muted " id="modal-title">{{allProfileImage_Data.length}} images Found </h4>
+  <button type="button" class="btn-close" aria-describedby="modal-title"
+    (click)="modal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
-    <p-table #dt2 [value]="allProfileImage_Data" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="false"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [globalFilterFields]="['user_ID', 'status']" [tableStyle]="{ 'min-width': '75rem' }">
-        <ng-template pTemplate="caption">
-            <div class="flex">
-                <span class="p-input-icon-left ml-auto">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
-                        placeholder="Search keyword" />
-                </span>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width:10%">Images</th>
-                <th style="width:10%">Created At</th>
+  <p-table #dt2 [value]="allProfileImage_Data" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="false"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['user_ID', 'status']" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <!-- <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Search keyword" />
+        </span> -->
+        <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
+                  placeholder="Any" [showClear]="true">
+                  <ng-template let-option pTemplate="item">
+                      <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
+                  </ng-template>
+              </p-dropdown>
+          </ng-template>
+      </p-columnFilter>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:10%">Images</th>
+        <th style="width:10%">Created At</th>
 
-                <th style="width:10%">Status</th>
-                <th style="width:10%">Actions</th>
+        <th style="width:10%">Status</th>
+        <th style="width:10%">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-image>
+      <tr>
+        <td>
+          <p-image [src]="image?.previewImageSrc" [preview]="true" [alt]="image?.title" width="100">
+            <ng-template pTemplate="indicator">
+              <i class="pi pi-eye"></i>
+            </ng-template>
+          </p-image>
+        </td>
+        <td>
+          {{ image?.created_At | date }}
+        </td>
+        <td>
+          <p-tag [value]="image.status" [severity]="getSeverity(image.status)"></p-tag>
+        </td>
+        <td>
+          <div class="d-flex flex-column">
+            <button mat-raised-button color="" class="bg-success mb-2 w-50 text-light"
+              (click)="approved(image)">Approved</button>
+            <button mat-raised-button color="" class="bg-success mb-2 w-50 text-light"
+              (click)="setProfile_picture(image)">Set profile</button>
+            <button mat-raised-button color="warn" class="w-50 mb-2" (click)="delet(image)">Delete</button>
+            <button mat-raised-button color="accent" class="w-50" (click)="reject(image)">Rejected</button>
+          </div>
+        </td>
 
-            </tr>
-            <tr>
-               
-                <th>
-                    <!-- <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
-                                <ng-template let-option pTemplate="item">
-                                    <div class="inline-block vertical-align-middle">
-                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                        <span class="ml-1 mt-1">{{ option.name }}</span>
-                                    </div>
-                                </ng-template>
-                            </p-multiSelect>
-                        </ng-template>
-                    </p-columnFilter> -->
-                </th>
-                <th>
-
-                </th>
-                <th>
-                    <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
-                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
-                                placeholder="Any" [showClear]="true">
-                                <ng-template let-option pTemplate="item">
-                                    <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
-                                </ng-template>
-                            </p-dropdown>
-                        </ng-template>
-                    </p-columnFilter>
-                </th>
-                <th></th>
-
-
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-image>
-            <tr>
-              
-                
-                <td>
-                    <!-- <img [src]="image?.previewImageSrc" [alt]="image?.title"
-                            width="100" class="shadow-4" /> -->
-                    <p-image [src]="image?.previewImageSrc" [preview]="true" [alt]="image?.title" width="100">
-                        <ng-template pTemplate="indicator">
-                            <i class="pi pi-eye"></i>
-                        </ng-template>
-                    </p-image>
-                </td>
-                <td>
-                    {{ image?.created_At | date }}
-                </td>
-                <td>
-                    <p-tag [value]="image.status" [severity]="getSeverity(image.status)"></p-tag>
-                </td>
-                <td>
-                    <div class="d-flex flex-column">
-                    <button mat-raised-button color="" class="bg-success mb-2 w-50 text-light"
-                        (click)="approved(image)">Approved</button>
-                    <button mat-raised-button color="" class="bg-success mb-2 w-50 text-light"
-                        (click)="setProfile_picture(image)">Set profile</button>
-                    <button mat-raised-button color="warn" class="w-50 mb-2" (click)="delet(image)">Delete</button>
-                    <button mat-raised-button color="accent" class="w-50" (click)="reject(image)">Rejected</button>
-                </div>
-                </td>
-
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="5">No Image found.</td>
-            </tr>
-        </ng-template>
-    </p-table>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5">No Image found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
-
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('cancel click')">Close</button>
-    <button type="button" class="btn btn-outline-success">Ok</button>
+  <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('cancel click')">Close</button>
+  <!-- <button type="button" class="btn btn-outline-success">Ok</button> -->
 </div>

@@ -21,12 +21,18 @@
 
       <tbody>
         <tr>
-          <td class="text-success fw-bold">{{ planRemaingFeature?.profile_viwe ||0 }}</td>
-          <td class="text-success fw-bold">{{ planRemaingFeature?.photoviwe ||0 }}</td>
-          <td class="text-success fw-bold">{{ planRemaingFeature?.contact_view ||0 }}</td>
-          <td class="text-success fw-bold">{{ planRemaingFeature?.contact_view_other ||0 }}</td>
-          <td class="text-success fw-bold">{{ planRemaingFeature?.horscope ||0 }}</td>
-          <td class="text-success fw-bold">{{ planRemaingFeature?.sendmessage ||0 }}</td>
+          <td class="text-success fw-bold">{{ planRemaingFeature?.profile_viwe ||0 }} ({{
+            plandetailsFeature?.profile_viwe || 0 }}) </td>
+          <td class="text-success fw-bold">{{ planRemaingFeature?.photoviwe ||0 }} ({{ plandetailsFeature?.photoviwe ||
+            0 }})</td>
+          <td class="text-success fw-bold">{{ planRemaingFeature?.contact_view ||0 }} ({{
+            plandetailsFeature?.contact_view || 0 }})</td>
+          <td class="text-success fw-bold">{{ planRemaingFeature?.contact_view_other ||0 }} ({{
+            plandetailsFeature?.contact_view_other || 0 }})</td>
+          <td class="text-success fw-bold">{{ planRemaingFeature?.horscope ||0 }} ({{ plandetailsFeature?.horscope || 0
+            }})</td>
+          <td class="text-success fw-bold">{{ planRemaingFeature?.sendmessage ||0 }} ({{ plandetailsFeature?.sendmessage
+            || 0 }})</td>
 
         </tr>
       </tbody>
@@ -77,7 +83,7 @@
         </thead>
 
         <tbody>
-          <ng-container *ngFor="let details of editedplandetails">
+          <ng-container *ngFor="let details of editedplandetails ; index as i">
             <tr>
               <td>{{ details?.profile_viwe ||0 }}</td>
               <td>{{ details?.photoviwe ||0 }}</td>
@@ -86,24 +92,43 @@
               <td>{{ details?.horscope ||0 }}</td>
               <td>{{ details?.sendmessage ||0 }}</td>
               <td>
-                <button mat-raised-button color="primary" (click)="openDetailsModal(details?.plan_deatils)">
+                <!-- <button mat-raised-button color="primary" (click)="openDetailsModal(details?.plan_deatils)">
+                  View Details
+                </button> -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" [attr.data-bs-target]="'#staticBackdrop'+i">
                   View Details
                 </button>
+
+                <!-- Modal -->
+                <div class="modal fade" [id]="'staticBackdrop'+i" data-bs-backdrop="static" data-bs-keyboard="false"
+                  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Status</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>
+                          {{ details?.plan_deatils }}
+                        </p>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
           </ng-container>
         </tbody>
       </table>
-      <!-- Add this modal outside of the container -->
-      <ng-template #detailsModal let-details="details">
-        <div class="modal">
-          <div class="modal-content">
-            <span class="close" (click)="closeModal()">&times;</span>
-            <h2>Plan Status</h2>
-            <p>{{ details }}</p> <!-- Assuming plan_details is a string, adjust accordingly if it's an object -->
-          </div>
-        </div>
-      </ng-template>
     </div>
   </div>
 </div>
+
+

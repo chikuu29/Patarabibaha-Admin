@@ -4,6 +4,7 @@ import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { AppService } from 'src/app/services/app.service';
 
 
+
 @Component({
   selector: 'app-plan-deatils',
   templateUrl: './plan-deatils.component.html',
@@ -38,6 +39,7 @@ export class PlanDeatilsComponent implements OnInit {
     "membership_plan_chating": "Membership Chating",
   };
   editedplandetails: any;
+  plandetailsFeature: any;
   constructor(
    // private planservice: PlanService,
     private ApiParameterScript: ApiParameterScript,
@@ -83,6 +85,16 @@ export class PlanDeatilsComponent implements OnInit {
         this.planRemaingFeature = getprofile_res['data'][0];
       }
     })
+
+    let param2 = {
+      "projection": ['*'],
+      "whereConditions": { "user_id": data }
+    }
+    this.ApiParameterScript.fetchdata('plan_details', param2).subscribe((getprofile_res: any) => {
+      if (getprofile_res.success && getprofile_res['data'].length > 0) {
+        this.plandetailsFeature = getprofile_res['data'][0];
+      }
+    })
   }
 
   editedPlan(data:any){
@@ -99,17 +111,13 @@ export class PlanDeatilsComponent implements OnInit {
       }
     });
   }
-
   // Function to open modal
   openDetailsModal(details: any) {
     this.modalDetails = details;
     this.modalVisible = true;
     console.log(this.modalVisible);
     console.log(this.modalDetails);
-
-
   }
-
   // Function to close modal
   closeModal() {
     this.modalVisible = false;

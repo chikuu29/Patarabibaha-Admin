@@ -67,5 +67,8 @@ th {
     box-sizing: border-box;
   }
 }
+.modal-body p {
+  white-space: pre-wrap; /* or pre-line */
+}
 
 
