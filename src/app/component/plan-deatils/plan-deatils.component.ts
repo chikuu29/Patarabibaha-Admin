@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,TemplateRef ,ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { AppService } from 'src/app/services/app.service';
@@ -10,7 +10,9 @@ import { AppService } from 'src/app/services/app.service';
   styleUrls: ['./plan-deatils.component.scss']
 })
 export class PlanDeatilsComponent implements OnInit {
-
+  @ViewChild('detailsModal') detailsModal!: TemplateRef<any>;
+  modalVisible: boolean = false;
+  modalDetails: string = '';
   panelOpenState = false;
   plan: any = {};
   planRemaingFeature: any
@@ -96,6 +98,21 @@ export class PlanDeatilsComponent implements OnInit {
 
       }
     });
+  }
+
+  // Function to open modal
+  openDetailsModal(details: any) {
+    this.modalDetails = details;
+    this.modalVisible = true;
+    console.log(this.modalVisible);
+    console.log(this.modalDetails);
+
+
+  }
+
+  // Function to close modal
+  closeModal() {
+    this.modalVisible = false;
   }
 
 }

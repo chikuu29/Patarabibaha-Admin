@@ -80,6 +80,9 @@ export class CommonService {
   deleteRequest(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'deleteRequest', apiData, { headers: this.headers });
   }
+  coloumUpdated(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'coloumUpdated', apiData, { headers: this.headers });
+  }
 
 
 

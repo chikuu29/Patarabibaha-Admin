@@ -79,17 +79,31 @@
         <tbody>
           <ng-container *ngFor="let details of editedplandetails">
             <tr>
-              <td class="text-success fw-bold">{{ details?.profile_viwe ||0 }}</td>
-              <td class="text-success fw-bold">{{ details?.photoviwe ||0 }}</td>
-              <td class="text-success fw-bold">{{ details?.contact_view ||0 }}</td>
-              <td class="text-success fw-bold">{{ details?.contact_view_other ||0 }}</td>
-              <td class="text-success fw-bold">{{ details?.horscope ||0 }}</td>
-              <td class="text-success fw-bold">{{ details?.sendmessage ||0 }}</td>
-              <td class="text-success fw-bold">{{ details?.plan_deatils ||'' }}</td>
+              <td>{{ details?.profile_viwe ||0 }}</td>
+              <td>{{ details?.photoviwe ||0 }}</td>
+              <td>{{ details?.contact_view ||0 }}</td>
+              <td>{{ details?.contact_view_other ||0 }}</td>
+              <td>{{ details?.horscope ||0 }}</td>
+              <td>{{ details?.sendmessage ||0 }}</td>
+              <td>
+                <button mat-raised-button color="primary" (click)="openDetailsModal(details?.plan_deatils)">
+                  View Details
+                </button>
+              </td>
             </tr>
           </ng-container>
         </tbody>
       </table>
+      <!-- Add this modal outside of the container -->
+      <ng-template #detailsModal let-details="details">
+        <div class="modal">
+          <div class="modal-content">
+            <span class="close" (click)="closeModal()">&times;</span>
+            <h2>Plan Status</h2>
+            <p>{{ details }}</p> <!-- Assuming plan_details is a string, adjust accordingly if it's an object -->
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

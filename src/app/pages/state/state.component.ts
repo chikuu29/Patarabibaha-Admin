@@ -111,7 +111,7 @@ export class StateComponent implements OnInit {
           });
         }
       });
-      
+
      } else {
       // Swal.fire('Please Enter All Fields','success','success')
       Swal.fire({
@@ -135,6 +135,7 @@ export class StateComponent implements OnInit {
               icon: 'success',
               text: res.message
             }).then((ress: any) => {
+
               this.ngOnInit()
             });
           } else {
@@ -149,7 +150,7 @@ export class StateComponent implements OnInit {
   }
 
 
-  
+
 
   edit(id: any) {
     this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { id: id } }).subscribe((res: any) => {
@@ -171,23 +172,23 @@ export class StateComponent implements OnInit {
     this.ApiParameter.deletedata('state', { "whereConditions": { id: id } }).subscribe((res: any) => {
       this.blockUI.stop();
       if (res.success) {
-        this.ApiParameter.deletedata('city', { "whereConditions": { state_name: name } }).subscribe((res: any) => { 
+        this.ApiParameter.deletedata('city', { "whereConditions": { state_name: name } }).subscribe((res: any) => {
 
           if (res.success) {
 
-           
+
                 Swal.fire('Success', res.message, 'success').then(() => {
                   this.ngOnInit()
                 });
 
-           
 
-           
+
+
           }
 
-        
+
       });
-       
+
 
       } else {
         Swal.fire('Error', res.message, 'error')
