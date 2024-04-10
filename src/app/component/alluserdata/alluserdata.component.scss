@@ -4,7 +4,7 @@
     flex-wrap: wrap; /* Allow tiles to wrap to the next line */
     gap: 20px; /* Space between tiles */
   }
-  
+
   .kapi-tile {
     cursor: pointer;
     flex: 1 0 calc(25% - 20px); /* Four tiles per row with 20px gap */
@@ -19,7 +19,7 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   }
-  
+
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .kapi-tile {
@@ -27,7 +27,7 @@
       min-width: calc(50% - 20px);
     }
   }
-  
+
   @media (max-width: 480px) {
     .kapi-tile {
       flex: 1 0 100%; /* One tile per row for mobile screens */
@@ -133,7 +133,7 @@ $closed_incident_colour: #0abb87;
 //     //   padding-left: 0.5rem;
 //     //   padding-right: 2px;
 //     // }
-   
+
 //     .mycase_tiles .kt-iconbox--animate-fast:after {
 //       -webkit-animation: inherit;
 //       animation: inherit;
