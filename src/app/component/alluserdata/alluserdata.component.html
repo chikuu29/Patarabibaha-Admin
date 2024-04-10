@@ -1,10 +1,11 @@
 <div class="kapi-container">
   <ng-container *ngFor="let kpi of kpiTileConfig;let i=index">
-    <div class="kapi-tile" (click)="loadKpi(kpi.methodName,i)">
+    <div class="kapi-tile" (click)="loadKpi(kpi.methodName,i)" [style]="{ 'background-color': kpi.class, 'color': '#FFFFFF' }"
+>
       <i [ngClass]="kpi.iconClass"></i>
       <span class="ps-2 fw-bold">{{kpi.text}} </span>
       <ng-container *ngIf="kpi.selectedStatus">
-        <div class="mt-3">
+        <div>
           <mat-progress-bar mode="determinate" [value]="100" [color]="'accent'"></mat-progress-bar>
         </div>
       </ng-container>
@@ -15,32 +16,32 @@
 <div class="outline">
 
   <div class="commen">
-    <button type="button" class="btn btn-outline-danger" (click)="deletedata()">
+    <button [style]="{ 'background-color': '#FF1A0A', 'color': '#FFFFFF' }" type="button" class="btn" (click)="deletedata()">
       <i class="fas fa-trash-alt"></i> Delete
     </button>
   </div>
   <div class="commen">
-    <button type="button" class="btn btn-outline-success" (click)="recoverdata()">
+    <button type="button" [style]="{ 'background-color': '#C8B10B', 'color': '#FFFFFF' }" class="btn" (click)="recoverdata()">
       <i class="fas fa-recycle"></i> Recover
     </button>
   </div>
   <div class="commen">
-    <button type="button" class="btn btn-outline-success" (click)="publishuser()">
+    <button type="button" [style]="{ 'background-color': '#009788', 'color': '#FFFFFF' }" class="btn" (click)="publishuser()">
       <i class="fas fa-upload"></i> Publish
     </button>
   </div>
   <div class="commen">
-    <button type="button" class="btn btn-outline-danger" (click)="unpublishuser()">
+    <button type="button" [style]="{ 'background-color': '#F47F16', 'color': '#FFFFFF' }" class="btn" (click)="unpublishuser()">
       <i class="fas fa-download"></i> Unpublish
     </button>
   </div>
   <div class="commen">
-    <button type="button" class="btn btn-outline-success" (click)="makeonline()">
+    <button type="button" [style]="{ 'background-color': '#4CB050', 'color': '#FFFFFF' }" class="btn" (click)="makeonline()">
       <i class="fas fa-check-circle"></i> Online
     </button>
   </div>
   <div class="commen">
-    <button type="button" class="btn btn-outline-danger" (click)="makeoffline()">
+    <button type="button" [style]="{ 'background-color': '#F38015', 'color': '#FFFFFF' }" class="btn" (click)="makeoffline()">
       <i class="fas fa-times-circle"></i> Offline
     </button>
   </div>
@@ -65,7 +66,7 @@
         </div>
       </div>
       <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y" id="grid_scroll_body"
-        style="max-height: 75vh; position: relative;">
+        style="max-height: 100vh; position: relative;">
         <div class="inbox-body inbox-body-table">
           <div class="table-scroll">
             <table class="custom-table table  table-bordered table-striped">

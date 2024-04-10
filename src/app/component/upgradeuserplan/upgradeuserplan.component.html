@@ -3,7 +3,7 @@
     <div class="col-xl-12 order-lg-1 order-xl-1">
         <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
             <div class="table-caption-holder">
-                
+
                 <div class="dropdown-container">
                     <select id="dropdown" (change)="changepaginetdata($event)">
                         <option *ngFor="let option of options" [value]="option">{{ option }}</option>
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y"
-                id="grid_scroll_body" style="max-height: 50vh; position: relative;">
+                id="grid_scroll_body" style="max-height: 100vh; position: relative;">
                 <div class="inbox-body inbox-body-table">
                     <div class="table-scroll">
                         <table class="custom-table table  table-bordered table-striped">
@@ -37,8 +37,8 @@
                         <th style="cursor: pointer; width:25%" title="Created At">Approval</th>
                         <th>Action</th>
                                     <!-- <th style="cursor: pointer; width:5%" title="Select Member">
-                                        </th> 
-                                        
+                                        </th>
+
                                     <th style="cursor: pointer;width:10%" title="Member Name">
                                         Member Name </th>
                                     <th style="cursor: pointer; width:25%" title="Profile ID">
@@ -53,7 +53,7 @@
                                     </th>
 
 
-                                    <th style="cursor: pointer; width:10%" title="Action">Action  
+                                    <th style="cursor: pointer; width:10%" title="Action">Action
                                     </th> -->
                                 </tr>
                             </thead>
@@ -63,7 +63,7 @@
                                     <!-- <tr>
 
                                         <td class="text-center">
-                                           
+
                                         </td>
                                         <td [title]="data?.user_fname+' '+data?.user_lname"> {{data?.user_fname+'
                                             '+data?.user_lname }}</td>
@@ -82,7 +82,7 @@
                                         </td>
                                         <td [title]="data.user_gender">
                                             {{data.user_gender |uppercase}}
-                                          
+
                                         </td>
                                         <td title="Ready for Professional Open">
                                             <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
@@ -114,22 +114,22 @@
                                         <td> <a (click)="userpage(data.user_id)" class="underline" href="javascript:void(0);">
                                                 {{data.user_fname+' '+data.user_lname }}
                                             </a> </td>
-            
+
                                         <td>{{data.user_gender }}</td>
-            
-            
+
+
                                         <td>
                                             <p class="badge badge-success" *ngIf="data.user_status == 'Approved'">Approved
                                             </p>
                                             <p class="badge badge-danger" *ngIf="data.user_status == 'Pending'">Pending</p>
                                         </td>
                                         <td>
-                                            <button class="button-83" role="button" (click)="makeMemberAsPaid(data)">Approve As
+                                            <button  class="btn btn-outline-primary btn-sm" role="button" (click)="makeMemberAsPaid(data)">Approve As
                                                 Paid</button>
-            
-            
-            
-            
+
+
+
+
                                         </td>
                                     </tr>
                                 </ng-container>
@@ -157,7 +157,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 
 
@@ -168,11 +168,11 @@
             <div class="caption-item">
                 <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
                 <span class="fs-5">Showing of results</span>
-                
+
 
             </div>
             <div class="caption-item">
-            
+
               <app-search (getSerachText)="getSearchText($event)"></app-search>
             </div>
         </div>
@@ -206,7 +206,7 @@
                             </td>
 
                             <td>
-                                
+
                                 <button class="button-83" role="button" (click)="makeMemberAsPaid(data)">Approve As
                                     Paid</button>
 

@@ -38,54 +38,62 @@ export class AlluserdataComponent implements OnInit {
       iconClass: 'fa-solid fa-users text-primary',
       methodName: 'getAllData',
       selectedStatus: false,
+      class : '#FF9700'
     },
     {
       text: 'Online',
       iconClass: 'fa-solid fa-wifi text-success',
       methodName: 'getAllOnlineData',
       selectedStatus: false,
+      class : '#009788'
     },
     {
       text: 'Published',
       iconClass: 'fa-solid fa-check-circle text-success',
       methodName: 'getAllPublishedData',
       selectedStatus: false,
+      class : '#FF1A0A'
     },
     {
       text: 'Un Published',
       iconClass: 'fa-solid fa-times-circle text-danger',
       methodName: 'getAllUnpublishedData',
       selectedStatus: false,
+      class : '#0E47A1'
     },
     {
       text: 'Deleted',
       iconClass: 'fas fa-trash text-danger',
       methodName: 'getAllDeletedData',
       selectedStatus: false,
+      class : '#4CB050'
     },
-    {
-      text: 'Not Deleted',
-      iconClass: 'fas fa-ban text-danger',
-      methodName: 'getAllNotDeletedData',
-      selectedStatus: false,
-    },
+    // {
+    //   text: 'Not Deleted',
+    //   iconClass: 'fas fa-ban text-danger',
+    //   methodName: 'getAllNotDeletedData',
+    //   selectedStatus: false,
+    // },
     {
       text: 'Approve',
       iconClass: 'fas fa-thumbs-up text-primary',
       methodName: 'getAllApprovedData',
       selectedStatus: false,
+      class : '#0E47A1'
     },
     {
       text: 'Pending',
       iconClass: 'fas fa-clock text-warning',
       methodName: 'getAllPendingData',
       selectedStatus: false,
+      class: '#CFC160'
     },
     {
       text: 'Valid user',
       iconClass: 'fas fa-user-check text-success',
       methodName: 'getAllvaliduserData',
       selectedStatus: false,
+      class : '#9C28B1'
     },
   ];
 
@@ -615,48 +623,48 @@ export class AlluserdataComponent implements OnInit {
       }
     });
   }
-  getAllNotDeletedData(
-    start: number,
-    limit: number,
-    loadSpecificData: boolean = false,
-    search_text?: any
-  ) {
-    //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=1';
-    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
-    FROM user_info AS a
-    LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
-    a.deleted=1
-    ORDER BY a.user_creation_date_time DESC
-    LIMIT ${limit} OFFSET ${start}`;
-    if (loadSpecificData) {
-      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
-      FROM user_info AS a
-      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-      WHERE
-          a.online_status=1
-          AND a.user_id = '${search_text}'
-         OR b.auth_ID = '${search_text}'
-         OR a.user_fname = '${search_text}'
-         OR a.user_lname = '${search_text}'
-         ORDER BY a.user_creation_date_time DESC;
-       `;
-    }
-    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      console.log(res);
-      if (res.success && res['data'].length > 0) {
-        this.totalDataCount = res['data'][0].total_count;
-        this.totalFetchrecord = start + res['data'].length;
-        this.collectionSize =
-          Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) *
-          10;
-        this.tableData = res['data'];
-        console.log(this.tableData);
-      } else {
-        this.collectionSize = 1;
-        this.tableData = [];
-      }
-    });
-  }
+  // getAllNotDeletedData(
+  //   start: number,
+  //   limit: number,
+  //   loadSpecificData: boolean = false,
+  //   search_text?: any
+  // ) {
+  //   //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.deleted=1';
+  //   let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+  //   FROM user_info AS a
+  //   LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
+  //   a.deleted=1
+  //   ORDER BY a.user_creation_date_time DESC
+  //   LIMIT ${limit} OFFSET ${start}`;
+  //   if (loadSpecificData) {
+  //     quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+  //     FROM user_info AS a
+  //     LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+  //     WHERE
+  //         a.online_status=1
+  //         AND a.user_id = '${search_text}'
+  //        OR b.auth_ID = '${search_text}'
+  //        OR a.user_fname = '${search_text}'
+  //        OR a.user_lname = '${search_text}'
+  //        ORDER BY a.user_creation_date_time DESC;
+  //      `;
+  //   }
+  //   this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+  //     console.log(res);
+  //     if (res.success && res['data'].length > 0) {
+  //       this.totalDataCount = res['data'][0].total_count;
+  //       this.totalFetchrecord = start + res['data'].length;
+  //       this.collectionSize =
+  //         Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) *
+  //         10;
+  //       this.tableData = res['data'];
+  //       console.log(this.tableData);
+  //     } else {
+  //       this.collectionSize = 1;
+  //       this.tableData = [];
+  //     }
+  //   });
+  // }
   getAllApprovedData(
     start: number,
     limit: number,
