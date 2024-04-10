@@ -32,48 +32,6 @@
       </tbody>
     </table>
   </div>
-  <!-- <div id="currentPlan" *ngIf="plan">
-      <div class="row">
-          <div class="col-md-6">
-              <p><strong>Plan Type:</strong> {{ plan?.currect_active_plan_information?.membership_plan_type }}</p>
-              <p><strong>Subscription Stated:</strong> {{ plan?.plan_start_date }}</p>
-          </div>
-          <div class="col-md-6">
-              <p class="text-danger"><strong>Subscription Expires:</strong> {{ plan?.plan_end_date }}</p>
-              <p><strong>Amount:</strong>{{ plan?.currect_active_plan_information?.membership_plan_amount |
-                  currency:'INR' }}</p>
-          </div>
-      </div>
-      <div class="mt-3">
-          <mat-accordion>
-
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                  <mat-expansion-panel-header>
-                      <mat-panel-title>
-                          Membership Details
-                      </mat-panel-title>
-                       <mat-panel-description>
-                          Click Me {{panelOpenState ? 'open' : 'closed'}}
-                      </mat-panel-description>
-                  </mat-expansion-panel-header>
-                  <table class="table table-bordered">
-                      <thead class="thead-light">
-                          <tr>
-                              <th>Feature Name</th>
-                              <th>Value</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr *ngFor="let keyValuePair of Object.entries(plan)">
-                              <td>{{ keyMapping[keyValuePair[0]] || keyValuePair[0] }}</td>
-                              <td>{{ keyValuePair[1] }}</td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </mat-expansion-panel>
-          </mat-accordion>
-      </div>
-  </div> -->
   <h2>Plan History</h2>
   <table id="planHistory">
     <thead>
@@ -93,7 +51,7 @@
           <td>{{item.active_status?'Active':"Inactive"}}</td>
         </tr>
       </ng-container>
-      <ng-container *ngIf="plan && plan.length==0">
+      <ng-container *ngIf="plan && plan?.length==0">
         <tr class="p-3">No Data Availble</tr>
       </ng-container>
 
@@ -101,4 +59,51 @@
       <!-- Add more history rows as needed -->
     </tbody>
   </table>
+  <h2 class="mt-4">Plan Left</h2>
+  <div class="mt-4">
+
+    <div style="overflow-x: auto; max-width: 100%;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th><i class="fas fa-user"></i> Profile View</th>
+            <th><i class="fas fa-camera"></i> Photo View</th>
+            <th><i class="fas fa-eye"></i> Contact View</th>
+            <th><i class="fas fa-user-friends"></i> Contact View Other</th>
+            <th><i class="fas fa-globe"></i> Horscope</th>
+            <th><i class="fas fa-envelope"></i> Send Message</th>
+            <th><i class="fas fa-envelope"></i> Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <ng-container *ngFor="let details of editedplandetails">
+            <tr>
+              <td>{{ details?.profile_viwe ||0 }}</td>
+              <td>{{ details?.photoviwe ||0 }}</td>
+              <td>{{ details?.contact_view ||0 }}</td>
+              <td>{{ details?.contact_view_other ||0 }}</td>
+              <td>{{ details?.horscope ||0 }}</td>
+              <td>{{ details?.sendmessage ||0 }}</td>
+              <td>
+                <button mat-raised-button color="primary" (click)="openDetailsModal(details?.plan_deatils)">
+                  View Details
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <!-- Add this modal outside of the container -->
+      <ng-template #detailsModal let-details="details">
+        <div class="modal">
+          <div class="modal-content">
+            <span class="close" (click)="closeModal()">&times;</span>
+            <h2>Plan Status</h2>
+            <p>{{ details }}</p> <!-- Assuming plan_details is a string, adjust accordingly if it's an object -->
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
 </div>

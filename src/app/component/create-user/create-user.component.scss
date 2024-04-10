@@ -106,3 +106,35 @@ iframe {
   height: 100%;
   border: none; /* optional: remove iframe border */
 }
+.form-outline {
+  width: 100%;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.country-code-dropdown {
+  flex: 0;
+  margin-right: 10px; /* Adjust as needed */
+}
+
+.phone-input {
+  flex: 2;
+}
+
+@media (max-width: 768px) {
+  .flex-container {
+    flex-direction: column;
+  }
+
+  .country-code-dropdown {
+    margin-bottom: 10px; /* Adjust as needed */
+    margin-right: 0;
+  }
+
+  .phone-input {
+    margin-right: 0;
+  }
+}

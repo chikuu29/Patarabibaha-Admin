@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { CommonService } from 'src/app/services/common.service';
+
 
 @Component({
   selector: 'app-caste',
@@ -24,8 +26,10 @@ export class CasteComponent implements OnInit {
     cast_name : new FormControl('',[Validators.required])
   })
   tabledata: any;
+  editedcast: any;
   constructor(
-    private ApiParameter: ApiParameterScript
+    private ApiParameter: ApiParameterScript ,
+    private CommonService : CommonService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +65,9 @@ export class CasteComponent implements OnInit {
             icon: 'success',
             text: res.message
           }).then((ress: any) => {
-            this.ngOnInit()
+
+
+            this.ngOnInit();
           });
         } else {
           Swal.fire({
@@ -71,7 +77,7 @@ export class CasteComponent implements OnInit {
         }
       })
 
-     
+
     } else {
       Swal.fire({
         icon: 'error',
@@ -79,6 +85,7 @@ export class CasteComponent implements OnInit {
       })
     }
   }else if(this.button == 'Update'){
+    console.log(this.editedcast);
     if (this.cast.valid) {
       let updateData={
         "data":{
@@ -93,7 +100,16 @@ export class CasteComponent implements OnInit {
             icon: 'success',
             text: res.message
           }).then((ress: any) => {
-            this.ngOnInit()
+            let update = {
+              "oldcast": this.editedcast,
+              "newdata" : this.cast.value.cast_name,
+              "tablename" : "user_religion",
+              "coulemnname" : "user_caste"
+            }
+            this.CommonService.coloumUpdated(update).subscribe((res:any)=>{
+
+            });
+            this.ngOnInit();
           });
         } else {
           Swal.fire({
@@ -103,7 +119,7 @@ export class CasteComponent implements OnInit {
         }
       })
 
-     
+
     } else {
       Swal.fire({
         icon: 'error',
@@ -126,10 +142,11 @@ export class CasteComponent implements OnInit {
   update(data:any){
     this.ApiParameter.fetchdata('cast_table', { "projection": ["*"], "whereConditions": { id: data } }).subscribe((res: any) => {
       // console.log(res['data'][0]);
-      
+
       if (res.success) {
         this.button = 'Update';
         this.cast.patchValue(res['data'][0]);
+        this.editedcast = this.cast.value.cast_name;
       }
     })
   }

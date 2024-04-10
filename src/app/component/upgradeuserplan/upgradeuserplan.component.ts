@@ -67,6 +67,7 @@ export class UpgradeuserplanComponent implements OnInit {
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE user_membership_plan_type <> '${this.defultdata}'
+      ORDER BY a.user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
         if (loadSpecificData) {
           quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count

@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class CreateUserComponent implements OnInit {
 
-  
+
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   date: Date;
@@ -43,7 +43,13 @@ export class CreateUserComponent implements OnInit {
     { value: '11', display: 'Nov' },
     { value: '12', display: 'Dec' }
   ];
-  
+  countryCodes = [
+    { name: '+1 (United States)' },
+    { name: '+44 (United Kingdom)' },
+    { name: '+91 (India)' },
+    // Add more country codes as needed
+  ];
+
   year:any[]=[
     "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994",
     "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004",
@@ -53,7 +59,7 @@ export class CreateUserComponent implements OnInit {
     "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044",
     "2045", "2046", "2047", "2048", "2049", "2050"
   ]
-  
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -87,7 +93,7 @@ export class CreateUserComponent implements OnInit {
 
     this.dayOption= Array.from({ length: 31 }, (_, i) => (i + 1).toString().padStart(2, '0'))
     console.log(this.dayOption);
-    
+
     setTimeout(() => {
       this.activeFormTab('form1');
       this.blockUI.stop()
@@ -171,7 +177,7 @@ export class CreateUserComponent implements OnInit {
       (res: any) => {
         this.blockUI.stop();
         console.log(res);
-        
+
         if (res.success) {
           Swal.fire('Success!', res.message, 'success').then(() => {
            this.router.navigateByUrl('/user/'+res.profileID)
