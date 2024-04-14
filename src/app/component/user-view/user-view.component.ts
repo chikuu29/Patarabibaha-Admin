@@ -10,321 +10,310 @@ import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
 import { AppService } from 'src/app/services/app.service';
 import Swal from 'sweetalert2';
-import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModalConfig,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { ImageViewOperationComponent } from 'src/app/shared/image-view-operation/image-view-operation.component';
 import { ImageCroperComponent } from 'src/app/shared/image-croper/image-croper.component';
 import { AgePipe } from 'src/app/customPipe/age.pipe';
 import { CommonService } from 'src/app/services/common.service';
 import { environment } from 'src/environments/environment';
 
-ApiService
+ApiService;
 @Component({
   selector: 'app-user-view',
   templateUrl: './user-view.component.html',
-  styleUrls: ['./user-view.component.scss']
+  styleUrls: ['./user-view.component.scss'],
 })
 export class UserViewComponent implements OnInit {
-
   @BlockUI() blockUI: NgBlockUI;
   // **************************
-  allowprofileUpdate: boolean = true
+  allowprofileUpdate: boolean = true;
   profile: any;
   email: string = '';
   name: string = '';
   phone: number;
   address: string = '';
-  showupload: boolean = false
-  uloadedImageFile: any = []
+  showupload: boolean = false;
+  uloadedImageFile: any = [];
 
-
-  profileCreatedBy: string[] = ['GUEST']
-  genderOptions: string[] = ['Male', "Female"];
-  profileOptions: string[] = ['myself', 'my son', 'my daughter', 'my brother', 'my sister', 'my friend', 'my relative'];
+  profileCreatedBy: string[] = ['GUEST'];
+  genderOptions: string[] = ['Male', 'Female'];
+  profileOptions: string[] = [
+    'myself',
+    'my son',
+    'my daughter',
+    'my brother',
+    'my sister',
+    'my friend',
+    'my relative',
+  ];
   motherTounghOptions: any[] = [];
   maritalOptions: any = [
-    { "name": "Single" },
-    { "name": "Married" },
-    { "name": "Divorced" },
-    { "name": "Widowed" },
-    { "name": "Separated" }
-  ]
+    { name: 'Single' },
+    { name: 'Married' },
+    { name: 'Divorced' },
+    { name: 'Widowed' },
+    { name: 'Separated' },
+  ];
   stateOption1: any = [];
   cityOption1: any = [];
 
-  religionOptions: any = []
-  religionCasteOptions: any = [
+  religionOptions: any = [];
+  religionCasteOptions: any = [];
 
-  ]
+  religionSubcasteOptions: any = [];
 
-  religionSubcasteOptions: any = [
-
-  ]
-
-  aducationalOptions: any = []
+  aducationalOptions: any = [];
   aducationalOptions1: any = [];
   aducationalOptions2: any = [];
 
-  ocupationOptions: any = []
+  ocupationOptions: any = [];
 
   employeeInOptions: any = [];
 
   anualIncomeOptions: any = [];
 
-
-  familytypeOptions: any = [
-    { name: 'joint' },
-    { name: 'juclear' }
-  ]
-
+  familytypeOptions: any = [{ name: 'joint' }, { name: 'juclear' }];
 
   familyvalueOptions: any = [
     { name: 'Orthodox' },
     { name: 'Traditional' },
     { name: 'Moderate' },
-    { name: 'Liberal' }
-  ]
+    { name: 'Liberal' },
+  ];
 
   familystatusOptions: any = [
-    { "name": "reach" },
-    { "name": "Affluent" },
-    { "name": "middle class" },
-    { "name": "upper middle class" },
-    { "name": "upper lower class" },
-    { "name": "upper class" },
-    { "name": "lower class" },
-    { "name": "working class" },
-    { "name": "single-parent" },
-    { "name": "blended" },
-    { "name": "divorced" },
-    { "name": "widowed" }
-  ]
+    { name: 'reach' },
+    { name: 'Affluent' },
+    { name: 'middle class' },
+    { name: 'upper middle class' },
+    { name: 'upper lower class' },
+    { name: 'upper class' },
+    { name: 'lower class' },
+    { name: 'working class' },
+    { name: 'single-parent' },
+    { name: 'blended' },
+    { name: 'divorced' },
+    { name: 'widowed' },
+  ];
 
   noofbrothersisterOptins: any = [
-    { "name": 0 },
-    { "name": 1 },
-    { "name": 2 },
-    { "name": 3 },
-    { "name": 4 },
-    { "name": 5 },
-    { "name": 6 },
-    { "name": 7 },
+    { name: 0 },
+    { name: 1 },
+    { name: 2 },
+    { name: 3 },
+    { name: 4 },
+    { name: 5 },
+    { name: 6 },
+    { name: 7 },
+  ];
 
-  ]
+  countryOption: any = [{ name: 'India' }];
 
+  stateOption: any = [];
+  cityOption: any = [];
 
-  countryOption: any = [
-    { 'name': 'India' }
-
-  ]
-
-  stateOption: any = []
-  cityOption: any = []
-
-
-  dietOptions: any = [
-    { 'name': 'Vegetarian' },
-    { 'name': 'Non-Vegetarian' }
-  ]
+  dietOptions: any = [{ name: 'Vegetarian' }, { name: 'Non-Vegetarian' }];
   smokingOptions: any = [
-    { 'name': 'Yes' },
-    { 'name': 'No' },
-    { 'name': 'Occasionally' }
-  ]
+    { name: 'Yes' },
+    { name: 'No' },
+    { name: 'Occasionally' },
+  ];
   drinkOptions: any = [
-    { 'name': 'Yes' },
-    { 'name': 'No' },
-    { 'name': 'Occasionally' }
-  ]
-
+    { name: 'Yes' },
+    { name: 'No' },
+    { name: 'Occasionally' },
+  ];
 
   heightOptions: any = [
-    { "name": "Below 4ft 6in - 137cm", "value": 137 },
-    { "name": "4ft 6in - 137cm", "value": 137 },
-    { "name": "4ft 7in - 139cm", "value": 139 },
-    { "name": "4ft 8in - 142cm", "value": 142 },
-    { "name": "4ft 9in - 144cm", "value": 144 },
-    { "name": "4ft 10in - 147cm", "value": 147 },
-    { "name": "4ft 11in - 149cm", "value": 149 },
-    { "name": "5ft - 152cm", "value": 152 },
-    { "name": "5ft 1in - 154cm", "value": 154 },
-    { "name": "5ft 2in - 157cm", "value": 157 },
-    { "name": "5ft 3in - 160cm", "value": 160 },
-    { "name": "5ft 4in - 162cm", "value": 162 },
-    { "name": "5ft 5in - 165cm", "value": 165 },
-    { "name": "5ft 6in - 167cm", "value": 167 },
-    { "name": "5ft 7in - 170cm", "value": 170 },
-    { "name": "5ft 8in - 172cm", "value": 172 },
-    { "name": "5ft 9in - 175cm", "value": 175 },
-    { "name": "5ft 10in - 177cm", "value": 177 },
-    { "name": "5ft 11in - 180cm", "value": 180 },
-    { "name": "6ft - 182cm", "value": 182 },
-    { "name": "6ft 1in - 185cm", "value": 185 },
-    { "name": "6ft 2in - 187cm", "value": 187 },
-    { "name": "6ft 3in - 190cm", "value": 190 },
-    { "name": "6ft 4in - 193cm", "value": 193 },
-    { "name": "6ft 5in - 195cm", "value": 195 },
-    { "name": "6ft 6in - 198cm", "value": 198 },
-    { "name": "6ft 7in - 200cm", "value": 200 },
-    { "name": "6ft 8in - 203cm", "value": 203 },
-    { "name": "6ft 9in - 205cm", "value": 205 },
-    { "name": "6ft 10in - 208cm", "value": 208 },
-    { "name": "6ft 11in - 210cm", "value": 210 },
-    { "name": "7ft - 213cm", "value": 213 },
-    { "name": "Above 7ft - 213cm", "value": 213 }
-  ]
-
+    { name: 'Below 4ft 6in - 137cm', value: 137 },
+    { name: '4ft 6in - 137cm', value: 137 },
+    { name: '4ft 7in - 139cm', value: 139 },
+    { name: '4ft 8in - 142cm', value: 142 },
+    { name: '4ft 9in - 144cm', value: 144 },
+    { name: '4ft 10in - 147cm', value: 147 },
+    { name: '4ft 11in - 149cm', value: 149 },
+    { name: '5ft - 152cm', value: 152 },
+    { name: '5ft 1in - 154cm', value: 154 },
+    { name: '5ft 2in - 157cm', value: 157 },
+    { name: '5ft 3in - 160cm', value: 160 },
+    { name: '5ft 4in - 162cm', value: 162 },
+    { name: '5ft 5in - 165cm', value: 165 },
+    { name: '5ft 6in - 167cm', value: 167 },
+    { name: '5ft 7in - 170cm', value: 170 },
+    { name: '5ft 8in - 172cm', value: 172 },
+    { name: '5ft 9in - 175cm', value: 175 },
+    { name: '5ft 10in - 177cm', value: 177 },
+    { name: '5ft 11in - 180cm', value: 180 },
+    { name: '6ft - 182cm', value: 182 },
+    { name: '6ft 1in - 185cm', value: 185 },
+    { name: '6ft 2in - 187cm', value: 187 },
+    { name: '6ft 3in - 190cm', value: 190 },
+    { name: '6ft 4in - 193cm', value: 193 },
+    { name: '6ft 5in - 195cm', value: 195 },
+    { name: '6ft 6in - 198cm', value: 198 },
+    { name: '6ft 7in - 200cm', value: 200 },
+    { name: '6ft 8in - 203cm', value: 203 },
+    { name: '6ft 9in - 205cm', value: 205 },
+    { name: '6ft 10in - 208cm', value: 208 },
+    { name: '6ft 11in - 210cm', value: 210 },
+    { name: '7ft - 213cm', value: 213 },
+    { name: 'Above 7ft - 213cm', value: 213 },
+  ];
 
   weightOptions: any = [
-    { "name": 40 },
-    { "name": 41 },
-    { "name": 42 },
-    { "name": 43 },
-    { "name": 44 },
-    { "name": 45 },
-    { "name": 46 },
-    { "name": 47 },
-    { "name": 48 },
-    { "name": 49 },
-    { "name": 50 },
-    { "name": 51 },
-    { "name": 52 },
-    { "name": 53 },
-    { "name": 54 },
-    { "name": 55 },
-    { "name": 56 },
-    { "name": 57 },
-    { "name": 58 },
-    { "name": 59 },
-    { "name": 60 },
-    { "name": 61 },
-    { "name": 62 },
-    { "name": 63 },
-    { "name": 64 },
-    { "name": 65 },
-    { "name": 66 },
-    { "name": 67 },
-    { "name": 68 },
-    { "name": 69 },
-    { "name": 70 },
-    { "name": 71 },
-    { "name": 72 },
-    { "name": 73 },
-    { "name": 74 },
-    { "name": 75 },
-    { "name": 76 },
-    { "name": 77 },
-    { "name": 78 },
-    { "name": 79 },
-    { "name": 80 },
-    { "name": 81 },
-    { "name": 82 },
-    { "name": 83 },
-    { "name": 84 },
-    { "name": 85 },
-    { "name": 86 },
-    { "name": 87 },
-    { "name": 88 },
-    { "name": 89 },
-    { "name": 90 },
-    { "name": 91 },
-    { "name": 92 },
-    { "name": 93 },
-    { "name": 94 },
-    { "name": 95 },
-    { "name": 96 },
-    { "name": 97 },
-    { "name": 98 },
-    { "name": 99 },
-    { "name": 100 },
-    { "name": 101 },
-    { "name": 102 },
-    { "name": 103 },
-    { "name": 104 },
-    { "name": 105 },
-    { "name": 106 },
-    { "name": 107 },
-    { "name": 108 },
-    { "name": 109 },
-    { "name": 110 },
-    { "name": 111 },
-    { "name": 112 },
-    { "name": 113 },
-    { "name": 114 },
-    { "name": 115 },
-    { "name": 116 },
-    { "name": 117 },
-    { "name": 118 },
-    { "name": 119 },
-    { "name": 120 },
-    { "name": 121 },
-    { "name": 122 },
-    { "name": 123 },
-    { "name": 124 },
-    { "name": 125 },
-    { "name": 126 },
-    { "name": 127 },
-    { "name": 128 },
-    { "name": 129 },
-    { "name": 130 },
-    { "name": 131 },
-    { "name": 132 },
-    { "name": 133 },
-    { "name": 134 },
-    { "name": 135 },
-    { "name": 136 },
-    { "name": 137 },
-    { "name": 138 },
-    { "name": 139 },
-    { "name": 140 },
-    { "name": 141 },
-    { "name": 142 },
-    { "name": 143 },
-    { "name": 144 }
-
-  ]
+    { name: 40 },
+    { name: 41 },
+    { name: 42 },
+    { name: 43 },
+    { name: 44 },
+    { name: 45 },
+    { name: 46 },
+    { name: 47 },
+    { name: 48 },
+    { name: 49 },
+    { name: 50 },
+    { name: 51 },
+    { name: 52 },
+    { name: 53 },
+    { name: 54 },
+    { name: 55 },
+    { name: 56 },
+    { name: 57 },
+    { name: 58 },
+    { name: 59 },
+    { name: 60 },
+    { name: 61 },
+    { name: 62 },
+    { name: 63 },
+    { name: 64 },
+    { name: 65 },
+    { name: 66 },
+    { name: 67 },
+    { name: 68 },
+    { name: 69 },
+    { name: 70 },
+    { name: 71 },
+    { name: 72 },
+    { name: 73 },
+    { name: 74 },
+    { name: 75 },
+    { name: 76 },
+    { name: 77 },
+    { name: 78 },
+    { name: 79 },
+    { name: 80 },
+    { name: 81 },
+    { name: 82 },
+    { name: 83 },
+    { name: 84 },
+    { name: 85 },
+    { name: 86 },
+    { name: 87 },
+    { name: 88 },
+    { name: 89 },
+    { name: 90 },
+    { name: 91 },
+    { name: 92 },
+    { name: 93 },
+    { name: 94 },
+    { name: 95 },
+    { name: 96 },
+    { name: 97 },
+    { name: 98 },
+    { name: 99 },
+    { name: 100 },
+    { name: 101 },
+    { name: 102 },
+    { name: 103 },
+    { name: 104 },
+    { name: 105 },
+    { name: 106 },
+    { name: 107 },
+    { name: 108 },
+    { name: 109 },
+    { name: 110 },
+    { name: 111 },
+    { name: 112 },
+    { name: 113 },
+    { name: 114 },
+    { name: 115 },
+    { name: 116 },
+    { name: 117 },
+    { name: 118 },
+    { name: 119 },
+    { name: 120 },
+    { name: 121 },
+    { name: 122 },
+    { name: 123 },
+    { name: 124 },
+    { name: 125 },
+    { name: 126 },
+    { name: 127 },
+    { name: 128 },
+    { name: 129 },
+    { name: 130 },
+    { name: 131 },
+    { name: 132 },
+    { name: 133 },
+    { name: 134 },
+    { name: 135 },
+    { name: 136 },
+    { name: 137 },
+    { name: 138 },
+    { name: 139 },
+    { name: 140 },
+    { name: 141 },
+    { name: 142 },
+    { name: 143 },
+    { name: 144 },
+  ];
 
   bodyTpeOptions: any = [
-    { "name": "Athletic" },
-    { "name": "Slim" },
-    { "name": "Muscular" },
-    { "name": "Curvy" },
-    { "name": "Toned" },
-    { "name": "Petite" },
-    { "name": "Husky" },
-    { "name": "Slim" }
-  ]
-
+    { name: 'Athletic' },
+    { name: 'Slim' },
+    { name: 'Muscular' },
+    { name: 'Curvy' },
+    { name: 'Toned' },
+    { name: 'Petite' },
+    { name: 'Husky' },
+    { name: 'Slim' },
+  ];
 
   ComplextionOptions: any = [
-    { "name": "Very Fair" },
-    { "name": "Fair" },
-    { "name": "Wheatish" },
-    { "name": "Wheatish Brown" },
-    { "name": "Dark" }
-  ]
+    { name: 'Very Fair' },
+    { name: 'Fair' },
+    { name: 'Wheatish' },
+    { name: 'Wheatish Brown' },
+    { name: 'Dark' },
+  ];
 
   physicalStatusOptions: any = [
-    { "name": "Normal" },
-    { "name": "Physical Chalenges" }
-  ]
+    { name: 'Normal' },
+    { name: 'Physical Chalenges' },
+  ];
   likeOption: any = [
-    { "name": "Like Tv Serial" },
-    { "name": "Like Game" },
-    { "name": "Like Book" }
-  ]
-
+    { name: 'Like Tv Serial' },
+    { name: 'Like Game' },
+    { name: 'Like Book' },
+  ];
 
   profileDetailsForm = new FormGroup({
     profile_id: new FormControl('', [Validators.required]),
     profile_name: new FormControl('', [Validators.required]),
     profile_email: new FormControl('', [Validators.required]),
-    profile_phone: new FormControl('', [Validators.required])
+    profile_phone: new FormControl('', [Validators.required]),
   });
 
   basicDetailsForm = new FormGroup({
     user_fname: new FormControl('', [Validators.required]),
     user_lname: new FormControl('', [Validators.required]),
-    user_email: new FormControl(this.appservices.authStatus.profile_email, [Validators.required]),
+    user_email: new FormControl(this.appservices.authStatus.profile_email, [
+      Validators.required,
+    ]),
     user_profileType: new FormControl('', [Validators.required]),
     user_gender: new FormControl('', [Validators.required]),
     user_mother_toungh: new FormControl('', [Validators.required]),
@@ -336,7 +325,7 @@ export class UserViewComponent implements OnInit {
     user_ID: new FormControl('', []),
     user_religion: new FormControl('', [Validators.required]),
     user_caste: new FormControl('', [Validators.required]),
-    user_subcaste: new FormControl('', [Validators.required])
+    user_subcaste: new FormControl('', [Validators.required]),
   });
   education_occupationDetailsForm = new FormGroup({
     user_ID: new FormControl('', []),
@@ -348,7 +337,6 @@ export class UserViewComponent implements OnInit {
     user_occupation_details: new FormControl('', [Validators.required]),
     user_occupation_location: new FormControl('', [Validators.required]),
     completed: new FormControl(1, []),
-
   });
 
   userFamilyDetailsForm = new FormGroup({
@@ -374,17 +362,18 @@ export class UserViewComponent implements OnInit {
     user_city: new FormControl('', [Validators.required]),
     user_Address: new FormControl('', [Validators.required]),
     user_Permanent_Address: new FormControl('', [Validators.required]),
-    user_current_and_permanent_address_same: new FormControl('No', [Validators.required]),
+    user_current_and_permanent_address_same: new FormControl('No', [
+      Validators.required,
+    ]),
     user_Permanent_city: new FormControl('', [Validators.required]),
     user_Permanent_state: new FormControl('', [Validators.required]),
     user_Permanent_country: new FormControl('', [Validators.required]),
-    completed: new FormControl(1, [])
+    completed: new FormControl(1, []),
   });
   userAboutDetailsForm = new FormGroup({
     user_ID: new FormControl('', []),
     user_about: new FormControl('', [Validators.required]),
     completed: new FormControl(1, []),
-
   });
 
   habitHobbiesForm = new FormGroup({
@@ -406,7 +395,6 @@ export class UserViewComponent implements OnInit {
     completed: new FormControl(1, []),
   });
 
-
   horoscopeForm = new FormGroup({
     user_id: new FormControl('', []),
     user_horoscope: new FormControl('Yes', [Validators.required]),
@@ -417,40 +405,39 @@ export class UserViewComponent implements OnInit {
     user_zodiacs: new FormControl('', [Validators.required]),
     user_nakhyatra: new FormControl('', [Validators.required]),
     completed: new FormControl(1, []),
-  })
-  nakhyatraOption: any = []
-  zodiacsOptions: any = []
-  gotraOption: any = []
+  });
+  nakhyatraOption: any = [];
+  zodiacsOptions: any = [];
+  gotraOption: any = [];
 
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
-      numVisible: 1
+      numVisible: 1,
     },
     {
       breakpoint: '768px',
-      numVisible: 1
+      numVisible: 1,
     },
     {
       breakpoint: '560px',
-      numVisible: 1
-    }
+      numVisible: 1,
+    },
   ];
 
-
-  uploadURL = 'http://localhost/waywala-admin-api/shop/upload.php'
-  uploadedFiles: any = []
-  selecteduploadedFiles: any[] = []
+  uploadURL = 'http://localhost/waywala-admin-api/shop/upload.php';
+  uploadedFiles: any = [];
+  selecteduploadedFiles: any[] = [];
 
   images: any[] = [];
-  displayBasic: boolean = false
-  profileImage: any
+  displayBasic: boolean = false;
+  profileImage: any;
 
   profile_id: string = '';
-  userAllData: any
+  userAllData: any;
 
-  actualUploadedFiles: any[] = []
-  imageUrl = "this.appservices.getFilePath()}storage/"
+  actualUploadedFiles: any[] = [];
+  imageUrl = 'this.appservices.getFilePath()}storage/';
   finaldata: any;
   logo: any;
   constructor(
@@ -462,112 +449,112 @@ export class UserViewComponent implements OnInit {
     private api: ApiService,
     private confirmationService: ConfirmationService,
     private modalService: NgbModal,
-    private AgePipe: AgePipe,
-
-
-  ) { }
+    private AgePipe: AgePipe
+  ) {}
 
   ngOnInit(): void {
     this.imageUrl = this.appservices.getFilePath() + 'storage/';
-    this.uploadURL = `${this.appservices.getApipath()}upload?q=${this.profile_id}`
-    this.blockUI.start("Loading...")
+    this.uploadURL = `${this.appservices.getApipath()}upload?q=${
+      this.profile_id
+    }`;
+    this.blockUI.start('Loading...');
     this._rout.params.subscribe((res: any) => {
       this.profile_id = res['profile_id'];
       this.getAllDataById(this.profile_id);
-      this.ApiParameterScript.getprofile({ userid: this.profile_id }).subscribe((res: any) => {
+      this.ApiParameterScript.getprofile({ userid: this.profile_id }).subscribe(
+        (res: any) => {
+          this.blockUI.stop();
+          if (res.success) {
+            this.userAllData = res;
+            console.log(this.userAllData);
+            console.log(this.userAllData.user_profile_status);
 
-        this.blockUI.stop();
-        if (res.success) {
-
-          this.userAllData = res;
-          console.log(this.userAllData);
-          console.log(this.userAllData.user_profile_status);
-
-          if (this.userAllData.user_profile_status == 'Completed') {
-            let updateData = {
-              "data": { user_all_table_complited: 1 },
-              "whereConditions": { user_id: this.profile_id }
+            if (this.userAllData.user_profile_status == 'Completed') {
+              let updateData = {
+                data: { user_all_table_complited: 1 },
+                whereConditions: { user_id: this.profile_id },
+              };
+              this.ApiParameterScript.updatedata(
+                'user_info',
+                updateData
+              ).subscribe((res: any) => {});
             }
-            this.ApiParameterScript.updatedata('user_info', updateData).subscribe((res: any) => {
+
+            console.log(res.user_info);
+
+            this.profileDetailsForm.patchValue({
+              profile_id: res?.user_info?.user_id,
+              profile_name:
+                res?.user_info?.user_fname + ' ' + res?.user_info?.user_lname,
+              profile_email: res?.user_info?.user_email,
+              profile_phone: res?.user_info?.user_phone_no,
             });
+            this.user_religionDetailsForm.patchValue(res['user_religion']);
+            this.education_occupationDetailsForm.patchValue(
+              res['user_education_occupations']
+            );
+            this.userAboutDetailsForm.patchValue(res['user_about']);
+            this.locationDetailsForm.patchValue(res['user_locations']);
+            this.horoscopeForm.patchValue(res['user_horoscope_deatils']);
+            this.userFamilyDetailsForm.patchValue(res['user_family']);
+            this.habitHobbiesForm.patchValue(res['user_diet_hobbies']);
+            console.log(res['user_physical_details']);
+
+            this.physicalDeatilsForm.patchValue(res['user_physical_details']);
+            this.basicDetailsForm.patchValue(res['user_info']);
+            this.getSubcaste(this.user_religionDetailsForm.value.user_caste);
+            this.getstatefilter(this.locationDetailsForm.value.user_country);
+            this.getcityfilter(this.locationDetailsForm.value.user_state);
           }
-
-         console.log(res.user_info);
-         
-          this.profileDetailsForm.patchValue({
-            profile_id: res?.user_info?.user_id
-            , profile_name: res?.user_info?.user_fname + ' ' + res?.user_info?.user_lname, profile_email: res?.user_info?.user_email,
-            profile_phone: res?.user_info?.user_phone_no 
-          });
-          this.user_religionDetailsForm.patchValue(res['user_religion'])
-          this.education_occupationDetailsForm.patchValue(res['user_education_occupations'])
-          this.userAboutDetailsForm.patchValue(res['user_about'])
-          this.locationDetailsForm.patchValue(res['user_locations'])
-          this.horoscopeForm.patchValue(res['user_horoscope_deatils'])
-          this.userFamilyDetailsForm.patchValue(res['user_family'])
-          this.habitHobbiesForm.patchValue(res['user_diet_hobbies'])
-          console.log(res['user_physical_details']);
-
-          this.physicalDeatilsForm.patchValue(res['user_physical_details'])
-          this.basicDetailsForm.patchValue(res['user_info'])
-          this.getSubcaste(this.user_religionDetailsForm.value.user_caste)
-          this.getstatefilter(this.locationDetailsForm.value.user_country);
-          this.getcityfilter(this.locationDetailsForm.value.user_state);
         }
-
-      })
+      );
 
       var profileApiData = {
-        "projection": ['*'],
-        "whereConditions": { "user_ID": this.profile_id },
-        "orderBy": 'id',
-        'orderType': 'desc'
-
-      }
-      this.ApiParameterScript.fetchdata('user_profile_images', profileApiData).subscribe((getprofile_res: any) => {
+        projection: ['*'],
+        whereConditions: { user_ID: this.profile_id },
+        orderBy: 'id',
+        orderType: 'desc',
+      };
+      this.ApiParameterScript.fetchdata(
+        'user_profile_images',
+        profileApiData
+      ).subscribe((getprofile_res: any) => {
         // console.log("getprofile_res", getprofile_res);
 
         if (getprofile_res.success && getprofile_res['data'].length > 0) {
-          this.showupload = true
+          this.showupload = true;
           getprofile_res.data.forEach((element: any) => {
-
-
-            this.actualUploadedFiles.push(
-              {
-                "previewImageSrc": `${this.appservices.getFilePath()}storage/${element.user_profile_images}`,
-                "thumbnailImageSrc": `${this.appservices.getFilePath()}storage/${element.user_profile_images}`,
-                "alt": element.user_profile_images,
-                "title": element.user_profile_images
-              }
-            )
-            this.selecteduploadedFiles.push(
-              {
-                "previewImageSrc": `${this.appservices.getFilePath()}storage/${element.user_profile_images}`,
-                "thumbnailImageSrc": `${this.appservices.getFilePath()}storage/${element.user_profile_images}`,
-                "alt": element.user_profile_images,
-                "title": element.user_profile_images
-              }
-            )
-
-
-
+            this.actualUploadedFiles.push({
+              previewImageSrc: `${this.appservices.getFilePath()}storage/${
+                element.user_profile_images
+              }`,
+              thumbnailImageSrc: `${this.appservices.getFilePath()}storage/${
+                element.user_profile_images
+              }`,
+              alt: element.user_profile_images,
+              title: element.user_profile_images,
+            });
+            this.selecteduploadedFiles.push({
+              previewImageSrc: `${this.appservices.getFilePath()}storage/${
+                element.user_profile_images
+              }`,
+              thumbnailImageSrc: `${this.appservices.getFilePath()}storage/${
+                element.user_profile_images
+              }`,
+              alt: element.user_profile_images,
+              title: element.user_profile_images,
+            });
           });
-
         } else {
-
         }
-
-
-      })
-
-    })
+      });
+    });
     this.ApiParameterScript.fetchdata(
       'country',
       { projection: ['*'], whereConditions: { status: 1 } },
       0,
       250
     ).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -580,125 +567,93 @@ export class UserViewComponent implements OnInit {
       }
     });
 
-    this.ApiParameterScript.fetchdata('annual_income', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('annual_income', {
+      projection: ['*'],
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-
         this.anualIncomeOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.annualincome };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-    })
+    });
 
-    this.ApiParameterScript.fetchdata('additional_education', { "projection": ["*"] }).subscribe((res: any) => {
-
-
+    this.ApiParameterScript.fetchdata('additional_education', {
+      projection: ['*'],
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-
         this.aducationalOptions2 = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.additional_education_name };
           } else {
-            return null
+            return null;
           }
         });
-
-
-
-
-
       }
+    });
 
-    })
-
-    this.ApiParameterScript.fetchdata('mother_tongue', { "projection": ["*"] }).subscribe((res: any) => {
-
-
+    this.ApiParameterScript.fetchdata('mother_tongue', {
+      projection: ['*'],
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-
         this.motherTounghOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.mother_tongue_name };
           } else {
-            return null
+            return null;
           }
         });
-
-
-
-
       }
+    });
 
-    })
-
-    this.ApiParameterScript.fetchdata('highest_education', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('highest_education', {
+      projection: ['*'],
+    }).subscribe((res: any) => {
       //
       if (res.success && res['data'].length > 0) {
-
         this.aducationalOptions1 = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.highest_education_name };
           } else {
-            return null
+            return null;
           }
         });
-
-
-
-
-
       }
+    });
 
-    })
-
-
-    this.ApiParameterScript.fetchdata('employer_in', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('employer_in', {
+      projection: ['*'],
+    }).subscribe((res: any) => {
       //
 
-
       if (res.success && res['data'].length > 0) {
-
         this.employeeInOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.Employer_in_name };
           } else {
-            return null
+            return null;
           }
         });
-
-
-
-
-
       }
+    });
 
-    })
-
-
-    this.ApiParameterScript.fetchdata('occupation', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('occupation', {
+      projection: ['*'],
+    }).subscribe((res: any) => {
       //
       if (res.success && res['data'].length > 0) {
         this.ocupationOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.occupation_name };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-
-
-
-
-
-
-    })
-
+    });
 
     // this.ApiParameterScript.fetchdata('country', { "projection": ["*"] }).subscribe((res: any) => {
     //   //
@@ -714,136 +669,120 @@ export class UserViewComponent implements OnInit {
     //   }
     // })
 
-    this.ApiParameterScript.fetchdata('religion', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('religion', {
+      projection: ['*'],
+    }).subscribe((res: any) => {
       //
       if (res.success && res['data'].length > 0) {
         this.religionOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.religion_name };
           } else {
-            return null
+            return null;
           }
         });
-
       }
+    });
 
-
-
-
-
-
-    })
-
-    this.ApiParameterScript.fetchdata('cast_table', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('cast_table', {
+      projection: ['*'],
+    }).subscribe((res: any) => {
       //
       if (res.success && res['data'].length > 0) {
         this.religionCasteOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.cast_name };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-    })
+    });
 
-    this.ApiParameterScript.fetchdata('gotra', { "projection": ["*"] }).subscribe((res: any) => {
-      //
-      if (res.success && res['data'].length > 0) {
-        this.gotraOption = res['data'].map((obj: any) => {
-          if (obj.status == 1) {
-            return { name: obj.name };
-          } else {
-            return null
-          }
-        });
-
+    this.ApiParameterScript.fetchdata('gotra', { projection: ['*'] }).subscribe(
+      (res: any) => {
+        //
+        if (res.success && res['data'].length > 0) {
+          this.gotraOption = res['data'].map((obj: any) => {
+            if (obj.status == 1) {
+              return { name: obj.name };
+            } else {
+              return null;
+            }
+          });
+        }
       }
-    })
-    this.ApiParameterScript.fetchdata('nakshatra', { "projection": ["*"] }).subscribe((res: any) => {
+    );
+    this.ApiParameterScript.fetchdata('nakshatra', {
+      projection: ['*'],
+    }).subscribe((res: any) => {
       //
       if (res.success && res['data'].length > 0) {
         this.nakhyatraOption = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.nakshatra_name };
           } else {
-            return null
+            return null;
           }
         });
-
       }
-    })
+    });
 
-    this.ApiParameterScript.fetchdata('zodiacs', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
-
+    this.ApiParameterScript.fetchdata('zodiacs', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.zodiacsOptions = res['data'].map((obj: any) => {
-
           return { name: obj.name, display: `${obj.name} / ${obj.odia_name}` };
-
         });
-
-
       }
-    })
-
-
+    });
   }
 
   horoscopeForm_submit() {
-
-
     if (this.horoscopeForm.valid) {
       var updateData = {
-        "data": this.horoscopeForm.value,
-        "whereConditions": { user_id: this.profile_id }
-      }
+        data: this.horoscopeForm.value,
+        whereConditions: { user_id: this.profile_id },
+      };
 
       if (this.horoscopeForm.value.user_id == '') {
-        updateData['data']['user_id'] = this.profile_id
-        this.ApiParameterScript.savedata('user_horoscope', updateData).subscribe((res: any) => {
-
+        updateData['data']['user_id'] = this.profile_id;
+        this.ApiParameterScript.savedata(
+          'user_horoscope',
+          updateData
+        ).subscribe((res: any) => {
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
+              this.ngOnInit();
+            });
           } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+            Swal.fire('No Data Updated', res.message, 'error');
           }
-
-        })
-
+        });
       } else {
-        this.ApiParameterScript.updatedata('user_horoscope', updateData).subscribe((res: any) => {
-
+        this.ApiParameterScript.updatedata(
+          'user_horoscope',
+          updateData
+        ).subscribe((res: any) => {
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
+              this.ngOnInit();
+            });
           } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+            Swal.fire('No Data Updated', res.message, 'error');
           }
-
-        })
-
+        });
       }
     } else {
-
-      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning')
-
+      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning');
     }
-
-
-
-
-
   }
 
   updatebasicDetailsForm() {
-
     var updateData = {
-      "data": {
+      data: {
         user_fname: this.basicDetailsForm.value.user_fname,
         user_lname: this.basicDetailsForm.value.user_lname,
         user_email: this.basicDetailsForm.value.user_email,
@@ -851,478 +790,433 @@ export class UserViewComponent implements OnInit {
         user_gender: this.basicDetailsForm.value.user_gender,
         user_mother_toungh: this.basicDetailsForm.value.user_mother_toungh,
         user_marital_status: this.basicDetailsForm.value.user_marital_status,
-        user_dob: moment(this.basicDetailsForm.value.user_dob).format('YYYY-MM-DD').toString(),
-        user_has_complete_profile: 1
+        user_dob: moment(this.basicDetailsForm.value.user_dob)
+          .format('YYYY-MM-DD')
+          .toString(),
+        user_has_complete_profile: 1,
       },
-      "whereConditions": {
-        'user_id': this.profile_id
+      whereConditions: {
+        user_id: this.profile_id,
+      },
+    };
+    this.ApiParameterScript.updatedata('user_info', updateData).subscribe(
+      (res: any) => {
+        if (res.success) {
+          Swal.fire('', res.message, 'success').then(() => {
+            this.ngOnInit();
+          });
+        } else {
+          Swal.fire('No Data Updated', res.message, 'error');
+        }
       }
-    }
-    this.ApiParameterScript.updatedata('user_info', updateData).subscribe((res: any) => {
-
-      if (res.success) {
-        Swal.fire('', res.message, 'success').then(() => {
-          this.ngOnInit()
-        })
-      } else {
-        Swal.fire('No Data Updated', res.message, 'error')
-      }
-
-    })
-
+    );
   }
   religionDetailsForm() {
-
-
     if (this.user_religionDetailsForm.valid) {
       var updateData = {
-        "data": {
+        data: {
           user_religion: this.user_religionDetailsForm.value.user_religion,
           user_caste: this.user_religionDetailsForm.value.user_caste,
           user_subcaste: this.user_religionDetailsForm.value.user_subcaste,
           user_ID: this.profile_id,
-          completed: 1
+          completed: 1,
         },
-        "whereConditions": { user_ID: this.profile_id }
-      }
+        whereConditions: { user_ID: this.profile_id },
+      };
 
       if (this.user_religionDetailsForm.value.user_ID == '') {
-
-        this.ApiParameterScript.savedata('user_religion', updateData).subscribe((res: any) => {
-
-          if (res.success) {
-            Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
-          } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+        this.ApiParameterScript.savedata('user_religion', updateData).subscribe(
+          (res: any) => {
+            if (res.success) {
+              Swal.fire('', res.message, 'success').then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire('No Data Updated', res.message, 'error');
+            }
           }
-
-        })
-
+        );
       } else {
-        this.ApiParameterScript.updatedata('user_religion', updateData).subscribe((res: any) => {
-
+        this.ApiParameterScript.updatedata(
+          'user_religion',
+          updateData
+        ).subscribe((res: any) => {
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
+              this.ngOnInit();
+            });
           } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+            Swal.fire('No Data Updated', res.message, 'error');
           }
-
-        })
-
+        });
       }
     } else {
-
-      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning')
-
+      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning');
     }
-
   }
   updateEducation_ocupation() {
-
-
     if (this.education_occupationDetailsForm.valid) {
-
-
-      this.education_occupationDetailsForm.value['completed'] = 1
-
+      this.education_occupationDetailsForm.value['completed'] = 1;
 
       if (this.education_occupationDetailsForm.value.user_ID == '') {
-        this.education_occupationDetailsForm.value['user_ID'] = this.profile_id
+        this.education_occupationDetailsForm.value['user_ID'] = this.profile_id;
         var saveData = {
-          "data": this.education_occupationDetailsForm.value
-        }
+          data: this.education_occupationDetailsForm.value,
+        };
 
-        this.ApiParameterScript.savedata('user_education_occupations', saveData).subscribe((res: any) => {
-
+        this.ApiParameterScript.savedata(
+          'user_education_occupations',
+          saveData
+        ).subscribe((res: any) => {
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
+              this.ngOnInit();
+            });
           } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+            Swal.fire('No Data Updated', res.message, 'error');
           }
-
-        })
-
+        });
       } else {
         var updateData = {
-          "data": this.education_occupationDetailsForm.value,
-          "whereConditions": { user_ID: this.profile_id }
-        }
-        this.education_occupationDetailsForm.value['user_ID'] = this.profile_id
-        this.ApiParameterScript.updatedata('user_education_occupations', updateData).subscribe((res: any) => {
-
+          data: this.education_occupationDetailsForm.value,
+          whereConditions: { user_ID: this.profile_id },
+        };
+        this.education_occupationDetailsForm.value['user_ID'] = this.profile_id;
+        this.ApiParameterScript.updatedata(
+          'user_education_occupations',
+          updateData
+        ).subscribe((res: any) => {
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
+              this.ngOnInit();
+            });
           } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+            Swal.fire('No Data Updated', res.message, 'error');
           }
-
-        })
-
+        });
       }
     } else {
-
-      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning')
-
+      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning');
     }
   }
 
   updateLocationForm() {
-
-
     if (this.locationDetailsForm.valid) {
-
-      this.locationDetailsForm.value['completed'] = 1
-
-
+      this.locationDetailsForm.value['completed'] = 1;
 
       if (this.locationDetailsForm.value.user_ID == '') {
-        this.locationDetailsForm.value['user_ID'] = this.profile_id
+        this.locationDetailsForm.value['user_ID'] = this.profile_id;
         var saveData = {
-          "data": this.locationDetailsForm.value
-        }
-        this.ApiParameterScript.savedata('user_locations', saveData).subscribe((res: any) => {
-
-          if (res.success) {
-            Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
-          } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+          data: this.locationDetailsForm.value,
+        };
+        this.ApiParameterScript.savedata('user_locations', saveData).subscribe(
+          (res: any) => {
+            if (res.success) {
+              Swal.fire('', res.message, 'success').then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire('No Data Updated', res.message, 'error');
+            }
           }
-
-        })
-
+        );
       } else {
         var updateData = {
-          "data": this.locationDetailsForm.value,
-          "whereConditions": { user_ID: this.profile_id }
-        }
-        this.locationDetailsForm.value['user_ID'] = this.profile_id
-        this.ApiParameterScript.updatedata('user_locations', updateData).subscribe((res: any) => {
-
+          data: this.locationDetailsForm.value,
+          whereConditions: { user_ID: this.profile_id },
+        };
+        this.locationDetailsForm.value['user_ID'] = this.profile_id;
+        this.ApiParameterScript.updatedata(
+          'user_locations',
+          updateData
+        ).subscribe((res: any) => {
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
+              this.ngOnInit();
+            });
           } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+            Swal.fire('No Data Updated', res.message, 'error');
           }
-
-        })
-
+        });
       }
     } else {
-
-      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning')
-
+      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning');
     }
   }
 
   onchangeAddress() {
-
-
-
-    if (this.locationDetailsForm.value.user_current_and_permanent_address_same == 'Yes') {
-      this.locationDetailsForm.value['user_Permanent_city'] = this.locationDetailsForm.value['user_city']
-      this.locationDetailsForm.value['user_Permanent_state'] = this.locationDetailsForm.value['user_state']
-      this.locationDetailsForm.value['user_Permanent_country'] = this.locationDetailsForm.value['user_country']
-      this.locationDetailsForm.value['user_Permanent_Address'] = this.locationDetailsForm.value['user_Address']
+    if (
+      this.locationDetailsForm.value.user_current_and_permanent_address_same ==
+      'Yes'
+    ) {
+      this.locationDetailsForm.value['user_Permanent_city'] =
+        this.locationDetailsForm.value['user_city'];
+      this.locationDetailsForm.value['user_Permanent_state'] =
+        this.locationDetailsForm.value['user_state'];
+      this.locationDetailsForm.value['user_Permanent_country'] =
+        this.locationDetailsForm.value['user_country'];
+      this.locationDetailsForm.value['user_Permanent_Address'] =
+        this.locationDetailsForm.value['user_Address'];
     } else {
-      this.locationDetailsForm.value['user_Permanent_city'] = null
-      this.locationDetailsForm.value['user_Permanent_state'] = null
-      this.locationDetailsForm.value['user_Permanent_country'] = null
-      this.locationDetailsForm.value['user_Permanent_Address'] = null
+      this.locationDetailsForm.value['user_Permanent_city'] = null;
+      this.locationDetailsForm.value['user_Permanent_state'] = null;
+      this.locationDetailsForm.value['user_Permanent_country'] = null;
+      this.locationDetailsForm.value['user_Permanent_Address'] = null;
     }
 
-
-    this.locationDetailsForm.patchValue(this.locationDetailsForm.value)
-
-
+    this.locationDetailsForm.patchValue(this.locationDetailsForm.value);
   }
 
-
   updatefamilyDetailsForm() {
-
     if (this.userFamilyDetailsForm.valid) {
-      this.userFamilyDetailsForm.value['completed'] = 1
+      this.userFamilyDetailsForm.value['completed'] = 1;
       if (this.userFamilyDetailsForm.value.user_ID == '') {
-        this.userFamilyDetailsForm.value['user_ID'] = this.profile_id
+        this.userFamilyDetailsForm.value['user_ID'] = this.profile_id;
         var updateData = {
-          "data": this.userFamilyDetailsForm.value,
-          "whereConditions": { user_ID: this.profile_id }
-        }
+          data: this.userFamilyDetailsForm.value,
+          whereConditions: { user_ID: this.profile_id },
+        };
 
-        this.ApiParameterScript.savedata('user_family', updateData).subscribe((res: any) => {
-
-          if (res.success) {
-            Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
-          } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+        this.ApiParameterScript.savedata('user_family', updateData).subscribe(
+          (res: any) => {
+            if (res.success) {
+              Swal.fire('', res.message, 'success').then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire('No Data Updated', res.message, 'error');
+            }
           }
-
-        })
-
+        );
       } else {
         var updateData = {
-          "data": this.userFamilyDetailsForm.value,
-          "whereConditions": { user_ID: this.profile_id }
-        }
-        this.ApiParameterScript.updatedata('user_family', updateData).subscribe((res: any) => {
-
-          if (res.success) {
-            Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
-          } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+          data: this.userFamilyDetailsForm.value,
+          whereConditions: { user_ID: this.profile_id },
+        };
+        this.ApiParameterScript.updatedata('user_family', updateData).subscribe(
+          (res: any) => {
+            if (res.success) {
+              Swal.fire('', res.message, 'success').then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire('No Data Updated', res.message, 'error');
+            }
           }
-
-        })
-
+        );
       }
     } else {
-
-      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning')
-
+      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning');
     }
   }
 
   diethobbiesForm() {
-
     if (this.habitHobbiesForm.valid) {
-      this.habitHobbiesForm.value['completed'] = 1
+      this.habitHobbiesForm.value['completed'] = 1;
       if (this.habitHobbiesForm.value.user_ID == '') {
-        this.habitHobbiesForm.value['user_ID'] = this.profile_id
+        this.habitHobbiesForm.value['user_ID'] = this.profile_id;
 
         var updateData = {
-          "data": this.habitHobbiesForm.value,
-          "whereConditions": { user_ID: this.profile_id }
-        }
+          data: this.habitHobbiesForm.value,
+          whereConditions: { user_ID: this.profile_id },
+        };
 
-        this.ApiParameterScript.savedata('user_diet_hobbies', updateData).subscribe((res: any) => {
-
+        this.ApiParameterScript.savedata(
+          'user_diet_hobbies',
+          updateData
+        ).subscribe((res: any) => {
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
+              this.ngOnInit();
+            });
           } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+            Swal.fire('No Data Updated', res.message, 'error');
           }
-
-        })
-
+        });
       } else {
         var updateData = {
-          "data": this.habitHobbiesForm.value,
-          "whereConditions": { user_ID: this.profile_id }
-        }
-        this.ApiParameterScript.updatedata('user_diet_hobbies', updateData).subscribe((res: any) => {
-
+          data: this.habitHobbiesForm.value,
+          whereConditions: { user_ID: this.profile_id },
+        };
+        this.ApiParameterScript.updatedata(
+          'user_diet_hobbies',
+          updateData
+        ).subscribe((res: any) => {
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
+              this.ngOnInit();
+            });
           } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+            Swal.fire('No Data Updated', res.message, 'error');
           }
-
-        })
-
+        });
       }
     } else {
-
-      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning')
-
+      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning');
     }
   }
 
   userAboutFormSubmit() {
     if (this.userAboutDetailsForm.valid) {
-      this.userAboutDetailsForm.value['completed'] = 1
+      this.userAboutDetailsForm.value['completed'] = 1;
       var updateData = {
-        "data": {
+        data: {
           user_ID: this.profile_id,
           completed: 1,
-          user_about: this.userAboutDetailsForm.value.user_about
+          user_about: this.userAboutDetailsForm.value.user_about,
         },
-        "whereConditions": { user_ID: this.profile_id }
-      }
+        whereConditions: { user_ID: this.profile_id },
+      };
 
       if (this.userAboutDetailsForm.value.user_ID == '') {
-
-        this.ApiParameterScript.savedata('user_about', updateData).subscribe((res: any) => {
-
-          if (res.success) {
-            Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
-          } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+        this.ApiParameterScript.savedata('user_about', updateData).subscribe(
+          (res: any) => {
+            if (res.success) {
+              Swal.fire('', res.message, 'success').then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire('No Data Updated', res.message, 'error');
+            }
           }
-
-        })
-
+        );
       } else {
-        this.ApiParameterScript.updatedata('user_about', updateData).subscribe((res: any) => {
-
-          if (res.success) {
-            Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
-          } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+        this.ApiParameterScript.updatedata('user_about', updateData).subscribe(
+          (res: any) => {
+            if (res.success) {
+              Swal.fire('', res.message, 'success').then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire('No Data Updated', res.message, 'error');
+            }
           }
-
-        })
-
+        );
       }
     } else {
-
-      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning')
-
+      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning');
     }
   }
 
   userPhysicaldetalsForm() {
-
     if (this.physicalDeatilsForm.valid) {
-      this.physicalDeatilsForm.value['completed'] = 1
+      this.physicalDeatilsForm.value['completed'] = 1;
       if (this.physicalDeatilsForm.value.user_ID == '') {
-        this.physicalDeatilsForm.value['user_ID'] = this.profile_id
+        this.physicalDeatilsForm.value['user_ID'] = this.profile_id;
         var updateData = {
-          "data": this.physicalDeatilsForm.value,
-          "whereConditions": { user_ID: this.profile_id }
-        }
+          data: this.physicalDeatilsForm.value,
+          whereConditions: { user_ID: this.profile_id },
+        };
 
-        this.ApiParameterScript.savedata('user_physical_details', updateData).subscribe((res: any) => {
-
+        this.ApiParameterScript.savedata(
+          'user_physical_details',
+          updateData
+        ).subscribe((res: any) => {
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
+              this.ngOnInit();
+            });
           } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+            Swal.fire('No Data Updated', res.message, 'error');
           }
-
-        })
-
+        });
       } else {
         var updateData = {
-          "data": this.physicalDeatilsForm.value,
-          "whereConditions": { user_ID: this.profile_id }
-        }
-        this.ApiParameterScript.updatedata('user_physical_details', updateData).subscribe((res: any) => {
-
+          data: this.physicalDeatilsForm.value,
+          whereConditions: { user_ID: this.profile_id },
+        };
+        this.ApiParameterScript.updatedata(
+          'user_physical_details',
+          updateData
+        ).subscribe((res: any) => {
           if (res.success) {
             Swal.fire('', res.message, 'success').then(() => {
-              this.ngOnInit()
-            })
+              this.ngOnInit();
+            });
           } else {
-            Swal.fire('No Data Updated', res.message, 'error')
+            Swal.fire('No Data Updated', res.message, 'error');
           }
-
-        })
-
+        });
       }
     } else {
-
-      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning')
-
+      Swal.fire('Warning', 'Please Fill All Input Fields', 'warning');
     }
   }
 
-
-
-
   onUpload(event: any) {
     var res = event.originalEvent['body'];
-    console.log("event", event.files);
+    console.log('event', event.files);
 
     if (res.success) {
-      this.selecteduploadedFiles = []
-      var getAllFile = res['data'] ? res['data'] : "";
+      this.selecteduploadedFiles = [];
+      var getAllFile = res['data'] ? res['data'] : '';
       var uloadedImageFile = getAllFile.split(',');
 
-      this.profileImage = `${this.appservices.getFilePath()}storage/${uloadedImageFile[0]}`
+      this.profileImage = `${this.appservices.getFilePath()}storage/${
+        uloadedImageFile[0]
+      }`;
       uloadedImageFile.forEach((img: any) => {
-        this.images.push(
-          {
-            "previewImageSrc": `${this.appservices.getFilePath()}storage/${img}`,
-            "thumbnailImageSrc": `${this.appservices.getFilePath()}storage/${img}`,
-            "alt": "01673172483.jpg",
-            "title": "01673172483.jpg"
-          }
-        )
-
-      })
+        this.images.push({
+          previewImageSrc: `${this.appservices.getFilePath()}storage/${img}`,
+          thumbnailImageSrc: `${this.appservices.getFilePath()}storage/${img}`,
+          alt: '01673172483.jpg',
+          title: '01673172483.jpg',
+        });
+      });
       for (let file of event.files) {
         this.uploadedFiles.push(file);
       }
 
-      Swal.fire("Success", res.message, 'success')
+      Swal.fire('Success', res.message, 'success');
 
       // this.messageService.add({ severity: 'success', summary: 'success', detail: res.msg });
     } else {
-      Swal.fire(res.message, 'Please Try After Follow Instruction', 'error')
+      Swal.fire(res.message, 'Please Try After Follow Instruction', 'error');
       // this.messageService.add({ severity: 'error', summary: 'error', detail: res.msg });
     }
-
   }
 
   previewImage() {
-    this.displayBasic = true
+    this.displayBasic = true;
   }
 
   onSelectFile(event: any) {
     event.currentFiles.forEach((element: any) => {
-
-      this.selecteduploadedFiles.push(
-        {
-          "previewImageSrc": element.objectURL.changingThisBreaksApplicationSecurity,
-          "thumbnailImageSrc": element.objectURL.changingThisBreaksApplicationSecurity,
-          "alt": "01673172483.jpg",
-          "title": "01673172483.jpg"
-        }
-      )
-
+      this.selecteduploadedFiles.push({
+        previewImageSrc:
+          element.objectURL.changingThisBreaksApplicationSecurity,
+        thumbnailImageSrc:
+          element.objectURL.changingThisBreaksApplicationSecurity,
+        alt: '01673172483.jpg',
+        title: '01673172483.jpg',
+      });
     });
-
-
-
-
-
   }
 
   onClearSelectedFile() {
-    console.log("Calling onClearSelectedFile");
-    this.selecteduploadedFiles = this.images
+    console.log('Calling onClearSelectedFile');
+    this.selecteduploadedFiles = this.images;
   }
 
   onRemoveFile(event: any) {
-    console.log("Calling onRemoveFile");
-    _.remove(this.selecteduploadedFiles, item => item.previewImageSrc === event.file.objectURL.changingThisBreaksApplicationSecurity)
-
+    console.log('Calling onRemoveFile');
+    _.remove(
+      this.selecteduploadedFiles,
+      (item) =>
+        item.previewImageSrc ===
+        event.file.objectURL.changingThisBreaksApplicationSecurity
+    );
   }
   activeAccount() {
     // if (this.userAllData?.user_profile_status == 'Completed') {
-    this.blockUI.start("Please Wait...")
+    this.blockUI.start('Please Wait...');
     let param = {
-      "id": this.profile_id
-    }
+      id: this.profile_id,
+    };
     this.api.userActivation(param).subscribe((res: any) => {
-      this.blockUI.stop()
-      this.ngOnInit()
-    })
+      this.blockUI.stop();
+      this.ngOnInit();
+    });
     // } else {
     //   Swal.fire({
     //     text: 'Please Complete User Profile'
@@ -1331,84 +1225,81 @@ export class UserViewComponent implements OnInit {
   }
 
   public viewMemberimages() {
-    const modalRef = this.modalService.open(ImageViewOperationComponent, { size: 'xl', scrollable: true });
-    modalRef.componentInstance.user_id = this.profile_id
+    const modalRef = this.modalService.open(ImageViewOperationComponent, {
+      size: 'xl',
+      scrollable: true,
+    });
+    modalRef.componentInstance.user_id = this.profile_id;
   }
 
   getSubcaste(caste: any) {
-    this.ApiParameterScript.fetchdata('sub_cast', { "projection": ["*"], "whereConditions": { "cast_name": caste } }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('sub_cast', {
+      projection: ['*'],
+      whereConditions: { cast_name: caste },
+    }).subscribe((res: any) => {
       //
       if (res.success && res['data'].length > 0) {
         this.religionSubcasteOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
             return { name: obj.sub_cast_name };
           } else {
-            return null
+            return null;
           }
         });
-
       } else {
-        this.religionSubcasteOptions = []
+        this.religionSubcasteOptions = [];
       }
-    })
+    });
   }
 
-
-
   getstatefilter(country_name: any) {
-    console.log("getstatefilter", country_name);
-    this.ApiParameterScript.fetchdata('state', { "projection": ["*"], "whereConditions": { "country_name": country_name, "status": 1 } }).subscribe((res: any) => {
+    console.log('getstatefilter', country_name);
+    this.ApiParameterScript.fetchdata('state', {
+      projection: ['*'],
+      whereConditions: { country_name: country_name, status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-
         this.stateOption = res['data'].map((obj: any) => {
-
           return { name: obj.name };
-
         });
-
-
       } else {
-        this.stateOption = []
-        this.cityOption = []
+        this.stateOption = [];
+        this.cityOption = [];
       }
-
     });
-
   }
 
   getcityfilter(state_name: any) {
     console.log(state_name);
-    this.ApiParameterScript.fetchdata('city', { "projection": ["*"], "whereConditions": { "state_name": state_name } }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('city', {
+      projection: ['*'],
+      whereConditions: { state_name: state_name },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-
         this.cityOption = res['data'].map((obj: any) => {
-
           return { name: obj.city_name };
-
         });
-
       } else {
-        this.cityOption = []
+        this.cityOption = [];
       }
-
     });
-
   }
 
   loadUploadComponent() {
     console.log(this.profile_id);
 
-    const modalRef = this.modalService.open(ImageCroperComponent, { size: 'xl', backdrop: false, scrollable: true });
-    modalRef.componentInstance.user_id = this.profile_id
-
-
+    const modalRef = this.modalService.open(ImageCroperComponent, {
+      size: 'xl',
+      backdrop: false,
+      scrollable: true,
+    });
+    modalRef.componentInstance.user_id = this.profile_id;
   }
   getAllDataById(id: any) {
     let params = {
-      'id': id
-    }
+      id: id,
+    };
     this.commonservice.getAllDataById(params).subscribe((res: any) => {
-
       if (res.status) {
         this.finaldata = res['data'][0];
         console.log(this.finaldata);
@@ -1417,7 +1308,10 @@ export class UserViewComponent implements OnInit {
   }
 
   icone() {
-    this.ApiParameterScript.fetchdata('logo_table', { "projection": ["*"], "whereConditions": { status: 1 } }).subscribe((res: any) => {
+    this.ApiParameterScript.fetchdata('logo_table', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.logo = res['data'][0].image;
         console.log(this.logo);
@@ -1432,7 +1326,7 @@ export class UserViewComponent implements OnInit {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
   public generatePDF() {
-    var head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']]
+    var head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']];
 
     var data2 = [
       [1, 'ROBERT', 'SOFTWARE DEVELOPER', 'ENGINEERING'],
@@ -1441,12 +1335,11 @@ export class UserViewComponent implements OnInit {
       [4, 'XYZ', 'DEVELOPER', 'DEVLOPEMENT'],
       [5, 'ABC', 'CONSULTANT', 'HR'],
       [73, 'QWE', 'VICE PRESIDENT', 'MANAGEMENT'],
-    ]
+    ];
 
-
-    this.blockUI.start("Generating PDF...")
+    this.blockUI.start('Generating PDF...');
     var pdfData = [_.cloneDeep(this.finaldata)];
-    console.log("Click generatePDF", this.userAllData);
+    console.log('Click generatePDF', this.userAllData);
 
     const pdf = new jsPDF({
       unit: 'mm',
@@ -1454,26 +1347,31 @@ export class UserViewComponent implements OnInit {
     });
 
     // const pdf = new jsPDF();
-    pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
+    pdf.addImage(
+      'https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png',
+      'JPEG',
+      65,
+      5,
+      0,
+      0
+    ); // adjust coordinates and dimensions accordingly
     // Sample data with text and image URLs
     _.map(
       pdfData,
       (res: any) =>
-      (res.user_profile_image =
-        environment.baseApiURL + 'storage/' +
-        res.user_profile_image)
+        (res.user_profile_image =
+          environment.baseApiURL + 'storage/' + res.user_profile_image)
     );
-    console.log("Click generatePDF", pdfData);
+    console.log('Click generatePDF', pdfData);
 
-    const data = pdfData
-    console.log("data", data);
-    const keyMap = ['user_dob', 'user_height', 'HomeTown',]
+    const data = pdfData;
+    console.log('data', data);
+    const keyMap = ['user_dob', 'user_height', 'HomeTown'];
     let yPos = 30;
     let currentPage = 1;
     data.forEach((record: any) => {
       console.log(record);
-      console.log("pdf", pdf.internal.pageSize.getHeight());
-
+      console.log('pdf', pdf.internal.pageSize.getHeight());
 
       pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
       pdf.textWithLink('ID   :' + record.user_id, 70, (yPos += 10), {
@@ -1482,31 +1380,88 @@ export class UserViewComponent implements OnInit {
 
       // pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos+=10);
       // pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos+=10);
-      pdf.text(`Gender: ${record.user_gender}`, 70, yPos += 10);
-      pdf.text(`Marital Status: ${record.user_marital_status ? record.user_marital_status : "NA"}`, 70, yPos += 10);
-      pdf.text(`HomeTown:  ${record.user_city ? record.user_city : "NA"},${record.user_city ? record.user_state : "NA"}`, 70, yPos += 10);
+      pdf.text(`Gender: ${record.user_gender}`, 70, (yPos += 10));
+      pdf.text(
+        `Marital Status: ${
+          record.user_marital_status ? record.user_marital_status : 'NA'
+        }`,
+        70,
+        (yPos += 10)
+      );
+      pdf.text(
+        `HomeTown:  ${record.user_city ? record.user_city : 'NA'},${
+          record.user_city ? record.user_state : 'NA'
+        }`,
+        70,
+        (yPos += 10)
+      );
       // pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos+=10);
 
       // Draw lines to separate records
       pdf.line(0, 85, 210, 85);
-      console.log("[record]", [record]);
-      pdf.text("BIODATA", 85, yPos + 35);
-      pdf.text(`AGE: ${this.calculateAge(record.user_dob)}`, 10, yPos += 50);
-      pdf.text(`Height: ${record.user_height ? record.user_height : "NA"} cm`, 10, yPos += 10);
-      pdf.text(`Colour: ${record.user_complextion ? record.user_complextion : "NA"}`, 10, yPos += 10);
-      pdf.text("EDUCATION & OCCUPATION", 70, yPos + 20)
+      console.log('[record]', [record]);
+      pdf.text('BIODATA', 85, yPos + 35);
+      pdf.text(`AGE: ${this.calculateAge(record.user_dob)}`, 10, (yPos += 50));
+      pdf.text(
+        `Height: ${record.user_height ? record.user_height : 'NA'} cm`,
+        10,
+        (yPos += 10)
+      );
+      pdf.text(
+        `Colour: ${record.user_complextion ? record.user_complextion : 'NA'}`,
+        10,
+        (yPos += 10)
+      );
+      pdf.text('EDUCATION & OCCUPATION', 70, yPos + 20);
       // pdf.table(0,60,[],record,{ autoSize: true });
       // Move the Y position for the next record
-      pdf.text(`Education: ${record.user_highest_education}`, 10, yPos += 50);
-      pdf.text(`Occupation: ${record.user_occupation ? record.user_occupation : "NA"}`, 10, yPos += 10);
-      pdf.text(`Designation: ${record.user_occupation_details ? record.user_occupation_details : "NA"}`, 10, yPos += 10);
-      pdf.text(`Anulal Income:  ${record.user_anual_income ? record.user_anual_income : "NA"}`, 10, yPos += 10);
-      pdf.text(`Job Location:  ${record.user_occupation_location ? record.user_occupation_location : "NA"}`, 10, yPos += 10);
-      pdf.text(`Details Of Job:  ${record.user_occupation_details ? record.user_occupation_details : "NA"}`, 10, yPos += 10);
-      pdf.text(`Rashi:  ${record.user_zodiacs ? record.user_zodiacs : "NA"}`, 10, yPos += 10);
-      pdf.text(`Nakhyatra:  ${record.user_nakhyatra ? record.user_nakhyatra : "NA"}`, 10, yPos += 10);
+      pdf.text(`Education: ${record.user_highest_education}`, 10, (yPos += 50));
+      pdf.text(
+        `Occupation: ${record.user_occupation ? record.user_occupation : 'NA'}`,
+        10,
+        (yPos += 10)
+      );
+      pdf.text(
+        `Designation: ${
+          record.user_occupation_details ? record.user_occupation_details : 'NA'
+        }`,
+        10,
+        (yPos += 10)
+      );
+      pdf.text(
+        `Anulal Income:  ${
+          record.user_anual_income ? record.user_anual_income : 'NA'
+        }`,
+        10,
+        (yPos += 10)
+      );
+      pdf.text(
+        `Job Location:  ${
+          record.user_occupation_location
+            ? record.user_occupation_location
+            : 'NA'
+        }`,
+        10,
+        (yPos += 10)
+      );
+      pdf.text(
+        `Details Of Job:  ${
+          record.user_occupation_details ? record.user_occupation_details : 'NA'
+        }`,
+        10,
+        (yPos += 10)
+      );
+      pdf.text(
+        `Rashi:  ${record.user_zodiacs ? record.user_zodiacs : 'NA'}`,
+        10,
+        (yPos += 10)
+      );
+      pdf.text(
+        `Nakhyatra:  ${record.user_nakhyatra ? record.user_nakhyatra : 'NA'}`,
+        10,
+        (yPos += 10)
+      );
       yPos = 30;
-
 
       // if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
       // pdf.addPage();
@@ -1517,21 +1472,22 @@ export class UserViewComponent implements OnInit {
       // }
     });
 
-    const pdfFileName = 'matching_report_' + `${this.profile_id}_` + moment().toString() + '.pdf'
+    const pdfFileName =
+      'matching_report_' + `${this.profile_id}_` + moment().toString() + '.pdf';
     pdf.save(pdfFileName, { returnPromise: true }).then((res: any) => {
       // console.log(res);
-      this.blockUI.stop()
-
+      this.blockUI.stop();
     });
-
   }
   shareData() {
     console.log(this.finaldata);
     let type1 = this.finaldata.user_gender == 'female' ? 'Bride' : 'Groom';
     let type2 = this.finaldata.user_gender == 'female' ? 'Groom' : 'Bride';
-    let link = 'https://choicemarriage.com/member-profile/' + this.finaldata.auth_ID
+    let link =
+      'https://choicemarriage.com/member-profile/' + this.finaldata.auth_ID;
     Swal.fire({
-      html: `
+      html:
+        `
         <div class="">
         <div>
            Required ${type2}
@@ -1551,7 +1507,9 @@ export class UserViewComponent implements OnInit {
           QUALIFICATION:- ${this.finaldata.user_highest_education}
           </div>
           <div>
-          OCCUPATION:- ${this.finaldata.user_occupation}` + ` ` + `${this.finaldata.user_occupation_details}
+          OCCUPATION:- ${this.finaldata.user_occupation}` +
+        ` ` +
+        `${this.finaldata.user_occupation_details}
           </div>
 
           <div>
@@ -1571,14 +1529,15 @@ export class UserViewComponent implements OnInit {
             <a href="https://wa.me?text=${link}"> ${link}</a>
           </div>
          </div>
-        `
+        `,
     });
   }
 
   getstatefilter1(country_name: any) {
     if (_.isArray(country_name)) {
-      let query = `SELECT * FROM state WHERE status=1 AND country_name IN (${"'" + country_name.join("', '") + "'"
-        })`;
+      let query = `SELECT * FROM state WHERE status=1 AND country_name IN (${
+        "'" + country_name.join("', '") + "'"
+      })`;
       this.ApiParameterScript.fetchDataFormQuery(query).subscribe(
         (res: any) => {
           if (res.success && res['data'].length > 0) {
@@ -1618,8 +1577,9 @@ export class UserViewComponent implements OnInit {
   }
   getcityfilter1(state_name: any) {
     if (_.isArray(state_name)) {
-      let query = `SELECT * FROM city WHERE state_name IN (${"'" + state_name.join("', '") + "'"
-        })`;
+      let query = `SELECT * FROM city WHERE state_name IN (${
+        "'" + state_name.join("', '") + "'"
+      })`;
 
       this.ApiParameterScript.fetchDataFormQuery(query).subscribe(
         (res: any) => {

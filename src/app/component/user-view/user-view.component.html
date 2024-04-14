@@ -191,14 +191,14 @@
                           <div>
                             {{
                             basicDetailsForm.value.user_gender || ""
-                            | uppercase
+
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-gender pTemplate="item">
                         <div class="country-item">
-                          <div>{{ gender | uppercase }}</div>
+                          <div>{{ gender  }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
