@@ -147,7 +147,8 @@ export class AlluserdataComponent implements OnInit {
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-    this.pegination_required = false;
+    //this.pegination_required = false;
+    //this.currentFunction = 'fillter';
     console.log('click fillter', event);
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
@@ -179,9 +180,6 @@ export class AlluserdataComponent implements OnInit {
       console.log('Filtter Record', res);
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
-        this.totalDataCount = res['data'][0].total_count;
-        // this.collectionSize=
-        // console.log(this.collectionSize);
         this.offset = 1 ;
         this.totalFetchrecord = this.collectionSize
         this.tableData = res['data'];

@@ -191,7 +191,6 @@
                           <div>
                             {{
                             basicDetailsForm.value.user_gender || ""
-
                             }}
                           </div>
                         </div>
@@ -212,14 +211,14 @@
                           <div>
                             {{
                             basicDetailsForm.value.user_profileType || ""
-                            | uppercase
+
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-user_profileType pTemplate="item">
                         <div class="country-item">
-                          <div>{{ user_profileType | uppercase }}</div>
+                          <div>{{ user_profileType  }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -266,7 +265,7 @@
 
                       <ng-template let-motherToungh pTemplate="item">
                         <div class="">
-                          <div>{{ motherToungh.name | uppercase }}</div>
+                          <div>{{ motherToungh.name  }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -753,14 +752,14 @@
                           <div>
                             {{
                             userFamilyDetailsForm.value.user_family_type
-                            | uppercase
+
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-familytype pTemplate="item">
                         <div class="country-item">
-                          <div>{{ familytype.name | uppercase }}</div>
+                          <div>{{ familytype.name  }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -775,14 +774,14 @@
                           <div>
                             {{
                             userFamilyDetailsForm.value.user_family_value
-                            | uppercase
+
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-familyvalue pTemplate="item">
                         <div class="country-item">
-                          <div>{{ familyvalue.name | uppercase }}</div>
+                          <div>{{ familyvalue.name  }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -799,14 +798,14 @@
                           <div>
                             {{
                             userFamilyDetailsForm.value.user_family_status
-                            | uppercase
+
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-familystatus pTemplate="item">
                         <div class="country-item">
-                          <div>{{ familystatus.name | uppercase }}</div>
+                          <div>{{ familystatus.name  }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
