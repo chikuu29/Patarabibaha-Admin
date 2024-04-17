@@ -21,6 +21,9 @@ export class ApiService {
     public makeActinForMultipulData(apiData:any){
     return this.http.post(this.appservices.getApipath()+ 'makeActinForMultipulData',JSON.stringify(apiData),{ headers: this.headers })
   }
+  public makeActinForMultipuldeleteData(apiData:any){
+    return this.http.post(this.appservices.getApipath()+ 'makeActinForMultipuldeleteData',JSON.stringify(apiData),{ headers: this.headers })
+  }
 
   public update(apiData: any) {
     return this.http.post(this.appservices.getApipath() + 'update', apiData, { headers: this.headers })
@@ -28,7 +31,7 @@ export class ApiService {
   }
 
 
-  
+
 
   public save(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'save', apiData, { headers: this.headers })
@@ -46,7 +49,7 @@ export class ApiService {
 
 
 
-  
+
   public fetchDataQueryApi(query:any){
     // return this.http.get(this.appservices.getApipath() + 'generic/getDataFormQuery.php?token='+this.appservices.authStatus._refreshkey+'&query='+encodeURIComponent(JSON.stringify(query)));
     return this.http.post(this.appservices.getApipath() + 'getDataFormQuery', query, { headers: this.headers })
@@ -75,11 +78,11 @@ export class ApiService {
   public nakshatra(param:any){
     return this.http.post(this.appservices.getApipath()+ `nakshatra`,param,{headers:this.headers})
   }
-  
+
   public annualincome(param:any){
     return this.http.post(this.appservices.getApipath()+ `annual_income`,param,{headers:this.headers})
   }
-  
+
   public memberpaln(param:any){
     return this.http.post(this.appservices.getApipath()+ `memberpaln`,param,{headers:this.headers})
   }
@@ -106,21 +109,21 @@ export class ApiService {
   public userActivation(param:any){
     return this.http.post(this.appservices.getApipath()+ `userActivation`,param,{headers:this.headers})
   }
-  
-  
+
+
 
 
 
   public getprofile(param:any){
     return this.http.post(this.appservices.getApipath()+ `getprofile`,JSON.stringify(param),{headers:this.headers})
   }
- 
 
 
 
 
 
-  
+
+
 
 
 

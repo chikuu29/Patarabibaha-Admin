@@ -38,35 +38,35 @@ export class AlluserdataComponent implements OnInit {
       iconClass: 'fa-solid fa-users text-primary',
       methodName: 'getAllData',
       selectedStatus: false,
-      class : '#FF9700'
+      class: '#FF9700',
     },
     {
       text: 'Online',
       iconClass: 'fa-solid fa-wifi text-success',
       methodName: 'getAllOnlineData',
       selectedStatus: false,
-      class : '#009788'
+      class: '#009788',
     },
     {
       text: 'Published',
       iconClass: 'fa-solid fa-check-circle text-success',
       methodName: 'getAllPublishedData',
       selectedStatus: false,
-      class : '#FF1A0A'
+      class: '#FF1A0A',
     },
     {
       text: 'Un Published',
       iconClass: 'fa-solid fa-times-circle text-danger',
       methodName: 'getAllUnpublishedData',
       selectedStatus: false,
-      class : '#0E47A1'
+      class: '#0E47A1',
     },
     {
       text: 'Deleted',
       iconClass: 'fas fa-trash text-danger',
       methodName: 'getAllDeletedData',
       selectedStatus: false,
-      class : '#4CB050'
+      class: '#4CB050',
     },
     // {
     //   text: 'Not Deleted',
@@ -79,21 +79,21 @@ export class AlluserdataComponent implements OnInit {
       iconClass: 'fas fa-thumbs-up text-primary',
       methodName: 'getAllApprovedData',
       selectedStatus: false,
-      class : '#0E47A1'
+      class: '#0E47A1',
     },
     {
       text: 'Pending',
       iconClass: 'fas fa-clock text-warning',
       methodName: 'getAllPendingData',
       selectedStatus: false,
-      class: '#CFC160'
+      class: '#CFC160',
     },
     {
       text: 'Valid user',
       iconClass: 'fas fa-user-check text-success',
       methodName: 'getAllvaliduserData',
       selectedStatus: false,
-      class : '#9C28B1'
+      class: '#9C28B1',
     },
   ];
 
@@ -180,13 +180,13 @@ export class AlluserdataComponent implements OnInit {
       console.log('Filtter Record', res);
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
-        this.offset = 1 ;
-        this.totalFetchrecord = this.collectionSize
+        this.offset = 1;
+        this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
         // console.log(this.tableData);
       } else {
-        this.offset = 0 ;
-        this.totalFetchrecord = 0
+        this.offset = 0;
+        this.totalFetchrecord = 0;
         this.collectionSize = 0;
         this.tableData = [];
       }

@@ -25,6 +25,7 @@ export class AddplanComponent implements OnInit {
     'membership_plan_no_of_photo': new FormControl('', [Validators.required]),
     'membership_plan_no_of_contact': new FormControl('', [Validators.required]),
     'membership_plan_show_contact_number_other': new FormControl('', [Validators.required]),
+    'membership_plan_no_of_horscope' : new FormControl('', [Validators.required])
   });
   typechange:boolean = true;
   typedata:any;
@@ -43,7 +44,7 @@ export class AddplanComponent implements OnInit {
         this.typechange= false;
       }else{
         this.getdatafromedit(res.id);
-        this.fatchtypeused();
+        this.fatchtypeused(res.id);
         this.typechange= true;
       }
 
@@ -86,6 +87,9 @@ export class AddplanComponent implements OnInit {
   }
   get contactothercount() {
     return this.memberplan.get('membership_plan_show_contact_number_other')
+  }
+  get membershiplannoofhorscope() {
+    return this.memberplan.get('membership_plan_no_of_horscope')
   }
 
 
@@ -198,6 +202,14 @@ export class AddplanComponent implements OnInit {
         color:'white',
         confirmButtonColor:'#0090e7'
       });
+    }else if(this.membershiplannoofhorscope?.invalid){
+      Swal.fire({
+        icon: 'error',
+        text: "Visible Horscope Count Count Can't be Empty",
+        background:'#191c24',
+        color:'white',
+        confirmButtonColor:'#0090e7'
+      });
     }else{
       let param = {
          'value' : this.memberplan.value
@@ -233,12 +245,22 @@ export class AddplanComponent implements OnInit {
       }
     })
   }
-  fatchtypeused(){
-    this.ApiParameter.fetchdata('type', { "projection": ["*"],"whereConditions": { used: 1 } }).subscribe((res: any) => {
+  fatchtypeused(id:any){
+
+    this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"],"whereConditions": { Id: id } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        this.typedata = res['data'];
+        this.ApiParameter.fetchdata('type', { "projection": ["*"],"whereConditions": { used: 1 } }).subscribe((res1: any) => {
+          if (res1.success && res1['data'].length > 0) {
+            this.typedata = res1['data'].filter((ele:any)=>{
+              console.log(ele);
+              if(ele.name == res['data'][0].membership_plan_type ){
+                return ele;
+              }
+            });
+          }
+        })
       }
-    })
+    });
   }
 
 

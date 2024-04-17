@@ -17,13 +17,25 @@ export class ViweplanComponent implements OnInit {
 
   @BlockUI() blockUI: NgBlockUI;
   // **************************
+  alldata: any;
+  tableData: any = [];
+  filterText: string;
+  allId: any[] = [];
+  apiFetchRecordLimit = 10;
+  options = [10, 15, 50, 100, 500, 1000];
+  page: any = 1;
+  collectionSize: any = 10;
+  offset = 1;
+  pegination_required: boolean = false;
+  currentFunction: string = 'getallplain';
   allplandata: any;
-  filterText: any;
   planOptionType: any[] = [
     { name: "FREE_PLAN" },
     { name: "DIMOND_PLAN" },
     { name: "GOLD_PLAN" },
   ]
+  totalDataCount: number = 0;
+  totalFetchrecord: number = 0;
   finaldata: any;
   constructor(
     private api: ApiService,
@@ -43,9 +55,146 @@ export class ViweplanComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getallplain();
+    this.getallplain(0, this.apiFetchRecordLimit);
   }
-  getallplain() {
+
+  changepaginetdata(event: any) {
+    this.page = 1;
+    this.offset = 1;
+    this.pegination_required = true;
+    this.apiFetchRecordLimit = Number(event.target.value);
+    let _this: any = this;
+    _this[this.currentFunction](0, Number(event.target.value));
+  }
+
+  getSearchText(event: any) {
+    this.filterText = event;
+  }
+  search(search_text: any) {
+    let _this: any = this;
+    _this[this.currentFunction](0, 10, true, search_text);
+    // console.log(search_text);
+    // this.getAllData(0, 10, true, search_text)
+  }
+  fillter(event: any) {
+    //this.pegination_required = false;
+    //this.currentFunction = 'fillter';
+    console.log('click fillter', event);
+    var query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`;
+    if (event.isqueryGenerated) {
+      query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+    ${event.whereConditions}`;
+    }
+
+    console.log(query);
+
+    this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
+      console.log('Filtter Record', res);
+      if (res.success && res['data'].length > 0) {
+        this.collectionSize = res['data'].length;
+        this.offset = 1;
+        this.totalFetchrecord = this.collectionSize;
+        this.tableData = res['data'];
+        // console.log(this.tableData);
+      } else {
+        this.offset = 0;
+        this.totalFetchrecord = 0;
+        this.collectionSize = 0;
+        this.tableData = [];
+      }
+    });
+  }
+  onpageChnage() {
+    let _this: any = this;
+    _this[this.currentFunction](
+      this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit,
+      this.apiFetchRecordLimit
+    );
+    this.offset =
+      this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  getallplain( start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any) {
+
+      this.pegination_required = true;
+    var quary = `SELECT *, COUNT(*) OVER () AS total_count
+      FROM membership_plan
+      ORDER BY membership_plan_created_date_time DESC
+      LIMIT ${limit} OFFSET ${start}`;
+
+    if (loadSpecificData) {
+      quary = `SELECT *, COUNT(*) OVER () AS total_count
+      FROM membership_plan
+      WHERE membership_plan_id = '${search_text}'
+         OR membership_plan_type = '${search_text}'
+         OR membership_plan_name = '${search_text}'
+         ORDER BYmembership_plan_created_date_time DESC
+       `;
+    }
+
+    this.blockUI.start('Loading...');
+
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      this.blockUI.stop();
+
+      if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        console.log(this.collectionSize);
+        this.tableData = res['data'];
+      } else {
+        this.collectionSize = 1;
+        this.tableData = [];
+      }
+    });
+
+
+
+
+
+
+
+
+
+
+
     this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"] }).subscribe((res: any) => {
 
       if (res.success && res['data'].length > 0) {

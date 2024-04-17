@@ -11,8 +11,8 @@
                 </div>
                 <div class="form-group">
                     <label>Type</label>
-                    <select [attr.disabled]="typechange"  class="form-select" formControlName="membership_plan_type" >
-                        <option value="Select" selected>---Select---</option>
+                    <select  class="form-select" formControlName="membership_plan_type" >
+                        <option value="" selected>---Select---</option>
                          <option *ngFor="let data of typedata" [value]="data.name">{{ data.type_name }}</option>
                     </select>
                     <!-- <input type="text" class="form-control" formControlName="membership_plan_type" id="exampleInputName1" placeholder="Plan Type"> -->
@@ -67,6 +67,11 @@
                     <input type="text" formControlName="membership_plan_show_contact_number_other" class="form-control"
                         id="exampleInputName7" placeholder="Visible Contact To Other Count">
                 </div>
+                <div class="form-group">
+                  <label for="exampleInputName1">Visible Horscope Count</label>
+                  <input type="text" formControlName="membership_plan_no_of_horscope" class="form-control"
+                      id="exampleInputName7" placeholder="Visible Horscope Count">
+              </div>
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                 <button class="btn btn-dark">Cancel</button>
             </form>

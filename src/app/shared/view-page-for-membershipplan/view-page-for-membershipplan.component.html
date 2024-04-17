@@ -1,59 +1,60 @@
 <div class="modal-header">
-    <h4 class="modal-title text-muted " id="modal-title">Plan Deatils</h4>
-    <button type="button" class="btn-close" aria-describedby="modal-title"
-        (click)="modal.dismiss('Cross click')"></button>
+  <h4 class="modal-title text-muted " id="modal-title">Plan Deatils</h4>
+  <button type="button" class="btn-close" aria-describedby="modal-title"
+    (click)="modal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
 
 
 
-    <div class="">
-        <div class="checkbox-wrapper-26">
-            <input type="checkbox" id="_checkbox-26" [checked]="deatils.membership_plan_default=='1'">
-            <label for="_checkbox-26g">
-                <div class="tick_mark"></div>
-            </label>
-            <div>
-                gnfxg
-            </div>
-        </div>
-        <div class="d-flex justify-content-between">
-            <div>
-                <button class="button-30 w-100 text-left" role="button"><span>Plan ID:
-                        {{deatils.membership_plan_id}}</span></button>
-                <button class="button-30 d-block" role="button"><span>Name:
-                        {{deatils.membership_plan_name}}</span></button>
-                <button class="button-30 d-block" role="button"><span>Plan Type:
-                        {{deatils.membership_plan_type}}</span></button>
-                <button class="button-30 d-block" role="button"><span>Amount:
-                        {{deatils.membership_plan_amount}}</span></button>
-                <button class="button-30 d-block" role="button"><span>Currency:
-                        {{deatils.membership_plan_currency}}</span></button>
-                <button class="button-30 d-block" role="button"><span>Discont:
-                        {{deatils.membership_plan_dicount}}</span></button>
-            </div>
-            <div>
-            <button class="button-30 d-block" role="button"><span>Plan Validity:
-                    {{deatils.membership_plan_validity_date}}</span></button>
-            <button class="button-30 d-block" role="button"><span>Message Count:
-                    {{deatils.membership_plan_of_send_message}}</span></button>
-            <button class="button-30 d-block" role="button"><span>Chat Count: {{ deatils.membership_plan_chating
-                    }}</span></button>
-            <button class="button-30 d-block" role="button"><span>Photo Count:
-                    {{deatils.membership_plan_no_of_photo}}</span></button>
-            <button class="button-30 d-block" role="button"><span>Other Count:
-                    {{deatils.membership_plan_show_contact_number_other}}</span></button>
-            <button class="button-30 d-block" role="button"><span>Created In:
-                    {{deatils.membership_plan_created_date_time}}</span></button>
-                </div>
-        </div>
+  <div class="">
+    <div class="checkbox-wrapper-26">
+      <input type="checkbox" id="_checkbox-26" [checked]="deatils.membership_plan_default=='1'">
+      <label for="_checkbox-26g">
+        <div class="tick_mark"></div>
+      </label>
     </div>
+    <div class="d-flex justify-content-between">
+      <div>
+        <button class="button-30 w-100 text-left" role="button"><span>Plan ID:
+            {{deatils.membership_plan_id}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Name:
+            {{deatils.membership_plan_name}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Plan Type:
+            {{deatils.membership_plan_type}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Amount:
+            {{deatils.membership_plan_amount}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Currency:
+            {{deatils.membership_plan_currency}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Discont:
+            {{deatils.membership_plan_dicount}}</span></button>
+      </div>
+      <div>
+        <button class="button-30 d-block" role="button"><span>Plan Validity:
+            {{deatils.membership_plan_validity_date}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Message Count:
+            {{deatils.membership_plan_of_send_message}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Chat Count: {{ deatils.membership_plan_chating
+            }}</span></button>
+        <button class="button-30 d-block" role="button"><span>Photo Count:
+            {{deatils.membership_plan_no_of_photo}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Other Count:
+            {{deatils.membership_plan_show_contact_number_other}}</span></button>
+            <button class="button-30 d-block" role="button"><span>Horscope Count:
+              {{deatils.membership_plan_no_of_horscope}}</span></button>
+        <button class="button-30 d-block" role="button"><span>Created In:
+            {{deatils.membership_plan_created_date_time}}</span></button>
+      </div>
+    </div>
+  </div>
 
 
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('cancel click')">Close</button>
-    <button type="button" (click)="makedefultplan(deatils.Id,deatils.membership_plan_default)" class="btn btn-outline-success">{{ deatils.membership_plan_default == 1 ? 'Defult plan': 'Make Defult plan'  }}</button>
-    
+  <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('cancel click')">Close</button>
+  <button type="button" (click)="makedefultplan(deatils.Id,deatils.membership_plan_default)"
+    class="btn btn-outline-success">{{ deatils.membership_plan_default == 1 ? 'Defult plan': 'Make Defult plan'
+    }}</button>
+
 </div>

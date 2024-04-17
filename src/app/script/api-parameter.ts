@@ -361,5 +361,23 @@ public makeActinForMultipulData(db:any ,apidata: any) {
     });
     return simpleObservable;
 }
+public makeActinForMultipuldeleteData(db:any ,apidata: any) {
+
+  const simpleObservable = new Observable((observer) => {
+      try {
+          apidata['table'] = db;
+          this.apiservices.makeActinForMultipuldeleteData(apidata).subscribe((res: any) => {
+              observer.next(res);
+              observer.complete();
+          })
+
+      } catch (error) {
+          console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+          observer.next(error);
+          observer.complete();
+      }
+  });
+  return simpleObservable;
+}
 
 }

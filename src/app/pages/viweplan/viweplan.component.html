@@ -1,4 +1,4 @@
-<div class="">
+<div class="" *ngIf="false">
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
@@ -90,4 +90,105 @@
             </table>
         </div>
     </div>
+</div>
+
+
+
+
+
+<div class="row">
+  <div class="col-xl-12 order-lg-1 order-xl-1">
+    <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+      <div class="table-caption-holder">
+        <div class="dropdown-container">
+          <select id="dropdown" (change)="changepaginetdata($event)">
+            <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+
+        <div class="kt-portlet__head-toolbar">
+
+
+          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="false"
+            (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
+        </div>
+      </div>
+      <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y" id="grid_scroll_body"
+        style="max-height: 100vh; position: relative;">
+        <div class="inbox-body inbox-body-table">
+          <div class="table-scroll">
+            <table class="custom-table table  table-bordered table-striped">
+              <thead class="flip-content">
+                <tr>
+                  <!-- <th style="cursor: pointer; width:5%" title="Select Member">
+                    <input type="checkbox" name="" id="all" (change)="checkAll($event)">
+                  </th> -->
+
+                  <tr>
+                    <th  style="cursor: pointer;width:10%">#IS</th>
+                    <th style="cursor: pointer; width:25%">Plan ID</th>
+                    <th style="cursor: pointer; width:25%">Name</th>
+                    <th style="cursor: pointer; width:25%">Plan Type</th>
+                    <th style="cursor: pointer; width:25%">Amount</th>
+                    <th style="cursor: pointer; width:25%">Currency</th>
+                    <th style="cursor: pointer; width:25%">Discont</th>
+                    <th style="cursor: pointer; width:25%">Plan Validity</th>
+                    <th style="cursor: pointer; width:25%">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container
+                  *ngFor="let data of tableData | fillter:['membership_plan_id','membership_plan_type','membership_plan_name']:filterText ; index as i">
+                  <tr>
+                    <!-- <td class="text-center">
+                      <input type="checkbox" class="check" [value]="data?.user_id" (change)="getId(data?.Id,$event)"
+                        name="" id="">
+                    </td> -->
+
+                    <tr [class]="data.membership_plan_default == 1 ? 'bg-success' : ''">
+                      <td>{{ i+1 }}</td>
+                      <td>
+                        <div>
+                        <a (click)="edite(data.Id)" href="javascript:void(0);">{{ data.membership_plan_id }}
+                        </a>
+                      </div>
+                      </td>
+                      <td><div>{{ data.membership_plan_name }}</div></td>
+                      <td><div>{{ data.membership_plan_type }}</div></td>
+                      <td><div>{{ data.membership_plan_amount | currency:'INR' }}</div></td>
+                      <td><div>{{ data.membership_plan_currency }}</div></td>
+                      <td><div>{{ data.membership_plan_dicount }}%</div></td>
+                      <td><div>{{ data.membership_plan_validity_date }} days</div></td>
+                      <td>
+                          <button type="button" class="btn btn-outline-primary btn-sm"
+                              (click)="viwe(data.membership_plan_id)">Viwe</button>
+                          <button type="button"
+                              [class]="data.membership_plan_status == 1 ?'btn btn-outline-warning btn-sm':'btn btn-outline-danger btn-sm'"
+                              (click)="publish(data.Id,data.membership_plan_status)">{{ data.membership_plan_status == 1 ? 'Unpublish':'Publish' }}</button>
+                      </td>
+                  </tr>
+                </ng-container>
+
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="table-footer-holder">
+        <div>
+          <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
+            [ellipses]="false" [boundaryLinks]="false" class="" (pageChange)="onpageChnage()"></ngb-pagination>
+        </div>
+        <div>
+          <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
+            {{offset}} to {{totalFetchrecord}} of
+            {{totalDataCount}}</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>
