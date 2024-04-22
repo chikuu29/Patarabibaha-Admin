@@ -6,3 +6,15 @@
   background: #fff;
   color:black;
 }
+.outline {
+  display: flex;
+  justify-content: right;
+}
+.commen {
+  cursor: pointer;
+  margin: 9px;
+}
+.scroll {
+  //overflow-y: scroll;
+  overflow-x: scroll;
+}

@@ -7,6 +7,8 @@ import * as _ from 'lodash';
 export class FillterPipe implements PipeTransform {
 
   transform(data: any[], keys: string[], filterText: string): any[] {
+    console.log(data);
+
     if (!data || !keys || !filterText) {
       return data; // Return the original data if no data, keys, or filterText is provided
     }
