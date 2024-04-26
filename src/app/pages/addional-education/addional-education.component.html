@@ -1,108 +1,214 @@
 <div class="mb-3">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Additional Education</h4>
-            <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Additional Education</h4>
+      <!-- <p class="card-description"> Use the <code>.form-inline</code> class to display a series of labels, form
                 controls, and buttons on a single horizontal row </p> -->
-            <form class="form-inline" [formGroup]="additionaleducation">
-                <label class="sr-only" for="inlineFormInputName2">Name</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                    formControlName="additional_education_name" placeholder="Additional Education">
-                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-                <!-- <div class="input-group mb-2 mr-sm-2">
+      <form class="form-inline" [formGroup]="additionaleducation">
+        <label class="sr-only" for="inlineFormInputName2">Name</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
+          formControlName="additional_education_name" placeholder="Additional Education">
+        <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+        <!-- <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text">@</div>
                     </div>
                     <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
                 </div> -->
-                <div class="form-check mx-sm-2">
-                    <!-- <label class="form-check-label"> -->
-                    <!-- <input type="checkbox" class="form-check-input" checked> Remember me </label>  -->
-                </div>
-                <button type="submit" (click)="public()" class="btn btn-primary mb-2">{{ button }}</button>
-            </form>
+        <div class="form-check mx-sm-2">
+          <!-- <label class="form-check-label"> -->
+          <!-- <input type="checkbox" class="form-check-input" checked> Remember me </label>  -->
         </div>
+        <button type="submit" (click)="public()" class="btn btn-primary mb-2">{{ button }}</button>
+      </form>
     </div>
+  </div>
 </div>
-<!-- <div> Per Page: <select>
 
-        <option *ngFor="let size of pageSizes" [ngValue]="size" (change)="onTableSizeChange($event)">
-            {{ size }}
-        </option>
-    </select>
-</div> -->
-<div class="">
-    <div class="table-holder">
-        <div class="caption-header">
-            <!-- Search Start -->
-            <div class="caption-item">
-                <app-search (getSerachText)="getSearchText($event)" ></app-search>
-            </div>
-            <div class="caption-item">
-                <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
-                <span class="fs-5">Showing {{totalFetchrecord}} of {{totalCount}} results</span>
-            </div>
-            <div class="caption-item" *ngIf="collectionSize>0">
-                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="3" [rotate]="true" [ellipses]="false"
-                [boundaryLinks]="false" class="" size="lg" (pageChange)="onpageChnage()"></ngb-pagination>
-            </div>
-            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" id="cloud">
-                    <path d="M31.714,25.543c3.335-2.17,4.27-6.612,2.084-9.922c-1.247-1.884-3.31-3.077-5.575-3.223h-0.021
+<div class="" *ngIf="false">
+  <div class="table-holder">
+    <div class="caption-header">
+      <!-- Search Start -->
+      <div class="caption-item">
+        <app-search (getSerachText)="getSearchText($event)"></app-search>
+      </div>
+      <div class="caption-item">
+        <i class="fa-solid fa-chart-simple me-2 text-primary fs-5"></i>
+        <span class="fs-5">Showing {{totalFetchrecord}} of {{totalCount}} results</span>
+      </div>
+      <div class="caption-item" *ngIf="collectionSize>0">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="3" [rotate]="true"
+          [ellipses]="false" [boundaryLinks]="false" class="" size="lg" (pageChange)="onpageChnage()"></ngb-pagination>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" id="cloud">
+          <path d="M31.714,25.543c3.335-2.17,4.27-6.612,2.084-9.922c-1.247-1.884-3.31-3.077-5.575-3.223h-0.021
                   C27.148,6.68,21.624,2.89,15.862,3.931c-3.308,0.597-6.134,2.715-7.618,5.708c-4.763,0.2-8.46,4.194-8.257,8.919
                   c0.202,4.726,4.227,8.392,8.991,8.192h4.873h13.934C27.784,26.751,30.252,26.54,31.714,25.543z" />
-                </symbol>
-                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="lens">
-                    <path d="M15.656,13.692l-3.257-3.229c2.087-3.079,1.261-7.252-1.845-9.321c-3.106-2.068-7.315-1.25-9.402,1.83
+        </symbol>
+        <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="lens">
+          <path d="M15.656,13.692l-3.257-3.229c2.087-3.079,1.261-7.252-1.845-9.321c-3.106-2.068-7.315-1.25-9.402,1.83
                   s-1.261,7.252,1.845,9.32c1.123,0.748,2.446,1.146,3.799,1.142c1.273-0.016,2.515-0.39,3.583-1.076l3.257,3.229
                   c0.531,0.541,1.404,0.553,1.95,0.025c0.009-0.008,0.018-0.017,0.026-0.025C16.112,15.059,16.131,14.242,15.656,13.692z M2.845,6.631
                   c0.023-2.188,1.832-3.942,4.039-3.918c2.206,0.024,3.976,1.816,3.951,4.004c-0.023,2.171-1.805,3.918-3.995,3.918
                   C4.622,10.623,2.833,8.831,2.845,6.631L2.845,6.631z" />
-                </symbol>
-            </svg>
-            <!-- Search End -->
+        </symbol>
+      </svg>
+      <!-- Search End -->
+    </div>
+    <div class="mt-3 data-view-container">
+      <table class="table">
+        <thead class="table-header">
+          <tr>
+            <!-- <th>
+                            <input type="checkbox" class="">
+                        </th> -->
+            <th>#SI</th>
+            <th>Additional Education</th>
+            <th>Created in</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-body table-striped">
+          <tr
+            *ngFor="let countryalldatahtml of tabledata | fillter:['additional_education_name']:filterText ; index as i">
+            <!-- <th>
+                            <input type="checkbox" class="">
+                        </th> -->
+            <td>{{i+1}}</td>
+            <td>{{countryalldatahtml.additional_education_name}}</td>
+            <td>{{ countryalldatahtml.additional_education_date_time}}</td>
+            <td>
+              <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
+                NOT PUBLISHED
+              </p>
+              <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
+            </td>
+            <td>
+              <!-- <input type="button" value="Edit" (click)="update(countryalldatahtml.id)"> -->
+              <button type="submit" (click)="update(countryalldatahtml.id)"
+                class="btn btn-outline-warning btn-fw me-2 w-10">Edit</button>
+              <button type="submit" (click)="deleted(countryalldatahtml.id)"
+                class="btn btn-outline-danger btn-fw me-2 w-10">Delete</button>
+              <button type="submit" class="btn btn-outline-success btn-fw w-10"
+                (click)="publish(countryalldatahtml.id,countryalldatahtml.status)">{{ countryalldatahtml.status == 1
+                ?'PUBLISHED': 'UNPUBLISHED' }}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+<div class="outline">
+  <div class="commen">
+    <button (click)="publishuser()" type="button" [style]="{ 'background-color': '#009788', 'color': '#FFFFFF' }"
+      class="btn">
+      <i class="fas fa-upload"></i> Publish
+    </button>
+  </div>
+  <div class="commen">
+    <button type="button" (click)="unpublishuser()" [style]="{ 'background-color': '#F47F16', 'color': '#FFFFFF' }"
+      class="btn">
+      <i class="fas fa-download"></i> Unpublish
+    </button>
+  </div>
+  <div class="commen">
+    <button (click)="deletedata()" [style]="{ 'background-color': '#FF1A0A', 'color': '#FFFFFF' }" type="button"
+      class="btn">
+      <i class="fas fa-trash-alt"></i> Delete
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-12 order-lg-1 order-xl-1">
+    <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+      <div class="table-caption-holder">
+        <div class="dropdown-container">
+          <select id="dropdown" (change)="changepaginetdata($event)">
+            <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+          </select>
         </div>
-        <div class="mt-3 data-view-container">
-            <table class="table">
-                <thead class="table-header">
-                    <tr>
-                        <!-- <th>
-                            <input type="checkbox" class="">
-                        </th> -->
-                        <th>#SI</th>
-                        <th>Additional Education</th>
-                        <th>Created in</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body table-striped">
-                    <tr *ngFor="let countryalldatahtml of tabledata | fillter:['additional_education_name']:filterText ; index as i">
-                        <!-- <th>
-                            <input type="checkbox" class="">
-                        </th> -->
-                        <td>{{i+1}}</td>
-                        <td>{{countryalldatahtml.additional_education_name}}</td>
-                        <td>{{ countryalldatahtml.additional_education_date_time}}</td>
-                        <td>
-                            <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
-                                NOT PUBLISHED
-                            </p>
-                            <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
-                        </td>
-                        <td>
-                            <!-- <input type="button" value="Edit" (click)="update(countryalldatahtml.id)"> -->
-                            <button type="submit" (click)="update(countryalldatahtml.id)"
-                            class="btn btn-outline-warning btn-fw me-2 w-10">Edit</button>
-                            <button type="submit" (click)="deleted(countryalldatahtml.id)"
-                            class="btn btn-outline-danger btn-fw me-2 w-10">Delete</button>
-                            <button type="submit"
-                            class="btn btn-outline-success btn-fw w-10" (click)="publish(countryalldatahtml.id,countryalldatahtml.status)" >{{ countryalldatahtml.status == 1 ?'PUBLISHED': 'UNPUBLISHED' }}</button>
-                        </td>
-                    </tr>
-                </tbody>
+        <div class="kt-portlet__head-toolbar">
+          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="false"
+            (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
+        </div>
+      </div>
+      <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y" id="grid_scroll_body"
+        style="max-height: 100vh; position: relative;">
+        <div class="inbox-body inbox-body-table">
+          <div class="table-scroll">
+            <table class="custom-table table  table-bordered table-striped">
+              <thead class="flip-content">
+                <tr>
+                  <th style="cursor: pointer; width:5%" title="Select Member">
+                    <input type="checkbox" name="" id="all" (change)="checkAll($event)">
+                  </th>
+
+                  <th style="cursor: pointer;width:1%">#SI</th>
+                  <th style="cursor: pointer; width:25%">Occupation</th>
+                  <th style="cursor: pointer; width:25%">Created in</th>
+                  <th style="cursor: pointer; width:25%">Status</th>
+                  <th style="cursor: pointer; width:25%">Action</th>
+                  <!-- class="fixed-column" -->
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container
+                  *ngFor="let data of tableData | fillter:['additional_education_name']:filterText ; index as i">
+                  <tr>
+                    <td class="text-center">
+                      <input type="checkbox" class="check" [value]="data?.user_id" (change)="getId(data?.id,$event)"
+                        name="" id="">
+                    </td>
+                    <td>{{ i+1 }}</td>
+                    <td [title]="data?.additional_education_name">{{ data?.additional_education_name }}</td>
+                    <td [title]="data?.additional_education_date_time">
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"> {{data?.additional_education_date_time |
+                        date:'medium' }} </div>
+                    </td>
+                    <td title="Due In 9 Days">
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel" *ngIf="data.status == 0">
+                        NOT PUBLISHED
+                      </div>
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel" *ngIf="data.status == 1">
+                        PUBLISHED
+                      </div>
+                    </td>
+                    <td>
+                      <button type="submit" (click)="update(data.id)"
+                        class="btn btn-outline-primary btn-sm">Edit</button>
+                      <!-- <button type="submit" (click)="deleted(data.id)"
+                      class="btn btn-outline-primary btn-sm">Delete</button>
+                      <button type="submit" class="btn btn-outline-primary btn-sm"
+                        (click)="publish(data.id,data.status)">{{ data.status == 1
+                        ?'PUBLISHED': 'UNPUBLISHED' }}</button> -->
+                    </td>
+                  </tr>
+                </ng-container>
+
+
+              </tbody>
             </table>
+          </div>
+
         </div>
 
+      </div>
+      <div class="table-footer-holder">
+        <div>
+          <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
+            [ellipses]="false" [boundaryLinks]="false" class="" (pageChange)="onpageChnage()"></ngb-pagination>
+        </div>
+        <div>
+          <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
+            {{offset}} to {{totalFetchrecord}} of
+            {{totalDataCount}}</span>
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>

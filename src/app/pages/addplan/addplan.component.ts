@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class AddplanComponent implements OnInit {
   memberplan = new FormGroup({
+    'Id' : new FormControl(''),
     'membership_plan_type': new FormControl('', [Validators.required]),
     'membership_plan_name': new FormControl('', [Validators.required]),
     'membership_plan_amount': new FormControl('', [Validators.required]),
@@ -32,7 +33,8 @@ export class AddplanComponent implements OnInit {
   constructor(
     private api :ApiService,
     private activatedroute :ActivatedRoute,
-    private ApiParameter: ApiParameterScript
+    private ApiParameter: ApiParameterScript,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -98,8 +100,8 @@ export class AddplanComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: "Name Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }
@@ -107,24 +109,24 @@ export class AddplanComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: "Type Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     } else if (this.amount?.invalid) {
       Swal.fire({
         icon: 'error',
         text: "Amount Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }else if(this.curency?.invalid){
       Swal.fire({
         icon: 'error',
         text: "Curency Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }
@@ -132,8 +134,8 @@ export class AddplanComponent implements OnInit {
     //   Swal.fire({
     //     icon: 'error',
     //     text: "Discount Can't be Empty",
-    //     background:'#191c24',
-    //     color:'white',
+    //
+    //
     //     confirmButtonColor:'#0090e7'
     //   });
     // }
@@ -141,8 +143,8 @@ export class AddplanComponent implements OnInit {
     //   Swal.fire({
     //     icon: 'error',
     //     text: "Discount Can't be Empty",
-    //     background:'#191c24',
-    //     color:'white',
+    //
+    //
     //     confirmButtonColor:'#0090e7'
     //   });
     // }
@@ -150,64 +152,64 @@ export class AddplanComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: "Plan Validity Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }else if(this.profilecount?.invalid){
       Swal.fire({
         icon: 'error',
         text: "View Opposite Member 's Profile Count Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }else if(this.messagecount?.invalid){
       Swal.fire({
         icon: 'error',
         text: "Message Count Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }else if(this.chatcount?.invalid){
       Swal.fire({
         icon: 'error',
         text: "Chat Count Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }else if(this.photocount?.invalid){
       Swal.fire({
         icon: 'error',
         text: "Visible Opposite Member's Photo Count Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }else if(this.contactcount?.invalid){
       Swal.fire({
         icon: 'error',
         text: "Visible Opposite Member's Contact Count Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }else if(this.contactothercount?.invalid){
       Swal.fire({
         icon: 'error',
         text: "Visible Contact To Other Count Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }else if(this.membershiplannoofhorscope?.invalid){
       Swal.fire({
         icon: 'error',
         text: "Visible Horscope Count Count Can't be Empty",
-        background:'#191c24',
-        color:'white',
+
+
         confirmButtonColor:'#0090e7'
       });
     }else{
@@ -216,13 +218,17 @@ export class AddplanComponent implements OnInit {
       }
       console.log(param);
       this.api.memberpaln(param).subscribe((res:any)=>{
+        console.log(res);
+
           if(res.status){
             Swal.fire({
               icon: 'success',
               text: res.message,
-              background:'#191c24',
-              color:'white',
+
+
               confirmButtonColor:'#0090e7'
+            }).then(()=>{
+                this.router.navigate(['viweplan-page']);
             });
           }
       });

@@ -53,7 +53,8 @@
         </div>
 
         <div class="kt-portlet__head-toolbar">
-          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="false"></app-search>
+          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="false"
+            (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
         </div>
       </div>
       <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y" id="grid_scroll_body"
@@ -70,7 +71,7 @@
                   <th>
                     #IS
                   </th>
-                  <th style="cursor: pointer;width:10%" title=" Country Name ">
+                  <th style="cursor: pointer;width:1%" title=" Country Name ">
                     Country Name </th>
                   <th style="cursor: pointer; width:25%" title="Created At">
                     Created At </th>
@@ -90,7 +91,7 @@
                       <!-- <mat-checkbox class="check" (change)="getId(data?.Id,$event)"
                                                                   [value]="data?.user_id"></mat-checkbox> -->
                     </td>
-                    <td>
+                    <td style="cursor: pointer;width:1%">
                       {{i+1}}
                     </td>
                     <td [title]="data?.name">

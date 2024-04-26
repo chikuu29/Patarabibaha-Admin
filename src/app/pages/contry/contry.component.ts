@@ -6,6 +6,8 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
+import { CommonService } from 'src/app/services/common.service';
+
 
 @Component({
   selector: 'app-contry',
@@ -37,9 +39,11 @@ export class ContryComponent implements OnInit {
   currentFunction: string = 'showCountry';
   totalDataCount: any;
   tableData: any;
+  editedcast: any;
   constructor(
     private api: ApiService,
-    private ApiParameter: ApiParameterScript
+    private ApiParameter: ApiParameterScript,
+    private CommonService : CommonService
   ) {}
 
   ngOnInit(): void {
@@ -52,13 +56,20 @@ export class ContryComponent implements OnInit {
   }
 
   getSearchText(event: any) {
-   // console.log(event);
+    // console.log(event);
 
     this.filterText = event;
   }
 
   onpageChnage() {
-    this.showCountry(0, this.apiFetchRecordLimit);
+    let _this: any = this;
+    _this[this.currentFunction](
+      this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit,
+      this.apiFetchRecordLimit
+    );
+    this.offset =
+      this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit;
+    // this.showCountry(0, this.apiFetchRecordLimit);
   }
 
   addCountry() {
@@ -67,7 +78,7 @@ export class ContryComponent implements OnInit {
         let updateData = {
           data: {
             name: this.countrygroup.value.name,
-            created_At: moment().toISOString(),
+            created_At: moment().format("YYYY-MM-DD HH:mm:ss"),
           },
         };
 
@@ -100,7 +111,7 @@ export class ContryComponent implements OnInit {
         let updateData = {
           data: {
             name: this.countrygroup.value.name,
-            created_At: moment().toISOString(),
+            created_At: moment().format("YYYY-MM-DD HH:mm:ss"),
           },
           whereConditions: { id: this.countrygroup.value.id },
         };
@@ -112,6 +123,13 @@ export class ContryComponent implements OnInit {
                 icon: 'success',
                 text: res.message,
               }).then((ress: any) => {
+                let update = {
+                  "oldcast": this.editedcast,
+                  "newdata" : this.countrygroup.value.name,
+                  "tablename" : "user_locations",
+                  "coulemnname" : "user_country"
+                }
+                this.CommonService.coloumUpdated(update).subscribe((res:any)=>{});
                 this.ngOnInit();
               });
             } else {
@@ -176,15 +194,19 @@ export class ContryComponent implements OnInit {
     });
   }
   update(id: any) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     this.ApiParameter.fetchdata('country', {
       projection: ['*'],
       whereConditions: { id: id },
     }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        // this.countryalldata = res['data'];
         this.countrygroup.patchValue(res['data'][0]);
         this.button = 'Update';
-        console.log(this.countrygroup);
+        this.editedcast = this.countrygroup.value.name;
+        //console.log(this.countrygroup);
       }
     });
   }
@@ -381,5 +403,57 @@ export class ContryComponent implements OnInit {
         }
       });
     }
+  }
+  search(search_text: any) {
+    let _this: any = this;
+    _this[this.currentFunction](0, 10, true, search_text);
+    // console.log(search_text);
+    // this.getAllData(0, 10, true, search_text)
+  }
+  fillter(event: any) {
+    //this.pegination_required = false;
+    //this.currentFunction = 'fillter';
+    console.log('click fillter', event);
+    var query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`;
+    if (event.isqueryGenerated) {
+      query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+    ${event.whereConditions}`;
+    }
+
+    console.log(query);
+
+    this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
+      console.log('Filtter Record', res);
+      if (res.success && res['data'].length > 0) {
+        this.collectionSize = res['data'].length;
+        this.offset = 1;
+        this.totalFetchrecord = this.collectionSize;
+        this.tableData = res['data'];
+        // console.log(this.tableData);
+      } else {
+        this.offset = 0;
+        this.totalFetchrecord = 0;
+        this.collectionSize = 0;
+        this.tableData = [];
+      }
+    });
   }
 }

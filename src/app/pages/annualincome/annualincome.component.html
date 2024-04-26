@@ -27,20 +27,20 @@
 
 <div class="outline">
   <div class="commen">
-    <button (click)="publishuser()" type="button" [style]="{ 'background-color': '#009788', 'color': '#FFFFFF' }" class="btn"
-      >
+    <button (click)="publishuser()" type="button" [style]="{ 'background-color': '#009788', 'color': '#FFFFFF' }"
+      class="btn">
       <i class="fas fa-upload"></i> Publish
     </button>
   </div>
   <div class="commen">
-    <button type="button" (click)="unpublishuser()" [style]="{ 'background-color': '#F47F16', 'color': '#FFFFFF' }" class="btn"
-      >
+    <button type="button" (click)="unpublishuser()" [style]="{ 'background-color': '#F47F16', 'color': '#FFFFFF' }"
+      class="btn">
       <i class="fas fa-download"></i> Unpublish
     </button>
   </div>
   <div class="commen">
-    <button (click)="deletedata()" [style]="{ 'background-color': '#FF1A0A', 'color': '#FFFFFF' }" type="button" class="btn"
-      >
+    <button (click)="deletedata()" [style]="{ 'background-color': '#FF1A0A', 'color': '#FFFFFF' }" type="button"
+      class="btn">
       <i class="fas fa-trash-alt"></i> Delete
     </button>
   </div>
@@ -58,7 +58,7 @@
         <div class="kt-portlet__head-toolbar">
 
 
-          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="true"
+          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="false"
             (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
         </div>
       </div>
@@ -103,7 +103,7 @@
                     </td>
                     <td>
                       <button type="submit" (click)="update(data.id)"
-                      class="btn btn-outline-primary btn-sm">Edit</button>
+                        class="btn btn-outline-primary btn-sm">Edit</button>
                       <!-- <button type="submit" (click)="deleted(data.id)"
                       class="btn btn-outline-primary btn-sm">Delete</button>
                       <button type="submit" class="btn btn-outline-primary btn-sm"
