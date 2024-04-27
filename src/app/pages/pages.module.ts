@@ -39,6 +39,7 @@ import { LogineventComponent } from './loginevent/loginevent.component';
 import { HomepageeventComponent } from './homepageevent/homepageevent.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { LikedetailsComponent } from './likedetails/likedetails.component';
 
 
 
@@ -75,7 +76,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     HomepagecontentComponent,
     HomeiconComponent,
     LogineventComponent,
-    HomepageeventComponent
+    HomepageeventComponent,
+    LikedetailsComponent
 
   ],
   imports: [

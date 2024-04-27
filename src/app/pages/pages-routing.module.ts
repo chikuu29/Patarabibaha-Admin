@@ -32,6 +32,7 @@ import { HomepagecontentComponent } from './homepagecontent/homepagecontent.comp
 import { HomepageeventComponent } from './homepageevent/homepageevent.component';
 import { LogineventComponent } from './loginevent/loginevent.component';
 import { AdminComponent } from '../layout/admin/admin.component';
+import { LikedetailsComponent } from './likedetails/likedetails.component';
 
 
 
@@ -186,23 +187,29 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: LogineventComponent
       },
-      
-      
-      
-      
+      {
+        path: 'like-page',
+        canActivate: [AuthGuard],
+        component: LikedetailsComponent
+      },
 
-      
 
 
-      
-      
 
-      
-      
 
-      
 
-      
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

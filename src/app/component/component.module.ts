@@ -44,6 +44,7 @@ import { ViewchatingpageComponent } from './viewchatingpage/viewchatingpage.comp
 import { PlanDeatilsComponent } from './plan-deatils/plan-deatils.component';
 import { ContactviewComponent } from './contactview/contactview.component';
 import { HoroscopeComponent } from './horoscope/horoscope.component';
+import { FormatannualPipe } from './formatannual.pipe';
 
 
 @NgModule({
@@ -82,6 +83,7 @@ import { HoroscopeComponent } from './horoscope/horoscope.component';
     PlanDeatilsComponent,
     ContactviewComponent,
     HoroscopeComponent,
+    FormatannualPipe,
 
   ],
   imports: [
