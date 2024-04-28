@@ -11,6 +11,7 @@ import { ProfileimagepproveComponent } from './profileimagepprove/profileimagepp
 import { SharedModule } from '../shared/shared.module';
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
+import { SuccessstotyapprovelComponent } from './successstotyapprovel/successstotyapprovel.component';
 
 
 
@@ -19,6 +20,7 @@ import { CustomPipeModule } from '../customPipe/custom-pipe.module';
     UserapproveComponent,
     ProfileimagepproveComponent,
     DeleterequestComponent,
+    SuccessstotyapprovelComponent,
   ],
   imports: [
     CommonModule,

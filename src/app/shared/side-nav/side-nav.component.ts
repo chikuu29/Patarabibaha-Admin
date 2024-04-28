@@ -361,7 +361,7 @@ export class SideNavComponent implements OnInit {
           badge: this.deliteeeqest,
         },
         {
-          routerLink: '/approve/del',
+          routerLink: '/approve/successstotyapprovel-page',
           text: 'Success story',
           badge: this.deliteeeqest,
         },

@@ -4,6 +4,8 @@ import { AuthGuard } from '../auth/auth.guard';
 import { UserapproveComponent } from './userapprove/userapprove.component';
 import { ProfileimagepproveComponent } from './profileimagepprove/profileimagepprove.component';
 import { DeleterequestComponent } from './deleterequest/deleterequest.component';
+import { SuccessstotyapprovelComponent } from './successstotyapprovel/successstotyapprovel.component';
+
 
 const routes: Routes = [
   {
@@ -23,6 +25,13 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: DeleterequestComponent
       },
+      {
+        path: 'successstotyapprovel-page',
+        canActivate: [AuthGuard],
+        component: SuccessstotyapprovelComponent
+      },
+
+
 
     ]
   }
