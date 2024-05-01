@@ -17,6 +17,8 @@ import { SearchComponent } from './search/search.component';
 import { ImageCroperComponent } from './image-croper/image-croper.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FillterModalComponent } from './fillter-modal/fillter-modal.component';
+import { ApprovalviweComponent } from './approvalviwe/approvalviwe.component';
+// import { NotificationComponent } from './notification/notification.component';
 
 
 
@@ -31,7 +33,9 @@ import { FillterModalComponent } from './fillter-modal/fillter-modal.component';
     UpgradePaymentProcessTaskComponent,
     SearchComponent,
     ImageCroperComponent,
-    FillterModalComponent
+    FillterModalComponent,
+    ApprovalviweComponent,
+    // NotificationComponent
   ],
   imports: [
     CommonModule,

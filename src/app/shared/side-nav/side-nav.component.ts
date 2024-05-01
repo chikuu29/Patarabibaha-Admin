@@ -346,12 +346,12 @@ export class SideNavComponent implements OnInit {
           badge: this.profilephotocount,
         },
         {
-          routerLink: '/approve/del',
+          routerLink: '/approve/idapprovel-page',
           text: 'Id Proof',
           badge: this.deliteeeqest,
         },
         {
-          routerLink: '/approve/del',
+          routerLink: '/approve/Horoscopeapprovel-page',
           text: 'Horoscope',
           badge: this.deliteeeqest,
         },
@@ -371,11 +371,15 @@ export class SideNavComponent implements OnInit {
           badge: this.deliteeeqest,
         },
         {
-          routerLink: '/approve/deleterequest-page',
+          routerLink: '/approve/salapprovel-page',
+          text: 'Salary slip',
+          badge: this.deliteeeqest,
+        },
+        {
+          routerLink: '/approve/Other',
           text: 'Other Request',
           badge: this.deliteeeqest,
         },
-
       ],
     },
     {
@@ -515,16 +519,24 @@ export class SideNavComponent implements OnInit {
         // { routerLink: '/ma', text: 'Send Bulk SMS' },
       ],
     },
+    // {
+    //   routerLink: '',
+    //   icon: 'fa-solid fa-crown',
+    //   text: 'Database Backup',
+    //   hidden: false,
+    //   submenuActive: false,
+    //   submenu: [
+    //     // { routerLink: '/ma', text: 'Support Ticket' },
+    //     // { routerLink: '/ma', text: 'Send Bulk SMS' },
+    //   ],
+    // },
     {
-      routerLink: '',
-      icon: 'fa-solid fa-crown',
+      requiredRouterLink: true,
+      routerLink: 'database-backup',
+      icon: 'mdi mdi-airplane-landing',
       text: 'Database Backup',
       hidden: false,
       submenuActive: false,
-      submenu: [
-        // { routerLink: '/ma', text: 'Support Ticket' },
-        // { routerLink: '/ma', text: 'Send Bulk SMS' },
-      ],
     },
     {
       requiredRouterLink: true,

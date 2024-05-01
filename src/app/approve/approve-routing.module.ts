@@ -5,7 +5,9 @@ import { UserapproveComponent } from './userapprove/userapprove.component';
 import { ProfileimagepproveComponent } from './profileimagepprove/profileimagepprove.component';
 import { DeleterequestComponent } from './deleterequest/deleterequest.component';
 import { SuccessstotyapprovelComponent } from './successstotyapprovel/successstotyapprovel.component';
-
+import { HoroscopeapprovalComponent } from './horoscopeapproval/horoscopeapproval.component';
+import { SalapprovalComponent } from './salapproval/salapproval.component';
+import { IdproofapprovalComponent } from './idproofapproval/idproofapproval.component';
 
 const routes: Routes = [
   {
@@ -30,6 +32,30 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: SuccessstotyapprovelComponent
       },
+      {
+        path: 'Horoscopeapprovel-page',
+        canActivate: [AuthGuard],
+        component: HoroscopeapprovalComponent
+      },
+      {
+        path: 'salapprovel-page',
+        canActivate: [AuthGuard],
+        component: SalapprovalComponent
+      },
+      {
+        path: 'idapprovel-page',
+        canActivate: [AuthGuard],
+        component: IdproofapprovalComponent
+      },
+
+
+
+
+
+
+
+
+
 
 
 

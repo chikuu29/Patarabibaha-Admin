@@ -118,6 +118,15 @@ export class ApiService {
     return this.http.post(this.appservices.getApipath()+ `getprofile`,JSON.stringify(param),{headers:this.headers})
   }
 
+  public successStory(param: any) {
+    return this.http.post(this.appservices.getApipath() + 'successStory', param, { headers: this.headers })
+  }
+  public dataBaseBackup() {
+    return this.http.post(this.appservices.getApipath() + 'dataBaseBackup', null, { headers: this.headers })
+  }
+
+
+
 
 
 

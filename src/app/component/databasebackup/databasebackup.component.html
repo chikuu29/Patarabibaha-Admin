@@ -1,3 +1,7 @@
+<div style="text-align: center ;">
+  <button type="button" class="btn btn-primary" (click)="backup()">Database Backup</button>
+</div>
+
 <div class="row">
   <div class="col-xl-12 order-lg-1 order-xl-1">
     <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
@@ -21,32 +25,27 @@
                 <tr>
                   <th style="cursor: pointer; width:1%">#SI</th>
                   <th style="cursor: pointer; width:25%" title="Profile ID">
-                    Patner </th>
-                  <th style="cursor: pointer; width:25%" title="Created At">
-                    Marriage Date
-                  </th>
-                  <th style="cursor: pointer; width:10%" title="Action">Action
-                  </th>
+                    Table Name </th>
                 </tr>
               </thead>
               <tbody>
                 <ng-container
-                  *ngFor="let data of tableData | fillter:['user_full_name','user_ID','user_email','user_phone_no']:filterText ; index as i">
-                  <tr [ngClass]="{'light-green-background': data.status == 1}">
+                  *ngFor="let data of tableData | fillter:['table_name']:filterText ; index as i">
+                  <tr >
                     <td>{{ i+1 }}</td>
-                    <td [title]="data?.user_id">
-                      <div> "{{data?.login_name}}" AND "{{ data?.partner_name }}" </div>
+                    <td [title]="data?.table_name">
+                      <div> {{ data?.table_name }} </div>
                     </td>
-                    <td>
+                    <!-- <td>
                       {{ data?.marriage_date | date }}
-                    </td>
-                    <td>
+                    </td> -->
+                    <!-- <td>
                       <button class="btn btn-outline-primary btn-sm me-2" title="View"
                       (click)="View(data.id)">
-                        <!--  -->
+
                         <i class="fas fa-eye"></i> View
                       </button>
-                    </td>
+                    </td> -->
                   </tr>
                 </ng-container>
               </tbody>
@@ -69,3 +68,4 @@
     </div>
   </div>
 </div>
+

@@ -27,6 +27,8 @@ import { AuthorizationInterceptor } from './utils/authorization.interceptor';
 import { AuthService } from './auth/auth.service';
 import { AuthComponent } from './layout/auth/auth.component';
 import { AdminComponent } from './layout/admin/admin.component';
+import { NotificationComponent } from './shared/notification/notification.component';
+
 export function checkLoginMode(auth: AuthService) {
   console.log("REBUILDING AUTH STATE....");
   return () => {
@@ -38,7 +40,8 @@ export function checkLoginMode(auth: AuthService) {
   declarations: [
     AppComponent,
     AuthComponent,
-    AdminComponent
+    AdminComponent,
+    NotificationComponent
 
   ],
   imports: [
@@ -72,6 +75,7 @@ export function checkLoginMode(auth: AuthService) {
     AppService,
     MessageService,
     ConfirmationService,
+
     {
       provide: APP_INITIALIZER,
       useFactory: checkLoginMode,

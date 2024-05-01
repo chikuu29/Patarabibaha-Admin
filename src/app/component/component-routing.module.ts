@@ -34,6 +34,7 @@ import { PlanDeatilsComponent } from './plan-deatils/plan-deatils.component';
 import { AdminComponent } from '../layout/admin/admin.component';
 import { HoroscopeComponent } from './horoscope/horoscope.component';
 import { ContactviewComponent } from './contactview/contactview.component';
+import { DatabasebackupComponent } from './databasebackup/databasebackup.component';
 
 
 
@@ -201,7 +202,13 @@ const routes: Routes = [
         path: 'contact-view',
         canActivate: [AuthGuard],
         component: ContactviewComponent
+      },{
+        path: 'database-backup',
+        canActivate: [AuthGuard],
+        component: DatabasebackupComponent
       }
+
+
 
 
 

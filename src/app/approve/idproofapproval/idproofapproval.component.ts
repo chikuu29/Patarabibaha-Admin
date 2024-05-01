@@ -1,30 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
-import { ApprovalviweComponent } from 'src/app/shared/approvalviwe/approvalviwe.component';
+import { ImageViewOperationComponent } from 'src/app/shared/image-view-operation/image-view-operation.component';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
-
-
 @Component({
-  selector: 'app-successstotyapprovel',
-  templateUrl: './successstotyapprovel.component.html',
-  styleUrls: ['./successstotyapprovel.component.scss']
+  selector: 'app-idproofapproval',
+  templateUrl: './idproofapproval.component.html',
+  styleUrls: ['./idproofapproval.component.scss'],
 })
-export class SuccessstotyapprovelComponent implements OnInit {
-
-  profilephotodata: any;
-  imageurl: any = environment.filePath + 'storage/';
-  indivisulaimage: Promise<import('sweetalert2').SweetAlertResult<any>>;
+export class IdproofapprovalComponent implements OnInit {
   useradata: any;
+  imageurl: any = environment.filePath + 'storage/idproof/';
   apiFetchRecordLimit = 10;
   options = [10, 15, 50, 100, 500, 1000];
   page: any = 1;
   collectionSize: any = 10;
   offset = 1;
   pegination_required: boolean = false;
-  currentFunction: string = 'getProfileImageAprrove';
+  currentFunction: string = 'getIdProof';
   tableData: any;
   filterText: any;
   totalDataCount: number = 0;
@@ -35,34 +30,40 @@ export class SuccessstotyapprovelComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getProfileImageAprrove(0, this.totalFetchrecord);
+    this.getIdProof(0, this.totalFetchrecord);
   }
 
-  getProfileImageAprrove(
+  getIdProof(
     start: number,
     limit: number,
     loadSpecificData: boolean = false,
     search_text?: any
   ) {
     let query;
-if (loadSpecificData) {
-    query = `
-        SELECT *,COUNT(*) OVER () AS total_count
-        FROM success_story_by_user
-          AND (OR login_name = '${search_text}'
-               OR partner_name = '${search_text}')
-        ORDER BY  id DESC
-        LIMIT ${limit} OFFSET ${start};
-    `;
-} else {
-    query = `
-        SELECT *,COUNT(*) OVER () AS total_count
-        FROM success_story_by_user
-        ORDER BY id DESC
-        LIMIT ${limit} OFFSET ${start};
-    `;
-}
-
+    if (loadSpecificData) {
+      query = `
+      SELECT use_id_upload.* ,user_info.user_full_name,user_info.user_phone_no,user_info.user_email,
+      COUNT(*) OVER () AS total_count
+      FROM use_id_upload
+      JOIN user_info ON use_id_upload.user_ID = user_info.user_id
+      ORDER BY use_id_upload.status ASC, use_id_upload.id ASC
+              AND (user_info.user_id = '${search_text}'
+                   OR user_info.user_full_name = '${search_text}'
+                   OR user_info.user_email = '${search_text}'
+                   OR user_info.user_phone_no = '${search_text}')
+            ORDER BY MAX(use_payment_slip_upload.id) DESC
+            LIMIT ${limit} OFFSET ${start};
+        `;
+    } else {
+      query = `
+      SELECT use_id_upload.* ,user_info.user_full_name,user_info.user_phone_no,user_info.user_email,
+      COUNT(*) OVER () AS total_count
+      FROM use_id_upload
+      JOIN user_info ON use_id_upload.user_ID = user_info.user_id
+        ORDER BY use_id_upload.status ASC, use_id_upload.id ASC
+            LIMIT ${limit} OFFSET ${start};
+        `;
+    }
 
     console.log(query);
 
@@ -82,15 +83,6 @@ if (loadSpecificData) {
         this.tableData = [];
       }
     });
-
-    // this.ApiParameter.fetchdata('user_profile_images', {
-    //   projection: ['*'],
-    //   whereConditions: { user_profile_images_for_approval: 0 },
-    // }).subscribe((res: any) => {
-    //   if (res.success && res['data'].length > 0) {
-    //     this.profilephotodata = res['data'];
-    //   }
-    // });
   }
 
   changepaginetdata(event: any) {
@@ -156,16 +148,38 @@ if (loadSpecificData) {
     this.offset =
       this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit;
   }
-  View(data:any){
-    const modalRef = this.modalService.open(ApprovalviweComponent, {
-      size: 'sm',
-      backdrop: 'static',
-    });
-    modalRef.componentInstance.id = data;
-    modalRef.closed.subscribe(() => {
-      this.ngOnInit(); // Call ngOnInit when the modal is closed
+
+  update(data: any) {
+    Swal.fire({
+      icon: 'question',
+      text: 'Do you want to Published',
+      showCancelButton: true,
+    }).then((ress: any) => {
+      if (ress.isConfirmed) {
+        let updateData = {
+          data: {
+            status: 1,
+          },
+          whereConditions: { user_id: data },
+        };
+        this.ApiParameter.updatedata('use_id_upload', updateData).subscribe(
+          (resdata: any) => {
+            if (resdata.success) {
+              Swal.fire({
+                icon: 'success',
+                text: 'Published',
+              }).then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: resdata.message,
+              });
+            }
+          }
+        );
+      }
     });
   }
-
-
 }

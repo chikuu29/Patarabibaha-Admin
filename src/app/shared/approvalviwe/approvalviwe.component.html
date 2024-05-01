@@ -1,0 +1,48 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h3>Success Story</h3>
+    <button type="button" class="close" (click)="closeModal()">
+      <span>&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="successStoryForm">
+      <label for="dropdown1">First partner name:</label>
+      <select name="dropdown1" id="dropdown1" formControlName="login_name">
+        <option value="{{htmluserfullname.user_full_name}}" *ngFor="let htmluserfullname of userfullname">{{ htmluserfullname.user_full_name }}</option>
+      </select>
+      <br>
+
+      <label for="dropdown2">Second partner name:</label>
+      <select name="dropdown2" id="dropdown2" formControlName="partner_name">
+        <option value="{{htmluserfullname.user_full_name}}" *ngFor="let htmluserfullname of userfullname">{{ htmluserfullname.user_full_name }}</option>
+      </select>
+      <br>
+
+      <label for="date1">Ring Exchange Date</label>
+      <input type="date" id="date1" name="date1" formControlName="ring_exchange_date">
+      <br>
+
+      <label for="date2">Marriage Date</label>
+      <input type="date" id="date2" name="date2" formControlName="marriage_date">
+      <br>
+
+      <label for="message">Success Story</label><br>
+      <textarea id="message" name="message" rows="4" cols="50" formControlName="life_after_marriage"></textarea>
+      <br>
+
+      <!-- Image Upload -->
+      <label for="image">Upload Image</label><br>
+      <input type="file" id="image" name="image" accept="image/*" (change)="handleInputChange($event)">
+      <br>
+
+      <img *ngIf="image" [src]="imageUrl+image" alt="Uploaded Image" style="max-width: 100%; max-height: 200px;">
+      <img *ngIf="imageSrc" [src]="imageSrc" alt="Uploaded Image" style="max-width: 100%; max-height: 200px;">
+      <br>
+
+      <input type="submit" value="Submit & Approved" (click)="approve()">
+    </form>
+
+  </div>
+</div>

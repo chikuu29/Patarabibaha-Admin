@@ -45,6 +45,7 @@ import { PlanDeatilsComponent } from './plan-deatils/plan-deatils.component';
 import { ContactviewComponent } from './contactview/contactview.component';
 import { HoroscopeComponent } from './horoscope/horoscope.component';
 import { FormatannualPipe } from './formatannual.pipe';
+import { DatabasebackupComponent } from './databasebackup/databasebackup.component';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import { FormatannualPipe } from './formatannual.pipe';
     ContactviewComponent,
     HoroscopeComponent,
     FormatannualPipe,
+    DatabasebackupComponent,
 
   ],
   imports: [

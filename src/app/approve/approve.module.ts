@@ -12,6 +12,9 @@ import { SharedModule } from '../shared/shared.module';
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomPipeModule } from '../customPipe/custom-pipe.module';
 import { SuccessstotyapprovelComponent } from './successstotyapprovel/successstotyapprovel.component';
+import { IdproofapprovalComponent } from './idproofapproval/idproofapproval.component';
+import { HoroscopeapprovalComponent } from './horoscopeapproval/horoscopeapproval.component';
+import { SalapprovalComponent } from './salapproval/salapproval.component';
 
 
 
@@ -21,6 +24,9 @@ import { SuccessstotyapprovelComponent } from './successstotyapprovel/successsto
     ProfileimagepproveComponent,
     DeleterequestComponent,
     SuccessstotyapprovelComponent,
+    IdproofapprovalComponent,
+    HoroscopeapprovalComponent,
+    SalapprovalComponent,
   ],
   imports: [
     CommonModule,

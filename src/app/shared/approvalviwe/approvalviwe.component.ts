@@ -1,0 +1,123 @@
+import { Component, OnInit } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  NgModel,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Table } from 'primeng/table';
+import { ApiParameterScript } from 'src/app/script/api-parameter';
+import { ApiService } from 'src/app/services/api.service';
+import { AppService } from 'src/app/services/app.service';
+import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
+
+@Component({
+  selector: 'app-approvalviwe',
+  templateUrl: './approvalviwe.component.html',
+  styleUrls: ['./approvalviwe.component.scss'],
+})
+export class ApprovalviweComponent implements OnInit {
+  id: string;
+  userfullname: any;
+  imageUrl: any = environment.filePath + 'storage/successstory/';
+  successStoryForm = new FormGroup({
+    id: new FormControl('', Validators.required),
+    login_name: new FormControl('', Validators.required),
+    partner_name: new FormControl('', Validators.required),
+    ring_exchange_date: new FormControl('', Validators.required),
+    marriage_date: new FormControl('', Validators.required),
+    life_after_marriage: new FormControl('', Validators.required),
+    wedding_photo: new FormControl(''),
+  });
+  imageSrc: any;
+  image: any;
+  constructor(
+    public modal: NgbActiveModal,
+    private ApiParameterScript: ApiParameterScript,
+    private appservices: AppService,
+    private apiservice: ApiService
+  ) {}
+
+  ngOnInit(): void {
+    console.log(this.id);
+    this.getuser();
+    let query = `
+    SELECT *
+    FROM success_story_by_user
+    WHERE id = ${this.id}
+    `;
+
+    this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        //this.alldata = res['data'][0];
+        this.successStoryForm.patchValue(res['data'][0]);
+        this.image = res['data'][0].wedding_photo;
+        console.log(this.successStoryForm);
+      }
+    });
+  }
+  closeModal() {
+    this.modal.close();
+  }
+  getuser() {
+    let query = `
+    SELECT user_full_name
+    FROM user_info
+    `;
+
+    this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.userfullname = res['data'];
+      }
+    });
+  }
+
+  handleInputChange(e: any) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e: any) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+    this.image = false;
+    this.successStoryForm.patchValue({
+      wedding_photo: this.imageSrc,
+    });
+    //console.log(this.successstorybyuser.value.wedding_photo)
+  }
+  approve() {
+    let date1 = moment(this.successStoryForm.value.marriage_date).format(
+      'YYYY-MM-DD'
+    );
+    this.successStoryForm.patchValue({
+      marriage_date: date1,
+    });
+    let date2 = moment(this.successStoryForm.value.ring_exchange_date).format(
+      'YYYY-MM-DD'
+    );
+    this.successStoryForm.patchValue({
+      ring_exchange_date: date2,
+    });
+    this.apiservice
+      .successStory(this.successStoryForm.value)
+      .subscribe((res: any) => {
+
+          this.modal.close();
+
+      });
+  }
+}

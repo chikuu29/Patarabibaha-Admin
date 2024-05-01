@@ -1,96 +1,70 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
-import { ApprovalviweComponent } from 'src/app/shared/approvalviwe/approvalviwe.component';
-import { environment } from 'src/environments/environment';
-import Swal from 'sweetalert2';
-
-
+import { ApiService } from 'src/app/services/api.service';
+import { NotificationComponent } from 'src/app/shared/notification/notification.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-successstotyapprovel',
-  templateUrl: './successstotyapprovel.component.html',
-  styleUrls: ['./successstotyapprovel.component.scss']
+  selector: 'app-databasebackup',
+  templateUrl: './databasebackup.component.html',
+  styleUrls: ['./databasebackup.component.scss'],
 })
-export class SuccessstotyapprovelComponent implements OnInit {
-
-  profilephotodata: any;
-  imageurl: any = environment.filePath + 'storage/';
-  indivisulaimage: Promise<import('sweetalert2').SweetAlertResult<any>>;
-  useradata: any;
+export class DatabasebackupComponent implements OnInit {
   apiFetchRecordLimit = 10;
   options = [10, 15, 50, 100, 500, 1000];
   page: any = 1;
   collectionSize: any = 10;
   offset = 1;
   pegination_required: boolean = false;
-  currentFunction: string = 'getProfileImageAprrove';
-  tableData: any;
+  currentFunction: string = 'getalltable';
   filterText: any;
+  tableData: any;
   totalDataCount: number = 0;
   totalFetchrecord: number = 10;
   constructor(
     private ApiParameter: ApiParameterScript,
+    private apiservice: ApiService,
     private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
-    this.getProfileImageAprrove(0, this.totalFetchrecord);
+    this.getalltable(0, this.totalFetchrecord);
   }
-
-  getProfileImageAprrove(
+  getalltable(
     start: number,
     limit: number,
     loadSpecificData: boolean = false,
     search_text?: any
   ) {
-    let query;
-if (loadSpecificData) {
-    query = `
-        SELECT *,COUNT(*) OVER () AS total_count
-        FROM success_story_by_user
-          AND (OR login_name = '${search_text}'
-               OR partner_name = '${search_text}')
-        ORDER BY  id DESC
-        LIMIT ${limit} OFFSET ${start};
-    `;
-} else {
-    query = `
-        SELECT *,COUNT(*) OVER () AS total_count
-        FROM success_story_by_user
-        ORDER BY id DESC
-        LIMIT ${limit} OFFSET ${start};
-    `;
-}
-
-
-    console.log(query);
-
-    this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
+    let dbname;
+    let db = `SELECT DATABASE() as db; `;
+    this.ApiParameter.fetchDataFormQuery(db).subscribe((res: any) => {
       console.log(res);
 
       if (res.success && res['data'].length > 0) {
-        this.totalDataCount = res['data'][0].total_count;
-        console.log(this.totalDataCount);
-        this.totalFetchrecord = start + res['data'].length;
-        this.collectionSize =
-          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
-        this.tableData = res['data'];
-      } else {
-        this.collectionSize = 1;
-        this.tableData = [];
+        dbname = res['data'][0].db;
+        console.log(dbname);
+        let query = `SELECT table_name ,COUNT(*) OVER () AS total_count
+            FROM information_schema.tables
+            WHERE table_schema = '${dbname}'
+            LIMIT ${limit} OFFSET ${start};`;
+        this.ApiParameter.fetchDataFormQuery(query).subscribe((resd: any) => {
+          if (resd.success && resd['data'].length > 0) {
+            console.log(resd);
+            this.tableData = resd['data'];
+            this.totalDataCount = resd['data'][0].total_count;
+            console.log(this.totalDataCount);
+            this.totalFetchrecord = start + resd['data'].length;
+            this.collectionSize =
+              Math.ceil(
+                resd['data'][0].total_count / this.apiFetchRecordLimit
+              ) * 10;
+            console.log(this.collectionSize);
+            this.tableData = resd['data'];
+          }
+        });
       }
     });
-
-    // this.ApiParameter.fetchdata('user_profile_images', {
-    //   projection: ['*'],
-    //   whereConditions: { user_profile_images_for_approval: 0 },
-    // }).subscribe((res: any) => {
-    //   if (res.success && res['data'].length > 0) {
-    //     this.profilephotodata = res['data'];
-    //   }
-    // });
   }
 
   changepaginetdata(event: any) {
@@ -156,16 +130,20 @@ if (loadSpecificData) {
     this.offset =
       this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit;
   }
-  View(data:any){
-    const modalRef = this.modalService.open(ApprovalviweComponent, {
-      size: 'sm',
-      backdrop: 'static',
-    });
-    modalRef.componentInstance.id = data;
-    modalRef.closed.subscribe(() => {
-      this.ngOnInit(); // Call ngOnInit when the modal is closed
+  backup() {
+    this.apiservice.dataBaseBackup().subscribe((res: any) => {
+      console.log(res);
+      if (res.success) {
+        // Open the modal and get a reference to the component instance
+        const modalRef = this.modalService.open(NotificationComponent, {
+          size: 'sm',
+        });
+
+        // Call the showNotification function with the provided message
+        (modalRef.componentInstance as NotificationComponent).showNotification(
+          'Backup successful Check '+res.file_path
+        );
+      }
     });
   }
-
-
 }
