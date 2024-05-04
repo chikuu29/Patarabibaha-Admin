@@ -285,13 +285,26 @@
                       <mat-datepicker #picker></mat-datepicker>
                     </div>
                   </div>
-
-                  <!-- <div class="form-group col-md-6">
-                                    <mat-form-field appearance="outline" class="flex-fill w-100">
-                                        <mat-label>Phone No</mat-label>
-                                        <input matInput placeholder="Phone No">
-                                    </mat-form-field>
-                                </div> -->
+                  <div class="form-group col-md-6">
+                    <mat-form-field isReadonly appearance="outline" class="flex-fill w-100">
+                      <mat-label>Profile Email</mat-label>
+                      <input formControlName="user_email" matInput placeholder="Profile Email" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <mat-form-field isReadonly appearance="outline" class="flex-fill w-100">
+                      <mat-label>Profile Whats up no</mat-label>
+                      <input formControlName="user_whatsapp_no" matInput placeholder="Profile Email" />
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <mat-form-field appearance="outline" class="flex-fill w-100">
+                      <mat-label>Profile Phone</mat-label>
+                      <input formControlName="user_phone_no" matInput placeholder="Profile Phone" />
+                    </mat-form-field>
+                  </div>
                 </div>
               </form>
               <div class="row mt-2">

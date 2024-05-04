@@ -264,8 +264,9 @@
               </div>
               <div class="form-outline mb-2">
                 <div class="flex-container">
-                  <p-dropdown [options]="countryCodes" optionLabel="name" placeholder="Select Country Code"
+                  <p-dropdown [options]="countryCodes" optionLabel="name" optionValue="value" placeholder="Select Country Code"
                     class="country-code-dropdown" formControlName="countryCode"></p-dropdown>
+
                   <mat-form-field appearance="outline" class="phone-input">
                     <mat-label>Phone</mat-label>
                     <input matInput placeholder="Phone" type="tel" formControlName="phone">

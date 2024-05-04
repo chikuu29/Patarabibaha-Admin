@@ -376,10 +376,30 @@ export class SideNavComponent implements OnInit {
           badge: this.deliteeeqest,
         },
         {
-          routerLink: '/approve/Other',
-          text: 'Other Request',
+          routerLink: '/approve/genderchange-page',
+          text: 'Gender change',
           badge: this.deliteeeqest,
         },
+        {
+          routerLink: '/approve/emailidchange-page',
+          text: 'Mail id change',
+          badge: this.deliteeeqest,
+        },
+        {
+          routerLink: '/approve/mobilechange-page',
+          text: 'Mobile No Change',
+          badge: this.deliteeeqest,
+        },
+        {
+          routerLink: '/approve/whatsappchange-page',
+          text: 'Whatsapp no change',
+          badge: this.deliteeeqest,
+        },
+        // {
+        //   routerLink: '/approve/Other',
+        //   text: 'Other Request',
+        //   badge: this.deliteeeqest,
+        // },
       ],
     },
     {

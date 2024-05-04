@@ -15,6 +15,10 @@ import { SuccessstotyapprovelComponent } from './successstotyapprovel/successsto
 import { IdproofapprovalComponent } from './idproofapproval/idproofapproval.component';
 import { HoroscopeapprovalComponent } from './horoscopeapproval/horoscopeapproval.component';
 import { SalapprovalComponent } from './salapproval/salapproval.component';
+import { MobilenochangeComponent } from './mobilenochange/mobilenochange.component';
+import { EmailidchangeComponent } from './emailidchange/emailidchange.component';
+import { GenderchangeComponent } from './genderchange/genderchange.component';
+import { WhatsappnochangeComponent } from './whatsappnochange/whatsappnochange.component';
 
 
 
@@ -27,6 +31,10 @@ import { SalapprovalComponent } from './salapproval/salapproval.component';
     IdproofapprovalComponent,
     HoroscopeapprovalComponent,
     SalapprovalComponent,
+    MobilenochangeComponent,
+    EmailidchangeComponent,
+    GenderchangeComponent,
+    WhatsappnochangeComponent,
   ],
   imports: [
     CommonModule,

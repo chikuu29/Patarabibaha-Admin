@@ -272,6 +272,132 @@ export class UserViewComponent implements OnInit {
     { name: 144 },
   ];
 
+  mothersac: any[] = [
+    { name: 'Business Owner' },
+    { name: 'Retired Business Owner' },
+    { name: 'Entrepreneur' },
+    { name: 'Retired Entrepreneur' },
+    { name: 'Professional' },
+    { name: 'Retired Professional' },
+    { name: 'Doctor' },
+    { name: 'Retired Doctor' },
+    { name: 'Engineer' },
+    { name: 'Retired Engineer' },
+    { name: 'Employee' },
+    { name: 'Retired Employee' },
+    { name: 'Professor' },
+    { name: 'Retired Professor' },
+    { name: 'Accountant' },
+    { name: 'Retired Accountant' },
+    { name: 'Financial Advisor' },
+    { name: 'Retired Financial Advisor' },
+    { name: 'Architect' },
+    { name: 'Retired Architect' },
+    { name: 'Consultant' },
+    { name: 'Retired Consultant' },
+    { name: 'Artist' },
+    { name: 'Retired Artist' },
+    { name: 'Farmer' },
+    { name: 'Retired Farmer' },
+    { name: 'Pilot' },
+    { name: 'Retired Pilot' },
+    { name: 'Scientist' },
+    { name: 'Retired Scientist' },
+    { name: 'IT Professional' },
+    { name: 'Retired IT Professional' },
+    { name: 'Manager' },
+    { name: 'Retired Manager' },
+    { name: 'Salesperson' },
+    { name: 'Retired Salesperson' },
+    { name: 'Military Personnel' },
+    { name: 'Retired Military Personnel' },
+    { name: 'Police Officer' },
+    { name: 'Retired Police Officer' },
+    { name: 'Chef' },
+    { name: 'Retired Chef' },
+    { name: 'Musician' },
+    { name: 'Retired Musician' },
+    { name: 'Writer' },
+    { name: 'Retired Writer' },
+    { name: 'Actor' },
+    { name: 'Retired Actor' },
+    { name: 'Carpenter' },
+    { name: 'Retired Carpenter' },
+    { name: 'Electrician' },
+    { name: 'Retired Electrician' },
+    { name: 'Plumber' },
+    { name: 'Retired Plumber' },
+    { name: 'Mechanic' },
+    { name: 'Retired Mechanic' },
+    { name: 'Driver' },
+    { name: 'Lete' },
+    { name: 'House Wife' },
+    { name: 'Other' },
+  ];
+
+  fathersoc: any[] = [
+    { name: 'Business Owner' },
+    { name: 'Retired Business Owner' },
+    { name: 'Entrepreneur' },
+    { name: 'Retired Entrepreneur' },
+    { name: 'Professional' },
+    { name: 'Retired Professional' },
+    { name: 'Doctor' },
+    { name: 'Retired Doctor' },
+    { name: 'Engineer' },
+    { name: 'Retired Engineer' },
+    { name: 'Employee' },
+    { name: 'Retired Employee' },
+    { name: 'Professor' },
+    { name: 'Retired Professor' },
+    { name: 'Accountant' },
+    { name: 'Retired Accountant' },
+    { name: 'Financial Advisor' },
+    { name: 'Retired Financial Advisor' },
+    { name: 'Architect' },
+    { name: 'Retired Architect' },
+    { name: 'Consultant' },
+    { name: 'Retired Consultant' },
+    { name: 'Artist' },
+    { name: 'Retired Artist' },
+    { name: 'Farmer' },
+    { name: 'Retired Farmer' },
+    { name: 'Pilot' },
+    { name: 'Retired Pilot' },
+    { name: 'Scientist' },
+    { name: 'Retired Scientist' },
+    { name: 'IT Professional' },
+    { name: 'Retired IT Professional' },
+    { name: 'Manager' },
+    { name: 'Retired Manager' },
+    { name: 'Salesperson' },
+    { name: 'Retired Salesperson' },
+    { name: 'Military Personnel' },
+    { name: 'Retired Military Personnel' },
+    { name: 'Police Officer' },
+    { name: 'Retired Police Officer' },
+    { name: 'Chef' },
+    { name: 'Retired Chef' },
+    { name: 'Musician' },
+    { name: 'Retired Musician' },
+    { name: 'Writer' },
+    { name: 'Retired Writer' },
+    { name: 'Actor' },
+    { name: 'Retired Actor' },
+    { name: 'Carpenter' },
+    { name: 'Retired Carpenter' },
+    { name: 'Electrician' },
+    { name: 'Retired Electrician' },
+    { name: 'Plumber' },
+    { name: 'Retired Plumber' },
+    { name: 'Mechanic' },
+    { name: 'Retired Mechanic' },
+    { name: 'Driver' },
+    { name: 'Retired Driver' },
+    { name: 'Lete' },
+    { name: 'Other' },
+  ];
+
   bodyTpeOptions: any = [
     { name: 'Athletic' },
     { name: 'Slim' },
@@ -319,6 +445,8 @@ export class UserViewComponent implements OnInit {
     user_mother_toungh: new FormControl('', [Validators.required]),
     user_marital_status: new FormControl('', [Validators.required]),
     user_dob: new FormControl('', [Validators.required]),
+    user_phone_no: new FormControl('', [Validators.required]),
+    user_whatsapp_no: new FormControl('', [Validators.required]),
   });
 
   user_religionDetailsForm = new FormGroup({
@@ -453,6 +581,8 @@ export class UserViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.fathersoc.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    this.mothersac.sort((a: any, b: any) => a.name.localeCompare(b.name));
     this.imageUrl = this.appservices.getFilePath() + 'storage/';
     this.uploadURL = `${this.appservices.getApipath()}upload?q=${
       this.profile_id
@@ -794,6 +924,8 @@ export class UserViewComponent implements OnInit {
           .format('YYYY-MM-DD')
           .toString(),
         user_has_complete_profile: 1,
+        user_phone_no: this.basicDetailsForm.value.user_phone_no,
+        user_whatsapp_no: this.basicDetailsForm.value.user_whatsapp_no,
       },
       whereConditions: {
         user_id: this.profile_id,
@@ -802,9 +934,28 @@ export class UserViewComponent implements OnInit {
     this.ApiParameterScript.updatedata('user_info', updateData).subscribe(
       (res: any) => {
         if (res.success) {
-          Swal.fire('', res.message, 'success').then(() => {
-            this.ngOnInit();
-          });
+          var updateData1 = {
+            data: {
+              auth_email: this.basicDetailsForm.value.user_email,
+              auth_phone_no: this.basicDetailsForm.value.user_phone_no,
+              auth_name:
+                this.basicDetailsForm.value.user_fname +
+                ' ' +
+                this.basicDetailsForm.value.user_lname,
+            },
+            whereConditions: {
+              auth_ID: this.profile_id,
+            },
+          };
+          this.ApiParameterScript.updatedata('auth_user', updateData1).subscribe(
+            (res: any) => {
+              if (res.success) {
+                Swal.fire('', res.message, 'success').then(() => {
+                  this.ngOnInit();
+                });
+              }
+            }
+          );
         } else {
           Swal.fire('No Data Updated', res.message, 'error');
         }

@@ -8,6 +8,11 @@ import { SuccessstotyapprovelComponent } from './successstotyapprovel/successsto
 import { HoroscopeapprovalComponent } from './horoscopeapproval/horoscopeapproval.component';
 import { SalapprovalComponent } from './salapproval/salapproval.component';
 import { IdproofapprovalComponent } from './idproofapproval/idproofapproval.component';
+import { WhatsappnochangeComponent } from './whatsappnochange/whatsappnochange.component';
+import { MobilenochangeComponent } from './mobilenochange/mobilenochange.component';
+import { EmailidchangeComponent } from './emailidchange/emailidchange.component';
+import { GenderchangeComponent } from './genderchange/genderchange.component';
+
 
 const routes: Routes = [
   {
@@ -46,7 +51,34 @@ const routes: Routes = [
         path: 'idapprovel-page',
         canActivate: [AuthGuard],
         component: IdproofapprovalComponent
+      },{
+        path: 'whatsappchange-page',
+        canActivate: [AuthGuard],
+        component: WhatsappnochangeComponent
+      },{
+        path: 'mobilechange-page',
+        canActivate: [AuthGuard],
+        component: MobilenochangeComponent
+      },{
+        path: 'emailidchange-page',
+        canActivate: [AuthGuard],
+        component: EmailidchangeComponent
+      },{
+        path: 'genderchange-page',
+        canActivate: [AuthGuard],
+        component: GenderchangeComponent
       },
+
+
+
+
+
+
+
+
+
+
+
 
 
 

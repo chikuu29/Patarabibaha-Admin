@@ -133,6 +133,10 @@ export class ApiService {
   public paymentSlipUplode(param:any){
     return this.http.post(this.appservices.getApipath() + 'paymentSlipUplode', param, { headers: this.headers })
   }
+  public sendMailForChange(param:any){
+    return this.http.post(this.appservices.getApipath() + 'sendMailForChange', param, { headers: this.headers })
+  }
+
 
 
 

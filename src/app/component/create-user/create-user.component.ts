@@ -5,6 +5,7 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { RegisterService } from 'src/app/services/register.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -12,11 +13,9 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.scss']
+  styleUrls: ['./create-user.component.scss'],
 })
 export class CreateUserComponent implements OnInit {
-
-
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   date: Date;
@@ -28,8 +27,8 @@ export class CreateUserComponent implements OnInit {
   form3: FormGroup;
 
   profileID: any;
-  dayOption: any[]
- months:any = [
+  dayOption: any[];
+  months: any = [
     { value: '01', display: 'Jan' },
     { value: '02', display: 'Feb' },
     { value: '03', display: 'Mar' },
@@ -41,34 +40,87 @@ export class CreateUserComponent implements OnInit {
     { value: '09', display: 'Sep' },
     { value: '10', display: 'Oct' },
     { value: '11', display: 'Nov' },
-    { value: '12', display: 'Dec' }
+    { value: '12', display: 'Dec' },
   ];
-  countryCodes = [
-    { name: '+1 (United States)' },
-    { name: '+44 (United Kingdom)' },
-    { name: '+91 (India)' },
-    // Add more country codes as needed
+  countryCodes = [];
+
+  year: any[] = [
+    '1985',
+    '1986',
+    '1987',
+    '1988',
+    '1989',
+    '1990',
+    '1991',
+    '1992',
+    '1993',
+    '1994',
+    '1995',
+    '1996',
+    '1997',
+    '1998',
+    '1999',
+    '2000',
+    '2001',
+    '2002',
+    '2003',
+    '2004',
+    '2005',
+    '2006',
+    '2007',
+    '2008',
+    '2009',
+    '2010',
+    '2011',
+    '2012',
+    '2013',
+    '2014',
+    '2015',
+    '2016',
+    '2017',
+    '2018',
+    '2019',
+    '2020',
+    '2021',
+    '2022',
+    '2023',
+    '2024',
+    '2025',
+    '2026',
+    '2027',
+    '2028',
+    '2029',
+    '2030',
+    '2031',
+    '2032',
+    '2033',
+    '2034',
+    '2035',
+    '2036',
+    '2037',
+    '2038',
+    '2039',
+    '2040',
+    '2041',
+    '2042',
+    '2043',
+    '2044',
+    '2045',
+    '2046',
+    '2047',
+    '2048',
+    '2049',
+    '2050',
   ];
-
-  year:any[]=[
-    "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994",
-    "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004",
-    "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014",
-    "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024",
-    "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034",
-    "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044",
-    "2045", "2046", "2047", "2048", "2049", "2050"
-  ]
-
 
   constructor(
     private formBuilder: FormBuilder,
     private registerServices: RegisterService,
     private alert: ToastrService,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private ApiParameter: ApiParameterScript
   ) {
-
     this.form1 = this.formBuilder.group({
       profileType: ['', Validators.required],
       gender: ['', [Validators.required]],
@@ -78,50 +130,55 @@ export class CreateUserComponent implements OnInit {
       lname: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)]],
       day: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
       month: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
-      year: ['', [Validators.required, Validators.min(1900), Validators.max(2100)]]
+      year: [
+        '',
+        [Validators.required, Validators.min(1900), Validators.max(2100)],
+      ],
       // dob: ['', [Validators.required]],
     });
     this.form3 = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required,Validators.pattern(/^(?:\+?91)?[789]\d{9}$/)]],
+      phone: [
+        '',
+        [Validators.required, Validators.pattern(/^(?:\+?91)?[789]\d{9}$/)],
+      ],
       password: ['', [Validators.required]],
+      countryCode : ['91']
     });
-
   }
 
   ngOnInit(): void {
-
-    this.dayOption= Array.from({ length: 31 }, (_, i) => (i + 1).toString().padStart(2, '0'))
+    this.getcountrycode();
+    this.dayOption = Array.from({ length: 31 }, (_, i) =>
+      (i + 1).toString().padStart(2, '0')
+    );
     console.log(this.dayOption);
 
     setTimeout(() => {
       this.activeFormTab('form1');
-      this.blockUI.stop()
+      this.blockUI.stop();
     }, 500);
-
-
   }
 
   back() {
     var getactiveForm = document.querySelector('.active-step');
     var activeFormArrayList = [
       {
-        "index": 1,
-        "name": 'form1',
-        'active': getactiveForm?.classList.contains('form1'),
+        index: 1,
+        name: 'form1',
+        active: getactiveForm?.classList.contains('form1'),
       },
       {
-        "index": 2,
-        "name": 'form2',
-        'active': getactiveForm?.classList.contains('form2'),
+        index: 2,
+        name: 'form2',
+        active: getactiveForm?.classList.contains('form2'),
       },
       {
-        "index": 3,
-        "name": 'form3',
-        'active': getactiveForm?.classList.contains('form3'),
-      }
-
-    ]
+        index: 3,
+        name: 'form3',
+        active: getactiveForm?.classList.contains('form3'),
+      },
+    ];
 
     // console.log("get", getactiveForm);
 
@@ -132,45 +189,35 @@ export class CreateUserComponent implements OnInit {
         deactiveForm?.classList.remove('active-step');
         activeForm?.classList.add('active-step');
       }
-    })
-
+    });
   }
 
   activeFormTab(name: any) {
-
     var form = document.querySelector('.' + name);
     form?.classList.add('active-step');
-
   }
 
   continue() {
-
     // console.log("Form 1", this.form1.value);
     var form1 = document.querySelector('.form1');
-    form1?.classList.remove('active-step')
-    this.activeFormTab('form2')
-
-
-
+    form1?.classList.remove('active-step');
+    this.activeFormTab('form2');
   }
 
   signup() {
-
-    this.blockUI.start('Setup Account...')
+    this.blockUI.start('Setup Account...');
     var apiData = {
-      "profileType": this.form1.value.profileType,
-      "gender": this.form1.value.gender,
-      "fname": this.form2.value.fname,
-      "lname": this.form2.value.lname,
-      "dob": `${this.form2.value.year}-${this.form2.value.month}-${this.form2.value.day}`,
-      "email": this.form3.value.email,
-      "phone": `${this.form3.value.phone}`,
-      "password": this.form3.value.password,
-      "url": environment.application_url
+      profileType: this.form1.value.profileType,
+      gender: this.form1.value.gender,
+      fname: this.form2.value.fname,
+      lname: this.form2.value.lname,
+      dob: `${this.form2.value.year}-${this.form2.value.month}-${this.form2.value.day}`,
+      email: this.form3.value.email,
+      phone: `${this.form3.value.phone}`,
+      password: this.form3.value.password,
+      url: environment.application_url,
       // "profileID":this.profileID
-
-
-    }
+    };
     // console.log("Formdata", apiData);
 
     this.registerServices.setupuserAuthAccount(apiData).subscribe(
@@ -180,7 +227,7 @@ export class CreateUserComponent implements OnInit {
 
         if (res.success) {
           Swal.fire('Success!', res.message, 'success').then(() => {
-           this.router.navigateByUrl('/user/'+res.profileID)
+            this.router.navigateByUrl('/user/' + res.profileID);
             // var credential = {
             //   userID: this.form3.value.email,
             //   password: this.form3.value.password
@@ -198,48 +245,40 @@ export class CreateUserComponent implements OnInit {
             //     this.alert.error(res.message);
             //   }
             // })
-
-
-          })
-
-
+          });
         } else {
-          this.alert.error(res.message, 'Information')
-
+          this.alert.error(res.message, 'Information');
         }
         // console.log(res);
-
-      }, (err: any) => {
-        this.blockUI.stop()
-        this.alert.error(err.message, 'OPS!')
+      },
+      (err: any) => {
+        this.blockUI.stop();
+        this.alert.error(err.message, 'OPS!');
         console.log(err);
-
-      })
-
+      }
+    );
   }
 
   setProfile() {
-
     // console.log("Form 1", this.form2.value);
-    var dob = `${this.form2.value.year}-${this.form2.value.month}-${this.form2.value.day}`
+    var dob = `${this.form2.value.year}-${this.form2.value.month}-${this.form2.value.day}`;
     // console.log(dob);
-
 
     const inputDate = new Date(dob);
     const currentDate = new Date();
-    const minDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
+    const minDate = new Date(
+      currentDate.getFullYear() - 18,
+      currentDate.getMonth(),
+      currentDate.getDate()
+    );
 
     if (inputDate >= minDate) {
-      Swal.fire("Warning",'Please Enter DOB Greater Than 18','warning')
-
+      Swal.fire('Warning', 'Please Enter DOB Greater Than 18', 'warning');
     } else {
-
       var form1 = document.querySelector('.form2');
-      form1?.classList.remove('active-step')
-      this.activeFormTab('form3')
+      form1?.classList.remove('active-step');
+      this.activeFormTab('form3');
     }
-
-
 
     // var apiData = {
     //   "fname": this.form3.value.fname,
@@ -280,10 +319,22 @@ export class CreateUserComponent implements OnInit {
     //     Swal.fire('OPS!',res.message,'error')
     //   }
 
-
-
     // })
-
   }
 
+  getcountrycode() {
+    this.ApiParameter.fetchdata('country', {
+      projection: ['phonecode', 'name'],
+    },0,255).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+          this.countryCodes = res['data'].map((elv:any)=>{
+            return {
+              name:elv.name,
+              value:elv.phonecode
+            }
+          })
+      }
+    });
+    this.countryCodes.sort((a: any, b: any) => a.name.localeCompare(b.name));
+  }
 }
