@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
-import { ImageViewOperationComponent } from 'src/app/shared/image-view-operation/image-view-operation.component';
+import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
@@ -24,13 +24,20 @@ export class IdproofapprovalComponent implements OnInit {
   filterText: any;
   totalDataCount: number = 0;
   totalFetchrecord: number = 10;
+  allId: any[] = [];
+  userdata: any;
+  User_id: any = '';
+  selectedImage: string | ArrayBuffer | null;
   constructor(
     private ApiParameter: ApiParameterScript,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private ApiService: ApiService
   ) {}
 
   ngOnInit(): void {
+    this.totalFetchrecord = 10;
     this.getIdProof(0, this.totalFetchrecord);
+    this.getalluser();
   }
 
   getIdProof(
@@ -46,12 +53,11 @@ export class IdproofapprovalComponent implements OnInit {
       COUNT(*) OVER () AS total_count
       FROM use_id_upload
       JOIN user_info ON use_id_upload.user_ID = user_info.user_id
-      ORDER BY use_id_upload.status ASC, use_id_upload.id ASC
-              AND (user_info.user_id = '${search_text}'
+             WHERE user_info.user_id = '${search_text}'
                    OR user_info.user_full_name = '${search_text}'
                    OR user_info.user_email = '${search_text}'
-                   OR user_info.user_phone_no = '${search_text}')
-            ORDER BY MAX(use_payment_slip_upload.id) DESC
+                   OR user_info.user_phone_no = '${search_text}'
+                   ORDER BY use_id_upload.status ASC, use_id_upload.id ASC
             LIMIT ${limit} OFFSET ${start};
         `;
     } else {
@@ -179,6 +185,230 @@ export class IdproofapprovalComponent implements OnInit {
             }
           }
         );
+      }
+    });
+  }
+
+  deletedata() {
+    if (this.allId.length == 0) {
+      Swal.fire('Warning', 'Please select any record', 'warning');
+    } else {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want to Delete',
+        showCancelButton: true,
+      }).then((r: any) => {
+        console.log(r);
+        if (r.isConfirmed) {
+          let updateData = {
+            data: {
+              deleted: 0,
+            },
+            type: 'Delete',
+            whereConditions: this.allId,
+          };
+          this.ApiParameter.makeActinForMultipuldeleteData(
+            'use_id_upload',
+            updateData
+          ).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: 'deleted',
+              }).then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message,
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+  publishuser() {
+    if (this.allId.length == 0) {
+      Swal.fire('Warning', 'Please select any record', 'warning');
+    } else {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want to publish',
+        showCancelButton: true,
+      }).then((r: any) => {
+        console.log(r);
+        if (r.isConfirmed) {
+          let updateData = {
+            data: {
+              status: 1,
+            },
+            type: 'Publish',
+            whereConditions: this.allId,
+          };
+          this.ApiParameter.makeActinForMultipulData(
+            'use_id_upload',
+            updateData
+          ).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: 'publish',
+              }).then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message,
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+  unpublishuser() {
+    // alert(data);
+    if (this.allId.length == 0) {
+      Swal.fire('Warning', 'Please select any record', 'warning');
+    } else {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want to  Unpublish',
+        showCancelButton: true,
+      }).then((r: any) => {
+        //console.log(r);
+        if (r.isConfirmed) {
+          let updateData = {
+            data: {
+              status: 0,
+            },
+            type: 'UnPublish',
+            whereConditions: this.allId,
+          };
+          this.ApiParameter.makeActinForMultipulData(
+            'use_id_upload',
+            updateData
+          ).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: 'Unpublish',
+              }).then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message,
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+
+  checkAll(e: any) {
+    let check = document.querySelectorAll('.check');
+    console.log(check);
+
+    this.allId = [];
+    if (e.target.checked) {
+      check.forEach((checkbox: any, key: any) => {
+        console.log('p');
+
+        this.allId.push(parseInt(this.tableData[key].id));
+        checkbox.checked = true;
+      });
+    } else {
+      check.forEach((checkbox: any, key: any) => {
+        this.allId = [];
+        checkbox.checked = false;
+      });
+    }
+    console.log(this.allId);
+  }
+  getId(id: any, e: any) {
+    console.log('hii', e);
+
+    if (e.target.checked) {
+      this.allId.push(parseInt(id));
+    } else {
+      let index = this.allId.indexOf(parseInt(id));
+      this.allId.splice(index, 1);
+      let k = <any>document.getElementById('all');
+      k.checked = false;
+    }
+    console.log(this.allId);
+  }
+
+  getalluser() {
+    let quary = `SELECT user_id,user_full_name FROM user_info`;
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.userdata = res['data'];
+      }
+    });
+  }
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    const reader = new FileReader();
+
+    if (file) {
+      if (file.size >= 3 * 1024 * 1024) {
+        Swal.fire('Error', 'File size exceeds 3MB limit.', 'error');
+      } else if (
+        !(
+          file.type === 'image/jpeg' ||
+          file.type === 'image/gif' ||
+          file.type === 'image/png'
+        )
+      ) {
+        Swal.fire(
+          'Error',
+          'Invalid file type. Please upload JPG, GIF, or PNG.',
+          'error'
+        );
+      } else {
+        reader.onload = () => {
+          this.selectedImage = reader.result;
+          // Log the selectedImage after it's loaded
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+  addimg() {
+    let param = {
+      data: this.selectedImage,
+      user_Id: this.User_id,
+    };
+    this.ApiService.idProofUplode(param).subscribe((res: any) => {
+      if (res.success) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Uplode photo',
+          text: res.message,
+        });
+        this.ngOnInit();
+        this.selectedImage = null;
+      }
+    });
+  }
+  edit(userID: any) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    let quary = `SELECT user_id,user_full_name FROM user_info WHERE user_id = '${userID}'`;
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.User_id = res['data'][0].user_id;
+        let _this: any = this;
+        _this[this.currentFunction](0, 10, true, this.User_id);
       }
     });
   }

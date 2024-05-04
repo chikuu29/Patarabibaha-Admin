@@ -1,3 +1,38 @@
+<div class="container">
+  <div>
+    <label for="imageType">User:</label>
+    <select id="imageType" [(ngModel)]="User_id">
+      <option value="" hidden>select</option>
+      <option *ngFor="let data of userdata" [value]="data.user_id">{{ data.user_full_name }}</option>
+    </select>
+  </div>
+  <div>
+    <label for="imh">ID Proof:</label>
+    <input type="file" (change)="onFileSelected($event)" accept="image/*" id="imh">
+  </div>
+  <div class="submitBtn" (click)="addimg()">Submit</div>
+</div>
+<div class="outline">
+
+  <div class="commen">
+    <button [style]="{ 'background-color': '#FF1A0A', 'color': '#FFFFFF' }" type="button" class="btn"
+      (click)="deletedata()">
+      <i class="fas fa-trash-alt"></i> Delete
+    </button>
+  </div>
+  <div class="commen">
+    <button type="button" [style]="{ 'background-color': '#009788', 'color': '#FFFFFF' }" class="btn"
+      (click)="publishuser()">
+      <i class="fas fa-upload"></i> Publish
+    </button>
+  </div>
+  <div class="commen">
+    <button type="button" [style]="{ 'background-color': '#F47F16', 'color': '#FFFFFF' }" class="btn"
+      (click)="unpublishuser()">
+      <i class="fas fa-download"></i> Unpublish
+    </button>
+  </div>
+</div>
 <div class="row">
   <div class="col-xl-12 order-lg-1 order-xl-1">
     <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
@@ -22,6 +57,9 @@
             <table class="custom-table table  table-bordered table-striped">
               <thead class="flip-content">
                 <tr>
+                  <th style="cursor: pointer; width:5%" title="Select Member">
+                    <input type="checkbox" name="" id="all" (change)="checkAll($event)">
+                  </th>
                   <th style="cursor: pointer; width:1%">#SI</th>
                   <th style="cursor: pointer; width:25%" title="Profile ID">
                     Profile ID </th>
@@ -37,8 +75,12 @@
                 <ng-container
                   *ngFor="let data of tableData | fillter:['user_full_name','user_ID','user_email','user_phone_no']:filterText ; index as i">
                   <tr [ngClass]="{'light-green-background': data.status == 1}">
+                    <td class="text-center">
+                      <input type="checkbox" class="check" [value]="data?.id" (change)="getId(data?.id,$event)" name=""
+                        id="">
+                    </td>
                     <td>{{ i+1 }}</td>
-                    <td [title]="data?.user_ID" >
+                    <td [title]="data?.user_ID">
                       <div> {{data?.user_ID}} </div>
                     </td>
 
@@ -47,8 +89,17 @@
                     </td>
                     <td>
 
-                      <button class="btn btn-outline-primary btn-sm me-2" title="View" (click)="update(data.user_ID)">
+                      <button *ngIf="data.status == 0" class="btn btn-outline-primary btn-sm me-2" title="View"
+                        (click)="update(data.user_ID)">
+                        <i class="fas fa-eye"></i> Pending
+                      </button>
+                      <button *ngIf="data.status == 1" class="btn btn-outline-primary btn-sm me-2" title="View"
+                        (click)="update(data.user_ID)">
                         <i class="fas fa-eye"></i> Approved
+                      </button>
+                      <button class="btn btn-outline-primary btn-sm me-2" title="View"
+                        (click)="edit(data.user_ID)">
+                        <i class="fas fa-eye"></i> Edit
                       </button>
                     </td>
                   </tr>
@@ -77,4 +128,3 @@
     </div>
   </div>
 </div>
-

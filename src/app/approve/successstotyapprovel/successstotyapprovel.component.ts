@@ -29,6 +29,7 @@ export class SuccessstotyapprovelComponent implements OnInit {
   filterText: any;
   totalDataCount: number = 0;
   totalFetchrecord: number = 10;
+  allId: any[] = [];
   constructor(
     private ApiParameter: ApiParameterScript,
     private modalService: NgbModal
@@ -51,14 +52,14 @@ if (loadSpecificData) {
         FROM success_story_by_user
           AND (OR login_name = '${search_text}'
                OR partner_name = '${search_text}')
-        ORDER BY  id DESC
+        ORDER BY  status  ASC , id DESC
         LIMIT ${limit} OFFSET ${start};
     `;
 } else {
     query = `
         SELECT *,COUNT(*) OVER () AS total_count
         FROM success_story_by_user
-        ORDER BY id DESC
+        ORDER BY  status  ASC , id DESC
         LIMIT ${limit} OFFSET ${start};
     `;
 }
@@ -165,6 +166,162 @@ if (loadSpecificData) {
     modalRef.closed.subscribe(() => {
       this.ngOnInit(); // Call ngOnInit when the modal is closed
     });
+  }
+
+  deletedata() {
+    if (this.allId.length == 0) {
+      Swal.fire('Warning', 'Please select any record', 'warning');
+    } else {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want to Delete',
+        showCancelButton: true,
+      }).then((r: any) => {
+        console.log(r);
+        if (r.isConfirmed) {
+          let updateData = {
+            data: {
+              deleted: 0,
+            },
+            type: 'Delete',
+            whereConditions: this.allId,
+          };
+          this.ApiParameter.makeActinForMultipuldeleteData(
+            'success_story_by_user',
+            updateData
+          ).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: 'deleted',
+              }).then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message,
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+  publishuser() {
+    if (this.allId.length == 0) {
+      Swal.fire('Warning', 'Please select any record', 'warning');
+    } else {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want to publish',
+        showCancelButton: true,
+      }).then((r: any) => {
+        console.log(r);
+        if (r.isConfirmed) {
+          let updateData = {
+            data: {
+              status: 1,
+            },
+            type: 'Publish',
+            whereConditions: this.allId,
+          };
+          this.ApiParameter.makeActinForMultipulData(
+            'success_story_by_user',
+            updateData
+          ).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: 'publish',
+              }).then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message,
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+  unpublishuser() {
+    // alert(data);
+    if (this.allId.length == 0) {
+      Swal.fire('Warning', 'Please select any record', 'warning');
+    } else {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want to  Unpublish',
+        showCancelButton: true,
+      }).then((r: any) => {
+        //console.log(r);
+        if (r.isConfirmed) {
+          let updateData = {
+            data: {
+              status: 0,
+            },
+            type: 'UnPublish',
+            whereConditions: this.allId,
+          };
+          this.ApiParameter.makeActinForMultipulData(
+            'success_story_by_user',
+            updateData
+          ).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: 'Unpublish',
+              }).then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message,
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+
+  checkAll(e: any) {
+    let check = document.querySelectorAll('.check');
+    console.log(check);
+
+    this.allId = [];
+    if (e.target.checked) {
+      check.forEach((checkbox: any, key: any) => {
+        console.log('p');
+
+        this.allId.push(parseInt(this.tableData[key].id));
+        checkbox.checked = true;
+      });
+    } else {
+      check.forEach((checkbox: any, key: any) => {
+        this.allId = [];
+        checkbox.checked = false;
+      });
+    }
+    console.log(this.allId);
+  }
+  getId(id: any, e: any) {
+    console.log('hii', e);
+
+    if (e.target.checked) {
+      this.allId.push(parseInt(id));
+    } else {
+      let index = this.allId.indexOf(parseInt(id));
+      this.allId.splice(index, 1);
+      let k = <any>document.getElementById('all');
+      k.checked = false;
+    }
+    console.log(this.allId);
   }
 
 

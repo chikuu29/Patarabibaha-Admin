@@ -124,6 +124,15 @@ export class ApiService {
   public dataBaseBackup() {
     return this.http.post(this.appservices.getApipath() + 'dataBaseBackup', null, { headers: this.headers })
   }
+  public idProofUplode(param:any){
+    return this.http.post(this.appservices.getApipath() + 'idProofUplode', param, { headers: this.headers })
+  }
+  public horoscopeUplode(param:any){
+    return this.http.post(this.appservices.getApipath() + 'horoscopeUplode', param, { headers: this.headers })
+  }
+  public paymentSlipUplode(param:any){
+    return this.http.post(this.appservices.getApipath() + 'paymentSlipUplode', param, { headers: this.headers })
+  }
 
 
 
