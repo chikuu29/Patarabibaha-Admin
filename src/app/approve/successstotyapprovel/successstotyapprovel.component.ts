@@ -36,6 +36,7 @@ export class SuccessstotyapprovelComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.totalFetchrecord = 10;
     this.getProfileImageAprrove(0, this.totalFetchrecord);
   }
 
@@ -322,6 +323,16 @@ if (loadSpecificData) {
       k.checked = false;
     }
     console.log(this.allId);
+  }
+  add(){
+    const modalRef = this.modalService.open(ApprovalviweComponent, {
+      size: 'sm',
+      backdrop: 'static',
+    });
+    modalRef.componentInstance.id = '';
+    modalRef.closed.subscribe(() => {
+      this.ngOnInit(); // Call ngOnInit when the modal is closed
+    });
   }
 
 

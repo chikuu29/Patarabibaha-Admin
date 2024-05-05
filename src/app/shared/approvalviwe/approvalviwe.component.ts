@@ -46,21 +46,25 @@ export class ApprovalviweComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.id);
     this.getuser();
-    let query = `
+    if (this.id != '') {
+      let query = `
     SELECT *
     FROM success_story_by_user
     WHERE id = ${this.id}
     `;
 
-    this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log(res);
-      if (res.success && res['data'].length > 0) {
-        //this.alldata = res['data'][0];
-        this.successStoryForm.patchValue(res['data'][0]);
-        this.image = res['data'][0].wedding_photo;
-        console.log(this.successStoryForm);
-      }
-    });
+      this.ApiParameterScript.fetchDataFormQuery(query).subscribe(
+        (res: any) => {
+          console.log(res);
+          if (res.success && res['data'].length > 0) {
+            //this.alldata = res['data'][0];
+            this.successStoryForm.patchValue(res['data'][0]);
+            this.image = res['data'][0].wedding_photo;
+            console.log(this.successStoryForm);
+          }
+        }
+      );
+    }
   }
   closeModal() {
     this.modal.close();
@@ -115,9 +119,7 @@ export class ApprovalviweComponent implements OnInit {
     this.apiservice
       .successStory(this.successStoryForm.value)
       .subscribe((res: any) => {
-
-          this.modal.close();
-
+        this.modal.close();
       });
   }
 }

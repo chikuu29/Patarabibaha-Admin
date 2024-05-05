@@ -181,7 +181,7 @@ export class GenderchangeComponent implements OnInit {
                   if (resdata.success) {
                     let params = {
                       "user_id": data,
-                      "type" : "gender",
+                      "type" : "Gender",
                       "olddata" : oldgender,
                       "newdata" : newgender,
                       "filepath" : environment.filePath
