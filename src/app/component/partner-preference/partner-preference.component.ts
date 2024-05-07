@@ -360,6 +360,9 @@ export class PartnerPreferenceComponent implements OnInit {
         );
       }
     });
+
+
+
     this.ApiParameterScript.fetchdata('annual_income', {
       projection: ['*'],
       whereConditions: { status: 1 },

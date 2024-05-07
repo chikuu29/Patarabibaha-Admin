@@ -4,6 +4,13 @@ import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import {
+  FormControl,
+  FormGroup,
+  NgModel,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-idproofapproval',
@@ -28,6 +35,8 @@ export class IdproofapprovalComponent implements OnInit {
   userdata: any;
   User_id: any = '';
   selectedImage: string | ArrayBuffer | null;
+  searchControl1 = new FormControl('');
+  filteredOptions1: any[] = [];
   constructor(
     private ApiParameter: ApiParameterScript,
     private modalService: NgbModal,
@@ -38,6 +47,23 @@ export class IdproofapprovalComponent implements OnInit {
     this.totalFetchrecord = 10;
     this.getIdProof(0, this.totalFetchrecord);
     this.getalluser();
+    this.searchControl1.valueChanges.subscribe((value: any) => {
+      this.filteredOptions1=[];
+      this.filteredOptions1 = this.filterOptions(value, this.userdata);
+    });
+  }
+
+  filterOptions(value: string, options: any[]): any[] {
+    console.log(options);
+
+    const filterValue = value.toLowerCase();
+    return options.filter(
+      (option) =>
+        (option.user_full_name &&
+          option.user_full_name.toLowerCase().includes(filterValue)) ||
+        (option.user_phone_no && option.user_phone_no.includes(value)) ||
+        (option.user_id && option.user_id.includes(value))
+    );
   }
 
   getIdProof(
@@ -57,7 +83,7 @@ export class IdproofapprovalComponent implements OnInit {
                    OR user_info.user_full_name = '${search_text}'
                    OR user_info.user_email = '${search_text}'
                    OR user_info.user_phone_no = '${search_text}'
-                   ORDER BY use_id_upload.status ASC, use_id_upload.id ASC
+                   ORDER BY use_id_upload.status ASC, use_id_upload.id DESC
             LIMIT ${limit} OFFSET ${start};
         `;
     } else {
@@ -66,7 +92,7 @@ export class IdproofapprovalComponent implements OnInit {
       COUNT(*) OVER () AS total_count
       FROM use_id_upload
       JOIN user_info ON use_id_upload.user_ID = user_info.user_id
-        ORDER BY use_id_upload.status ASC, use_id_upload.id ASC
+        ORDER BY use_id_upload.status ASC, use_id_upload.id DESC
             LIMIT ${limit} OFFSET ${start};
         `;
     }
@@ -346,10 +372,11 @@ export class IdproofapprovalComponent implements OnInit {
   }
 
   getalluser() {
-    let quary = `SELECT user_id,user_full_name FROM user_info`;
+    let quary = `SELECT user_id,user_full_name,user_phone_no FROM user_info WHERE user_status = 'Approved'`;
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.userdata = res['data'];
+        this.filteredOptions1 = res['data'];
       }
     });
   }

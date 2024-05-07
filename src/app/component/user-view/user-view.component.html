@@ -9,8 +9,7 @@
   </div>
   <div class="main-body">
     <ng-container
-    *ngIf="userAllData && (userAllData?.user_profile_status == 'Completed' && !userAllData?.user_info?.user_membership_plan_active)"
-      >
+      *ngIf="userAllData && (userAllData?.user_profile_status == 'Completed' && !userAllData?.user_info?.user_membership_plan_active)">
 
       <div class="alert alert-warning">
         <h4 class="fw-bold text-success">
@@ -68,10 +67,6 @@
               <img [src]="imageUrl+userAllData?.user_info?.user_profile_image"
                 onerror="this.onerror=null;this.src='https://bootdey.com/img/Content/avatar/avatar7.png';" alt="Admin"
                 class="rounded-circle" width="150" height="150" />
-              <!-- <ng-container *ngIf="uloadedImageFile.length == 0">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
-                  width="150" />
-              </ng-container> -->
               <ng-container *ngIf="uloadedImageFile.length > 0">
                 <div class="rounded-circle border" style="border-radius: 2px solid red">
                   <p-image [src]="profileImage" alt="Image" width="150" [preview]="true"></p-image>
@@ -198,7 +193,7 @@
                       </ng-template>
                       <ng-template let-gender pTemplate="item">
                         <div class="country-item">
-                          <div>{{ gender  }}</div>
+                          <div>{{ gender }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -219,7 +214,7 @@
                       </ng-template>
                       <ng-template let-user_profileType pTemplate="item">
                         <div class="country-item">
-                          <div>{{ user_profileType  }}</div>
+                          <div>{{ user_profileType }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -266,7 +261,7 @@
 
                       <ng-template let-motherToungh pTemplate="item">
                         <div class="">
-                          <div>{{ motherToungh.name  }}</div>
+                          <div>{{ motherToungh.name }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -290,6 +285,52 @@
                       <mat-label>Profile Email</mat-label>
                       <input formControlName="user_email" matInput placeholder="Profile Email" />
                     </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label class="mb-3 text-muted fw-bold">Country Code For Whatsapp</label>
+                    <p-dropdown [options]="countrycode" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="true" placeholder="Marital Status" [style]="{ width: '100%' }"
+                      formControlName="whats_app_c_code" optionValue="value">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{
+                            this.basicDetailsForm.value
+                            .whats_app_c_code | formatannual:countrycode
+                            }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-marital pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ marital | formatannual:countrycode }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="mb-3 text-muted fw-bold">Country Code For Mobile</label>
+                    <p-dropdown [options]="countrycode" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="true" placeholder="Marital Status" [style]="{ width: '100%' }"
+                      formControlName="country_code" optionValue="value">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{
+                            this.basicDetailsForm.value
+                            .country_code | formatannual:countrycode
+                            }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-marital pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ marital | formatannual:countrycode }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
                   </div>
                 </div>
                 <div class="row">
@@ -466,8 +507,8 @@
                     <div class="form-group col-md-6">
                       <label class="mb-1">Rashi</label>
                       <p-dropdown [options]="zodiacsOptions" [filter]="true" filterBy="name" [showClear]="true"
-                        placeholder="Rashi" [style]="{ width: '100%' }" formControlName="user_zodiacs" optionLabel="display"
-                        optionValue="name">
+                        placeholder="Rashi" [style]="{ width: '100%' }" formControlName="user_zodiacs"
+                        optionLabel="display" optionValue="name">
                         <ng-template pTemplate="selectedItem">
                           <div class="country-item country-item-value">
                             <div>
@@ -534,9 +575,12 @@
                   <div class="row mb-3">
                     <label class="mb-1">Birth Of Time
                     </label>
+                    <mat-form-field appearance="outline" class="flex-fill w-100">
 
-                    <input type="time" class="form-control" formControlName="user_dateoftime" id="Time of Birth"
-                      aria-describedby="Time of Birth" placeholder="Time of Birth">
+                      <input type="time" formControlName="user_dateoftime" matInput placeholder="Date Of Place" />
+                    </mat-form-field>
+                    <!-- <input type="time" class="form-control" formControlName="user_dateoftime" id="Time of Birth"
+                      aria-describedby="Time of Birth" placeholder="Time of Birth"> -->
                   </div>
                   <div class="row mb-3">
                     <label class="mb-1">Birth Of Place
@@ -584,9 +628,9 @@
               <form [formGroup]="education_occupationDetailsForm">
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Highest Education</label>
+                    <label class="mb-1">Highest Education</label>
                     <p-dropdown [options]="aducationalOptions1" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Highest Education" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Highest Education" [style]="{ width: '100%' }"
                       formControlName="user_highest_education" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -604,11 +648,15 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="education_occupationDetailsForm.controls['user_highest_education']?.invalid && education_occupationDetailsForm.controls['user_highest_education']?.touched">
+                      Highest Education required.
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Additional Degree</label>
+                    <label class="mb-1">Additional Degree</label>
                     <p-dropdown [options]="aducationalOptions2" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Additional Degree" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Additional Degree" [style]="{ width: '100%' }"
                       formControlName="user_additional_education" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -626,13 +674,17 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="education_occupationDetailsForm.controls['user_additional_education']?.invalid && education_occupationDetailsForm.controls['user_additional_education']?.touched">
+                      Additional Degree required.
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Occupation</label>
+                    <label class="mb-1">Occupation</label>
                     <p-dropdown [options]="ocupationOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Occupation" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Occupation" [style]="{ width: '100%' }"
                       formControlName="user_occupation" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -650,11 +702,15 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="education_occupationDetailsForm.controls['user_occupation']?.invalid && education_occupationDetailsForm.controls['user_occupation']?.touched">
+                      Occupation required.
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Employed In</label>
+                    <label class="mb-1">Employed In</label>
                     <p-dropdown [options]="employeeInOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Employed In" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Employed In" [style]="{ width: '100%' }"
                       formControlName="user_employed_In" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -672,41 +728,76 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="education_occupationDetailsForm.controls['user_employed_In']?.invalid && education_occupationDetailsForm.controls['user_employed_In']?.touched">
+                      Employed In required.
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Details of job / business
-                    </label>
-                    <mat-form-field appearance="outline" class="flex-fill w-100">
-                      <mat-label>Details of job / business </mat-label>
-                      <input formControlName="user_occupation_details" matInput
-                        placeholder="Details of job / business " />
-                    </mat-form-field>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Job / business location
-                    </label>
-
-                    <mat-form-field appearance="outline" class="flex-fill w-100">
-                      <mat-label>Job / business location </mat-label>
-                      <input formControlName="user_occupation_location" matInput
-                        placeholder="Like Country,state,city" />
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Annual Income</label>
-                    <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Annual Income" [style]="{ width: '100%' }"
-                      formControlName="user_anual_income" optionValue="name">
+                    <label class="mb-1">Designation</label>
+                    <p-dropdown [options]="degOptions" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="false" placeholder="Designation" [style]="{ width: '100%' }"
+                      formControlName="user_deg" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
                             {{
                             education_occupationDetailsForm.value
-                            .user_anual_income | formatdropdown
+                            .user_deg | formatdropdown
+                            }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-Designation pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ Designation | formatdropdown }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="education_occupationDetailsForm.controls['user_deg']?.invalid && education_occupationDetailsForm.controls['user_deg']?.touched">
+                      Designation required.
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="mb-1">Details of Occupation
+                      <!-- job / business -->
+                    </label>
+                    <mat-form-field appearance="outline" class="flex-fill w-100">
+                      <input formControlName="user_occupation_details" matInput
+                        placeholder="Details of job / business " />
+                    </mat-form-field>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="education_occupationDetailsForm.controls['user_occupation_details']?.invalid && education_occupationDetailsForm.controls['user_occupation_details']?.touched">
+                      Details of Occupation required.
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group col-md-6">
+                    <label class="mb-1">Job / business location
+                    </label>
+                    <mat-form-field appearance="outline" class="flex-fill w-100">
+                      <input formControlName="user_occupation_location" matInput
+                        placeholder="Like Country,state,city" />
+                    </mat-form-field>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="education_occupationDetailsForm.controls['user_occupation_location']?.invalid && education_occupationDetailsForm.controls['user_occupation_location']?.touched">
+                      Details of Occupation required.
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="mb-1">Annual Income</label>
+                    <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="false" placeholder="Annual Income" [style]="{ width: '100%' }"
+                      formControlName="user_anual_income" optionValue="value">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{ education_occupationDetailsForm.value.user_anual_income | formatannual:anualIncomeOptions
                             }}
                           </div>
                         </div>
@@ -714,11 +805,15 @@
                       <ng-template let-anualincome pTemplate="item">
                         <div class="country-item">
                           <div>
-                            {{ anualincome.name | currency : "INR" }}
+                            {{ anualincome.name }}
                           </div>
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="education_occupationDetailsForm.controls['user_anual_income']?.invalid && education_occupationDetailsForm.controls['user_anual_income']?.touched">
+                      Annual Income required.
+                    </div>
                   </div>
                 </div>
               </form>
@@ -757,9 +852,9 @@
               <form [formGroup]="userFamilyDetailsForm">
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Family Type</label>
+                    <label class="mb-1">Family Type</label>
                     <p-dropdown [options]="familytypeOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Family Type" optionValue="name" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Family Type" optionValue="name" [style]="{ width: '100%' }"
                       formControlName="user_family_type">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -773,93 +868,151 @@
                       </ng-template>
                       <ng-template let-familytype pTemplate="item">
                         <div class="country-item">
-                          <div>{{ familytype.name  }}</div>
+                          <div>{{ familytype.name }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_family_type']?.invalid && userFamilyDetailsForm.controls['user_family_type']?.touched">
+                      Family Type required.
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Family value</label>
+                    <label class="mb-1">Family value</label>
                     <p-dropdown [options]="familyvalueOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Family value" optionValue="name" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Family value" optionValue="name" [style]="{ width: '100%' }"
                       formControlName="user_family_value">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
                             {{
                             userFamilyDetailsForm.value.user_family_value
-
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-familyvalue pTemplate="item">
                         <div class="country-item">
-                          <div>{{ familyvalue.name  }}</div>
+                          <div>{{ familyvalue.name }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_family_value']?.invalid && userFamilyDetailsForm.controls['user_family_value']?.touched">
+                      Family value required.
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Family Status</label>
+                    <label class="mb-1">Family Status</label>
                     <p-dropdown [options]="familystatusOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Family Status" formControlName="user_family_status"
-                      [style]="{ width: '100%' }" optionValue="name">
+                      [showClear]="false" placeholder="Family Status" formControlName="user_family_status"
+                      [style]="{ width: '100%' }" optionValue="value">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
                             {{
-                            userFamilyDetailsForm.value.user_family_status
-
+                            userFamilyDetailsForm.value.user_family_status | formatannual:familystatusOptions
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-familystatus pTemplate="item">
                         <div class="country-item">
-                          <div>{{ familystatus.name  }}</div>
+                          <div>{{ familystatus.name }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_family_status']?.invalid && userFamilyDetailsForm.controls['user_family_status']?.touched">
+                      Family Status required.
+                    </div>
                   </div>
+
                   <div class="form-group col-md-6">
-                    <label class="mb-2 text-muted fw-bold">Fathers Occupation</label>
+                    <label class="mb-1">Father Name</label>
                     <mat-form-field appearance="outline" class="flex-fill w-100">
-                      <mat-label>Fathers Occupation</mat-label>
-                      <input formControlName="user_father_occupation" matInput placeholder="Fathers Occupation" />
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-group col-md-6">
-                    <label class="mb-2 text-muted fw-bold">Father Name</label>
-                    <mat-form-field appearance="outline" class="flex-fill w-100">
-                      <mat-label>Fathers Name</mat-label>
                       <input formControlName="user_father_name" matInput placeholder="Father Name" />
                     </mat-form-field>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label class="mb-2 text-muted fw-bold">Mother Name</label>
-                    <mat-form-field appearance="outline" class="flex-fill w-100">
-                      <mat-label>Mother Name</mat-label>
-                      <input formControlName="user_mother_name" matInput placeholder="Mother Name" />
-                    </mat-form-field>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_father_name']?.invalid && userFamilyDetailsForm.controls['user_father_name']?.touched">
+                      Father Name required.
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-2 text-muted fw-bold">Mothers Occupation</label>
-                    <mat-form-field appearance="outline" class="flex-fill w-100">
-                      <mat-label>Mothers Occupation</mat-label>
-                      <input formControlName="user_mothers_occupation" matInput placeholder="Mothers Occupation" />
-                    </mat-form-field>
+                    <label class="mb-1">Fathers Occupation</label>
+                    <p-dropdown [options]="fathersoc" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="false" placeholder="Fathers Occupation" formControlName="user_father_occupation"
+                      [style]="{ width: '100%' }" optionValue="name">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{
+                            userFamilyDetailsForm.value.user_father_occupation | formatdropdown
+                            }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-fatheroc pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ fatheroc.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_father_occupation']?.invalid && userFamilyDetailsForm.controls['user_father_occupation']?.touched">
+                      Fathers Occupation required.
+                    </div>
+                    <!-- <input formControlName="user_father_occupation" matInput placeholder="Fathers Occupation" /> -->
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">No of Unmarried Brothers</label>
+                    <label class="mb-1">Mother Name</label>
+                    <mat-form-field appearance="outline" class="flex-fill w-100">
+                      <input formControlName="user_mother_name" matInput placeholder="Mother Name" />
+                    </mat-form-field>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_mother_name']?.invalid && userFamilyDetailsForm.controls['user_mother_name']?.touched">
+                      Mother Name required.
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group col-md-6">
+                    <label class="mb-1">Mothers Occupation</label>
+                    <p-dropdown [options]="mothersac" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="false" placeholder="Fathers Occupation" formControlName="user_mothers_occupation"
+                      [style]="{ width: '100%' }" optionValue="name">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>
+                            {{
+                            userFamilyDetailsForm.value.user_mothers_occupation | formatdropdown
+                            }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-fatheroc pTemplate="item">
+                        <div class="country-item">
+                          <div>{{ fatheroc.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_mothers_occupation']?.invalid && userFamilyDetailsForm.controls['user_mothers_occupation']?.touched">
+                      Mothers Occupation required.
+                    </div>
+                    <!-- <mat-form-field appearance="outline" class="flex-fill w-100">
+
+                      <input formControlName="user_mothers_occupation" matInput placeholder="Mothers Occupation" />
+                    </mat-form-field> -->
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="mb-1">No of Unmarried Brothers</label>
                     <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="No of Unmarried Brothers"
+                      [showClear]="false" placeholder="No of Unmarried Brothers"
                       formControlName="user_no_of_unmarried_brother" [style]="{ width: '100%' }" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -879,14 +1032,18 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_no_of_unmarried_brother']?.invalid && userFamilyDetailsForm.controls['user_no_of_unmarried_brother']?.touched">
+                      No of Unmarried Brothers required.
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">No of Married Brothers</label>
+                    <label class="mb-1">No of Married Brothers</label>
                     <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="No of Married
-                                        Brothers" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="No of Married
+                                            Brothers" [style]="{ width: '100%' }"
                       formControlName="user_no_of_married_brother" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -906,11 +1063,15 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_no_of_married_brother']?.invalid && userFamilyDetailsForm.controls['user_no_of_married_brother']?.touched">
+                      No of Married Brothers required.
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">No of Unmarried Sisters</label>
+                    <label class="mb-1">No of Unmarried Sisters</label>
                     <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="No of Unmarried Sisters" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="No of Unmarried Sisters" [style]="{ width: '100%' }"
                       formControlName="user_no_of_unmarried_sister" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -930,14 +1091,18 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_no_of_unmarried_sister']?.invalid && userFamilyDetailsForm.controls['user_no_of_unmarried_sister']?.touched">
+                      No of Unmarried Sisters required.
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">No of Married Sisters</label>
+                    <label class="mb-1">No of Married Sisters</label>
                     <p-dropdown [options]="noofbrothersisterOptins" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="No of Married
-                                        Sisters" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="No of Married
+                                            Sisters" [style]="{ width: '100%' }"
                       formControlName="user_no_of_married_sister" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -957,6 +1122,10 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="userFamilyDetailsForm.controls['user_no_of_married_sister']?.invalid && userFamilyDetailsForm.controls['user_no_of_married_sister']?.touched">
+                      No of Married Sisters required.
+                    </div>
                   </div>
                 </div>
               </form>
@@ -1226,9 +1395,9 @@
                       State Living In</label>
                     <p-dropdown (onChange)="getcityfilter(locationDetailsForm.value.user_state)"
                       (onClear)="getcityfilter(locationDetailsForm.value.user_state)" [options]="stateOption"
-                      optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="State Living In"
-                      [style]="{ width: '100%' }" formControlName="user_state" optionValue="name"
-                      (ngModelChange)="getcityfilter(locationDetailsForm.controls.user_state.value)">
+                      optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+                      placeholder="State Living In" [style]="{ width: '100%' }" formControlName="user_state"
+                      optionValue="name" (ngModelChange)="getcityfilter(locationDetailsForm.controls.user_state.value)">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
@@ -1250,9 +1419,9 @@
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
                     <label class="mb-1">City Living In</label>
-                    <p-dropdown [options]="cityOption" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
-                      placeholder="City Living in" [style]="{ width: '100%' }" formControlName="user_city"
-                      optionValue="name">
+                    <p-dropdown [options]="cityOption" optionLabel="name" [filter]="true" filterBy="name"
+                      [showClear]="true" placeholder="City Living in" [style]="{ width: '100%' }"
+                      formControlName="user_city" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
@@ -1274,8 +1443,8 @@
                 <div class="row mb-4">
                   <label class="mb-3  fw-bold text-danger">Is Your Current Address Same With
                     Parmanent Address</label>
-                  <mat-radio-group aria-label="Select an option" formControlName="user_current_and_permanent_address_same"
-                    (change)="onchangeAddress()">
+                  <mat-radio-group aria-label="Select an option"
+                    formControlName="user_current_and_permanent_address_same" (change)="onchangeAddress()">
                     <mat-radio-button value="Yes">Yes</mat-radio-button>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -1291,8 +1460,8 @@
                           width="25px" height="25px" /></span>
                     </ng-container>
                     <ng-container *ngIf="!locationDetailsForm.valid">
-                      <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset="" width="25px"
-                          height="25px" /></span>
+                      <span class="ms-2"><img src="/assets/img/icons/notdone.png" alt="notdone.png" srcset=""
+                          width="25px" height="25px" /></span>
                     </ng-container>
                   </div>
                 </div>
@@ -1420,9 +1589,10 @@
               <form [formGroup]="habitHobbiesForm">
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Diet</label>
+                    <label class="mb-1">Diet</label>
+
                     <p-dropdown [options]="dietOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Diet" [style]="{ width: '100%' }" formControlName="user_diet"
+                      [showClear]="false" placeholder="Diet" [style]="{ width: '100%' }" formControlName="user_diet"
                       optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1440,12 +1610,16 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="habitHobbiesForm.controls['user_diet']?.invalid && habitHobbiesForm.controls['user_diet']?.touched">
+                      Diet required.
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">
-                      Smoking Habits</label>
+                    <label class="mb-1">
+                      Smoking </label>
                     <p-dropdown [options]="smokingOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Smoking Habits" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Smoking Habits" [style]="{ width: '100%' }"
                       formControlName="user_smoking" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1463,13 +1637,17 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="habitHobbiesForm.controls['user_smoking']?.invalid && habitHobbiesForm.controls['user_smoking']?.touched">
+                      Smoking required.
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Drinking Habits</label>
+                    <label class="mb-1">Drinking</label>
                     <p-dropdown [options]="drinkOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Drinking Habits" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Drinking Habits" [style]="{ width: '100%' }"
                       formControlName="user_drinking" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1487,11 +1665,15 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="habitHobbiesForm.controls['user_drinking']?.invalid && habitHobbiesForm.controls['user_drinking']?.touched">
+                      Drinking required.
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Your Like</label>
+                    <label class="mb-1">Your Like</label>
                     <p-dropdown [options]="likeOption" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Drinking Habits" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Your Like" [style]="{ width: '100%' }"
                       formControlName="user_like" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1509,6 +1691,10 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="habitHobbiesForm.controls['user_like']?.invalid && habitHobbiesForm.controls['user_like']?.touched">
+                      Your Like required.
+                    </div>
                   </div>
                 </div>
               </form>
@@ -1546,16 +1732,17 @@
               <form [formGroup]="physicalDeatilsForm">
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Height</label>
+                    <label class="mb-1">Height</label>
+
                     <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Height" [style]="{ width: '100%' }" formControlName="user_height"
+                      [showClear]="false" placeholder="Height" [style]="{ width: '100%' }" formControlName="user_height"
                       optionValue="value">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
                             {{
                             physicalDeatilsForm.value.user_height
-                            | formatdropdown
+                            | formatannual:heightOptions
                             }}
                           </div>
                         </div>
@@ -1566,12 +1753,16 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="physicalDeatilsForm.controls['user_height']?.invalid && physicalDeatilsForm.controls['user_height']?.touched">
+                      Height required.
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">
-                      Weight</label>
+                    <label class="mb-1">
+                      Weight (Kg)</label>
                     <p-dropdown [options]="weightOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Weight" [style]="{ width: '100%' }" formControlName="user_weight"
+                      [showClear]="false" placeholder="Weight" [style]="{ width: '100%' }" formControlName="user_weight"
                       optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1589,13 +1780,17 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="physicalDeatilsForm.controls['user_weight']?.invalid && physicalDeatilsForm.controls['user_weight']?.touched">
+                      Weight required.
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Body Type</label>
+                    <label class="mb-1">Body Type</label>
                     <p-dropdown [options]="bodyTpeOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Body Type" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Body Type" [style]="{ width: '100%' }"
                       formControlName="user_body_type" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1613,11 +1808,15 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="physicalDeatilsForm.controls['user_body_type']?.invalid && physicalDeatilsForm.controls['user_body_type']?.touched">
+                      Body Type required.
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Complextion</label>
+                    <label class="mb-1">Colour</label>
                     <p-dropdown [options]="ComplextionOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Complextion" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Complextion" [style]="{ width: '100%' }"
                       formControlName="user_complextion" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1635,13 +1834,17 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="physicalDeatilsForm.controls['user_complextion']?.invalid && physicalDeatilsForm.controls['user_complextion']?.touched">
+                      Colour required.
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col-md-6">
-                    <label class="mb-3 text-muted fw-bold">Physical Status</label>
+                    <label class="mb-1">Physical Status</label>
                     <p-dropdown [options]="physicalStatusOptions" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="true" placeholder="Profile Created By" [style]="{ width: '100%' }"
+                      [showClear]="false" placeholder="Profile Created By" [style]="{ width: '100%' }"
                       formControlName="user_physical_status" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1659,6 +1862,10 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                    <div class="text-left text-[red] text-[12px] md:h-[0.8rem] h-[1rem] "
+                      *ngIf="physicalDeatilsForm.controls['user_physical_status']?.invalid && physicalDeatilsForm.controls['user_physical_status']?.touched">
+                      Physical Status required.
+                    </div>
                   </div>
                 </div>
               </form>

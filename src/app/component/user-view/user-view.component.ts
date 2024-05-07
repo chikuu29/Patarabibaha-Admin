@@ -421,11 +421,7 @@ export class UserViewComponent implements OnInit {
     { name: 'Normal' },
     { name: 'Physical Chalenges' },
   ];
-  likeOption: any = [
-    { name: 'Like Tv Serial' },
-    { name: 'Like Game' },
-    { name: 'Like Book' },
-  ];
+  likeOption: any = [];
 
   profileDetailsForm = new FormGroup({
     profile_id: new FormControl('', [Validators.required]),
@@ -447,6 +443,8 @@ export class UserViewComponent implements OnInit {
     user_dob: new FormControl('', [Validators.required]),
     user_phone_no: new FormControl('', [Validators.required]),
     user_whatsapp_no: new FormControl('', [Validators.required]),
+    country_code: new FormControl('', [Validators.required]),
+    whats_app_c_code: new FormControl('', [Validators.required]),
   });
 
   user_religionDetailsForm = new FormGroup({
@@ -465,6 +463,7 @@ export class UserViewComponent implements OnInit {
     user_occupation_details: new FormControl('', [Validators.required]),
     user_occupation_location: new FormControl('', [Validators.required]),
     completed: new FormControl(1, []),
+    user_deg : new FormControl('', [Validators.required])
   });
 
   userFamilyDetailsForm = new FormGroup({
@@ -568,6 +567,8 @@ export class UserViewComponent implements OnInit {
   imageUrl = 'this.appservices.getFilePath()}storage/';
   finaldata: any;
   logo: any;
+  countrycode: any;
+  degOptions: any;
   constructor(
     private appservices: AppService,
     private ApiParameterScript: ApiParameterScript,
@@ -681,35 +682,94 @@ export class UserViewComponent implements OnInit {
     });
     this.ApiParameterScript.fetchdata(
       'country',
-      { projection: ['*'], whereConditions: { status: 1 } },
+      { projection: ['*'] },
       0,
       250
     ).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        this.countryOption = res['data'].map((obj: any) => {
+        this.countryOption = res['data']
+        .filter((obj: any) => obj.status == 1)
+        .map((obj: any) => ({ name: obj.name }));
+        this.countryOption.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.countrycode = res['data'].map((obj: any) => {
+          return { name: obj.name, value: obj.phonecode };
+        });
+        this.countrycode.sort((a: any, b: any) => a.name.localeCompare(b.name));
+
+      }
+    });
+
+    this.ApiParameterScript.fetchdata('designation', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
+      //
+
+      if (res.success && res['data'].length > 0) {
+        this.degOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.name };
+            return { name: obj.designation };
           } else {
             return null;
           }
         });
-        // console.log("countryOption", this.countryOption);
+        this.degOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
+      }
+    });
+
+
+    this.ApiParameterScript.fetchdata('like_detalis', {
+      projection: ['*'],
+      whereConditions: { status: 1 },
+    }).subscribe((res: any) => {
+      //
+      if (res.success && res['data'].length > 0) {
+        this.likeOption = res['data'].map((obj: any) => {
+          if (obj.status == 1) {
+            return { name: obj.Like_name };
+          } else {
+            return null;
+          }
+        });
+        this.likeOption.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
 
     this.ApiParameterScript.fetchdata('annual_income', {
       projection: ['*'],
+      whereConditions: { status: 1 },
     }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.anualIncomeOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.annualincome };
+            return {
+              name: obj.amount + ' ' + obj.annualincome_text,
+              value: obj.annualincome,
+            };
           } else {
             return null;
           }
         });
+        this.anualIncomeOptions.sort((a: any, b: any) => a.value - b.value);
       }
     });
+
+    // this.ApiParameterScript.fetchdata('annual_income', {
+    //   projection: ['*'],
+    // }).subscribe((res: any) => {
+    //   if (res.success && res['data'].length > 0) {
+    //     this.anualIncomeOptions = res['data'].map((obj: any) => {
+    //       if (obj.status == 1) {
+    //         return { name: obj.annualincome };
+    //       } else {
+    //         return null;
+    //       }
+    //     });
+    //     this.anualIncomeOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    //   }
+    // });
 
     this.ApiParameterScript.fetchdata('additional_education', {
       projection: ['*'],
@@ -722,6 +782,7 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
+        this.aducationalOptions2.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
 
@@ -736,6 +797,7 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
+        this.motherTounghOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
 
@@ -751,6 +813,7 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
+        this.aducationalOptions1.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
 
@@ -767,6 +830,7 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
+        this.employeeInOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
 
@@ -782,6 +846,7 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
+        this.ocupationOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
 
@@ -811,6 +876,7 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
+        this.religionOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
 
@@ -826,6 +892,7 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
+        this.religionCasteOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
 
@@ -840,6 +907,7 @@ export class UserViewComponent implements OnInit {
               return null;
             }
           });
+          this.gotraOption.sort((a: any, b: any) => a.name.localeCompare(b.name));
         }
       }
     );
@@ -855,6 +923,7 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
+        this.nakhyatraOption.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
 
@@ -866,6 +935,7 @@ export class UserViewComponent implements OnInit {
         this.zodiacsOptions = res['data'].map((obj: any) => {
           return { name: obj.name, display: `${obj.name} / ${obj.odia_name}` };
         });
+        this.zodiacsOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
   }
@@ -926,6 +996,8 @@ export class UserViewComponent implements OnInit {
         user_has_complete_profile: 1,
         user_phone_no: this.basicDetailsForm.value.user_phone_no,
         user_whatsapp_no: this.basicDetailsForm.value.user_whatsapp_no,
+        country_code: this.basicDetailsForm.value.country_code,
+        whats_app_c_code: this.basicDetailsForm.value.whats_app_c_code,
       },
       whereConditions: {
         user_id: this.profile_id,
@@ -947,15 +1019,16 @@ export class UserViewComponent implements OnInit {
               auth_ID: this.profile_id,
             },
           };
-          this.ApiParameterScript.updatedata('auth_user', updateData1).subscribe(
-            (res: any) => {
-              if (res.success) {
-                Swal.fire('', res.message, 'success').then(() => {
-                  this.ngOnInit();
-                });
-              }
+          this.ApiParameterScript.updatedata(
+            'auth_user',
+            updateData1
+          ).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire('', res.message, 'success').then(() => {
+                this.ngOnInit();
+              });
             }
-          );
+          });
         } else {
           Swal.fire('No Data Updated', res.message, 'error');
         }

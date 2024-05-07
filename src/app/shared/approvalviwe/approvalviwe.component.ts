@@ -36,16 +36,25 @@ export class ApprovalviweComponent implements OnInit {
   });
   imageSrc: any;
   image: any;
+  userfullnamemale: any;
+  userfullnamefemale: any;
+  searchControl1 = new FormControl('');
+  searchControl2 = new FormControl('');
+  filteredOptions1: any[];
+  filteredOptions2: any[];
   constructor(
     public modal: NgbActiveModal,
     private ApiParameterScript: ApiParameterScript,
     private appservices: AppService,
     private apiservice: ApiService
-  ) {}
+  ) {
+    // Subscribe to changes in each search input value
+  }
 
   ngOnInit(): void {
     console.log(this.id);
-    this.getuser();
+    this.getuserMale();
+    this.getuserFemale();
     if (this.id != '') {
       let query = `
     SELECT *
@@ -65,20 +74,58 @@ export class ApprovalviweComponent implements OnInit {
         }
       );
     }
+    this.searchControl1.valueChanges.subscribe((value: any) => {
+      this.filteredOptions1 = this.filterOptions(value, this.userfullnamemale);
+    });
+
+    this.searchControl2.valueChanges.subscribe((value: any) => {
+      this.filteredOptions2 = this.filterOptions(value, this.userfullnamefemale);
+    });
   }
+
+  // Function to filter options based on the search query
+  filterOptions(value: string, options: any[]): any[] {
+    console.log(options);
+
+    const filterValue = value.toLowerCase();
+    return options.filter(
+      (option) =>
+        (option.user_full_name &&
+          option.user_full_name.toLowerCase().includes(filterValue)) ||
+        (option.user_phone_no && option.user_phone_no.includes(value)) ||
+        (option.user_id && option.user_id.includes(value))
+    );
+  }
+
   closeModal() {
     this.modal.close();
   }
-  getuser() {
+  getuserMale() {
     let query = `
-    SELECT user_full_name
-    FROM user_info
+    SELECT user_full_name,user_phone_no,user_id
+    FROM user_info WHERE user_gender = 'Male' AND user_status = 'Approved'
     `;
 
     this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.userfullname = res['data'];
+        this.filteredOptions1 = res['data'];
+        this.userfullnamemale =  res['data'];
+      }
+    });
+  }
+
+  getuserFemale() {
+    let query = `
+    SELECT user_full_name,user_phone_no,user_id
+    FROM user_info WHERE user_gender = 'Female' AND user_status = 'Approved'
+    `;
+
+    this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.filteredOptions2 = res['data'];
+        this.userfullnamefemale = res['data'];
       }
     });
   }

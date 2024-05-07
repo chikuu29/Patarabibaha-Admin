@@ -1,9 +1,13 @@
 <div class="container">
   <div>
+    <label for="search1">Search User (USER ID/PHONE NO/NAME):</label>
+    <br>
+    <input type="text" id="search1" [formControl]="searchControl1"  style="width: 100%;">
+    <br>
     <label for="imageType">User:</label>
     <select id="imageType" [(ngModel)]="User_id">
       <option value="" hidden>select</option>
-      <option *ngFor="let data of userdata" [value]="data.user_id">{{ data.user_full_name }}</option>
+      <option *ngFor="let data of filteredOptions1" [value]="data.user_id">{{ data.user_full_name }}</option>
     </select>
   </div>
   <div>

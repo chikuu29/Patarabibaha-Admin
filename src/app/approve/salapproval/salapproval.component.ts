@@ -4,6 +4,13 @@ import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ApiService } from 'src/app/services/api.service';
+import {
+  FormControl,
+  FormGroup,
+  NgModel,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-salapproval',
@@ -28,6 +35,8 @@ export class SalapprovalComponent implements OnInit {
   selectedImage: string | ArrayBuffer | null;
   User_id: any = '';
   userdata: any;
+  searchControl1 = new FormControl('');
+  filteredOptions1: any[] = [];
   constructor(
     private ApiParameter: ApiParameterScript,
     private modalService: NgbModal,
@@ -38,6 +47,21 @@ export class SalapprovalComponent implements OnInit {
     this.totalFetchrecord = 10;
     this.getsalslip(0, this.totalFetchrecord);
     this.getalluser();
+    this.searchControl1.valueChanges.subscribe((value: any) => {
+      this.filteredOptions1=[];
+      this.filteredOptions1 = this.filterOptions(value, this.userdata);
+    });
+  }
+
+  filterOptions(value: string, options: any[]): any[] {
+    const filterValue = value.toLowerCase();
+    return options.filter(
+      (option) =>
+        (option.user_full_name &&
+          option.user_full_name.toLowerCase().includes(filterValue)) ||
+        (option.user_phone_no && option.user_phone_no.includes(value)) ||
+        (option.user_id && option.user_id.includes(value))
+    );
   }
 
   getsalslip(
@@ -57,7 +81,7 @@ export class SalapprovalComponent implements OnInit {
                    OR user_info.user_full_name = '${search_text}'
                    OR user_info.user_email = '${search_text}'
                    OR user_info.user_phone_no = '${search_text}'
-                   ORDER BY use_payment_slip_upload.status ASC, use_payment_slip_upload.id ASC
+                   ORDER BY use_payment_slip_upload.status ASC, use_payment_slip_upload.id DESC
             LIMIT ${limit} OFFSET ${start};
         `;
     } else {
@@ -66,7 +90,7 @@ export class SalapprovalComponent implements OnInit {
       COUNT(*) OVER () AS total_count
       FROM use_payment_slip_upload
       JOIN user_info ON use_payment_slip_upload.user_ID = user_info.user_id
-        ORDER BY use_payment_slip_upload.status ASC, use_payment_slip_upload.id ASC
+        ORDER BY use_payment_slip_upload.status ASC, use_payment_slip_upload.id DESC
             LIMIT ${limit} OFFSET ${start};
         `;
     }
@@ -346,10 +370,11 @@ export class SalapprovalComponent implements OnInit {
   }
 
   getalluser() {
-    let quary = `SELECT user_id,user_full_name FROM user_info`;
+    let quary = `SELECT user_id,user_full_name,user_phone_no FROM user_info WHERE user_status = 'Approved'`;
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.userdata = res['data'];
+        this.filteredOptions1 = res['data']
       }
     });
   }
