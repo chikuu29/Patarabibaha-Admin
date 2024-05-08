@@ -29,6 +29,7 @@ import { AuthComponent } from './layout/auth/auth.component';
 import { AdminComponent } from './layout/admin/admin.component';
 import { NotificationComponent } from './shared/notification/notification.component';
 
+
 export function checkLoginMode(auth: AuthService) {
   console.log("REBUILDING AUTH STATE....");
   return () => {
@@ -41,7 +42,8 @@ export function checkLoginMode(auth: AuthService) {
     AppComponent,
     AuthComponent,
     AdminComponent,
-    NotificationComponent
+    NotificationComponent,
+
 
   ],
   imports: [

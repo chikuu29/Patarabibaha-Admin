@@ -35,6 +35,8 @@ import { AdminComponent } from '../layout/admin/admin.component';
 import { HoroscopeComponent } from './horoscope/horoscope.component';
 import { ContactviewComponent } from './contactview/contactview.component';
 import { DatabasebackupComponent } from './databasebackup/databasebackup.component';
+import { BulkemailsendComponent } from './bulkemailsend/bulkemailsend.component';
+import { BulksmssendComponent } from './bulksmssend/bulksmssend.component';
 
 
 
@@ -206,7 +208,19 @@ const routes: Routes = [
         path: 'database-backup',
         canActivate: [AuthGuard],
         component: DatabasebackupComponent
+      },{
+        path: 'bulkemail',
+        canActivate: [AuthGuard],
+        component: BulkemailsendComponent
+      },{
+        path: 'bulksms',
+        canActivate: [AuthGuard],
+        component: BulksmssendComponent
       }
+
+
+
+
 
 
 

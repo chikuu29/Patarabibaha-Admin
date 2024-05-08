@@ -136,6 +136,10 @@ export class ApiService {
   public sendMailForChange(param:any){
     return this.http.post(this.appservices.getApipath() + 'sendMailForChange', param, { headers: this.headers })
   }
+  public sendCustmMail(param:any){
+    return this.http.post(this.appservices.getApipath() + 'sendCustmMail', param, { headers: this.headers })
+  }
+
 
 
 

@@ -499,8 +499,8 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        { routerLink: '/ma', text: 'Send Bulk Email' },
-        { routerLink: '/ma', text: 'Send Bulk SMS' },
+        { routerLink: '/bulkemail', text: 'Send Bulk Email' },
+        { routerLink: '/bulksms', text: 'Send Bulk SMS' },
       ],
     },
 

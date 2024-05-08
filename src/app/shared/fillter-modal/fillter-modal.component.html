@@ -54,7 +54,7 @@
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Gender</label>
-        <p-multiSelect [options]="[{name:'male'},{name:'female'}]" placeholder="Select" formControlName="user_gender"
+        <p-multiSelect [options]="[{name:'Male'},{name:'Female'}]" placeholder="Select" formControlName="user_gender"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
           [title]="fillterForm.value.user_gender"></p-multiSelect>
       </div>
@@ -75,7 +75,6 @@
         <p-multiSelect [options]="maritalOptions" placeholder="Select" formControlName="user_marital_status"
           optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
           [title]="fillterForm.value.user_marital_status"></p-multiSelect>
-
       </div>
       <div class="form-group col-md-4">
         <label class="mb-3 text-muted fw-bold">Country Living In</label>
@@ -172,11 +171,11 @@
 
         <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
           placeholder="Min Annual Income" [style]="{ width: '100%' }" formControlName="user_min_anual_income"
-          optionValue="name" [ngModel]="anualIncomeOptions[0].name">
+          optionValue="value" [ngModel]="anualIncomeOptions[0]?.value">
           <ng-template let-anualincome pTemplate="item">
             <div class="country-item">
               <div>
-                {{ anualincome.name | currency : "INR" }}
+                {{ anualincome.name  }}
               </div>
             </div>
           </ng-template>
@@ -188,11 +187,11 @@
         <label class="mb-3 text-muted fw-bold">Max Annual Income</label>
         <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
           placeholder="Min Annual Income" [style]="{ width: '100%' }" formControlName="user_max_anual_income"
-          optionValue="name" [ngModel]="anualIncomeOptions[anualIncomeOptions?.length-1].name">
+          optionValue="value" [ngModel]="anualIncomeOptions[anualIncomeOptions?.length-1]?.value">
           <ng-template let-anualincome pTemplate="item">
             <div class="country-item">
               <div>
-                {{ anualincome.name | currency : "INR" }}
+                {{ anualincome.name  }}
               </div>
             </div>
           </ng-template>

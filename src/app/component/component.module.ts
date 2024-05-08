@@ -46,6 +46,8 @@ import { ContactviewComponent } from './contactview/contactview.component';
 import { HoroscopeComponent } from './horoscope/horoscope.component';
 import { FormatannualPipe } from './formatannual.pipe';
 import { DatabasebackupComponent } from './databasebackup/databasebackup.component';
+import { BulkemailsendComponent } from './bulkemailsend/bulkemailsend.component';
+import { BulksmssendComponent } from './bulksmssend/bulksmssend.component';
 
 
 @NgModule({
@@ -86,6 +88,8 @@ import { DatabasebackupComponent } from './databasebackup/databasebackup.compone
     HoroscopeComponent,
     FormatannualPipe,
     DatabasebackupComponent,
+    BulkemailsendComponent,
+    BulksmssendComponent,
 
   ],
   imports: [
