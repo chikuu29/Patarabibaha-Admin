@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-prompt-dialog',
   templateUrl: './prompt-dialog.component.html',
-  styleUrls: ['./prompt-dialog.component.css']
+  styleUrls: ['./prompt-dialog.component.scss']
 })
 export class PromptDialogComponent {
 

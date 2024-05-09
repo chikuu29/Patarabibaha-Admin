@@ -231,13 +231,13 @@ export class FillterModalComponent implements OnInit {
     user_id: new FormControl('', []),
     user_gender: new FormControl([], []),
     user_physical_status: new FormControl([], []),
-    user_min_age: new FormControl(18, [Validators.required]),
-    user_max_age: new FormControl(50, [Validators.required]),
+    user_min_age: new FormControl('', []),
+    user_max_age: new FormControl('', []),
     user_body_type: new FormControl([], []),
     user_mangalik: new FormControl([], []),
     user_highest_education: new FormControl([], []),
-    user_min_height: new FormControl(137, [Validators.required]),
-    user_max_height: new FormControl(500, [Validators.required]),
+    user_min_height: new FormControl('', []),
+    user_max_height: new FormControl('', []),
     user_religion: new FormControl([], []),
     user_country: new FormControl([], []),
     user_marital_status: new FormControl([], []),
@@ -246,8 +246,8 @@ export class FillterModalComponent implements OnInit {
     user_employed_In: new FormControl([], []),
     user_occupation: new FormControl([], []),
     user_mother_toungh: new FormControl([], []),
-    user_min_anual_income: new FormControl(0, [Validators.required]),
-    user_max_anual_income: new FormControl(9999999, [Validators.required]),
+    user_min_anual_income: new FormControl('', []),
+    user_max_anual_income: new FormControl('', []),
     user_nakhyatra: new FormControl([], []),
     user_zodiacs: new FormControl([], []),
     user_gotra: new FormControl([], []),
@@ -558,20 +558,21 @@ export class FillterModalComponent implements OnInit {
     console.log('Query', query);
 
     this.modal.close({
-      whereConditions:
-        `WHERE  user_info.user_age BETWEEN ${
-          this.fillterForm.value.user_min_age
-        } AND ${
-          this.fillterForm.value.user_max_age
-        } AND user_physical_details.user_height BETWEEN ${
-          this.fillterForm.value.user_min_height
-        } AND ${
-          this.fillterForm.value.user_max_height
-        } AND user_education_occupations.user_anual_income BETWEEN ${
-          this.fillterForm.value.user_min_anual_income
-        } AND ${this.fillterForm.value.user_max_anual_income}  ${
-          query == '' ? ' ' : 'AND'
-        } ` + query,
+      // whereConditions:
+      //   `WHERE  user_info.user_age BETWEEN ${
+      //     this.fillterForm.value.user_min_age
+      //   } AND ${
+      //     this.fillterForm.value.user_max_age
+      //   } AND user_physical_details.user_height BETWEEN ${
+      //     this.fillterForm.value.user_min_height
+      //   } AND ${
+      //     this.fillterForm.value.user_max_height
+      //   } AND user_education_occupations.user_anual_income BETWEEN ${
+      //     this.fillterForm.value.user_min_anual_income
+      //   } AND ${this.fillterForm.value.user_max_anual_income}  ${
+      //     query == '' ? ' ' : 'AND'
+      //   } ` + query,
+      whereConditions:' WHERE ' + query,
       isqueryGenerated: true,
       selectedFillterValue: this.fillterForm.value,
     });
