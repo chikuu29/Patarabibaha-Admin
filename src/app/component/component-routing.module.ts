@@ -195,7 +195,7 @@ const routes: Routes = [
         component: PlanDeatilsComponent
       },
       {
-        path: 'horoscope-viwe',
+        path: 'horoscope-view',
         canActivate: [AuthGuard],
         component: HoroscopeComponent
       },{

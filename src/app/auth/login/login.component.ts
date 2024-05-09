@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
             this.alert.success("Login Successfull")
             // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login Successfull' })
             var expiration_date = new Date(new Date().getTime() + 86400 * 1000).toString();
-            this._auth.authentication(res.id, res.name, res.email, true, "admin", res.token, res.exp);
+            this._auth.authentication(res.id, res.name, res.email, true, res.role, res.token, res.exp);
             console.log(this.redirectUrl);
             location.href = this.redirectUrl
             // this._router.navigateByUrl(this.redirectUrl)

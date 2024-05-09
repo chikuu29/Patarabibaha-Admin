@@ -79,7 +79,7 @@
                             <td>{{ data.membership_plan_created_date_time }}</td> -->
                             <td>
                                 <button type="button" class="btn btn-outline-warning btn-fw me-2 w-5"
-                                    (click)="viwe(data.membership_plan_id)">Viwe</button>
+                                    (click)="view(data.membership_plan_id)">view</button>
                                 <button type="button"
                                     [class]="data.membership_plan_status == 1 ?'btn btn-outline-warning btn-fw me-2 w-5':'btn btn-outline-danger btn-fw me-2 w-5'"
                                     (click)="publish(data.Id,data.membership_plan_status)">{{ data.membership_plan_status == 1 ? 'Unpublish':'Publish' }}</button>
@@ -161,7 +161,7 @@
                       <td><div>{{ data.membership_plan_validity_date }} days</div></td>
                       <td>
                           <button type="button" class="btn btn-outline-primary btn-sm"
-                              (click)="viwe(data.membership_plan_id)">Viwe</button>
+                              (click)="view(data.membership_plan_id)">view</button>
                           <button type="button"
                               [class]="data.membership_plan_status == 1 ?'btn btn-outline-warning btn-sm':'btn btn-outline-danger btn-sm'"
                               (click)="publish(data.Id,data.membership_plan_status)">{{ data.membership_plan_status == 1 ? 'Unpublish':'Publish' }}</button>

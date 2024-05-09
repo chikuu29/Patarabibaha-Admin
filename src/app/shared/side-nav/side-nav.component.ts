@@ -21,6 +21,7 @@ export class SideNavComponent implements OnInit {
       routerLink: 'landing-page',
       icon: 'mdi mdi-airplane-landing',
       text: 'Landing Page',
+      roles:['SUPER_ADMIN'],
       hidden: false,
       submenuActive: false,
     },
@@ -31,6 +32,7 @@ export class SideNavComponent implements OnInit {
       text: 'Dashboard',
       hidden: false,
       submenuActive: false,
+      roles:['SUPER_ADMIN'],
     },
     {
       routerLink: '',
@@ -171,20 +173,20 @@ export class SideNavComponent implements OnInit {
           text: 'User Website visit activity report',
           id: 'admin-13',
         },
-       {
+        {
           routerLink: '/login-activity',
           icon: 'fa-solid fa-sign-in-alt',
           text: 'User login history',
           id: 'admin-06',
         },
-         {
+        {
           routerLink: '/contact-view',
           icon: 'fa-solid fa-file-signature',
           text: 'Contactus View',
           id: 'admin-01',
         },
         {
-          routerLink: '/horoscope-viwe',
+          routerLink: '/horoscope-view',
           icon: 'fa-solid fa-file-signature',
           text: 'Horoscope View',
           id: 'admin-01',
@@ -308,11 +310,11 @@ export class SideNavComponent implements OnInit {
     },
 
     // {
-        //   routerLink: '/match-makng-page',
-        //   icon: 'fa-solid fa-heart',
-        //   text: 'Match Making',
-        //   id: 'admin-10',
-        // },
+    //   routerLink: '/match-makng-page',
+    //   icon: 'fa-solid fa-heart',
+    //   text: 'Match Making',
+    //   id: 'admin-10',
+    // },
 
     {
       routerLink: '',
@@ -535,7 +537,7 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-         { routerLink: '/ma', text: 'Support Ticket' },
+        { routerLink: '/ma', text: 'Support Ticket' },
         // { routerLink: '/ma', text: 'Send Bulk SMS' },
       ],
     },
@@ -572,7 +574,7 @@ export class SideNavComponent implements OnInit {
     private ApiParameter: ApiParameterScript,
     private cryptographyservice: CryptographyService,
     private _auth: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getuserAprrove();
