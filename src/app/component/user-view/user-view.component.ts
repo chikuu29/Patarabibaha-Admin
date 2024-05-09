@@ -1572,7 +1572,7 @@ export class UserViewComponent implements OnInit {
 
     // const pdf = new jsPDF();
     pdf.addImage(
-      'https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png',
+      'https://choicemarriage.com/storage/logo_image/6521ccbea425d.png',
       'JPEG',
       65,
       5,
