@@ -18,8 +18,9 @@ import { ImageCroperComponent } from './image-croper/image-croper.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FillterModalComponent } from './fillter-modal/fillter-modal.component';
 import { ApprovalviweComponent } from './approvalviwe/approvalviwe.component';
+import { PromptDialogComponent } from './prompt-dialog/prompt-dialog.component';
 // import { NotificationComponent } from './notification/notification.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { ApprovalviweComponent } from './approvalviwe/approvalviwe.component';
     ImageCroperComponent,
     FillterModalComponent,
     ApprovalviweComponent,
+    PromptDialogComponent,
     // NotificationComponent
   ],
   imports: [
@@ -46,7 +48,8 @@ import { ApprovalviweComponent } from './approvalviwe/approvalviwe.component';
     LoadingBarRouterModule,
     ReactiveFormsModule,
     CustomPipeModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatDialogModule
   ],
   exports:[
     NavBarComponent,
@@ -57,6 +60,7 @@ import { ApprovalviweComponent } from './approvalviwe/approvalviwe.component';
     SearchComponent,
     ImageCroperComponent,
     FillterModalComponent
-  ]
+  ],
+  entryComponents: [PromptDialogComponent]
 })
 export class SharedModule { }

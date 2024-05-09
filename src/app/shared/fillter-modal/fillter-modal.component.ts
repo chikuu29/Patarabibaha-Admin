@@ -403,12 +403,15 @@ export class FillterModalComponent implements OnInit {
       if (res.success && res['data'].length > 0) {
         this.anualIncomeOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
-            return { name: obj.annualincome };
+            return {
+              name: obj.amount + ' ' + obj.annualincome_text,
+              value: obj.annualincome,
+            };
           } else {
             return null;
           }
         });
-        console.log(this.anualIncomeOptions);
+        this.anualIncomeOptions.sort((a: any, b: any) => a.value - b.value);
       }
     });
     this.ApiParameterScript.fetchdata('gotra', {

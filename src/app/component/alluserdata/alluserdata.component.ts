@@ -146,7 +146,7 @@ export class AlluserdataComponent implements OnInit {
     // console.log(search_text);
     // this.getAllData(0, 10, true, search_text)
   }
-  fillter(event: any) {
+  fillter(event: any,start=0) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
     console.log('click fillter', event);
@@ -177,17 +177,16 @@ export class AlluserdataComponent implements OnInit {
     console.log(query);
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log('Filtter Record', res);
       if (res.success && res['data'].length > 0) {
-        this.collectionSize = res['data'].length;
-        this.offset = 1;
-        this.totalFetchrecord = this.collectionSize;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        console.log(this.collectionSize);
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        this.currentFunction = 'fillter';
       } else {
-        this.offset = 0;
-        this.totalFetchrecord = 0;
-        this.collectionSize = 0;
+        this.collectionSize = 1;
         this.tableData = [];
       }
     });
