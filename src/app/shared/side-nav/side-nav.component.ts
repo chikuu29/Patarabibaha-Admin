@@ -46,19 +46,19 @@ export class SideNavComponent implements OnInit {
           id: 'admin-01',
         },
         {
-          routerLink: '/u',
+          routerLink: '/primeuser',
           icon: 'fa-solid fa-calendar-times',
           text: 'Premium user',
           id: 'admin-02',
         },
         {
-          routerLink: '/u',
+          routerLink: '/freeuser',
           icon: 'fa-solid fa-calendar-times',
           text: 'Free user',
           id: 'admin-03',
         },
         {
-          routerLink: '/y',
+          routerLink: '/expire-member',
           icon: 'fa-solid fa-calendar-times',
           text: 'Expire user',
           id: 'admin-04',
@@ -82,7 +82,7 @@ export class SideNavComponent implements OnInit {
           id: 'admin-07',
         },
         {
-          routerLink: '/q',
+          routerLink: '/deleteddata',
           icon: 'fa-solid fa-lightbulb',
           text: 'Delete user',
           id: 'admin-08',

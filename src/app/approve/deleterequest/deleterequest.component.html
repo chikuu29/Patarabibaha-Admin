@@ -1,41 +1,42 @@
 <div class="col-lg grid-margin stretch-card" *ngIf="false">
-    <div class="card">
-        <div class="card-body">
+  <div class="card">
+    <div class="card-body">
 
-            <div class="table-responsive">
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th>#SI</th>
-                            <th>ID</th>
-                            <th>User Name</th>
-                            <th>Mobile Number</th>
-                            <th>Email</th>
-                            <th>Whatsapp</th>
-                            <th>Created</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of useradata ; index as i">
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead>
+            <tr>
+              <th>#SI</th>
+              <th>ID</th>
+              <th>User Name</th>
+              <th>Mobile Number</th>
+              <th>Email</th>
+              <th>Whatsapp</th>
+              <th>Created</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of useradata ; index as i">
 
-                            <td>{{i+1}}</td>
-                            <td>{{ data.user_id }}</td>
-                            <td>{{ data.user_name }}</td>
-                            <td>{{ data.user_phone_number }}</td>
-                            <td>{{  data.user_mailid }}</td>
-                            <td>{{ data.user_whatsapp_number }}</td>
-                            <td>{{ data.created_At | date:'dd-MM-YYYY' }}</td>
-                            <td>
-                            <button  (click)="deleted(data.user_id)" type="button" class="btn btn-outline-danger btn-fw">Approve</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+              <td>{{i+1}}</td>
+              <td>{{ data.user_id }}</td>
+              <td>{{ data.user_name }}</td>
+              <td>{{ data.user_phone_number }}</td>
+              <td>{{ data.user_mailid }}</td>
+              <td>{{ data.user_whatsapp_number }}</td>
+              <td>{{ data.created_At | date:'dd-MM-YYYY' }}</td>
+              <td>
+                <button (click)="deleted(data.user_id)" type="button"
+                  class="btn btn-outline-danger btn-fw">Approve</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-        </div>
     </div>
+  </div>
 </div>
 
 
@@ -62,17 +63,17 @@
           <div class="table-scroll">
             <table class="custom-table table  table-bordered table-striped">
               <thead class="flip-content">
-                  <tr>
-                    <th style="cursor: pointer; width:1%">#SI</th>
-                    <th style="cursor: pointer; width:25%" >ID</th>
-                    <th style="cursor: pointer; width:25%" >User Name</th>
-                    <th style="cursor: pointer; width:25%" >Mobile Number</th>
-                    <th style="cursor: pointer; width:25%" >Email</th>
-                    <th style="cursor: pointer; width:25%" >Whatsapp</th>
-                    <th style="cursor: pointer; width:25%" >Cause</th>
+                <tr>
+                  <th style="cursor: pointer; width:1%">#SI</th>
+                  <th style="cursor: pointer; width:25%">ID</th>
+                  <th style="cursor: pointer; width:25%">User Name</th>
+                  <th style="cursor: pointer; width:25%">Mobile Number</th>
+                  <th style="cursor: pointer; width:25%">Email</th>
+                  <th style="cursor: pointer; width:25%">Whatsapp</th>
+                  <th style="cursor: pointer; width:25%">Cause</th>
 
-                    <th style="cursor: pointer; width:25%" >Created</th>
-                    <th style="cursor: pointer; width:25%" >Action</th>
+                  <th style="cursor: pointer; width:25%">Created</th>
+                  <th style="cursor: pointer; width:25%">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -83,14 +84,16 @@
                     <td (click)="approve(data.user_id)">{{ data.user_id }}</td>
                     <td>{{ data.user_name }}</td>
                     <td>{{ data.user_phone_number }}</td>
-                    <td>{{  data.user_mailid }}</td>
+                    <td>{{ data.user_mailid }}</td>
                     <td>{{ data.user_whatsapp_number }}</td>
                     <td>
-                    <button  (click)="viewCase(data.user_cause)" type="button" class="btn btn-outline-primary btn-sm me-2">Viwe</button>
+                      <button (click)="viewCase(data.user_cause)" type="button"
+                        class="btn btn-outline-primary btn-sm me-2">Viwe</button>
                     </td>
                     <td>{{ data.created_At | date:'dd-MM-YYYY' }}</td>
                     <td>
-                    <button  (click)="deleted(data.user_id)" type="button" class="btn btn-outline-primary btn-sm me-2">Approve</button>
+                      <button (click)="deleted(data.user_id)" type="button"
+                        class="btn btn-outline-primary btn-sm me-2">Approve</button>
                     </td>
                   </tr>
                 </ng-container>

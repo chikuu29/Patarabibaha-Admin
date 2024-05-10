@@ -48,6 +48,9 @@ import { FormatannualPipe } from './formatannual.pipe';
 import { DatabasebackupComponent } from './databasebackup/databasebackup.component';
 import { BulkemailsendComponent } from './bulkemailsend/bulkemailsend.component';
 import { BulksmssendComponent } from './bulksmssend/bulksmssend.component';
+import { DeletedatashowComponent } from './deletedatashow/deletedatashow.component';
+import { PrimiumuserComponent } from './primiumuser/primiumuser.component';
+import { FreeuserComponent } from './freeuser/freeuser.component';
 
 
 @NgModule({
@@ -90,6 +93,9 @@ import { BulksmssendComponent } from './bulksmssend/bulksmssend.component';
     DatabasebackupComponent,
     BulkemailsendComponent,
     BulksmssendComponent,
+    DeletedatashowComponent,
+    PrimiumuserComponent,
+    FreeuserComponent,
 
   ],
   imports: [
