@@ -171,7 +171,7 @@
 
         <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
           placeholder="Min Annual Income" [style]="{ width: '100%' }" formControlName="user_min_anual_income"
-          optionValue="value" [ngModel]="anualIncomeOptions[0]?.value">
+          optionValue="value">
           <ng-template let-anualincome pTemplate="item">
             <div class="country-item">
               <div>
@@ -187,7 +187,7 @@
         <label class="mb-3 text-muted fw-bold">Max Annual Income</label>
         <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
           placeholder="Min Annual Income" [style]="{ width: '100%' }" formControlName="user_max_anual_income"
-          optionValue="value" [ngModel]="anualIncomeOptions[anualIncomeOptions?.length-1]?.value">
+          optionValue="value" >
           <ng-template let-anualincome pTemplate="item">
             <div class="country-item">
               <div>

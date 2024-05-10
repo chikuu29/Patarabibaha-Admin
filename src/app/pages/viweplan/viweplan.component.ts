@@ -209,7 +209,7 @@ export class ViweplanComponent implements OnInit {
     this.router.navigate(['/addplan-page', data]);
   }
 
-  viwe(data: any) {
+  view(data: any) {
     ///alert(data);
     const modalRef = this.modalService.open(ViewPageForMembershipplanComponent, { size: 'lg' })
     modalRef.componentInstance.user_Data = data

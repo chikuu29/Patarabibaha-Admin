@@ -698,13 +698,10 @@ export class UserViewComponent implements OnInit {
 
       }
     });
-
     this.ApiParameterScript.fetchdata('designation', {
       projection: ['*'],
       whereConditions: { status: 1 },
     }).subscribe((res: any) => {
-      //
-
       if (res.success && res['data'].length > 0) {
         this.degOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
