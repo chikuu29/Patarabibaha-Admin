@@ -40,6 +40,7 @@ import { BulksmssendComponent } from './bulksmssend/bulksmssend.component';
 import { DeletedatashowComponent } from './deletedatashow/deletedatashow.component';
 import { PrimiumuserComponent } from './primiumuser/primiumuser.component';
 import { FreeuserComponent } from './freeuser/freeuser.component';
+import { UnderconstractionComponent } from '../shared/underconstraction/underconstraction.component';
 
 
 
@@ -231,6 +232,10 @@ const routes: Routes = [
         path: 'freeuser',
         canActivate: [AuthGuard],
         component: FreeuserComponent
+      },{
+        path:'u-c',
+        canActivate: [AuthGuard],
+        component: UnderconstractionComponent
       }
 
 

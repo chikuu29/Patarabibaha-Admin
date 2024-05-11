@@ -72,13 +72,13 @@ export class SideNavComponent implements OnInit {
           id: 'admin-05',
         },
         {
-          routerLink: '/t',
+          routerLink: '/u-c',
           icon: 'fa-solid fa-lightbulb',
           text: 'Online user',
           id: 'admin-06',
         },
         {
-          routerLink: '/r',
+          routerLink: '/u-c',
           icon: 'fa-solid fa-lightbulb',
           text: 'Suspend user',
           id: 'admin-07',
@@ -96,7 +96,7 @@ export class SideNavComponent implements OnInit {
           id: 'admin-09',
         },
         {
-          routerLink: '/w',
+          routerLink: '/u-c',
           icon: 'fa-solid fa-file-signature',
           text: 'Uplode user',
           id: 'admin-10',
@@ -168,7 +168,7 @@ export class SideNavComponent implements OnInit {
       submenuActive: false,
       submenu: [
         {
-          routerLink: '/a',
+          routerLink: '/u-c',
           icon: 'fa-solid fa-dollar-sign',
           text: 'User Website visit activity report',
           id: 'admin-13',
@@ -204,19 +204,19 @@ export class SideNavComponent implements OnInit {
           id: 'admin-01',
         },
         {
-          routerLink: '/ch',
+          routerLink: '/u-c',
           icon: 'fa-solid fa-file-signature',
           text: 'Express Interest',
           id: 'admin-01',
         },
         {
-          routerLink: '/ch',
+          routerLink: '/u-c',
           icon: 'fa-solid fa-file-signature',
           text: 'Member Follow-up Report',
           id: 'admin-01',
         },
         {
-          routerLink: '/ch',
+          routerLink: '/u-c',
           icon: 'fa-solid fa-file-signature',
           text: 'Member Sales Report',
           id: 'admin-01',
@@ -253,9 +253,9 @@ export class SideNavComponent implements OnInit {
         { routerLink: '/designation', text: 'Designation' },
         { routerLink: '/like-page', text: 'Like' },
         { routerLink: '/chating', text: 'Message content' },
-        { routerLink: '/ch', text: 'Chart content' },
-        { routerLink: '/ch', text: 'Currency management' },
-        { routerLink: '/ch', text: 'Mobile battery banner' },
+        { routerLink: '/u-c', text: 'Chart content' },
+        { routerLink: '/u-c', text: 'Currency management' },
+        { routerLink: '/u-c', text: 'Mobile battery banner' },
       ],
     },
 
@@ -266,7 +266,7 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        { routerLink: '/pr', text: 'Basic Site Seting' },
+        { routerLink: '/u-c', text: 'Basic Site Seting' },
         { routerLink: '/privacypolicy-page', text: 'Privacy Policy' },
         { routerLink: '/termandcondition-page', text: 'Term and Condition' },
         { routerLink: '/aboutus-page', text: 'About Us' },
@@ -278,8 +278,8 @@ export class SideNavComponent implements OnInit {
         { routerLink: '/barcode-page', text: 'Bar Code' },
         { routerLink: '/home-content', text: 'Home Page Content' },
         { routerLink: '/home-icon', text: 'Home Icon' },
-        { routerLink: '/so', text: 'Google Analytics Code' },
-        { routerLink: '/s', text: 'Email Seting' },
+        { routerLink: '/u-c', text: 'Google Analytics Code' },
+        { routerLink: '/u-c', text: 'Email Seting' },
         { routerLink: '/soci', text: 'Firebase Setting' },
       ],
     },
@@ -305,7 +305,7 @@ export class SideNavComponent implements OnInit {
         { routerLink: '/viweplan-page', text: 'View Plan' },
         { routerLink: '/addplan-page', text: 'Add Plan' },
         { routerLink: '/type-page', text: 'Type' },
-        { routerLink: '/t', text: 'Payment option setting' },
+        { routerLink: '/u-c', text: 'Payment option setting' },
       ],
     },
 
@@ -324,8 +324,8 @@ export class SideNavComponent implements OnInit {
       submenuActive: false,
       submenu: [
         { routerLink: '/match-makng-page', text: 'Manual Profile Matching' },
-        { routerLink: '/ma', text: 'Auto Profile matching schedule' },
-        { routerLink: '/ma', text: 'Notification schedule' },
+        { routerLink: '/u-c', text: 'Auto Profile matching schedule' },
+        { routerLink: '/u-c', text: 'Notification schedule' },
       ],
     },
 
@@ -358,7 +358,7 @@ export class SideNavComponent implements OnInit {
           badge: this.deliteeeqest,
         },
         {
-          routerLink: '/approve/del',
+          routerLink: '/u-c',
           text: 'Video',
           badge: this.deliteeeqest,
         },
@@ -420,9 +420,9 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        { routerLink: '/ma', text: 'Lead Generation' },
-        { routerLink: '/ma', text: 'Leade Follo-up data Report' },
-        { routerLink: '/ma', text: 'Lead generation report' },
+        { routerLink: '/u-c', text: 'Lead Generation' },
+        { routerLink: '/u-c', text: 'Leade Follo-up data Report' },
+        { routerLink: '/u-c', text: 'Lead generation report' },
       ],
     },
 
@@ -433,12 +433,12 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        { routerLink: '/ma', text: 'Staf role' },
-        { routerLink: '/ma', text: 'Staf list' },
-        { routerLink: '/ma', text: 'Staf assigned members' },
-        { routerLink: '/ma', text: 'Staf unassigned members' },
-        { routerLink: '/ma', text: 'Staf assigned lead' },
-        { routerLink: '/ma', text: 'Staf unassigned lead' },
+        { routerLink: '/u-c', text: 'Staf role' },
+        { routerLink: '/u-c', text: 'Staf list' },
+        { routerLink: '/u-c', text: 'Staf assigned members' },
+        { routerLink: '/u-c', text: 'Staf unassigned members' },
+        { routerLink: '/u-c', text: 'Staf assigned lead' },
+        { routerLink: '/u-c', text: 'Staf unassigned lead' },
       ],
     },
 
@@ -449,13 +449,13 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        { routerLink: '/ma', text: 'Franchise List' },
-        { routerLink: '/ma', text: 'Franchise Members' },
-        { routerLink: '/ma', text: 'Franchise assigned members' },
-        { routerLink: '/ma', text: 'Franchise Unassigned members' },
-        { routerLink: '/ma', text: 'Franchise assigned lead' },
-        { routerLink: '/ma', text: 'Franchise unassigned lead' },
-        { routerLink: '/ma', text: 'Franchise Sales Report' },
+        { routerLink: '/u-c', text: 'Franchise List' },
+        { routerLink: '/u-c', text: 'Franchise Members' },
+        { routerLink: '/u-c', text: 'Franchise assigned members' },
+        { routerLink: '/u-c', text: 'Franchise Unassigned members' },
+        { routerLink: '/u-c', text: 'Franchise assigned lead' },
+        { routerLink: '/u-c', text: 'Franchise unassigned lead' },
+        { routerLink: '/u-c', text: 'Franchise Sales Report' },
       ],
     },
     {
@@ -465,9 +465,9 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        { routerLink: '/ma', text: 'All Payment Getway' },
-        { routerLink: '/ma', text: 'Offline Payment' },
-        { routerLink: '/ma', text: 'Scan & pay' },
+        { routerLink: '/u-c', text: 'All Payment Getway' },
+        { routerLink: '/u-c', text: 'Offline Payment' },
+        { routerLink: '/u-c', text: 'Scan & pay' },
       ],
     },
 
@@ -478,8 +478,8 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        { routerLink: '/ma', text: 'Email Templates' },
-        { routerLink: '/ma', text: 'Add Email Templates' },
+        { routerLink: '/u-c', text: 'Email Templates' },
+        { routerLink: '/u-c', text: 'Add Email Templates' },
       ],
     },
     {
@@ -489,8 +489,8 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        { routerLink: '/ma', text: 'SMS Configuration' },
-        { routerLink: '/ma', text: 'SMS Templates' },
+        { routerLink: '/u-c', text: 'SMS Configuration' },
+        { routerLink: '/u-c', text: 'SMS Templates' },
       ],
     },
 
@@ -514,8 +514,8 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        // { routerLink: '/ma', text: 'Send Bulk Email' },
-        // { routerLink: '/ma', text: 'Send Bulk SMS' },
+        // { routerLink: '/u-c', text: 'Send Bulk Email' },
+        // { routerLink: '/u-c', text: 'Send Bulk SMS' },
       ],
     },
 
@@ -526,8 +526,8 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        // { routerLink: '/ma', text: 'Send Bulk Email' },
-        // { routerLink: '/ma', text: 'Send Bulk SMS' },
+        // { routerLink: '/u-c', text: 'Send Bulk Email' },
+        // { routerLink: '/u-c', text: 'Send Bulk SMS' },
       ],
     },
     {
@@ -537,8 +537,8 @@ export class SideNavComponent implements OnInit {
       hidden: false,
       submenuActive: false,
       submenu: [
-        { routerLink: '/ma', text: 'Support Ticket' },
-        // { routerLink: '/ma', text: 'Send Bulk SMS' },
+        { routerLink: '/u-c', text: 'Support Ticket' },
+        // { routerLink: '/u-c', text: 'Send Bulk SMS' },
       ],
     },
     // {
@@ -548,8 +548,8 @@ export class SideNavComponent implements OnInit {
     //   hidden: false,
     //   submenuActive: false,
     //   submenu: [
-    //     // { routerLink: '/ma', text: 'Support Ticket' },
-    //     // { routerLink: '/ma', text: 'Send Bulk SMS' },
+    //     // { routerLink: '/u-c', text: 'Support Ticket' },
+    //     // { routerLink: '/u-c', text: 'Send Bulk SMS' },
     //   ],
     // },
     {
