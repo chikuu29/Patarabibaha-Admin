@@ -71,6 +71,12 @@
                 <mat-divider></mat-divider>
                 <div class="p-3 main-content-holder">
                     <form [formGroup]="userFormData">
+                        <div>
+                            <label for="jsonData">Enter JSON Data:</label>
+                            <textarea id="jsonData"  rows="10" cols="50"></textarea>
+                            <button >Parse JSON</button>
+                          </div>
+
                         <fieldset disabled>
                             <div class="form-outline mb-4">
                                 <span class="fw-bold">User Active Date</span>
