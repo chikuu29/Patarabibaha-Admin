@@ -25,7 +25,7 @@ export class DeleterequestComponent implements OnInit {
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router,
-    private CommonService:CommonService
+    private CommonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -79,8 +79,8 @@ export class DeleterequestComponent implements OnInit {
     });
   }
   deleted(data: any) {
-    this.CommonService.deleteRequest({'id':data}).subscribe((res:any)=>{
-
+    this.CommonService.deleteRequest({ id: data }).subscribe((res: any) => {
+      this.ngOnInit();
     });
   }
 

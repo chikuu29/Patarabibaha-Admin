@@ -37,6 +37,10 @@ import { ContactviewComponent } from './contactview/contactview.component';
 import { DatabasebackupComponent } from './databasebackup/databasebackup.component';
 import { BulkemailsendComponent } from './bulkemailsend/bulkemailsend.component';
 import { BulksmssendComponent } from './bulksmssend/bulksmssend.component';
+import { DeletedatashowComponent } from './deletedatashow/deletedatashow.component';
+import { PrimiumuserComponent } from './primiumuser/primiumuser.component';
+import { FreeuserComponent } from './freeuser/freeuser.component';
+import { UnderconstractionComponent } from '../shared/underconstraction/underconstraction.component';
 
 
 
@@ -216,7 +220,31 @@ const routes: Routes = [
         path: 'bulksms',
         canActivate: [AuthGuard],
         component: BulksmssendComponent
+      },{
+        path: 'deleteddata',
+        canActivate: [AuthGuard],
+        component: DeletedatashowComponent
+      },{
+        path: 'primeuser',
+        canActivate: [AuthGuard],
+        component: PrimiumuserComponent
+      },{
+        path: 'freeuser',
+        canActivate: [AuthGuard],
+        component: FreeuserComponent
+      },{
+        path:'u-c',
+        canActivate: [AuthGuard],
+        component: UnderconstractionComponent
       }
+
+
+
+
+
+
+
+
 
 
 

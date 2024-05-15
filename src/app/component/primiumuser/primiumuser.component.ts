@@ -1,16 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
-import * as CryptoJS from 'crypto-js';
+import Swal from 'sweetalert2';
+import { MatCheckbox } from '@angular/material/checkbox';
+
 @Component({
-  selector: 'app-matchmaking',
-  templateUrl: './matchmaking.component.html',
-  styleUrls: ['./matchmaking.component.scss']
+  selector: 'app-primiumuser',
+  templateUrl: './primiumuser.component.html',
+  styleUrls: ['./primiumuser.component.scss']
 })
-export class MatchmakingComponent implements OnInit {
-  filterText:any;
+export class PrimiumuserComponent implements OnInit {
+
   alldata: any;
   tableData: any = [];
+  filterText: string;
   allId: any[] = [];
   apiFetchRecordLimit = 10;
   options = [10, 15, 50, 100, 500, 1000];
@@ -28,64 +38,53 @@ export class MatchmakingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllData(0, this.apiFetchRecordLimit);
+    this.allId = [];
+    this.page = 1;
+    this.collectionSize = 10;
+    this.getAllData(0,this.collectionSize);
   }
-  userpage(data: any) {
-    this.router.navigate(['/user', data]);
-  }
-  getAllData(
-    start: number,
-    limit: number,
-    loadSpecificData: boolean = false,
-    search_text?: any
-  ) {
-    this.pegination_required = true;
-    var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+  getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
+    this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"], "whereConditions": { membership_plan_default: 1 } }).subscribe((res: any) => {
+      console.log(res['data'][0].membership_plan_type);
+      this.defultdata = res['data'][0].membership_plan_type;
+      if (res.success && res['data'].length > 0) {
+        let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-      where a.user_all_table_complited = 1
+      WHERE user_membership_plan_type <> '${this.defultdata}'
       ORDER BY a.user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
-
-    if (loadSpecificData) {
-      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+        if (loadSpecificData) {
+          quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-         WHERE
-         a.user_all_table_complited = 1
-         AND
-         a.user_id = '${search_text}'
+      WHERE a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
-         ORDER BY a.user_creation_date_time DESC
+         AND a.user_membership_plan_type <> '${this.defultdata}';
        `;
-    }
-
-     console.log("query",quary);
-
-
-
-    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-
-      if (res.success && res['data'].length > 0) {
-        this.totalDataCount = res['data'][0].total_count;
-        this.totalFetchrecord = start + res['data'].length;
-        this.collectionSize =
-          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
-        this.tableData = res['data'];
-      } else {
-        this.collectionSize = 1;
-        this.tableData = [];
+        }
+        this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+          console.log(res);
+          if (res.success && res['data'].length > 0) {
+            this.totalDataCount = res['data'][0].total_count;
+            this.totalFetchrecord = start + res['data'].length
+            this.collectionSize = Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+            console.log(this.collectionSize);
+            this.tableData = res['data'];
+          } else {
+            this.collectionSize = 1;
+            this.tableData = [];
+          }
+        });
       }
+
     });
   }
-  matchmaking(data:any){
-    let kye = 'Lipun';
-    let encripted = CryptoJS.AES.encrypt(JSON.stringify(data),kye).toString();
-    this.router.navigate(['matches-page',encripted]);
-  }
+
+
+
   getSearchText(event: any) {
     this.filterText = event;
   }
@@ -157,5 +156,6 @@ export class MatchmakingComponent implements OnInit {
     let _this: any = this;
     _this[this.currentFunction](0, Number(event.target.value));
   }
+
 
 }

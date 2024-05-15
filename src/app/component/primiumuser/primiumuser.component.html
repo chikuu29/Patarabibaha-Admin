@@ -1,58 +1,3 @@
-<div class="kapi-container">
-  <ng-container *ngFor="let kpi of kpiTileConfig;let i=index">
-    <div class="kapi-tile" (click)="loadKpi(kpi.methodName,i)"
-      [style]="{ 'background-color': kpi.class, 'color': '#FFFFFF' }">
-      <i [ngClass]="kpi.iconClass"></i>
-      <span class="ps-2 fw-bold">{{kpi.text}} </span>
-      <ng-container *ngIf="kpi.selectedStatus">
-        <div>
-          <mat-progress-bar mode="determinate" [value]="100" [color]="'accent'"></mat-progress-bar>
-        </div>
-      </ng-container>
-    </div>
-  </ng-container>
-</div>
-<div class="outline">
-
-  <div class="commen">
-    <button [style]="{ 'background-color': '#FF1A0A', 'color': '#FFFFFF' }" type="button" class="btn"
-      (click)="deletedata()">
-      <i class="fas fa-trash-alt"></i> Delete
-    </button>
-  </div>
-  <div class="commen">
-    <button type="button" [style]="{ 'background-color': '#C8B10B', 'color': '#FFFFFF' }" class="btn"
-      (click)="recoverdata()">
-      <i class="fas fa-recycle"></i> Recover
-    </button>
-  </div>
-  <div class="commen">
-    <button type="button" [style]="{ 'background-color': '#009788', 'color': '#FFFFFF' }" class="btn"
-      (click)="publishuser()">
-      <i class="fas fa-upload"></i> Publish
-    </button>
-  </div>
-  <div class="commen">
-    <button type="button" [style]="{ 'background-color': '#F47F16', 'color': '#FFFFFF' }" class="btn"
-      (click)="unpublishuser()">
-      <i class="fas fa-download"></i> Unpublish
-    </button>
-  </div>
-  <div class="commen">
-    <button type="button" [style]="{ 'background-color': '#4CB050', 'color': '#FFFFFF' }" class="btn"
-      (click)="makeonline()">
-      <i class="fas fa-check-circle"></i> Online
-    </button>
-  </div>
-  <div class="commen">
-    <button type="button" [style]="{ 'background-color': '#F38015', 'color': '#FFFFFF' }" class="btn"
-      (click)="makeoffline()">
-      <i class="fas fa-times-circle"></i> Offline
-    </button>
-  </div>
-</div>
-
-
 <div class="row">
   <div class="col-xl-12 order-lg-1 order-xl-1">
     <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
@@ -66,7 +11,7 @@
         <div class="kt-portlet__head-toolbar">
 
 
-          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="true"
+          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="false"
             (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
         </div>
       </div>
@@ -77,10 +22,7 @@
             <table class="custom-table table  table-bordered table-striped">
               <thead class="flip-content">
                 <tr>
-                  <th style="cursor: pointer; width:5%" title="Select Member">
-                    <input type="checkbox" name="" id="all" (change)="checkAll($event)">
-                  </th>
-                  <th style="cursor: pointer; width:5%" title="Select Member">#SI</th>
+                  <th style="cursor: pointer;width:10%">#si</th>
                   <th style="cursor: pointer;width:10%" title="Member Name">
                     Member Name </th>
                   <th style="cursor: pointer; width:25%" title="Profile ID">
@@ -98,8 +40,7 @@
                   </th>
                   <th style="cursor: pointer; width: 145px;" title="Profile Status"> Complit Status
                   </th>
-                  <th style="cursor: pointer; width:10%" title="Action" class="fixed-column">Action
-                  </th>
+
                   <!-- class="fixed-column" -->
                 </tr>
               </thead>
@@ -107,15 +48,11 @@
                 <ng-container
                   *ngFor="let data of tableData | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
                   <tr>
-                    <td class="text-center">
-                      <input type="checkbox" class="check" [value]="data?.user_id" (change)="getId(data?.Id,$event)"
-                        name="" id="">
-                    </td>
                     <td>{{ i+1 }}</td>
                     <td [title]="data?.user_fname+' '+data?.user_lname"> {{data?.user_fname+'
                       '+data?.user_lname }}</td>
                     <td [title]="data?.user_id">
-                      <div> {{data?.user_id || data?.user_ID || data?.auth_ID}} </div>
+                      <div> {{data?.user_id || data?.user_ID}} </div>
                     </td>
                     <td title="Due In 9 Days ">
                       <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel">
@@ -166,20 +103,7 @@
                       </div>
                     </td>
 
-                    <td class="fixed-column">
-                      <!-- class="fixed-column" -->
-                      <!-- View Button with Outline Style -->
-                      <button class="btn btn-outline-primary btn-sm me-2" title="View"
-                        [routerLink]="'/user/'+data.user_id || data.auth_ID">
-                        <i class="fas fa-eye"></i> View
-                      </button>
-                      <!-- Open in New Tab Button with Outline Style -->
-                      <button class="btn btn-outline-primary btn-sm" title="Open in new tab"
-                        (click)="viwePlan(data.user_id || data.auth_ID)">
-                        <i class="fas fa-external-link-alt"></i> View Plan
-                      </button>
 
-                    </td>
                   </tr>
                 </ng-container>
 
@@ -206,15 +130,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-

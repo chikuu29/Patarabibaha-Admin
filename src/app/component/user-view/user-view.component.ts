@@ -20,6 +20,7 @@ import { ImageCroperComponent } from 'src/app/shared/image-croper/image-croper.c
 import { AgePipe } from 'src/app/customPipe/age.pipe';
 import { CommonService } from 'src/app/services/common.service';
 import { environment } from 'src/environments/environment';
+import { saveAs } from 'file-saver';
 
 ApiService;
 @Component({
@@ -76,29 +77,30 @@ export class UserViewComponent implements OnInit {
 
   anualIncomeOptions: any = [];
 
-  familytypeOptions: any = [{ name: 'joint' }, { name: 'juclear' }];
 
-  familyvalueOptions: any = [
-    { name: 'Orthodox' },
-    { name: 'Traditional' },
-    { name: 'Moderate' },
-    { name: 'Liberal' },
-  ];
+
+
 
   familystatusOptions: any = [
-    { name: 'reach' },
-    { name: 'Affluent' },
-    { name: 'middle class' },
-    { name: 'upper middle class' },
-    { name: 'upper lower class' },
-    { name: 'upper class' },
-    { name: 'lower class' },
-    { name: 'working class' },
-    { name: 'single-parent' },
-    { name: 'blended' },
-    { name: 'divorced' },
-    { name: 'widowed' },
+    { name: 'Rich [ ଧନୀ ]', value: 'Rich' },
+    { name: 'Middle Class [ମଧ୍ୟବିତ୍ତ]', value: 'Middle Class' },
+    {
+      name: 'Upper Middle Class [ଉଚ୍ଚ ମଧ୍ୟବିତ୍ତ]',
+      value: 'Upper Middle Class',
+    },
+    { name: 'Upper Class [ଉଚ୍ଚ ଶ୍ରେଣୀ]', value: 'Upper Class' },
+    {
+      name: 'Lower Middle Class [ନିମ୍ନ ମଧ୍ୟବିତ୍ତ]',
+      value: 'Lower Middle Class',
+    },
+    {
+      name: 'Upper-Lower Class [ଉପର-ନିମ୍ନ ଶ୍ରେଣୀ]',
+      value: 'Upper-Lower Class',
+    },
+    { name: 'Lower Class [ନିମ୍ନ ଶ୍ରେଣୀ]', value: 'Lower Class' },
   ];
+
+
 
   noofbrothersisterOptins: any = [
     { name: 0 },
@@ -109,6 +111,22 @@ export class UserViewComponent implements OnInit {
     { name: 5 },
     { name: 6 },
     { name: 7 },
+  ];
+  familytypeOptions: any = [
+    { name: 'Joint Family' },
+    { name: 'Extended Family' },
+    { name: 'Single-Parent Family' },
+    { name: 'Blended Family' },
+    { name: 'Intercultural Family' },
+    { name: 'Intergenerational Family' },
+    { name: 'Multigenerational Family' },
+    { name: 'Stay-at-Home Parent Family' },
+  ];
+  familyvalueOptions: any = [
+    { name: 'Traditional' },
+    { name: 'Moderate' },
+    { name: 'Doesnot Matter' },
+    //{ name: 'Liberal' },
   ];
 
   countryOption: any = [{ name: 'India' }];
@@ -698,13 +716,10 @@ export class UserViewComponent implements OnInit {
 
       }
     });
-
     this.ApiParameterScript.fetchdata('designation', {
       projection: ['*'],
       whereConditions: { status: 1 },
     }).subscribe((res: any) => {
-      //
-
       if (res.success && res['data'].length > 0) {
         this.degOptions = res['data'].map((obj: any) => {
           if (obj.status == 1) {
@@ -1550,158 +1565,175 @@ export class UserViewComponent implements OnInit {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
   public generatePDF() {
-    var head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']];
 
-    var data2 = [
-      [1, 'ROBERT', 'SOFTWARE DEVELOPER', 'ENGINEERING'],
-      [2, 'CRISTINAO', 'QA', 'TESTING'],
-      [3, 'KROOS', 'MANAGER', 'MANAGEMENT'],
-      [4, 'XYZ', 'DEVELOPER', 'DEVLOPEMENT'],
-      [5, 'ABC', 'CONSULTANT', 'HR'],
-      [73, 'QWE', 'VICE PRESIDENT', 'MANAGEMENT'],
-    ];
-
-    this.blockUI.start('Generating PDF...');
-    var pdfData = [_.cloneDeep(this.finaldata)];
-    console.log('Click generatePDF', this.userAllData);
-
-    const pdf = new jsPDF({
-      unit: 'mm',
-      format: 'a4', // or 'letter', 'a3', etc.
+    let param = {
+      user_id:this.profile_id,
+      filepath : environment.filePath
+    }
+    this.commonservice.generatepdf(param).subscribe((res:any)=>{
+      console.log(res);
+      saveAs(res, this.profile_id+'.pdf');
     });
+    //console.log(param);
 
-    // const pdf = new jsPDF();
-    pdf.addImage(
-      'https://choicemarriage.com/storage/logo_image/6521ccbea425d.png',
-      'JPEG',
-      65,
-      5,
-      0,
-      0
-    ); // adjust coordinates and dimensions accordingly
-    // Sample data with text and image URLs
-    _.map(
-      pdfData,
-      (res: any) =>
-        (res.user_profile_image =
-          environment.baseApiURL + 'storage/' + res.user_profile_image)
-    );
-    console.log('Click generatePDF', pdfData);
 
-    const data = pdfData;
-    console.log('data', data);
-    const keyMap = ['user_dob', 'user_height', 'HomeTown'];
-    let yPos = 30;
-    let currentPage = 1;
-    data.forEach((record: any) => {
-      console.log(record);
-      console.log('pdf', pdf.internal.pageSize.getHeight());
 
-      pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
-      pdf.textWithLink('ID   :' + record.user_id, 70, (yPos += 10), {
-        url: environment.application_url + 'member-profile/' + record.user_id,
-      });
 
-      // pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos+=10);
-      // pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos+=10);
-      pdf.text(`Gender: ${record.user_gender}`, 70, (yPos += 10));
-      pdf.text(
-        `Marital Status: ${
-          record.user_marital_status ? record.user_marital_status : 'NA'
-        }`,
-        70,
-        (yPos += 10)
-      );
-      pdf.text(
-        `HomeTown:  ${record.user_city ? record.user_city : 'NA'},${
-          record.user_city ? record.user_state : 'NA'
-        }`,
-        70,
-        (yPos += 10)
-      );
-      // pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos+=10);
 
-      // Draw lines to separate records
-      pdf.line(0, 85, 210, 85);
-      console.log('[record]', [record]);
-      pdf.text('BIODATA', 85, yPos + 35);
-      pdf.text(`AGE: ${this.calculateAge(record.user_dob)}`, 10, (yPos += 50));
-      pdf.text(
-        `Height: ${record.user_height ? record.user_height : 'NA'} cm`,
-        10,
-        (yPos += 10)
-      );
-      pdf.text(
-        `Colour: ${record.user_complextion ? record.user_complextion : 'NA'}`,
-        10,
-        (yPos += 10)
-      );
-      pdf.text('EDUCATION & OCCUPATION', 70, yPos + 20);
-      // pdf.table(0,60,[],record,{ autoSize: true });
-      // Move the Y position for the next record
-      pdf.text(`Education: ${record.user_highest_education}`, 10, (yPos += 50));
-      pdf.text(
-        `Occupation: ${record.user_occupation ? record.user_occupation : 'NA'}`,
-        10,
-        (yPos += 10)
-      );
-      pdf.text(
-        `Designation: ${
-          record.user_occupation_details ? record.user_occupation_details : 'NA'
-        }`,
-        10,
-        (yPos += 10)
-      );
-      pdf.text(
-        `Anulal Income:  ${
-          record.user_anual_income ? record.user_anual_income : 'NA'
-        }`,
-        10,
-        (yPos += 10)
-      );
-      pdf.text(
-        `Job Location:  ${
-          record.user_occupation_location
-            ? record.user_occupation_location
-            : 'NA'
-        }`,
-        10,
-        (yPos += 10)
-      );
-      pdf.text(
-        `Details Of Job:  ${
-          record.user_occupation_details ? record.user_occupation_details : 'NA'
-        }`,
-        10,
-        (yPos += 10)
-      );
-      pdf.text(
-        `Rashi:  ${record.user_zodiacs ? record.user_zodiacs : 'NA'}`,
-        10,
-        (yPos += 10)
-      );
-      pdf.text(
-        `Nakhyatra:  ${record.user_nakhyatra ? record.user_nakhyatra : 'NA'}`,
-        10,
-        (yPos += 10)
-      );
-      yPos = 30;
 
-      // if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
-      // pdf.addPage();
-      // pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
-      // Sample data with text and image URLs
-      ///currentPage++;
-      // yPos = 30; // Reset Y position for the new page
-      // }
-    });
 
-    const pdfFileName =
-      'matching_report_' + `${this.profile_id}_` + moment().toString() + '.pdf';
-    pdf.save(pdfFileName, { returnPromise: true }).then((res: any) => {
-      // console.log(res);
-      this.blockUI.stop();
-    });
+    // var head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']];
+
+    // var data2 = [
+    //   [1, 'ROBERT', 'SOFTWARE DEVELOPER', 'ENGINEERING'],
+    //   [2, 'CRISTINAO', 'QA', 'TESTING'],
+    //   [3, 'KROOS', 'MANAGER', 'MANAGEMENT'],
+    //   [4, 'XYZ', 'DEVELOPER', 'DEVLOPEMENT'],
+    //   [5, 'ABC', 'CONSULTANT', 'HR'],
+    //   [73, 'QWE', 'VICE PRESIDENT', 'MANAGEMENT'],
+    // ];
+
+    // this.blockUI.start('Generating PDF...');
+    // var pdfData = [_.cloneDeep(this.finaldata)];
+    // console.log('Click generatePDF', this.userAllData);
+
+    // const pdf = new jsPDF({
+    //   unit: 'mm',
+    //   format: 'a4', // or 'letter', 'a3', etc.
+    // });
+
+    // // const pdf = new jsPDF();
+    // // pdf.addImage(
+    // //   'https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png',
+    // //   'JPEG',
+    // //   65,
+    // //   5,
+    // //   0,
+    // //   0
+    // // ); // adjust coordinates and dimensions accordingly
+    // // Sample data with text and image URLs
+    // _.map(
+    //   pdfData,
+    //   (res: any) =>
+    //     (res.user_profile_image =
+    //       environment.baseApiURL + 'storage/' + res.user_profile_image)
+    // );
+    // console.log('Click generatePDF', pdfData);
+
+    // const data = pdfData;
+    // console.log('data', data);
+    // const keyMap = ['user_dob', 'user_height', 'HomeTown'];
+    // let yPos = 30;
+    // let currentPage = 1;
+    // data.forEach((record: any) => {
+    //   console.log(record);
+    //   console.log('pdf', pdf.internal.pageSize.getHeight());
+
+    //   pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
+    //   pdf.textWithLink('ID   :' + record.user_id, 70, (yPos += 10), {
+    //     url: environment.application_url + 'member-profile/' + record.user_id,
+    //   });
+
+    //   // pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos+=10);
+    //   // pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos+=10);
+    //   pdf.text(`Gender: ${record.user_gender}`, 70, (yPos += 10));
+    //   pdf.text(
+    //     `Marital Status: ${
+    //       record.user_marital_status ? record.user_marital_status : 'NA'
+    //     }`,
+    //     70,
+    //     (yPos += 10)
+    //   );
+    //   pdf.text(
+    //     `HomeTown:  ${record.user_city ? record.user_city : 'NA'},${
+    //       record.user_city ? record.user_state : 'NA'
+    //     }`,
+    //     70,
+    //     (yPos += 10)
+    //   );
+    //   // pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos+=10);
+
+    //   // Draw lines to separate records
+    //   pdf.line(0, 85, 210, 85);
+    //   console.log('[record]', [record]);
+    //   pdf.text('BIODATA', 85, yPos + 35);
+    //   pdf.text(`AGE: ${this.calculateAge(record.user_dob)}`, 10, (yPos += 50));
+    //   pdf.text(
+    //     `Height: ${record.user_height ? record.user_height : 'NA'} cm`,
+    //     10,
+    //     (yPos += 10)
+    //   );
+    //   pdf.text(
+    //     `Colour: ${record.user_complextion ? record.user_complextion : 'NA'}`,
+    //     10,
+    //     (yPos += 10)
+    //   );
+    //   pdf.text('EDUCATION & OCCUPATION', 70, yPos + 20);
+    //   // pdf.table(0,60,[],record,{ autoSize: true });
+    //   // Move the Y position for the next record
+    //   pdf.text(`Education: ${record.user_highest_education}`, 10, (yPos += 50));
+    //   pdf.text(
+    //     `Occupation: ${record.user_occupation ? record.user_occupation : 'NA'}`,
+    //     10,
+    //     (yPos += 10)
+    //   );
+    //   pdf.text(
+    //     `Designation: ${
+    //       record.user_occupation_details ? record.user_occupation_details : 'NA'
+    //     }`,
+    //     10,
+    //     (yPos += 10)
+    //   );
+    //   pdf.text(
+    //     `Anulal Income:  ${
+    //       record.user_anual_income ? record.user_anual_income : 'NA'
+    //     }`,
+    //     10,
+    //     (yPos += 10)
+    //   );
+    //   pdf.text(
+    //     `Job Location:  ${
+    //       record.user_occupation_location
+    //         ? record.user_occupation_location
+    //         : 'NA'
+    //     }`,
+    //     10,
+    //     (yPos += 10)
+    //   );
+    //   pdf.text(
+    //     `Details Of Job:  ${
+    //       record.user_occupation_details ? record.user_occupation_details : 'NA'
+    //     }`,
+    //     10,
+    //     (yPos += 10)
+    //   );
+    //   pdf.text(
+    //     `Rashi:  ${record.user_zodiacs ? record.user_zodiacs : 'NA'}`,
+    //     10,
+    //     (yPos += 10)
+    //   );
+    //   pdf.text(
+    //     `Nakhyatra:  ${record.user_nakhyatra ? record.user_nakhyatra : 'NA'}`,
+    //     10,
+    //     (yPos += 10)
+    //   );
+    //   yPos = 30;
+
+    //   // if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
+    //   // pdf.addPage();
+    //   // pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
+    //   // Sample data with text and image URLs
+    //   ///currentPage++;
+    //   // yPos = 30; // Reset Y position for the new page
+    //   // }
+    // });
+
+    // const pdfFileName =
+    //   'matching_report_' + `${this.profile_id}_` + moment().toString() + '.pdf';
+    // pdf.save(pdfFileName, { returnPromise: true }).then((res: any) => {
+    //   // console.log(res);
+    //   this.blockUI.stop();
+    // });
   }
   shareData() {
     console.log(this.finaldata);

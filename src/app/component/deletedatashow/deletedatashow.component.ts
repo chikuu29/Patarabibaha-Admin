@@ -1,16 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
-import * as CryptoJS from 'crypto-js';
+import Swal from 'sweetalert2';
+import { MatCheckbox } from '@angular/material/checkbox';
+
 @Component({
-  selector: 'app-matchmaking',
-  templateUrl: './matchmaking.component.html',
-  styleUrls: ['./matchmaking.component.scss']
+  selector: 'app-deletedatashow',
+  templateUrl: './deletedatashow.component.html',
+  styleUrls: ['./deletedatashow.component.scss']
 })
-export class MatchmakingComponent implements OnInit {
-  filterText:any;
+export class DeletedatashowComponent implements OnInit {
   alldata: any;
   tableData: any = [];
+  filterText: string;
   allId: any[] = [];
   apiFetchRecordLimit = 10;
   options = [10, 15, 50, 100, 500, 1000];
@@ -19,7 +28,7 @@ export class MatchmakingComponent implements OnInit {
   offset = 1;
   pegination_required: boolean = false;
   currentFunction: string = 'getAllData';
-  defultdata :any;
+
   totalDataCount: number = 0;
   totalFetchrecord: number = 0;
   constructor(
@@ -28,64 +37,38 @@ export class MatchmakingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllData(0, this.apiFetchRecordLimit);
+    this.allId = [];
+    this.page = 1;
+    this.collectionSize = 10;
+    this.getAllData(0,this.collectionSize);
   }
-  userpage(data: any) {
-    this.router.navigate(['/user', data]);
-  }
-  getAllData(
-    start: number,
-    limit: number,
-    loadSpecificData: boolean = false,
-    search_text?: any
-  ) {
-    this.pegination_required = true;
-    var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
-      FROM user_info AS a
-      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-      where a.user_all_table_complited = 1
-      ORDER BY a.user_creation_date_time DESC
+  getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
+    let Quary =
+      `select * ,COUNT(*) OVER () AS total_count from user_delete_request
+      where states = 1
       LIMIT ${limit} OFFSET ${start}`;
-
-    if (loadSpecificData) {
-      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
-      FROM user_info AS a
-      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-         WHERE
-         a.user_all_table_complited = 1
-         AND
-         a.user_id = '${search_text}'
-         OR b.auth_ID = '${search_text}'
-         OR a.user_fname = '${search_text}'
-         OR a.user_lname = '${search_text}'
-         ORDER BY a.user_creation_date_time DESC
-       `;
-    }
-
-     console.log("query",quary);
-
-
-
-    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-
+      if (loadSpecificData) {
+        Quary = `select * ,COUNT(*) OVER () AS total_count from user_delete_request
+        where states = 1 AND
+      OR user_name = '${search_text}'
+      OR user_phone_number = '${search_text}'
+      OR user_whatsapp_number = '${search_text}'
+      OR user_id  = '${search_text}'`
+      }
+    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+      console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.totalDataCount = res['data'][0].total_count;
-        this.totalFetchrecord = start + res['data'].length;
-        this.collectionSize =
-          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        this.totalDataCount=res['data'][0].total_count;
+        this.totalFetchrecord =start+res['data'].length
+        this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
         this.tableData = res['data'];
-      } else {
-        this.collectionSize = 1;
-        this.tableData = [];
+        console.log(this.tableData);
       }
     });
   }
-  matchmaking(data:any){
-    let kye = 'Lipun';
-    let encripted = CryptoJS.AES.encrypt(JSON.stringify(data),kye).toString();
-    this.router.navigate(['matches-page',encripted]);
-  }
+
+
+
   getSearchText(event: any) {
     this.filterText = event;
   }
@@ -157,5 +140,6 @@ export class MatchmakingComponent implements OnInit {
     let _this: any = this;
     _this[this.currentFunction](0, Number(event.target.value));
   }
+
 
 }

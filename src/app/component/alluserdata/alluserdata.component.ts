@@ -146,7 +146,7 @@ export class AlluserdataComponent implements OnInit {
     // console.log(search_text);
     // this.getAllData(0, 10, true, search_text)
   }
-  fillter(event: any,start=0) {
+  fillter(event: any, start = 0) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
     console.log('click fillter', event);

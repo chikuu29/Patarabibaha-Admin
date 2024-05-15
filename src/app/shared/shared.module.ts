@@ -21,6 +21,7 @@ import { ApprovalviweComponent } from './approvalviwe/approvalviwe.component';
 import { PromptDialogComponent } from './prompt-dialog/prompt-dialog.component';
 // import { NotificationComponent } from './notification/notification.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UnderconstractionComponent } from './underconstraction/underconstraction.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     FillterModalComponent,
     ApprovalviweComponent,
     PromptDialogComponent,
+    UnderconstractionComponent,
     // NotificationComponent
   ],
   imports: [

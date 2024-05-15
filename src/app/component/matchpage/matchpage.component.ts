@@ -28,6 +28,55 @@ export class MatchpageComponent implements OnInit {
   finaldata: any;
   allId: any[] = [];
   logo: any;
+  totalDataCount: number = 0;
+  totalFetchrecord: number = 0;
+  alldata: any;
+  tableData: any = [];
+  apiFetchRecordLimit = 10;
+  options = [10, 15, 50, 100, 500, 1000];
+  page: any = 1;
+  collectionSize: any = 10;
+  offset = 1;
+  pegination_required: boolean = false;
+  currentFunction: string = 'getAllData';
+  kpiTileConfig: any[] = [
+    {
+      text: 'All Data',
+      iconClass: 'fa-solid fa-users text-primary',
+      methodName: 'getAllData',
+      selectedStatus: false,
+      class: '#AA9711',
+    },
+    {
+      text: 'Recommended Matches Cast',
+      iconClass: 'fa-solid fa-users text-primary',
+      methodName: 'byCastmatchesforindivisual',
+      selectedStatus: false,
+      class: '#FF9700',
+    },
+    {
+      text: 'Premium Matches Cast',
+      iconClass: 'fa-solid fa-wifi text-success',
+      methodName: 'byCastpremimusMatches',
+      selectedStatus: false,
+      class: '#009788',
+    },
+    {
+      text: 'Recommended Matches Other Cast',
+      iconClass: 'fa-solid fa-check-circle text-success',
+      methodName: 'byOtherCastmatchesforindivisual',
+      selectedStatus: false,
+      class: '#FF1A0A',
+    },
+    {
+      text: 'Premium Matches Other Cast',
+      iconClass: 'fa-solid fa-times-circle text-danger',
+      methodName: 'byOtherCastpremimusMatches',
+      selectedStatus: false,
+      class: '#0E47A1',
+    },
+
+  ];
   constructor(
     private activatedroute: ActivatedRoute,
     private commonservice: CommonService,
@@ -42,86 +91,130 @@ export class MatchpageComponent implements OnInit {
       let bytes = CryptoJS.AES.decrypt(res.id, encryptSecretKey);
       let data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
       this.user_id = data;
+      this.loadKpi('getAllData', 0);
     });
-    this.matches();
     this.icone();
   }
+  loadKpi(functionName: string, kpiNum: number) {
+    this.kpiTileConfig.forEach((e: any, index: number) => {
+      if (kpiNum != index) {
+        e.selectedStatus = false;
+      }
+    });
+    this.kpiTileConfig[kpiNum]['selectedStatus'] = true;
+
+    this.currentFunction = functionName;
+    this.page = 1;
+    this.collectionSize = 10;
+    this.pegination_required = true;
+    let _this: any = this;
+    _this[functionName](0, this.apiFetchRecordLimit);
+  }
+
+  getAllData(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
+    this.pegination_required = true;
+    var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      ORDER BY a.user_creation_date_time DESC
+      LIMIT ${limit} OFFSET ${start}`;
+
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      FROM user_info AS a
+      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+      WHERE a.user_id = '${search_text}'
+         OR b.auth_ID = '${search_text}'
+         OR a.user_fname = '${search_text}'
+         OR a.user_lname = '${search_text}'
+         ORDER BY a.user_creation_date_time DESC
+       `;
+    }
+
+    // console.log("query",quary);
+
+    this.blockUI.start('Loading...');
+
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      this.blockUI.stop();
+
+      if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        console.log(this.collectionSize);
+        this.tableData = res['data'];
+      } else {
+        this.collectionSize = 1;
+        this.tableData = [];
+      }
+    });
+  }
+
   userpage(data: any) {
     this.router.navigate(['/user', data]);
   }
 
-  matchByCast() {
+  byCastmatchesforindivisual() {
     let data = {
       user_id: this.user_id,
     };
-    this.commonservice.matchByCast(data).subscribe((res: any) => {
+    this.commonservice.byCastmatchesforindivisual(data).subscribe((res: any) => {
       if (res.status) {
         this.finaldata = {};
-        this.finaldata = res['data'];
+        this.tableData = res['data'];
+      }else{
+        this.tableData = []
       }
     });
   }
-  premimusMatches() {
+  byCastpremimusMatches() {
     let data = {
       user_id: this.user_id,
     };
-    this.commonservice.premimusMatches(data).subscribe((res: any) => {
+    this.commonservice.byCastpremimusMatches(data).subscribe((res: any) => {
       if (res.status) {
         this.finaldata = {};
-        this.finaldata = res['data'];
+        this.tableData = res['data'];
+      }else{
+        this.tableData = [];
       }
     });
   }
-  matchesforindivisual() {
+  byOtherCastmatchesforindivisual() {
     let data = {
       user_id: this.user_id,
     };
-    this.commonservice.matchesforindivisual(data).subscribe((res: any) => {
+    this.commonservice.byOtherCastmatchesforindivisual(data).subscribe((res: any) => {
       if (res.status) {
         this.finaldata = {};
-        this.finaldata = res['data'];
+        this.tableData = res['data'];
+      }else{
+        this.tableData = []
       }
     });
   }
-  matches() {
+  byOtherCastpremimusMatches() {
     let data = {
       user_id: this.user_id,
     };
-    this.commonservice.matches(data).subscribe((res: any) => {
+    this.commonservice.byOtherCastpremimusMatches(data).subscribe((res: any) => {
       if (res.status) {
         this.finaldata = {};
-        this.finaldata = res['data'];
+        this.tableData = res['data'];
         console.log(this.finaldata);
+      }else{
+        this.tableData = [];
       }
     });
   }
-  activeclass(data: any) {
-    if (data == '1') {
-      this.class1 = 'flex-item activedata';
-      this.class2 = 'flex-item';
-      this.class3 = 'flex-item';
-      this.class4 = 'flex-item';
-      this.matches();
-    } else if (data == '2') {
-      this.class1 = 'flex-item';
-      this.class2 = 'flex-item activedata';
-      this.class3 = 'flex-item';
-      this.class4 = 'flex-item';
-      this.matchByCast();
-    } else if (data == '3') {
-      this.class1 = 'flex-item';
-      this.class2 = 'flex-item';
-      this.class3 = 'flex-item activedata';
-      this.class4 = 'flex-item';
-      this.matchesforindivisual();
-    } else if (data == '4') {
-      this.class1 = 'flex-item';
-      this.class2 = 'flex-item';
-      this.class3 = 'flex-item';
-      this.class4 = 'flex-item activedata';
-      this.premimusMatches();
-    }
-  }
+
   calculateAge(birthday: Date): number {
     birthday = new Date(birthday);
     const ageDifMs: number = Date.now() - birthday.getTime();
@@ -348,5 +441,76 @@ export class MatchpageComponent implements OnInit {
       k.checked = false;
     }
     console.log(this.allId);
+  }
+  changepaginetdata(event: any) {
+    this.page = 1;
+    this.offset = 1;
+    this.pegination_required = true;
+    this.apiFetchRecordLimit = Number(event.target.value);
+    let _this: any = this;
+    _this[this.currentFunction](0, Number(event.target.value));
+  }
+  getSearchText(event: any) {
+    this.filterText = event;
+  }
+  search(search_text: any) {
+    let _this: any = this;
+    _this[this.currentFunction](0, 10, true, search_text);
+    // console.log(search_text);
+    // this.getAllData(0, 10, true, search_text)
+  }
+  fillter(event: any, start = 0) {
+    //this.pegination_required = false;
+    //this.currentFunction = 'fillter';
+    console.log('click fillter', event);
+    var query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID WHERE  ORDER BY user_info.user_creation_date_time DESC`;
+    if (event.isqueryGenerated) {
+      query = `SELECT *,user_info.user_id AS auth_ID , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+    ${event.whereConditions}  ORDER BY user_info.user_creation_date_time DESC`;
+    }
+
+    console.log(query);
+
+    this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        console.log(this.collectionSize);
+        this.tableData = res['data'];
+        this.currentFunction = 'fillter';
+      } else {
+        this.collectionSize = 1;
+        this.tableData = [];
+      }
+    });
+  }
+  onpageChnage() {
+    let _this: any = this;
+    _this[this.currentFunction](
+      this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit,
+      this.apiFetchRecordLimit
+    );
+    this.offset =
+      this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit;
   }
 }

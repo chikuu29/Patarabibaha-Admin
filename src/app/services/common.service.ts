@@ -10,6 +10,7 @@ import { AppService } from 'src/app/services/app.service';
 export class CommonService {
 
   headers: any;
+  haderforpdf:any;
   constructor(private http: HttpClient,private appservices:AppService) {
     console.log("Calling Api Services");
     var headers = new HttpHeaders()
@@ -18,6 +19,10 @@ export class CommonService {
       // .set("Content-Type", "application/x-www-form-urlencoded;harset=utf-8")
       .set("Content-Type", "application/json")
     this.headers = headers;
+
+     this.haderforpdf = new HttpHeaders()
+     .set("Content-Type", "application/json")
+      .set('Accept', 'application/pdf');
 
 
 
@@ -83,6 +88,22 @@ export class CommonService {
   coloumUpdated(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'coloumUpdated', apiData, { headers: this.headers });
   }
+  byCastmatchesforindivisual(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'byCastmatchesforindivisual', apiData, { headers: this.headers });
+  }
+  byCastpremimusMatches(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'byCastpremimusMatches', apiData, { headers: this.headers });
+  }
+  byOtherCastmatchesforindivisual(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'byOtherCastmatchesforindivisual', apiData, { headers: this.headers });
+  }
+  byOtherCastpremimusMatches(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'byOtherCastpremimusMatches', apiData, { headers: this.headers });
+  }
+  generatepdf(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'generate-pdf', apiData, {responseType: 'blob',headers: this.haderforpdf });
+  }
+
 
 
 
