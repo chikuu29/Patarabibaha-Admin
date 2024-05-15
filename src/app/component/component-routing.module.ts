@@ -41,6 +41,7 @@ import { DeletedatashowComponent } from './deletedatashow/deletedatashow.compone
 import { PrimiumuserComponent } from './primiumuser/primiumuser.component';
 import { FreeuserComponent } from './freeuser/freeuser.component';
 import { UnderconstractionComponent } from '../shared/underconstraction/underconstraction.component';
+import { RoleManagementComponent } from './role-management/role-management.component';
 
 
 
@@ -236,8 +237,13 @@ const routes: Routes = [
         path:'u-c',
         canActivate: [AuthGuard],
         component: UnderconstractionComponent
-      }
+      },
 
+      {
+        path:'role_management',
+        canActivate: [AuthGuard],
+        component: RoleManagementComponent
+      }
 
 
 
