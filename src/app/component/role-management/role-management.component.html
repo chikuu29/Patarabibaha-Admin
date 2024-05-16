@@ -1,0 +1,205 @@
+<br>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-5">
+            <div class="holder">
+                <div class="caption row p-3 justify-content-center align-items-center">
+                    <div class="col">
+                        <span class="fw-bold fs-3">Show User </span>
+                        <p class="text-danger">Total {{userData.length}} Record Found</p>
+                    </div>
+                    <div class="col d-flex justify-content-end align-items-center">
+                        <p-button label="" icon="pi pi-filter-fill" [loading]="false"></p-button>
+                    </div>
+
+                </div>
+                <mat-divider></mat-divider>
+                <div class="p-3 main-content-holder">
+                    <ng-container *ngFor="let user of userData">
+                        <div class="card p-3 m-3">
+                            <p class="fw-bold"><i class="fa-solid fa-user text-success"></i> {{user.admin_name}}</p>
+                            <div class="d-flex justify-content-between">
+                                <p><span class="fw-bold">Role :</span> {{user.role}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p><span class="fw-bold">UserID :</span> {{user.UserId}}</p>
+                                <p> <span class="fw-bold">Created Date & Time :</span>{{user.created_At |date:'medium'}}</p>
+                            </div>
+
+                            <div class="action">
+                                <button pButton pRipple type="button" label="Expand"
+                                    class="p-button-success p-button-text" (click)="expand(user)"><i
+                                        class="fa-solid fa-expand  expand fw-bold me-1"></i></button>
+                                <button pButton pRipple type="button" label="Delete"
+                                    class="p-button-danger p-button-text" (click)="delete(user.admin_id)" ><i
+                                        class="fa-solid fa-trash  fw-bold me-1"></i></button>
+
+
+                            </div>
+
+
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="userData.length<=0">
+                        <p>No Record Found</p>
+
+                    </ng-container>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-7 ">
+            <div class="holder">
+                <div class="caption row p-3 justify-content-center align-items-center">
+                    <div class="col">
+                        <span class="fw-bold fs-3">Add User </span>
+                    </div>
+                    <div class="col d-flex justify-content-end align-items-center">
+                        <button pButton pRipple type="button" label="Add" class="m-1" (click)="add()"></button>
+                        <button pButton pRipple type="button" label="Save" class="p-button-success m-1"
+                            [hidden]="allowToSave" [disabled]="!userFormData.valid" (click)="save()"></button>
+                        <button pButton pRipple type="button" label="Update" class="p-button-success m-1"
+                            [hidden]="allowToUpdate"  (click)="update()"></button>
+                        <button pButton pRipple type="button" label="Cancle" class="p-button-danger m-1"
+                            [hidden]="allowToCancle" (click)="cancle()"></button>
+
+                    </div>
+
+                </div>
+                <mat-divider></mat-divider>
+                <div class="p-3 main-content-holder">
+                    <form [formGroup]="userFormData">
+                        <div>
+                            <label for="jsonData">Enter JSON Data:</label>
+                            <textarea id="jsonData"  rows="10" cols="50"></textarea>
+                            <button >Parse JSON</button>
+                          </div>
+
+                        <fieldset disabled>
+                            <div class="form-outline mb-4">
+                                <span class="fw-bold">User Active Date</span>
+                                <mat-form-field appearance="outline" class="w-100 mt-2">
+                                    <mat-label>User Active Date</mat-label>
+                                    <input matInput placeholder="User Active Date" formControlName="admin_created"
+                                        required type="text" readonly>
+                                    <mat-icon matSuffix class="text-success">{{'done'}}</mat-icon>
+                                    <!-- <mat-hint [ngClass]="userFormData.controls.admin_created.valid?'text-success':'text-danger'">{{getErrorMessage('admin_created','Please Fill User Active Date')}}</mat-hint> -->
+                                </mat-form-field>
+                            </div>
+                        </fieldset>
+                        <div class="form-outline mb-4">
+                            <span class="fw-bold">User Role</span>
+                            <mat-form-field appearance="outline" class="w-100 mt-2">
+                                <mat-label>User Role</mat-label>
+                                <mat-select formControlName="role">
+                                    <mat-select-trigger>
+                                        {{userFormData.controls.role.value || ''}}
+                                    </mat-select-trigger>
+                                    <mat-option *ngFor="let role of selectRole" [value]="role">{{role}}</mat-option>
+                                </mat-select>
+                                <mat-icon matSuffix
+                                    [ngClass]="userFormData.controls.role.valid?'text-success':'text-danger'">{{userFormData.controls.role.valid?'done':'highlight_remove'}}</mat-icon>
+                                <mat-hint
+                                    [ngClass]="userFormData.controls.role.valid?'text-success':'text-danger'">{{getErrorMessage('role',"Please
+                                    Fill User Role")}}
+                                </mat-hint>
+                            </mat-form-field>
+
+                        </div>
+                        <fieldset [disabled]="adminIDdisabled">
+                            <div class="form-outline mb-4">
+                                <span class="fw-bold">User ID</span>
+                                <mat-form-field appearance="outline" class="w-100 mt-2">
+                                    <mat-label>Your UserID</mat-label>
+                                    <input matInput placeholder="UserID" formControlName="admin_id" required
+                                        type="text">
+                                    <mat-icon matSuffix
+                                        [ngClass]="userFormData.controls.admin_id.valid?'text-success':'text-danger'">
+                                        {{userFormData.controls.admin_id.valid
+                                        ?'done':'highlight_remove'}}</mat-icon>
+
+                                    <mat-hint
+                                        [ngClass]="userFormData.controls.admin_id.valid?'text-success':'text-danger'">{{getErrorMessage('admin_id',"Please
+                                        Fill User ID")}}
+                                    </mat-hint>
+
+                                </mat-form-field>
+                            </div>
+                        </fieldset>
+                        <div class="form-outline mb-4">
+                            <span class="fw-bold">User Email</span>
+                            <mat-form-field appearance="outline" class="w-100 mt-2">
+                                <mat-label>Your Email</mat-label>
+                                <input matInput placeholder="User Name" formControlName="admin_email" required
+                                    type="text">
+                                <mat-icon matSuffix
+                                    [ngClass]="userFormData.controls.admin_email.valid?'text-success':'text-danger'">
+                                    {{userFormData.controls.admin_email.valid
+                                    ?'done':'highlight_remove'}}</mat-icon>
+                                <mat-hint
+                                    [ngClass]="userFormData.controls.admin_email.valid?'text-success':'text-danger'">{{getErrorMessage('admin_email',"Please
+                                    Fill User Email Id")}}</mat-hint>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <span class="fw-bold">User Name</span>
+                            <mat-form-field appearance="outline" class="w-100 mt-2">
+                                <mat-label>User Name</mat-label>
+                                <input matInput placeholder="User Name" formControlName="admin_name" required
+                                    type="text">
+                                <mat-icon matSuffix
+                                    [ngClass]="userFormData.controls.admin_name.valid?'text-success':'text-danger'">
+                                    {{userFormData.controls.admin_name.valid
+                                    ?'done':'highlight_remove'}}</mat-icon>
+                                <mat-hint
+                                    [ngClass]="userFormData.controls.admin_name.valid?'text-success':'text-danger'">{{getErrorMessage('admin_name',"Please
+                                    Fill User Name")}}</mat-hint>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <span class="fw-bold">User Phone</span>
+                            <mat-form-field appearance="outline" class="w-100 mt-2">
+                                <mat-label>User Phone</mat-label>
+                                <input matInput placeholder="User Phone" formControlName="admin_phone_no" required
+                                    type="text">
+                                <mat-icon matSuffix
+                                    [ngClass]="userFormData.controls.admin_phone_no.valid?'text-success':'text-danger'">
+                                    {{userFormData.controls.admin_phone_no.valid
+                                    ?'done':'highlight_remove'}}</mat-icon>
+                                <mat-hint
+                                    [ngClass]="userFormData.controls.admin_phone_no.valid?'text-success':'text-danger'">{{getErrorMessage('admin_phone_no',"Please
+                                    Fill User Phone No")}}</mat-hint>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="form-outline mb-3">
+                            <span class="fw-bold">User Password</span>
+                            <mat-form-field appearance="outline" class="w-100 mt-2">
+                                <mat-label>Your Password</mat-label>
+                                <input matInput formControlName="admin_password" placeholder="Password"
+                                    [type]="hide ? 'password' : 'text'" >
+                                <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                                <mat-hint
+                                    [ngClass]="userFormData.controls.admin_password.valid?'text-success':'text-danger'">{{getErrorMessage('admin_password','Please
+                                    Fill User Password')}}</mat-hint>
+
+                            </mat-form-field>
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" header="Confirmation" icon="pi pi-exclamation-triangle" acceptButtonStyleClass="p-button-danger"></p-confirmDialog>
+

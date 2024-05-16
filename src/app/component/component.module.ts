@@ -51,6 +51,7 @@ import { BulksmssendComponent } from './bulksmssend/bulksmssend.component';
 import { DeletedatashowComponent } from './deletedatashow/deletedatashow.component';
 import { PrimiumuserComponent } from './primiumuser/primiumuser.component';
 import { FreeuserComponent } from './freeuser/freeuser.component';
+import { RoleManagementComponent } from './role-management/role-management.component';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import { FreeuserComponent } from './freeuser/freeuser.component';
     DeletedatashowComponent,
     PrimiumuserComponent,
     FreeuserComponent,
+    RoleManagementComponent,
 
   ],
   imports: [
