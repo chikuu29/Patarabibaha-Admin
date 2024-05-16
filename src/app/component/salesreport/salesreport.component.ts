@@ -3,52 +3,73 @@ import { Router } from '@angular/router';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { parseInt } from 'lodash';
 
 @Component({
   selector: 'app-salesreport',
   templateUrl: './salesreport.component.html',
-  styleUrls: ['./salesreport.component.scss']
+  styleUrls: ['./salesreport.component.scss'],
 })
 export class SalesreportComponent implements OnInit {
   finaldata: any;
-  filterText:any;
+  filterText: any;
   total: any;
+  filteredData: any[];
+  flg: boolean = true;
+  rowIndex: number = 0;
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this. getExpireData();
+    this.getExpireData();
   }
-  getExpireData(){
-    let Quary =  `select *,COUNT(*) OVER () AS total_count
+  incrementRowIndex() {
+    return this.rowIndex++;
+  }
+  getExpireData() {
+    let Quary = `select *,COUNT(*) OVER () AS total_count
     from user_plan_deatils as a join membership_plan as b on a.user_plan_id = b.membership_plan_id
     order by plan_stating_date`;
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
+        this.filteredData = res['data'];
         this.finaldata = res['data'];
+        //this.rowIndex = 1;
         let sum = 0;
         this.total = 0;
         // this.total = this.finaldata.map((ele:any)=>{
         //   sum = sum+ele.membership_plan_amount
         //   return sum
         // })
-        let i=0;
-        while(this.finaldata.length > 0){
-          this.total = this.total+this.finaldata[i].membership_plan_amount;
-          i++;
-        }
-        console.log(this.finaldata);
+        this.filteredData.forEach((data) => {
+          if (data && typeof data.membership_plan_amount === 'number') {
+            this.total += data.membership_plan_amount;
+          }
+        });
+        let i = 0;
+        console.log(this.filteredData);
       }
     });
   }
 
   downloadExcel(): void {
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.finaldata);
-    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
+      this.filteredData
+    );
+    const workbook: XLSX.WorkBook = {
+      Sheets: { data: worksheet },
+      SheetNames: ['data'],
+    };
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
     this.saveAsExcelFile(excelBuffer, 'your_filename');
   }
 
@@ -62,4 +83,16 @@ export class SalesreportComponent implements OnInit {
     document.body.removeChild(a);
   }
 
+
+  filter(event: any, field: string) {
+    //this.filteredData = this.finaldata
+    this.flg = false;
+    const filterValue = event.target.value.toLowerCase();
+    console.log(filterValue);
+
+    this.filteredData = this.filteredData.filter((data: any) => {
+      return data[field].toLowerCase().includes(filterValue);
+    });
+    console.log(this.filteredData);
+  }
 }

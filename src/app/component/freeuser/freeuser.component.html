@@ -20,6 +20,9 @@
             <table class="custom-table table  table-bordered table-striped">
               <thead class="flip-content">
                 <tr>
+                  <th style="cursor: pointer; width:5%" title="Select Member">
+                    <input type="checkbox" name="" id="all" (change)="checkAll($event)">
+                  </th>
                   <th style="cursor: pointer;width:10%">#si</th>
                   <th style="cursor: pointer;width:10%" title="Member Name">
                     Member Name </th>
@@ -46,6 +49,10 @@
                 <ng-container
                   *ngFor="let data of tableData | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
                   <tr>
+                    <td class="text-center">
+                      <input type="checkbox" class="check" [value]="data?.user_id"
+                        (change)="getId(data?.user_email,$event)" name="" id="">
+                    </td>
                     <td>{{ i+1 }}</td>
                     <td [title]="data?.user_fname+' '+data?.user_lname"> {{data?.user_fname+'
                       '+data?.user_lname }}</td>

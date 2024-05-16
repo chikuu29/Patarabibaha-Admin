@@ -141,5 +141,38 @@ export class FreeuserComponent implements OnInit {
     let _this: any = this;
     _this[this.currentFunction](0, Number(event.target.value));
   }
+  checkAll(e: any) {
+    let check = document.querySelectorAll('.check');
+    console.log(check);
+
+    this.allId = [];
+    if (e.target.checked) {
+      check.forEach((checkbox: any, key: any) => {
+        console.log('p');
+
+        this.allId.push(this.tableData[key].user_email);
+        checkbox.checked = true;
+      });
+    } else {
+      check.forEach((checkbox: any, key: any) => {
+        this.allId = [];
+        checkbox.checked = false;
+      });
+    }
+    console.log(this.allId);
+  }
+  getId(id: any, e: any) {
+    console.log('hii', e);
+
+    if (e.target.checked) {
+      this.allId.push(id);
+    } else {
+      let index = this.allId.indexOf(id);
+      this.allId.splice(index, 1);
+      let k = <any>document.getElementById('all');
+      k.checked = false;
+    }
+    console.log(this.allId);
+  }
 
 }

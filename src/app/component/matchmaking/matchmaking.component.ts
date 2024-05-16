@@ -81,9 +81,10 @@ export class MatchmakingComponent implements OnInit {
       }
     });
   }
-  matchmaking(data:any){
+  matchmaking(data:any,gender:any){
+    // alert(data+':'+gender);
     let kye = 'Lipun';
-    let encripted = CryptoJS.AES.encrypt(JSON.stringify(data),kye).toString();
+    let encripted = CryptoJS.AES.encrypt(JSON.stringify(data+':'+gender),kye).toString();
     this.router.navigate(['matches-page',encripted]);
   }
   getSearchText(event: any) {

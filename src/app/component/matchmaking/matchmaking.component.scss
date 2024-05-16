@@ -1,0 +1,37 @@
+// Define variables
+$primary-color: #eb0c0c;
+$secondary-color: #555;
+$background-color: #fff;
+$box-shadow-color: rgba(0, 0, 0, 0.1);
+
+// Define mixins
+@mixin center {
+  margin: 0 auto;
+}
+
+// Styles
+#userDetails {
+  width: 400px;
+  @include center;
+  background-color: $background-color;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px $box-shadow-color;
+}
+
+h1 {
+  text-align: center;
+  color: $primary-color;
+}
+
+p {
+  margin: 10px 0;
+}
+
+strong {
+  font-weight: bold;
+}
+
+span {
+  color: $secondary-color;
+}

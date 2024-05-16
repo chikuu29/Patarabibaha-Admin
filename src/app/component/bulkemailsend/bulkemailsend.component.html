@@ -10,48 +10,16 @@
         </div>
       </ng-container>
     </div>
+    <ng-container *ngIf="kpi.text == 'Cast' ">
+     <div (click)="resetcast()">
+      <i class="fas fa-sync-alt"></i>
+     </div>
+    </ng-container>
+
   </ng-container>
 
 </div>
-<!-- <div class="outline">
 
-  <div class="commen">
-    <button [style]="{ 'background-color': '#FF1A0A', 'color': '#FFFFFF' }" type="button" class="btn"
-      (click)="deletedata()">
-      <i class="fas fa-trash-alt"></i> Delete
-    </button>
-  </div>
-  <div class="commen">
-    <button type="button" [style]="{ 'background-color': '#C8B10B', 'color': '#FFFFFF' }" class="btn"
-      (click)="recoverdata()">
-      <i class="fas fa-recycle"></i> Recover
-    </button>
-  </div>
-  <div class="commen">
-    <button type="button" [style]="{ 'background-color': '#009788', 'color': '#FFFFFF' }" class="btn"
-      (click)="publishuser()">
-      <i class="fas fa-upload"></i> Publish
-    </button>
-  </div>
-  <div class="commen">
-    <button type="button" [style]="{ 'background-color': '#F47F16', 'color': '#FFFFFF' }" class="btn"
-      (click)="unpublishuser()">
-      <i class="fas fa-download"></i> Unpublish
-    </button>
-  </div>
-  <div class="commen">
-    <button type="button" [style]="{ 'background-color': '#4CB050', 'color': '#FFFFFF' }" class="btn"
-      (click)="makeonline()">
-      <i class="fas fa-check-circle"></i> Online
-    </button>
-  </div>
-  <div class="commen">
-    <button type="button" [style]="{ 'background-color': '#F38015', 'color': '#FFFFFF' }" class="btn"
-      (click)="makeoffline()">
-      <i class="fas fa-times-circle"></i> Offline
-    </button>
-  </div>
-</div> -->
 
 
 <div class="row">

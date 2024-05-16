@@ -620,6 +620,49 @@ export class AlluserdataComponent implements OnInit {
       }
     });
   }
+  getAllPublishedData( start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any){
+      let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+          FROM user_info AS a
+          LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
+          a.status=1
+          ORDER BY a.user_creation_date_time DESC
+          LIMIT ${limit} OFFSET ${start}`;
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+            FROM user_info AS a
+            LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+            WHERE
+                a.online_status=1
+                AND a.user_id = '${search_text}'
+               OR b.auth_ID = '${search_text}'
+               OR a.user_fname = '${search_text}'
+               OR a.user_lname = '${search_text}'
+               ORDER BY a.user_creation_date_time DESC;
+             `;
+    }
+    //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      //console.log(res);
+      if (res.success && res['data'].length > 0) {
+        // alert('ll')
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) *
+          10;
+
+        this.tableData = res['data'];
+        // console.log(this.tableData);
+      } else {
+        this.collectionSize = 1;
+        this.tableData = [];
+        // console.log(this.tableData);
+      }
+    });
+  }
   // getAllNotDeletedData(
   //   start: number,
   //   limit: number,

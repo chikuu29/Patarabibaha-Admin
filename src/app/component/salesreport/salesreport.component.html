@@ -3,7 +3,7 @@
 </div>
 <button (click)="downloadExcel()">Download Excel</button>
 
-<div class="">
+<div class="" *ngIf="false">
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
@@ -53,4 +53,33 @@
         </div>
     </div>
 </div>
+<p-table [value]="filteredData" [paginator]="true" [rows]="10" >
+  <ng-template pTemplate="header">
+      <tr>
+          <th>#SI</th>
+          <th>Date Transaction</th>
+          <th>Amount of Transaction</th>
+          <th>Mode of Transaction</th>
+          <th>Plan Type</th>
+      </tr>
+      <tr>
+          <th></th>
+          <th><input type="text" pInputText (input)="filter($event, 'plan_stating_date')" placeholder="Filter"></th>
+          <th><input type="text" pInputText (input)="filter($event, 'membership_plan_amount')" placeholder="Filter"></th>
+          <th><input type="text" pInputText (input)="filter($event, 'planactiveted_mode')" placeholder="Filter"></th>
+          <th><input type="text" pInputText (input)="filter($event, 'membership_plan_type')" placeholder="Filter"></th>
+      </tr>
+  </ng-template>
+  <ng-template let-data pTemplate="body" let-rowIndex="rowIndex">
+
+      <tr>
+          <td>{{ rowIndex + 1 }}</td>
+          <td>{{data.plan_stating_date  }}</td>
+          <td>{{data.membership_plan_amount }}</td>
+          <td>{{data.planactiveted_mode }}</td>
+          <td>{{data.membership_plan_type }}</td>
+      </tr>
+  </ng-template>
+</p-table>
+
 
