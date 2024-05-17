@@ -63,6 +63,13 @@ export class MatchpageComponent implements OnInit {
       class: '#009788',
     },
     {
+      text: 'Free Matches Cast',
+      iconClass: 'fa-solid fa-wifi text-success',
+      methodName: 'byCastFreeMatches',
+      selectedStatus: false,
+      class: '#009788',
+    },
+    {
       text: 'Recommended Matches Other Cast',
       iconClass: 'fa-solid fa-check-circle text-success',
       methodName: 'byOtherCastmatchesforindivisual',
@@ -73,6 +80,13 @@ export class MatchpageComponent implements OnInit {
       text: 'Premium Matches Other Cast',
       iconClass: 'fa-solid fa-times-circle text-danger',
       methodName: 'byOtherCastpremimusMatches',
+      selectedStatus: false,
+      class: '#0E47A1',
+    },
+    {
+      text: 'Free Matches Other Cast',
+      iconClass: 'fa-solid fa-times-circle text-danger',
+      methodName: 'byOtherCastFreeMatches',
       selectedStatus: false,
       class: '#0E47A1',
     },
@@ -237,6 +251,40 @@ export class MatchpageComponent implements OnInit {
         }
       });
   }
+  byCastFreeMatches(){
+    let data = {
+      user_id: this.user_id,
+    };
+    this.commonservice
+      .byCastFreeMatches(data)
+      .subscribe((res: any) => {
+        if (res.status) {
+          this.finaldata = {};
+          this.tableData = res['data'];
+          console.log(this.finaldata);
+        } else {
+          this.tableData = [];
+        }
+      });
+  }
+
+
+  byOtherCastFreeMatches() {
+    let data = {
+      user_id: this.user_id,
+    };
+    this.commonservice
+      .byOtherCastFreeMatches(data)
+      .subscribe((res: any) => {
+        if (res.status) {
+          this.finaldata = {};
+          this.tableData = res['data'];
+          console.log(this.finaldata);
+        } else {
+          this.tableData = [];
+        }
+      });
+  }
 
   calculateAge(birthday: Date): number {
     birthday = new Date(birthday);
@@ -256,186 +304,6 @@ export class MatchpageComponent implements OnInit {
     });
   }
 
-  // public generatePDF() {
-  //   if (this.allIdForpdf.length > 10) {
-  //     Swal.fire({
-  //       title: 'Download Limit Reached',
-  //       text: 'You can only download 10 PDFs at a time.',
-  //       icon: 'warning',
-  //       confirmButtonText: 'OK',
-  //     });
-  //   } else {
-  //     this.allIdForpdf.forEach((id: any) => {
-  //       let param = {
-  //         user_id: id,
-  //         filepath: environment.filePath,
-  //       };
-  //       this.commonservice.generatepdf(param).subscribe((res: any) => {
-  //         console.log(res);
-  //         saveAs(res, id + '.pdf');
-  //       });
-  //     });
-  //   }
-
-  //   // var head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']];
-
-  //   // var data2 = [
-  //   //   [1, 'ROBERT', 'SOFTWARE DEVELOPER', 'ENGINEERING'],
-  //   //   [2, 'CRISTINAO', 'QA', 'TESTING'],
-  //   //   [3, 'KROOS', 'MANAGER', 'MANAGEMENT'],
-  //   //   [4, 'XYZ', 'DEVELOPER', 'DEVLOPEMENT'],
-  //   //   [5, 'ABC', 'CONSULTANT', 'HR'],
-  //   //   [73, 'QWE', 'VICE PRESIDENT', 'MANAGEMENT'],
-  //   // ];
-
-  //   // this.blockUI.start('Generating PDF...');
-  //   // var pdfData = _.cloneDeep(this.finaldata);
-  //   // console.log('Click generatePDF', this.finaldata);
-
-  //   // const pdf = new jsPDF({
-  //   //   unit: 'mm',
-  //   //   format: 'a4', // or 'letter', 'a3', etc.
-  //   // });
-
-  //   // // const pdf = new jsPDF();
-  //   // const imageurl = environment.baseApiURL+'storage/logo_image/'+this.logo;
-  //   // console.log(imageurl);
-
-  //   // pdf.addImage(
-  //   //   "https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png" ,
-  //   //   'JPEG',
-  //   //   65,
-  //   //   5,
-  //   //   0,
-  //   //   0
-  //   // ); // adjust coordinates and dimensions accordingly
-  //   // // Sample data with text and image URLs
-  //   // _.map(
-  //   //   pdfData,
-  //   //   (res: any) =>
-  //   //   (res.user_profile_image =
-  //   //     environment.baseApiURL + 'storage/' +
-  //   //     res.user_profile_image)
-  //   // );
-  //   // console.log('Click generatePDF', pdfData);
-
-  //   // const data = pdfData;
-  //   // console.log('data', data);
-  //   // const keyMap = ['user_dob', 'user_height', 'HomeTown'];
-  //   // let yPos = 30;
-  //   // let currentPage = 1;
-  //   // data.forEach((record: any) => {
-  //   //   console.log(record);
-  //   //   console.log('pdf', pdf.internal.pageSize.getHeight());
-
-  //   //   pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
-  //   //   pdf.textWithLink('ID   :' + record.user_id, 70, (yPos += 10), {
-  //   //     url: environment.application_url + 'member-profile/' + record.user_id,
-  //   //   });
-
-  //   //   // pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos+=10);
-  //   //   // pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos+=10);
-  //   //   pdf.text(`Gender: ${record.user_gender}`, 70, (yPos += 10));
-  //   //   pdf.text(
-  //   //     `Marital Status: ${record.user_marital_status ? record.user_marital_status : 'NA'
-  //   //     }`,
-  //   //     70,
-  //   //     (yPos += 10)
-  //   //   );
-  //   //   pdf.text(
-  //   //     `HomeTown:  ${record.user_city ? record.user_city : 'NA'},${record.user_city ? record.user_state : 'NA'
-  //   //     }`,
-  //   //     70,
-  //   //     (yPos += 10)
-  //   //   );
-  //   //   // pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos+=10);
-
-  //   //   // Draw lines to separate records
-  //   //   pdf.line(0, 85, 210, 85);
-  //   //   console.log('[record]', [record]);
-  //   //   pdf.text('BIODATA', 85, yPos + 35);
-  //   //   pdf.text(`AGE: ${this.calculateAge(record.user_dob)}`, 10, yPos += 50);
-  //   //   pdf.text(
-  //   //     `Height: ${record.user_height ? record.user_height : 'NA'}`,
-  //   //     10,
-  //   //     (yPos += 10)
-  //   //   );
-  //   //   pdf.text(
-  //   //     `Colour: ${record.user_complextion ? record.user_complextion : 'NA'}`,
-  //   //     10,
-  //   //     (yPos += 10)
-  //   //   );
-
-  //   //   pdf.text('EDUCATION & OCCUPATION', 70, yPos + 20);
-  //   //   // pdf.table(0,60,[],record,{ autoSize: true });
-  //   //   // Move the Y position for the next record
-  //   //   pdf.text(`Education: ${record.user_highest_education}`, 10, (yPos += 50));
-  //   //   pdf.text(
-  //   //     `Occupation: ${record.user_occupation ? record.user_occupation : 'NA'}`,
-  //   //     10,
-  //   //     (yPos += 10)
-  //   //   );
-  //   //   pdf.text(
-  //   //     `Designation: ${record.user_occupation_details ? record.user_occupation_details : 'NA'
-  //   //     }`,
-  //   //     10,
-  //   //     (yPos += 10)
-  //   //   );
-  //   //   pdf.text(
-  //   //     `Anulal Income:  ${record.user_anual_income ? record.user_anual_income : 'NA'
-  //   //     }`,
-  //   //     10,
-  //   //     (yPos += 10)
-  //   //   );
-  //   //   pdf.text(
-  //   //     `Job Location:  ${record.user_occupation_location
-  //   //       ? record.user_occupation_location
-  //   //       : 'NA'
-  //   //     }`,
-  //   //     10,
-  //   //     (yPos += 10)
-  //   //   );
-  //   //   pdf.text(
-  //   //     `Details Of Job:  ${record.user_occupation_details ? record.user_occupation_details : 'NA'
-  //   //     }`,
-  //   //     10,
-  //   //     (yPos += 10)
-  //   //   );
-  //   //   pdf.text(
-  //   //     `Rashi:  ${record.user_zodiacs ? record.user_zodiacs : 'NA'}`,
-  //   //     10,
-  //   //     (yPos += 10)
-  //   //   );
-  //   //   pdf.text(
-  //   //     `Nakhyatra:  ${record.user_nakhyatra ? record.user_nakhyatra : 'NA'}`,
-  //   //     10,
-  //   //     (yPos += 10)
-  //   //   );
-  //   //   yPos = 30;
-
-  //   //   // if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
-  //   //   pdf.addPage();
-  //   //   pdf.addImage(
-  //   //     "https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png",
-  //   //     'JPEG',
-  //   //     65,
-  //   //     5,
-  //   //     0,
-  //   //     0
-  //   //   ); // adjust coordinates and dimensions accordingly
-  //   //   // Sample data with text and image URLs
-  //   //   currentPage++;
-  //   //   // yPos = 30; // Reset Y position for the new page
-  //   //   // }
-  //   // });
-
-  //   // const pdfFileName =
-  //   //   'matching_report_' + `${this.user_id}_` + moment().toString() + '.pdf';
-  //   // pdf.save(pdfFileName, { returnPromise: true }).then((res: any) => {
-  //   //   // console.log(res);
-  //   //   this.blockUI.stop();
-  //   // });
-  // }
   public generatePDF() {
     let count = 0;
     if (this.allIdForpdf.length > 10) {
@@ -472,9 +340,9 @@ export class MatchpageComponent implements OnInit {
       let param = {
         ids: this.allId,
         sendid: this.user_id,
+        filePath:environment.filePath
       };
-      console.log(param);
-
+      // console.log(param);
       this.commonservice.sendData(param).subscribe((res: any) => {
         if (res.code == 200) {
           Swal.fire({

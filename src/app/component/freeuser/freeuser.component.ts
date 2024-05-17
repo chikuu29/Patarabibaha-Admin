@@ -10,14 +10,14 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-freeuser',
   templateUrl: './freeuser.component.html',
-  styleUrls: ['./freeuser.component.scss']
+  styleUrls: ['./freeuser.component.scss'],
 })
 export class FreeuserComponent implements OnInit {
-
   alldata: any;
   tableData: any = [];
   filterText: string;
@@ -32,43 +32,56 @@ export class FreeuserComponent implements OnInit {
 
   totalDataCount: number = 0;
   totalFetchrecord: number = 0;
+  membersheepdata: any;
   constructor(
     private ApiParameter: ApiParameterScript,
-    private router: Router
-  ) { }
+    private router: Router ,
+    private commonservice: CommonService,
+  ) {}
 
   ngOnInit(): void {
     this.allId = [];
     this.page = 1;
     this.collectionSize = 10;
-    this.getAllData(0,this.collectionSize);
+    let Quary = `SELECT * FROM membership_plan WHERE membership_plan_default = 1`;
+    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        //console.log();
+        this.membersheepdata = res['data'][0].membership_plan_type;
+        this.getAllData(0, this.collectionSize);
+      }
+    });
   }
-  getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    let Quary =
-      `select * ,COUNT(*) OVER () AS total_count from user_info
-      where user_membership_plan_type = 'Free'
+  getAllData(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
+    let Quary = `select * ,COUNT(*) OVER () AS total_count from user_info
+      where user_membership_plan_type = '${this.membersheepdata}'
+      ORDER BY user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
-      if (loadSpecificData) {
-        Quary = `select * ,COUNT(*) OVER () AS total_count from user_info
-        where user_membership_plan_type = 'Free'
+    if (loadSpecificData) {
+      Quary = `select * ,COUNT(*) OVER () AS total_count from user_info
+      where user_membership_plan_type = 'Free'
       OR user_id = '${search_text}'
       OR user_phone_no = '${search_text}'
       OR user_whatsapp_no = '${search_text}'
-      OR user_id  = '${search_text}'`
-      }
+      OR user_id  = '${search_text}'`;
+    }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.tableData = res['data'];
         console.log(this.tableData);
       }
     });
   }
-
-
 
   getSearchText(event: any) {
     this.filterText = event;
@@ -174,5 +187,26 @@ export class FreeuserComponent implements OnInit {
     }
     console.log(this.allId);
   }
+  sendMail() {
+    if (this.allId.length == 0) {
+      Swal.fire({
+        icon: 'question',
+        text: 'Select one user',
+      });
+    } else {
+      let param = {
+        ids: this.allId,
+      };
+      console.log(param);
 
+      this.commonservice.sendData(param).subscribe((res: any) => {
+        if (res.code == 200) {
+          Swal.fire({
+            icon: 'success',
+            text: 'Mail send',
+          });
+        }
+      });
+    }
+  }
 }

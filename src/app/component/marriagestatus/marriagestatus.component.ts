@@ -36,12 +36,9 @@ export class MarriagestatusComponent implements OnInit {
     let _this:any = this;
     this.getAllData(this.page * 10 - 10, 10);
   }
-
   combine(data:any){
     this.router.navigate(['/marriage-combine', data]);
   }
-
-
   loadDATA(functionName: string) {
     //this.currentFunction = functionName;
     this.page = 1;
@@ -56,18 +53,13 @@ export class MarriagestatusComponent implements OnInit {
   search(search_text: any) {
     let _this:any = this;
     this.getAllData(0, 10,true,search_text);
-    // console.log(search_text);
-    // this.getAllData(0, 10, true, search_text)
-
   }
   onpageChnage() {
     let _this:any = this;
     this.getAllData(this.page * 10 - 10, 10);
-    //this.getAllData(this.page * 10 - 10, 10)
   }
 
   getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any){
-
     var quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID AND a.marriage_status = 0
