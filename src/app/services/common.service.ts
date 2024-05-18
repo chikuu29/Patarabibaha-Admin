@@ -112,6 +112,10 @@ export class CommonService {
   byCastFreeMatches(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'byCastFreeMatches', apiData, { headers: this.headers });
   }
+  expiredMail(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'expiredMail', apiData, { headers: this.headers });
+  }
+
 
 
 

@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MemberPaymentProcessingTaskComponent } from 'src/app/shared/member-payment-processing-task/member-payment-processing-task.component';
+import { environment } from 'src/environments/environment';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-expiremember',
@@ -53,7 +55,8 @@ export class ExpirememberComponent implements OnInit {
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private CommonService : CommonService
   ) {}
 
   ngOnInit(): void {
@@ -341,6 +344,12 @@ export class ExpirememberComponent implements OnInit {
     console.log(this.allId);
   }
   sendMail(){
+    let param = {
+      mailIds: this.allId,
+      filepath: environment.filePath
+    }
+    this.CommonService.expiredMail(param).subscribe((res:any)=>{
 
+    });
   }
 }
