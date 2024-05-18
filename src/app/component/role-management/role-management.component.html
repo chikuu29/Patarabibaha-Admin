@@ -101,7 +101,7 @@
                                     type="text"> -->
                                 <textarea matInput formControlName="permission" required rows="10" readonly></textarea>
                             </mat-form-field>
-                            <button mat-flat-button color="primary" class="w-100" (click)="loadPermission()">Give Permission</button>
+                            <button mat-flat-button color="primary" class="w-100" (click)="loadPermission(userFormData.controls.UserId.value)">Give Permission</button>
                         </div>
 
                         <fieldset disabled>

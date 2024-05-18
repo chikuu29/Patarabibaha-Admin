@@ -59,7 +59,7 @@ export class RoleManagementComponent implements OnInit {
 
   }
 
-  loadPermission() {
+  loadPermission(user_id:any) {
 
     const options: NgbModalOptions = {
       size: 'xl',
@@ -71,6 +71,7 @@ export class RoleManagementComponent implements OnInit {
     }
     const modelRef = this.modalServices.open(LoadPermissionComponent, options);
 
+    modelRef.componentInstance.user_id=user_id,
     modelRef.result.then((permissions: any) => {
       this.userFormData.controls.permission.setValue(JSON.stringify(permissions))
     })
