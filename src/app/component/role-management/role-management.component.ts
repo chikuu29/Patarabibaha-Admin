@@ -22,13 +22,13 @@ export class RoleManagementComponent implements OnInit {
   // Validators.pattern("^W-([A-Z]{5,5})([@_])([0-9]{3,5})$")]
   userFormData = new FormGroup({
 
-    admin_id: new FormControl('', [Validators.required]),
-    admin_name: new FormControl('', [Validators.required, Validators.pattern("^([a-z A-Z]{4,30})$")]),
-    admin_email: new FormControl('', [Validators.required, Validators.email]),
-    admin_password: new FormControl('', [Validators.required]),
-    permission: new FormControl({value:'',disabled:true}, [Validators.required]),
-    admin_phone_no: new FormControl('', [Validators.required, Validators.pattern("[0-9]{10}")]),
-    admin_created: new FormControl(moment().format('LLL').toString(), [Validators.required]),
+    UserId: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.pattern("^([a-z A-Z]{4,30})$")]),
+    email_id: new FormControl('', [Validators.required, Validators.email]),
+    Password: new FormControl('', [Validators.required]),
+    permission: new FormControl('', [Validators.required]),
+    phone_number: new FormControl('', [Validators.required, Validators.pattern("[0-9]{10}")]),
+    created_At: new FormControl(moment().format('LLL').toString(), [Validators.required]),
     role: new FormControl('', [Validators.required])
 
     // Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$")
@@ -38,7 +38,7 @@ export class RoleManagementComponent implements OnInit {
   public allowToSave: boolean = true;
   public allowToUpdate: boolean = true;
   public allowToCancle: boolean = true;
-  public selectRole: string[] = ['GUEST'];
+  public selectRole: string[] = ['SUPER_ADMIN', 'ADMIN', 'SUBADMIN'];
 
   constructor(
     private apiParameter: ApiParameterScript,
@@ -46,25 +46,35 @@ export class RoleManagementComponent implements OnInit {
     private auth: AuthService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private modalServices:NgbModal
+    private modalServices: NgbModal
   ) { }
 
   ngOnInit(): void {
-    // this.userFormData.get('admin_created')?.disable()
+    // this.userFormData.get('created_At')?.disable()
     this.getUserDetails()
-    if (this.appservices.getappconfig) {
-      this.selectRole = Object.keys(this.appservices.getappconfig['roleConfig'])
-      // console.log(this.selectRole);
-    }
+    // if (this.appservices.getappconfig) {
+    //   this.selectRole = Object.keys(this.appservices.getappconfig['roleConfig'])
+    //   // console.log(this.selectRole);
+    // }
 
   }
 
-  loadPermission(){
+  loadPermission(user_id:any) {
 
-    const options:NgbModalOptions ={
-      size:'Xl'
+    const options: NgbModalOptions = {
+      size: 'xl',
+      centered: true,
+      scrollable: true,
+      backdrop: false,
+      windowClass: 'custom-backdrop',
+      backdropClass: 'custom-backdrop-border'
     }
-    const modelRef=this.modalServices.open(LoadPermissionComponent,options);
+    const modelRef = this.modalServices.open(LoadPermissionComponent, options);
+
+    modelRef.componentInstance.user_id=user_id,
+    modelRef.result.then((permissions: any) => {
+      this.userFormData.controls.permission.setValue(JSON.stringify(permissions))
+    })
 
   }
 
@@ -74,10 +84,10 @@ export class RoleManagementComponent implements OnInit {
     const apiData = {
       "projection": ["*"], "whereConditions": {}
 
-      
+
     }
     this.apiParameter.fetchdata("admin", apiData).subscribe((res: any) => {
-      console.log("user",res);
+      console.log("user", res);
       this.blockUI.stop()
       if (res.success && res['data'].length > 0) {
         this.userData = res['data']
@@ -97,7 +107,7 @@ export class RoleManagementComponent implements OnInit {
     setTimeout(() => {
       this.userFormData.patchValue(user)
       // this.userFormData.enable()
-      // this.userFormData.get('admin_id')?.disable()
+      // this.userFormData.get('UserId')?.disable()
       this.allowToSave = true
       this.allowToUpdate = false
       this.allowToCancle = false
@@ -113,7 +123,10 @@ export class RoleManagementComponent implements OnInit {
       icon: 'pi pi-info-circle',
       accept: () => {
         this.blockUI.start("Delete...")
-        this.apiParameter.deletedata("admin", { "projection": `admin_id='${userID}'` }).subscribe((res: any) => {
+        var apiData = {
+          'whereConditions': { 'UserId': userID }
+        }
+        this.apiParameter.deletedata("admin", apiData).subscribe((res: any) => {
           this.blockUI.stop()
           console.log(res);
           if (res.success) {
@@ -152,17 +165,17 @@ export class RoleManagementComponent implements OnInit {
     // this.userFormData.reset()
     this.adminIDdisabled = false
     this.userFormData.setValue({
-      admin_created: moment().format('LLL').toString(),
-      admin_id: null,
-      admin_name: null,
-      admin_email: null,
-      admin_password: null,
-      admin_phone_no: null,
-      permission:null,
+      created_At: moment().format('LLL').toString(),
+      UserId: null,
+      name: null,
+      email_id: null,
+      Password: null,
+      phone_number: null,
+      permission: null,
       role: null
     })
     // this.userFormData.enable()
-    this.userFormData.get('admin_created')?.disabled
+    this.userFormData.get('created_At')?.disabled
     this.allowToSave = false
     this.allowToUpdate = true
     this.allowToCancle = false
@@ -171,14 +184,49 @@ export class RoleManagementComponent implements OnInit {
   public save() {
     this.blockUI.start("Creating User")
     console.log(this.userFormData.value);
-    this.auth.createUserRole(this.userFormData.value).subscribe((res: any) => {
+    // this.auth.createUserRole(this.userFormData.value).subscribe((res: any) => {
+    //   this.blockUI.stop()
+    //   if (res.success) {
+    //     Swal.fire('Success', res.message, 'success').then(res => {
+    //       this.ngOnInit()
+    //     })
+    //   } else {
+    //     Swal.fire('Sorry!', res.message, 'error')
+    //   }
+    // })
+
+    var apiData: any = { 'data': this.userFormData.value }
+
+    apiData['creater_name'] = this.appservices.authStatus.name
+    // apiData['isJsonData']=
+
+
+
+    this.apiParameter.savedata('admin', apiData).subscribe((res: any) => {
+
       this.blockUI.stop()
+      console.log(res);
+
       if (res.success) {
-        Swal.fire('Success', res.message, 'success').then(res => {
-          this.ngOnInit()
-        })
+
+        // Swal.fire(
+        //   'Admin User Created Successfull',
+        //   'Congratulation',
+        //   'success'
+        // )
+
+        Swal.fire(
+          {
+            title: `<strong style='color:#5c54a0; font-size:30px;'>Admin User Created Successfull</strong>`,
+            html: '<h2>Congratulation</h2> <div class="pyro"><div class="before"></div><div class="after"></div></div>',
+            icon: 'success'
+
+          }).then((res: any) => {
+            this.ngOnInit()
+          })
+
       } else {
-        Swal.fire('Sorry!', res.message, 'error')
+        Swal.fire('Somethings Went Wroung', 'Please Contact Devloper', 'error')
       }
     })
 
@@ -186,12 +234,29 @@ export class RoleManagementComponent implements OnInit {
   }
   public update() {
 
+    // var updatedta:any=delete this.userFormData.value.Password
+    // console.log(updatedta);
+    
+    var apiData: any = {
+      'data': this.userFormData.value,
+      'whereConditions': { 'UserId': this.userFormData.value.UserId }
+    }
+
+    apiData['creater_name'] = this.appservices.authStatus.name
     console.log(this.userFormData.value);
     this.blockUI.start('Updating...')
-    this.auth.updateUserRole(this.userFormData.value).subscribe((res: any) => {
+    this.apiParameter.updatedata('admin', apiData).subscribe((res: any) => {
       this.blockUI.stop()
       if (res.success) {
-        Swal.fire('Success', res.message, 'success')
+        Swal.fire(
+          {
+            title: `<strong style='color:#5c54a0; font-size:30px;'>Admin User Updated Successfull</strong>`,
+            html: '<h2>Congratulation</h2> <div class="pyro"><div class="before"></div><div class="after"></div></div>',
+            icon: 'success'
+
+          }).then((res: any) => {
+            this.ngOnInit()
+          })
       } else {
         Swal.fire('Sorry!', res.message, 'error')
       }
@@ -202,54 +267,54 @@ export class RoleManagementComponent implements OnInit {
   getErrorMessage(name: any, msg: any) {
 
     switch (name) {
-      case "admin_created":
-        if (this.userFormData.controls.admin_created.hasError('required')) {
+      case "created_At":
+        if (this.userFormData.controls.created_At.hasError('required')) {
           return msg;
         } else {
           return 'Great!'
         }
         break;
-      case "admin_id":
-        if (this.userFormData.controls.admin_id.hasError('required')) {
+      case "UserId":
+        if (this.userFormData.controls.UserId.hasError('required')) {
           return msg;
-        } else if (this.userFormData.controls.admin_id.hasError('pattern')) {
+        } else if (this.userFormData.controls.UserId.hasError('pattern')) {
           return "User ID Should Be Like W-ABCDE@123 or W-ABCDE_123";
         } else {
           return "Great!"
         }
         break;
-      case "admin_name":
-        if (this.userFormData.controls.admin_name.hasError('required')) {
+      case "name":
+        if (this.userFormData.controls.name.hasError('required')) {
           return msg;
-        } else if (this.userFormData.controls.admin_name.hasError('pattern')) {
+        } else if (this.userFormData.controls.name.hasError('pattern')) {
           return "Please Enter A-Z Char"
         } else {
           return "Great!"
         }
         break;
-      case "admin_email":
-        if (this.userFormData.controls.admin_email.hasError('required')) {
+      case "email_id":
+        if (this.userFormData.controls.email_id.hasError('required')) {
           return msg;
-        } else if (this.userFormData.controls.admin_email.hasError('email')) {
+        } else if (this.userFormData.controls.email_id.hasError('email')) {
           return "Please Fill Currect Email ID";
         } else {
           return 'Great!'
         }
         break;
-      case "admin_password":
-        if (this.userFormData.controls.admin_password.hasError('required')) {
+      case "Password":
+        if (this.userFormData.controls.Password.hasError('required')) {
           return msg;
-        } else if (this.userFormData.controls.admin_password.hasError('pattern')) {
+        } else if (this.userFormData.controls.Password.hasError('pattern')) {
           return "Minimum 8 characters, at least 1 letter, 1 number and 1 special character:"
         }
         else {
           return 'Great!'
         }
         break;
-      case "admin_phone_no":
-        if (this.userFormData.controls.admin_phone_no.hasError('required')) {
+      case "phone_number":
+        if (this.userFormData.controls.phone_number.hasError('required')) {
           return msg;
-        } else if (this.userFormData.controls.admin_phone_no.hasError('pattern')) {
+        } else if (this.userFormData.controls.phone_number.hasError('pattern')) {
           return "Please Enter Valid Phone No";
         } else {
           return 'Great!'
