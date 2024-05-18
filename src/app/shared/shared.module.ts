@@ -22,6 +22,7 @@ import { PromptDialogComponent } from './prompt-dialog/prompt-dialog.component';
 // import { NotificationComponent } from './notification/notification.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UnderconstractionComponent } from './underconstraction/underconstraction.component';
+import { LoadPermissionComponent } from './load-permission/load-permission.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { UnderconstractionComponent } from './underconstraction/underconstractio
     ApprovalviweComponent,
     PromptDialogComponent,
     UnderconstractionComponent,
+    LoadPermissionComponent,
     // NotificationComponent
   ],
   imports: [
