@@ -122,7 +122,10 @@ export class RoleManagementComponent implements OnInit {
       icon: 'pi pi-info-circle',
       accept: () => {
         this.blockUI.start("Delete...")
-        this.apiParameter.deletedata("admin", { "projection": `UserId='${userID}'` }).subscribe((res: any) => {
+        var apiData = {
+          'whereConditions': { 'UserId': userID }
+        }
+        this.apiParameter.deletedata("admin", apiData).subscribe((res: any) => {
           this.blockUI.stop()
           console.log(res);
           if (res.success) {
@@ -218,24 +221,37 @@ export class RoleManagementComponent implements OnInit {
             icon: 'success'
 
           }).then((res: any) => {
-             this.ngOnInit()
+            this.ngOnInit()
           })
 
-      }else{
-        Swal.fire('Somethings Went Wroung','Please Contact Devloper','error')
+      } else {
+        Swal.fire('Somethings Went Wroung', 'Please Contact Devloper', 'error')
       }
     })
 
 
   }
   public update() {
+    var apiData: any = {
+      'data': this.userFormData.value,
+      'whereConditions': { 'UserId': this.userFormData.value.UserId }
+    }
 
+    apiData['creater_name'] = this.appservices.authStatus.name
     console.log(this.userFormData.value);
     this.blockUI.start('Updating...')
-    this.auth.updateUserRole(this.userFormData.value).subscribe((res: any) => {
+    this.apiParameter.updatedata('admin', apiData).subscribe((res: any) => {
       this.blockUI.stop()
       if (res.success) {
-        Swal.fire('Success', res.message, 'success')
+        Swal.fire(
+          {
+            title: `<strong style='color:#5c54a0; font-size:30px;'>Admin User Updated Successfull</strong>`,
+            html: '<h2>Congratulation</h2> <div class="pyro"><div class="before"></div><div class="after"></div></div>',
+            icon: 'success'
+
+          }).then((res: any) => {
+            this.ngOnInit()
+          })
       } else {
         Swal.fire('Sorry!', res.message, 'error')
       }

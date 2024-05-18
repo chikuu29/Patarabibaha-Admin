@@ -169,14 +169,14 @@ export class ApiParameterScript {
         return simpleObservable;
     }
 
-    /**
-
-    * @param db
-    * @param apiData
-    * @returns
-    * @author Suryanarayan Biswal
-    * @since 20-10-2022
-    */
+   /**
+   * @param db
+   * @example "DB_NAME"
+   * @param apiData
+   * @example  {"whereConditions": { user_ID: this.appservices.authStatus.profile_id }}
+   * @author Suryanarayan Biswal
+   * @since 20-10-2022
+   */
     public deletedata(db: string, apiData: any) {
         const simpleObservable = new Observable((observer) => {
             try {
