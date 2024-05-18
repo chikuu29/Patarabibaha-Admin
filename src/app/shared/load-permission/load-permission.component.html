@@ -1,15 +1,57 @@
-<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
-
-
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Upload Picture's, </h4>
-    <button type="button" class="btn-close" (click)="activeModal.dismiss()"></button>
+    <!-- <h4 class="modal-title" id="modal-basic-title">Upload Picture's, </h4> -->
+    <button mat-stroked-button color="primary">Select Permission</button>
+    <button mat-stroked-button color="accent" (click)="activeModal.dismiss()">
+        <mat-icon>close</mat-icon>
+    </button>
 </div>
 <div class="modal-body">
+    <section class="example-section">
+        <!-- <span class="example-list-section">
+            <mat-checkbox class="example-margin" [checked]="allComplete" [color]="task.color"
+                [indeterminate]="someComplete()" (change)="setAll($event.checked)">
+                {{task.name}}
+            </mat-checkbox>
+        </span>
+        <span class="example-list-section">
+            <ul>
+                @for (subtask of task.subtasks; track subtask) {
+                <li>
+                    <mat-checkbox [(ngModel)]="subtask.completed" [color]="subtask.color"
+                        (ngModelChange)="updateAllComplete()">
+                        {{subtask.name}}
+                    </mat-checkbox>
+                </li>
+                }
+            </ul>
+        </span> -->
+        <ng-container *ngFor="let pemission of navConfig;let i=index">
+            <span>
+                <mat-checkbox class="example-margin" [checked]="pemission.permissionGranted" color="primary" 
+                    (change)="setAll($event.checked,i)">
+                    {{pemission.text}}
+                </mat-checkbox>
+            </span>
+            <br>
 
-    
+            <span class="example-list-section">
+                <ul *ngFor="let submenuPermission of pemission['submenu']">
+
+                    <li>
+                        <mat-checkbox [(ngModel)]="submenuPermission.permissionGranted" color="primary"
+                            (ngModelChange)="updateAllComplete(i)">
+                            {{submenuPermission.text}}
+                        </mat-checkbox>
+                    </li>
+
+                </ul>
+            </span>
+        </ng-container>
+    </section>
+
 </div>
-<div class="modal-footer text-center" >
+<div class="modal-footer text-center">
     <!-- <button type="button" class="upload-button w-100" (click)="uploadFile()"> Upload </button> -->
-    
+    <button mat-stroked-button color="primary" (click)="save()">Save & Close</button>
+
 </div>

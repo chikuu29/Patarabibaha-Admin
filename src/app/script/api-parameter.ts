@@ -148,6 +148,9 @@ export class ApiParameterScript {
                 // let outhForUpdate = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForUpdate'].includes(db) : false : false;
                 // if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
                 //     apiData['loginInfo'] = loginInfo;
+
+                console.log(apiData);
+                
                 const encryptedData=this.cryptography.encryptData(apiData)
                 this.apiservices.save(encryptedData).subscribe((res: any) => {
                     observer.next(res);

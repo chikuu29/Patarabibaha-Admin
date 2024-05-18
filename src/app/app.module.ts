@@ -28,8 +28,13 @@ import { AuthService } from './auth/auth.service';
 import { AuthComponent } from './layout/auth/auth.component';
 import { AdminComponent } from './layout/admin/admin.component';
 import { NotificationComponent } from './shared/notification/notification.component';
+import { AppInitializationServiceServiceService } from './services/app-initialization-service-service.service';
 
-
+export function initStartUpAPIConfiugration(AppInitializationServiceServiceService:AppInitializationServiceServiceService){
+  return ()=>{
+    return AppInitializationServiceServiceService.initStartUpAPIConfiugration()
+  }
+}
 export function checkLoginMode(auth: AuthService) {
   console.log("REBUILDING AUTH STATE....");
   return () => {
@@ -77,7 +82,12 @@ export function checkLoginMode(auth: AuthService) {
     AppService,
     MessageService,
     ConfirmationService,
-
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initStartUpAPIConfiugration,
+      deps: [AppInitializationServiceServiceService],
+      multi: true, // Indicates that there can be multiple APP_INITIALIZER functions
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: checkLoginMode,

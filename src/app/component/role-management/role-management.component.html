@@ -18,7 +18,7 @@
                 <div class="p-3 main-content-holder">
                     <ng-container *ngFor="let user of userData">
                         <div class="card p-3 m-3">
-                            <p class="fw-bold"><i class="fa-solid fa-user text-success"></i> {{user.admin_name}}</p>
+                            <p class="fw-bold"><i class="fa-solid fa-user text-success"></i> {{user.name}}</p>
                             <div class="d-flex justify-content-between">
                                 <p><span class="fw-bold">Role :</span> {{user.role}}</p>
                             </div>
@@ -33,7 +33,7 @@
                                     class="p-button-success p-button-text" (click)="expand(user)"><i
                                         class="fa-solid fa-expand  expand fw-bold me-1"></i></button>
                                 <button pButton pRipple type="button" label="Delete"
-                                    class="p-button-danger p-button-text" (click)="delete(user.admin_id)"><i
+                                    class="p-button-danger p-button-text" (click)="delete(user.UserId)"><i
                                         class="fa-solid fa-trash  fw-bold me-1"></i></button>
 
 
@@ -81,14 +81,14 @@
                             <span class="fw-bold">User Name</span>
                             <mat-form-field appearance="outline" class="w-100 mt-2">
                                 <mat-label>User Name</mat-label>
-                                <input matInput placeholder="User Name" formControlName="admin_name" required
+                                <input matInput placeholder="User Name" formControlName="name" required
                                     type="text">
                                 <mat-icon matSuffix
-                                    [ngClass]="userFormData.controls.admin_name.valid?'text-success':'text-danger'">
-                                    {{userFormData.controls.admin_name.valid
+                                    [ngClass]="userFormData.controls.name.valid?'text-success':'text-danger'">
+                                    {{userFormData.controls.name.valid
                                     ?'done':'highlight_remove'}}</mat-icon>
                                 <mat-hint
-                                    [ngClass]="userFormData.controls.admin_name.valid?'text-success':'text-danger'">{{getErrorMessage('admin_name',"Please
+                                    [ngClass]="userFormData.controls.name.valid?'text-success':'text-danger'">{{getErrorMessage('name',"Please
                                     Fill User Name")}}</mat-hint>
 
                             </mat-form-field>
@@ -97,9 +97,9 @@
                             <span class="fw-bold">Select Permission</span>
                             <mat-form-field appearance="outline" class="w-100 mt-2" >
                                 <mat-label>Select Permission</mat-label>
-                                <!-- <textarea matInput placeholder="User Name" formControlName="admin_name" required
+                                <!-- <textarea matInput placeholder="User Name" formControlName="name" required
                                     type="text"> -->
-                                <textarea matInput formControlName="permission" required ></textarea>
+                                <textarea matInput formControlName="permission" required rows="10" readonly></textarea>
                             </mat-form-field>
                             <button mat-flat-button color="primary" class="w-100" (click)="loadPermission()">Give Permission</button>
                         </div>
@@ -109,10 +109,10 @@
                                 <span class="fw-bold">User Active Date</span>
                                 <mat-form-field appearance="outline" class="w-100 mt-2">
                                     <mat-label>User Active Date</mat-label>
-                                    <input matInput placeholder="User Active Date" formControlName="admin_created"
+                                    <input matInput placeholder="User Active Date" formControlName="created_At"
                                         required type="text" readonly>
                                     <mat-icon matSuffix class="text-success">{{'done'}}</mat-icon>
-                                    <!-- <mat-hint [ngClass]="userFormData.controls.admin_created.valid?'text-success':'text-danger'">{{getErrorMessage('admin_created','Please Fill User Active Date')}}</mat-hint> -->
+                                    <!-- <mat-hint [ngClass]="userFormData.controls.created_At.valid?'text-success':'text-danger'">{{getErrorMessage('created_At','Please Fill User Active Date')}}</mat-hint> -->
                                 </mat-form-field>
                             </div>
                         </fieldset>
@@ -140,15 +140,15 @@
                                 <span class="fw-bold">User ID</span>
                                 <mat-form-field appearance="outline" class="w-100 mt-2">
                                     <mat-label>Your UserID</mat-label>
-                                    <input matInput placeholder="UserID" formControlName="admin_id" required
+                                    <input matInput placeholder="UserID" formControlName="UserId" required
                                         type="text">
                                     <mat-icon matSuffix
-                                        [ngClass]="userFormData.controls.admin_id.valid?'text-success':'text-danger'">
-                                        {{userFormData.controls.admin_id.valid
+                                        [ngClass]="userFormData.controls.UserId.valid?'text-success':'text-danger'">
+                                        {{userFormData.controls.UserId.valid
                                         ?'done':'highlight_remove'}}</mat-icon>
 
                                     <mat-hint
-                                        [ngClass]="userFormData.controls.admin_id.valid?'text-success':'text-danger'">{{getErrorMessage('admin_id',"Please
+                                        [ngClass]="userFormData.controls.UserId.valid?'text-success':'text-danger'">{{getErrorMessage('UserId',"Please
                                         Fill User ID")}}
                                     </mat-hint>
 
@@ -159,14 +159,14 @@
                             <span class="fw-bold">User Email</span>
                             <mat-form-field appearance="outline" class="w-100 mt-2">
                                 <mat-label>Your Email</mat-label>
-                                <input matInput placeholder="User Name" formControlName="admin_email" required
+                                <input matInput placeholder="User Name" formControlName="email_id" required
                                     type="text">
                                 <mat-icon matSuffix
-                                    [ngClass]="userFormData.controls.admin_email.valid?'text-success':'text-danger'">
-                                    {{userFormData.controls.admin_email.valid
+                                    [ngClass]="userFormData.controls.email_id.valid?'text-success':'text-danger'">
+                                    {{userFormData.controls.email_id.valid
                                     ?'done':'highlight_remove'}}</mat-icon>
                                 <mat-hint
-                                    [ngClass]="userFormData.controls.admin_email.valid?'text-success':'text-danger'">{{getErrorMessage('admin_email',"Please
+                                    [ngClass]="userFormData.controls.email_id.valid?'text-success':'text-danger'">{{getErrorMessage('email_id',"Please
                                     Fill User Email Id")}}</mat-hint>
 
                             </mat-form-field>
@@ -175,14 +175,14 @@
                             <span class="fw-bold">User Name</span>
                             <mat-form-field appearance="outline" class="w-100 mt-2">
                                 <mat-label>User Name</mat-label>
-                                <input matInput placeholder="User Name" formControlName="admin_name" required
+                                <input matInput placeholder="User Name" formControlName="name" required
                                     type="text">
                                 <mat-icon matSuffix
-                                    [ngClass]="userFormData.controls.admin_name.valid?'text-success':'text-danger'">
-                                    {{userFormData.controls.admin_name.valid
+                                    [ngClass]="userFormData.controls.name.valid?'text-success':'text-danger'">
+                                    {{userFormData.controls.name.valid
                                     ?'done':'highlight_remove'}}</mat-icon>
                                 <mat-hint
-                                    [ngClass]="userFormData.controls.admin_name.valid?'text-success':'text-danger'">{{getErrorMessage('admin_name',"Please
+                                    [ngClass]="userFormData.controls.name.valid?'text-success':'text-danger'">{{getErrorMessage('name',"Please
                                     Fill User Name")}}</mat-hint>
 
                             </mat-form-field>
@@ -191,14 +191,14 @@
                             <span class="fw-bold">User Phone</span>
                             <mat-form-field appearance="outline" class="w-100 mt-2">
                                 <mat-label>User Phone</mat-label>
-                                <input matInput placeholder="User Phone" formControlName="admin_phone_no" required
+                                <input matInput placeholder="User Phone" formControlName="phone_number" required
                                     type="text">
                                 <mat-icon matSuffix
-                                    [ngClass]="userFormData.controls.admin_phone_no.valid?'text-success':'text-danger'">
-                                    {{userFormData.controls.admin_phone_no.valid
+                                    [ngClass]="userFormData.controls.phone_number.valid?'text-success':'text-danger'">
+                                    {{userFormData.controls.phone_number.valid
                                     ?'done':'highlight_remove'}}</mat-icon>
                                 <mat-hint
-                                    [ngClass]="userFormData.controls.admin_phone_no.valid?'text-success':'text-danger'">{{getErrorMessage('admin_phone_no',"Please
+                                    [ngClass]="userFormData.controls.phone_number.valid?'text-success':'text-danger'">{{getErrorMessage('phone_number',"Please
                                     Fill User Phone No")}}</mat-hint>
 
                             </mat-form-field>
@@ -207,14 +207,14 @@
                             <span class="fw-bold">User Password</span>
                             <mat-form-field appearance="outline" class="w-100 mt-2">
                                 <mat-label>Your Password</mat-label>
-                                <input matInput formControlName="admin_password" placeholder="Password"
-                                    [type]="hide ? 'password' : 'text'">
+                                <input matInput formControlName="Password" placeholder="Password"
+                                    [type]="hide ? 'Password' : 'text'">
                                 <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
-                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </button>
                                 <mat-hint
-                                    [ngClass]="userFormData.controls.admin_password.valid?'text-success':'text-danger'">{{getErrorMessage('admin_password','Please
+                                    [ngClass]="userFormData.controls.Password.valid?'text-success':'text-danger'">{{getErrorMessage('Password','Please
                                     Fill User Password')}}</mat-hint>
 
                             </mat-form-field>

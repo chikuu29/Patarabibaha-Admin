@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth/auth.service';
-const appConfig = require('../../config/config.json')
-const appDetailConfig = require('../../config/app.json')
+// const appConfig = require('../../config/config.json')
+// const appDetailConfig = require('../../config/app.json')
 const country_state_district = require('../../config/country_state_district.json')
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,8 @@ export class AppService {
   constructor(
     private _auth: AuthService,
   ) {
-    this.appConfig = appConfig;
-    this.appDetailConfig = appDetailConfig
+    // this.appConfig = appConfig;
+    // this.appDetailConfig = appDetailConfig
     this.country_state_district_Data = country_state_district['states']
     console.log("Calling App Services");
     this.setAuthorizationTokenKey()
@@ -51,7 +51,9 @@ export class AppService {
   get country_state_district() {
     return this.country_state_district_Data
   }
-
+  set startUpAPIConfigSetup(val:any){
+    this.appConfig=val
+  }
 
 
 }
