@@ -314,20 +314,20 @@ export class MatchpageComponent implements OnInit {
         confirmButtonText: 'OK',
       });
     } else {
-      this.allIdForpdf.forEach((id: any) => {
+      // this.allIdForpdf.forEach((id: any) => {
         let param = {
-          user_id: id,
+          user_id: this.allIdForpdf,
           filepath: environment.filePath,
         };
-        this.commonservice.generatepdf(param).subscribe((res: any) => {
-          //console.log(res);
+        this.commonservice.generatemergepdf(param).subscribe((res: any) => {
+          console.log(res);
           count++;
-          saveAs(res, id + '.pdf');
+          // saveAs(res, id + '.pdf');
           if (this.allIdForpdf.length == count) {
             this.ngOnInit();
           }
         });
-      });
+      // });
     }
   }
   sendMatches() {

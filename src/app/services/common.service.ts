@@ -103,6 +103,9 @@ export class CommonService {
   generatepdf(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'generate-pdf', apiData, {responseType: 'blob',headers: this.haderforpdf });
   }
+  generatemergepdf(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'generatemergepdf', apiData, {responseType: 'blob',headers: this.haderforpdf });
+  }
   byOtherCastFreeMatches(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'byOtherCastFreeMatches', apiData, { headers: this.headers });
   }
