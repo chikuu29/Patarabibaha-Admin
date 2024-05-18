@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { AppService } from 'src/app/services/app.service';
+import { LoadPermissionComponent } from 'src/app/shared/load-permission/load-permission.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,6 +26,7 @@ export class RoleManagementComponent implements OnInit {
     admin_name: new FormControl('', [Validators.required, Validators.pattern("^([a-z A-Z]{4,30})$")]),
     admin_email: new FormControl('', [Validators.required, Validators.email]),
     admin_password: new FormControl('', [Validators.required]),
+    permission: new FormControl({value:'',disabled:true}, [Validators.required]),
     admin_phone_no: new FormControl('', [Validators.required, Validators.pattern("[0-9]{10}")]),
     admin_created: new FormControl(moment().format('LLL').toString(), [Validators.required]),
     role: new FormControl('', [Validators.required])
@@ -43,6 +46,7 @@ export class RoleManagementComponent implements OnInit {
     private auth: AuthService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private modalServices:NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +56,15 @@ export class RoleManagementComponent implements OnInit {
       this.selectRole = Object.keys(this.appservices.getappconfig['roleConfig'])
       // console.log(this.selectRole);
     }
+
+  }
+
+  loadPermission(){
+
+    const options:NgbModalOptions ={
+      size:'Xl'
+    }
+    const modelRef=this.modalServices.open(LoadPermissionComponent,options);
 
   }
 
@@ -145,6 +158,7 @@ export class RoleManagementComponent implements OnInit {
       admin_email: null,
       admin_password: null,
       admin_phone_no: null,
+      permission:null,
       role: null
     })
     // this.userFormData.enable()

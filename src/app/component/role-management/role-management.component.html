@@ -24,7 +24,8 @@
                             </div>
                             <div class="d-flex justify-content-between">
                                 <p><span class="fw-bold">UserID :</span> {{user.UserId}}</p>
-                                <p> <span class="fw-bold">Created Date & Time :</span>{{user.created_At |date:'medium'}}</p>
+                                <p> <span class="fw-bold">Created Date & Time :</span>{{user.created_At |date:'medium'}}
+                                </p>
                             </div>
 
                             <div class="action">
@@ -32,7 +33,7 @@
                                     class="p-button-success p-button-text" (click)="expand(user)"><i
                                         class="fa-solid fa-expand  expand fw-bold me-1"></i></button>
                                 <button pButton pRipple type="button" label="Delete"
-                                    class="p-button-danger p-button-text" (click)="delete(user.admin_id)" ><i
+                                    class="p-button-danger p-button-text" (click)="delete(user.admin_id)"><i
                                         class="fa-solid fa-trash  fw-bold me-1"></i></button>
 
 
@@ -61,7 +62,7 @@
                         <button pButton pRipple type="button" label="Save" class="p-button-success m-1"
                             [hidden]="allowToSave" [disabled]="!userFormData.valid" (click)="save()"></button>
                         <button pButton pRipple type="button" label="Update" class="p-button-success m-1"
-                            [hidden]="allowToUpdate"  (click)="update()"></button>
+                            [hidden]="allowToUpdate" (click)="update()"></button>
                         <button pButton pRipple type="button" label="Cancle" class="p-button-danger m-1"
                             [hidden]="allowToCancle" (click)="cancle()"></button>
 
@@ -71,11 +72,37 @@
                 <mat-divider></mat-divider>
                 <div class="p-3 main-content-holder">
                     <form [formGroup]="userFormData">
-                        <div>
+                        <!-- <div>
                             <label for="jsonData">Enter JSON Data:</label>
                             <textarea id="jsonData"  rows="10" cols="50"></textarea>
                             <button >Parse JSON</button>
                           </div>
+                            <div class="form-outline mb-4">
+                            <span class="fw-bold">User Name</span>
+                            <mat-form-field appearance="outline" class="w-100 mt-2">
+                                <mat-label>User Name</mat-label>
+                                <input matInput placeholder="User Name" formControlName="admin_name" required
+                                    type="text">
+                                <mat-icon matSuffix
+                                    [ngClass]="userFormData.controls.admin_name.valid?'text-success':'text-danger'">
+                                    {{userFormData.controls.admin_name.valid
+                                    ?'done':'highlight_remove'}}</mat-icon>
+                                <mat-hint
+                                    [ngClass]="userFormData.controls.admin_name.valid?'text-success':'text-danger'">{{getErrorMessage('admin_name',"Please
+                                    Fill User Name")}}</mat-hint>
+
+                            </mat-form-field>
+                        </div> -->
+                        <div class="form-outline mb-4">
+                            <span class="fw-bold">Select Permission</span>
+                            <mat-form-field appearance="outline" class="w-100 mt-2" >
+                                <mat-label>Select Permission</mat-label>
+                                <!-- <textarea matInput placeholder="User Name" formControlName="admin_name" required
+                                    type="text"> -->
+                                <textarea matInput formControlName="permission" required ></textarea>
+                            </mat-form-field>
+                            <button mat-flat-button color="primary" class="w-100" (click)="loadPermission()">Give Permission</button>
+                        </div>
 
                         <fieldset disabled>
                             <div class="form-outline mb-4">
@@ -181,7 +208,7 @@
                             <mat-form-field appearance="outline" class="w-100 mt-2">
                                 <mat-label>Your Password</mat-label>
                                 <input matInput formControlName="admin_password" placeholder="Password"
-                                    [type]="hide ? 'password' : 'text'" >
+                                    [type]="hide ? 'password' : 'text'">
                                 <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
                                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -201,5 +228,5 @@
     </div>
 </div>
 <p-toast></p-toast>
-<p-confirmDialog [style]="{width: '50vw'}" header="Confirmation" icon="pi pi-exclamation-triangle" acceptButtonStyleClass="p-button-danger"></p-confirmDialog>
-
+<p-confirmDialog [style]="{width: '50vw'}" header="Confirmation" icon="pi pi-exclamation-triangle"
+    acceptButtonStyleClass="p-button-danger"></p-confirmDialog>
