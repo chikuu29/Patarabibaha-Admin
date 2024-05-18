@@ -232,6 +232,10 @@ export class RoleManagementComponent implements OnInit {
 
   }
   public update() {
+
+    // var updatedta:any=delete this.userFormData.value.Password
+    // console.log(updatedta);
+    
     var apiData: any = {
       'data': this.userFormData.value,
       'whereConditions': { 'UserId': this.userFormData.value.UserId }
