@@ -251,39 +251,34 @@ export class MatchpageComponent implements OnInit {
         }
       });
   }
-  byCastFreeMatches(){
+  byCastFreeMatches() {
     let data = {
       user_id: this.user_id,
     };
-    this.commonservice
-      .byCastFreeMatches(data)
-      .subscribe((res: any) => {
-        if (res.status) {
-          this.finaldata = {};
-          this.tableData = res['data'];
-          console.log(this.finaldata);
-        } else {
-          this.tableData = [];
-        }
-      });
+    this.commonservice.byCastFreeMatches(data).subscribe((res: any) => {
+      if (res.status) {
+        this.finaldata = {};
+        this.tableData = res['data'];
+        console.log(this.finaldata);
+      } else {
+        this.tableData = [];
+      }
+    });
   }
-
 
   byOtherCastFreeMatches() {
     let data = {
       user_id: this.user_id,
     };
-    this.commonservice
-      .byOtherCastFreeMatches(data)
-      .subscribe((res: any) => {
-        if (res.status) {
-          this.finaldata = {};
-          this.tableData = res['data'];
-          console.log(this.finaldata);
-        } else {
-          this.tableData = [];
-        }
-      });
+    this.commonservice.byOtherCastFreeMatches(data).subscribe((res: any) => {
+      if (res.status) {
+        this.finaldata = {};
+        this.tableData = res['data'];
+        console.log(this.finaldata);
+      } else {
+        this.tableData = [];
+      }
+    });
   }
 
   calculateAge(birthday: Date): number {
@@ -306,29 +301,29 @@ export class MatchpageComponent implements OnInit {
 
   public generatePDF() {
     let count = 0;
-    if (this.allIdForpdf.length > 10) {
-      Swal.fire({
-        title: 'Download Limit Reached',
-        text: 'You can only download 10 PDFs at a time.',
-        icon: 'warning',
-        confirmButtonText: 'OK',
-      });
-    } else {
-      // this.allIdForpdf.forEach((id: any) => {
-        let param = {
-          user_id: this.allIdForpdf,
-          filepath: environment.filePath,
-        };
-        this.commonservice.generatemergepdf(param).subscribe((res: any) => {
-          console.log(res);
-          count++;
-          // saveAs(res, id + '.pdf');
-          if (this.allIdForpdf.length == count) {
-            this.ngOnInit();
-          }
-        });
-      // });
-    }
+    // if (this.allIdForpdf.length > 10) {
+    //   Swal.fire({
+    //     title: 'Download Limit Reached',
+    //     text: 'You can only download 10 PDFs at a time.',
+    //     icon: 'warning',
+    //     confirmButtonText: 'OK',
+    //   });
+    // } else {
+    // this.allIdForpdf.forEach((id: any) => {
+    let param = {
+      user_id: this.allIdForpdf,
+      filepath: environment.filePath,
+    };
+    this.commonservice.generatemergepdf(param).subscribe((res: any) => {
+      console.log(res);
+      count++;
+      saveAs(res, 'choicemarriage.pdf');
+      if (this.allIdForpdf.length == count) {
+        this.ngOnInit();
+      }
+    });
+    // });
+    // }
   }
   sendMatches() {
     if (this.allId.length == 0) {
@@ -340,7 +335,7 @@ export class MatchpageComponent implements OnInit {
       let param = {
         ids: this.allId,
         sendid: this.user_id,
-        filePath:environment.filePath
+        filePath: environment.filePath,
       };
       // console.log(param);
       this.commonservice.sendData(param).subscribe((res: any) => {
