@@ -1,0 +1,39 @@
+.pointer{
+  cursor: pointer;
+}
+.kapi-container {
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap; /* Allow tiles to wrap to the next line */
+  gap: 20px; /* Space between tiles */
+}
+
+.kapi-tile {
+  cursor: pointer;
+  flex: 1 0 calc(25% - 20px); /* Four tiles per row with 20px gap */
+  min-width: calc(25% - 20px); /* Adjust based on the number of tiles per row */
+  background-color: #f9f9f9;
+  padding: 20px;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  transition: background-color 0.3s ease; /* Smooth transition */
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .kapi-tile {
+    flex: 1 0 calc(50% - 20px); /* Two tiles per row for smaller screens */
+    min-width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .kapi-tile {
+    flex: 1 0 100%; /* One tile per row for mobile screens */
+    min-width: 100%;
+  }
+}

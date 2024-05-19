@@ -31,6 +31,22 @@ export class EmailvalidationComponent implements OnInit {
   offset = 1;
   pegination_required: boolean = false
   currentFunction: string = 'fatch';
+  kpiTileConfig: any[] = [
+    {
+      text: 'Male',
+      iconClass: 'fa-solid fa-users text-primary',
+      methodName: 'MaleData',
+      selectedStatus: false,
+      class: '#FF9700',
+    },
+    {
+      text: 'Female',
+      iconClass: 'fa-solid fa-wifi text-success',
+      methodName: 'FemaleData',
+      selectedStatus: false,
+      class: '#009788',
+    },
+  ];
   constructor(
     private CommonService: CommonService,
     private ApiParameter: ApiParameterScript,
@@ -39,6 +55,21 @@ export class EmailvalidationComponent implements OnInit {
 
   ngOnInit(): void {
     this.fatch(0,this.collectionSize);
+  }
+  loadKpi(functionName: string, kpiNum: number) {
+    this.kpiTileConfig.forEach((e: any, index: number) => {
+      if (kpiNum != index) {
+        e.selectedStatus = false;
+      }
+    });
+    this.kpiTileConfig[kpiNum]['selectedStatus'] = true;
+
+    this.currentFunction = functionName;
+    this.page = 1;
+    this.collectionSize = 10;
+    this.pegination_required = true;
+    let _this: any = this;
+    _this[functionName](0, this.apiFetchRecordLimit);
   }
   fatch(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
 
@@ -165,5 +196,81 @@ export class EmailvalidationComponent implements OnInit {
     let _this: any = this;
     _this[this.currentFunction](this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit, this.apiFetchRecordLimit);
     this.offset = this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit
+  }
+  MaleData(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
+    let Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_phone_varification = 0 AND a.user_gender = 'Male'
+      ORDER BY a.user_creation_date_time DESC
+      LIMIT ${limit} OFFSET ${start}`;
+    if (loadSpecificData) {
+      Quary = `select * ,COUNT(*) OVER () AS total_count
+        from user_info as a left join auth_user as b
+        on a.user_id = b.auth_ID
+        WHERE(
+           a.user_id  = '${search_text}'
+      OR a.user_fname = '${search_text}'
+      OR a.user_lname = '${search_text}'
+      OR b.auth_phone_no like '%${search_text}%')
+      AND  a.user_phone_varification = 0
+      AND  a.user_gender = 'Male'
+      `;
+
+    }
+    console.log(Quary);
+
+    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        this.finaldata = res['data'];
+        console.log(this.finaldata);
+      }
+    });
+
+  }
+  FemaleData(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
+    let Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_phone_varification = 0 AND a.user_gender = 'Female'
+      ORDER BY a.user_creation_date_time DESC
+      LIMIT ${limit} OFFSET ${start}`;
+    if (loadSpecificData) {
+      Quary = `select * ,COUNT(*) OVER () AS total_count
+        from user_info as a left join auth_user as b
+        on a.user_id = b.auth_ID
+        WHERE(
+           a.user_id  = '${search_text}'
+      OR a.user_fname = '${search_text}'
+      OR a.user_lname = '${search_text}'
+      OR b.auth_phone_no like '%${search_text}%')
+      AND  a.user_phone_varification = 0
+      AND  a.user_gender = 'Female'
+      `;
+
+    }
+    console.log(Quary);
+
+    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        this.finaldata = res['data'];
+        console.log(this.finaldata);
+      }
+    });
+
   }
 }

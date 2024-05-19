@@ -1,3 +1,17 @@
+<div class="kapi-container">
+  <ng-container *ngFor="let kpi of kpiTileConfig;let i=index">
+    <div class="kapi-tile" (click)="loadKpi(kpi.methodName,i)"
+      [style]="{ 'background-color': kpi.class, 'color': '#FFFFFF' }">
+      <i [ngClass]="kpi.iconClass"></i>
+      <span class="ps-2 fw-bold">{{kpi.text}} </span>
+      <ng-container *ngIf="kpi.selectedStatus">
+        <div>
+          <mat-progress-bar mode="determinate" [value]="100" [color]="'accent'"></mat-progress-bar>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
 <div class="row">
   <div class="col-xl-12 order-lg-1 order-xl-1">
       <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
@@ -27,6 +41,7 @@
                                 <th style="cursor: pointer;width:25%">User Name</th>
                                 <th style="cursor: pointer;width:25%">User Id</th>
                                 <th style="cursor: pointer;width:25%">Phone Number</th>
+                                <th style="cursor: pointer;width:25%">Gender</th>
                                 <th style="cursor: pointer;width:25%">Action</th>
 
 
@@ -44,11 +59,19 @@
                                 <td>
                                     {{data?.user_id}}
                                 </td>
-                                <td> {{data?.auth_phone_no}}</td>
+                                <td>
+                                  <ng-container *ngIf="data?.country_code == null">
+                                  {{ +data?.auth_phone_no}}
+                                </ng-container>
+                                <ng-container *ngIf="data?.country_code != null">
+                                  {{ '+'+data?.country_code+' '+data?.auth_phone_no}}
+                                </ng-container>
+                                </td>
+                                <td> {{data?.user_gender}}</td>
                                 <td>
                                     <!-- <button type="button" [class]="data.status == 0 ? 'btn btn-outline-success btn-fw me-2 w-50' : 'btn btn-outline-warning btn-fw me-2 w-50'"
                                         (click)="publish(data.id,data.status)"> {{ data.status == 0 ? 'PUBLISHED' : 'UNPUBLISHED' }} </button> -->
-                                    <button type="button" (click)="approve(data.id)" class="btn btn-outline-success btn-fw w-50">Approve</button>
+                                    <button type="button" (click)="approve(data.id)" class="btn btn-outline-primary btn-sm">Approve</button>
 
 
                                 </td>

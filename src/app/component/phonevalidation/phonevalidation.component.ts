@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-phonevalidation',
   templateUrl: './phonevalidation.component.html',
-  styleUrls: ['./phonevalidation.component.scss']
+  styleUrls: ['./phonevalidation.component.scss'],
 })
 export class PhonevalidationComponent implements OnInit {
   finaldata: any;
@@ -21,47 +21,90 @@ export class PhonevalidationComponent implements OnInit {
   filterText: string;
 
   allId: any[] = [];
-  totalDataCount: number = 0
-  totalFetchrecord:number=0
-  apiFetchRecordLimit = 10
+  totalDataCount: number = 0;
+  totalFetchrecord: number = 0;
+  apiFetchRecordLimit = 10;
   options = [10, 15, 50, 100, 500, 1000];
   page: any = 1;
-  collectionSize: any = 10
+  collectionSize: any = 10;
   offset = 1;
-  pegination_required: boolean = false
+  pegination_required: boolean = false;
   currentFunction: string = 'fatch';
-
+  kpiTileConfig: any[] = [
+    {
+      text: 'Male',
+      iconClass: 'fa-solid fa-users text-primary',
+      methodName: 'MaleData',
+      selectedStatus: false,
+      class: '#FF9700',
+    },
+    {
+      text: 'Female',
+      iconClass: 'fa-solid fa-wifi text-success',
+      methodName: 'FemaleData',
+      selectedStatus: false,
+      class: '#009788',
+    },
+  ];
 
   constructor(
     private CommonService: CommonService,
     private ApiParameter: ApiParameterScript,
-    private router:Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.fatch(0,this.collectionSize);
+    console.log(this.kpiTileConfig);
+
+    this.page = 1;
+    this.collectionSize = 10;
+    //this.fatch(0,this.collectionSize);
+    this.loadKpi('fatch', 0);
   }
-  fatch(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    let Quary =
-      `select * ,COUNT(*) OVER () AS total_count from user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_phone_varification = 0
+  loadKpi(functionName: string, kpiNum: number) {
+    this.kpiTileConfig.forEach((e: any, index: number) => {
+      // if (kpiNum != index) {
+      //   e.selectedStatus = false;
+      // }
+    });
+    //this.kpiTileConfig[kpiNum]['selectedStatus'] = true;
+
+    this.currentFunction = functionName;
+    this.page = 1;
+    this.collectionSize = 10;
+    this.pegination_required = true;
+    let _this: any = this;
+    _this[functionName](0, this.apiFetchRecordLimit);
+  }
+  fatch(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
+    let Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_phone_varification = 0
+      ORDER BY a.user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
-      if (loadSpecificData) {
-        Quary = `select * ,COUNT(*) OVER () AS total_count
+    if (loadSpecificData) {
+      Quary = `select * ,COUNT(*) OVER () AS total_count
         from user_info as a left join auth_user as b
         on a.user_id = b.auth_ID
-        WHERE a.user_phone_varification = 0
-        b.user_id = '${search_text}'
-      OR a.auth_ID = '${search_text}'
+        WHERE(
+           a.user_id  = '${search_text}'
       OR a.user_fname = '${search_text}'
       OR a.user_lname = '${search_text}'
-      OR b.auth_phone_no like '%${search_text}%'`
-      }
+      OR b.auth_phone_no like '%${search_text}%')
+      AND  a.user_phone_varification = 0`;
+    }
+    console.log(Quary);
+
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
         console.log(this.finaldata);
       }
@@ -70,37 +113,37 @@ export class PhonevalidationComponent implements OnInit {
   userpage(data: any) {
     this.router.navigate(['/user', data]);
   }
-  approve(data:any){
+  approve(data: any) {
     Swal.fire({
       icon: 'question',
-      text: 'Do You Want to Approve'
+      text: 'Do You Want to Approve',
     }).then((r: any) => {
-
       if (r.isConfirmed) {
         let updateData = {
-          "data": {
-            "user_phone_varification": 1,
-            "phone_no_request": 0
+          data: {
+            user_phone_varification: 1,
+            phone_no_request: 0,
           },
-          "whereConditions": { id: data }
-        }
-        this.ApiParameter.updatedata('user_info', updateData).subscribe((res: any) => {
-          // console.log(res);
-          if (res.success) {
-            Swal.fire({
-              icon: 'success',
-              text: "Approved"
-            }).then(() => {
-              this.ngOnInit()
-            });
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              text: res.message
-            });
+          whereConditions: { id: data },
+        };
+        this.ApiParameter.updatedata('user_info', updateData).subscribe(
+          (res: any) => {
+            // console.log(res);
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: 'Approved',
+              }).then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message,
+              });
+            }
           }
-        })
-
+        );
       }
     });
   }
@@ -110,19 +153,18 @@ export class PhonevalidationComponent implements OnInit {
     this.offset = 1;
     this.pegination_required = true;
     this.apiFetchRecordLimit = Number(event.target.value);
-    let _this: any = this
+    let _this: any = this;
     _this[this.currentFunction](0, Number(event.target.value));
   }
 
   getSearchText(event: any) {
-    this.filterText = event
+    this.filterText = event;
   }
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
     // console.log(search_text);
     // this.getAllData(0, 10, true, search_text)
-
   }
   fillter(event: any) {
     // console.log("click fillter", event);
@@ -134,7 +176,7 @@ export class PhonevalidationComponent implements OnInit {
      LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
      LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
      LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
-     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`
+     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`;
     if (event.isqueryGenerated) {
       query = `SELECT *
      FROM user_info
@@ -145,28 +187,105 @@ export class PhonevalidationComponent implements OnInit {
      LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
      LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
      LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
-     ${event.whereConditions}`
+     ${event.whereConditions}`;
     }
     //console.log(query);
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
       //console.log(res);
       if (res.success && res['data'].length > 0) {
-        this.collectionSize = res['data'].length
+        this.collectionSize = res['data'].length;
         // this.collectionSize=
         // console.log(this.collectionSize);
 
         this.tableData = res['data'];
         // console.log(this.tableData);
       }
-
-    })
-
+    });
   }
   onpageChnage() {
     let _this: any = this;
-    _this[this.currentFunction](this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit, this.apiFetchRecordLimit);
-    this.offset = this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit
+    _this[this.currentFunction](
+      this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit,
+      this.apiFetchRecordLimit
+    );
+    this.offset =
+      this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit;
   }
+  MaleData(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
+    let Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_phone_varification = 0 AND a.user_gender = 'Male'
+      ORDER BY a.user_creation_date_time DESC
+      LIMIT ${limit} OFFSET ${start}`;
+    if (loadSpecificData) {
+      Quary = `select * ,COUNT(*) OVER () AS total_count
+        from user_info as a left join auth_user as b
+        on a.user_id = b.auth_ID
+        WHERE(
+           a.user_id  = '${search_text}'
+      OR a.user_fname = '${search_text}'
+      OR a.user_lname = '${search_text}'
+      OR b.auth_phone_no like '%${search_text}%')
+      AND  a.user_phone_varification = 0
+      AND  a.user_gender = 'Male'
+      `;
 
+    }
+    console.log(Quary);
+
+    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        this.finaldata = res['data'];
+        console.log(this.finaldata);
+      }
+    });
+
+  }
+  FemaleData(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
+    let Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_phone_varification = 0 AND a.user_gender = 'Female'
+      ORDER BY a.user_creation_date_time DESC
+      LIMIT ${limit} OFFSET ${start}`;
+    if (loadSpecificData) {
+      Quary = `select * ,COUNT(*) OVER () AS total_count
+        from user_info as a left join auth_user as b
+        on a.user_id = b.auth_ID
+        WHERE(
+           a.user_id  = '${search_text}'
+      OR a.user_fname = '${search_text}'
+      OR a.user_lname = '${search_text}'
+      OR b.auth_phone_no like '%${search_text}%')
+      AND  a.user_phone_varification = 0
+      AND  a.user_gender = 'Female'
+      `;
+
+    }
+    console.log(Quary);
+
+    this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        this.finaldata = res['data'];
+        console.log(this.finaldata);
+      }
+    });
+
+  }
 }

@@ -207,7 +207,7 @@ export class AlluserdataComponent implements OnInit {
     } else {
       Swal.fire({
         icon: 'question',
-        text: 'Do you want to Delete',
+        text: 'Do you want to Suspend',
         showCancelButton: true,
       }).then((r: any) => {
         console.log(r);
@@ -539,6 +539,8 @@ export class AlluserdataComponent implements OnInit {
     loadSpecificData: boolean = false,
     search_text?: any
   ) {
+    alert(loadSpecificData);
+    alert(this.currentFunction);
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
           FROM user_info AS a
           LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
@@ -558,6 +560,8 @@ export class AlluserdataComponent implements OnInit {
                ORDER BY a.user_creation_date_time DESC;
              `;
     }
+   console.log(quary);
+
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       //console.log(res);
@@ -570,7 +574,7 @@ export class AlluserdataComponent implements OnInit {
           10;
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+         console.log(this.tableData);
       } else {
         this.collectionSize = 1;
         this.tableData = [];
