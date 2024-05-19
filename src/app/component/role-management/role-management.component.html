@@ -15,7 +15,7 @@
 
                 </div>
                 <mat-divider></mat-divider>
-                <div class="p-3 main-content-holder">
+                <div class="p-3 main-content-holder" >
                     <ng-container *ngFor="let user of userData">
                         <div class="card p-3 m-3">
                             <p class="fw-bold"><i class="fa-solid fa-user text-success"></i> {{user.name}}</p>
@@ -28,7 +28,7 @@
                                 </p>
                             </div>
 
-                            <div class="action">
+                            <!-- <div class="action">
                                 <button pButton pRipple type="button" label="Expand"
                                     class="p-button-success p-button-text" (click)="expand(user)"><i
                                         class="fa-solid fa-expand  expand fw-bold me-1"></i></button>
@@ -37,7 +37,29 @@
                                         class="fa-solid fa-trash  fw-bold me-1"></i></button>
 
 
-                            </div>
+                            </div> -->
+
+                            <div class="action">
+                              <button pButton pRipple type="button" label="Expand"
+                                  class="p-button-success p-button-text" (click)="expand(user)"><i
+                                      class="fa-solid fa-expand  expand fw-bold me-1"></i></button>
+                              <button pButton pRipple type="button" label="Delete"
+                                  class="p-button-danger p-button-text" (click)="delete(user.UserId)"><i
+                                      class="fa-solid fa-trash  fw-bold me-1"></i></button>
+                                      <ng-container *ngIf="user?.published == 1">
+                                        <button pButton pRipple type="button" label="Unpublish"
+                                  class="p-button-danger p-button-text" (click)="publish(user.Id,user?.published)"><i
+                                      class="fa-solid fa-trash  fw-bold me-1"></i></button>
+                                      </ng-container>
+                                      <ng-container *ngIf="user?.published == 0">
+                                        <button pButton pRipple type="button" label="Publish"
+                                  class="p-button-danger p-button-text" (click)="publish(user.Id,user?.published)"><i
+                                      class="fa-solid fa-trash  fw-bold me-1"></i></button>
+                                      </ng-container>
+
+
+
+                          </div>
 
 
                         </div>
