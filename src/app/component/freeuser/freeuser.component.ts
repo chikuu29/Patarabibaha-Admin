@@ -11,6 +11,7 @@ import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { CommonService } from 'src/app/services/common.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-freeuser',
@@ -35,8 +36,8 @@ export class FreeuserComponent implements OnInit {
   membersheepdata: any;
   constructor(
     private ApiParameter: ApiParameterScript,
-    private router: Router ,
-    private commonservice: CommonService,
+    private router: Router,
+    private commonservice: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +51,10 @@ export class FreeuserComponent implements OnInit {
         this.membersheepdata = res['data'][0].membership_plan_type;
         this.getAllData(0, this.collectionSize);
       }
+    });
+    let check = document.querySelectorAll('.check');
+    check.forEach((checkbox: any, key: any) => {
+      checkbox.checked = false;
     });
   }
   getAllData(
@@ -195,17 +200,17 @@ export class FreeuserComponent implements OnInit {
       });
     } else {
       let param = {
-        ids: this.allId,
+        mailIds: this.allId,
+        filepath: environment.filePath,
       };
       console.log(param);
 
-      this.commonservice.sendData(param).subscribe((res: any) => {
-        if (res.code == 200) {
-          Swal.fire({
-            icon: 'success',
-            text: 'Mail send',
-          });
-        }
+      this.commonservice.freeMail(param).subscribe((res: any) => {});
+      Swal.fire({
+        icon: 'success',
+        text: 'Mail send',
+      }).then((res: any) => {
+        this.ngOnInit();
       });
     }
   }

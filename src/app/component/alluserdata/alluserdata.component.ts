@@ -62,7 +62,7 @@ export class AlluserdataComponent implements OnInit {
       class: '#0E47A1',
     },
     {
-      text: 'Deleted',
+      text: 'Suspend',
       iconClass: 'fas fa-trash text-danger',
       methodName: 'getAllDeletedData',
       selectedStatus: false,

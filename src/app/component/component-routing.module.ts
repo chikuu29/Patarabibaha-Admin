@@ -42,6 +42,8 @@ import { PrimiumuserComponent } from './primiumuser/primiumuser.component';
 import { FreeuserComponent } from './freeuser/freeuser.component';
 import { UnderconstractionComponent } from '../shared/underconstraction/underconstraction.component';
 import { RoleManagementComponent } from './role-management/role-management.component';
+import { OnlineuserComponent } from './onlineuser/onlineuser.component';
+import { SuspendeduserComponent } from './suspendeduser/suspendeduser.component';
 
 
 
@@ -243,7 +245,19 @@ const routes: Routes = [
         path:'role_management',
         canActivate: [AuthGuard],
         component: RoleManagementComponent
-      }
+      },
+      {
+        path:'onlineuser',
+        canActivate: [AuthGuard],
+        component: OnlineuserComponent
+      },
+      {
+        path:'suspenduser',
+        canActivate: [AuthGuard],
+        component: SuspendeduserComponent
+      },
+
+
 
 
 

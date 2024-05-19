@@ -1,0 +1,25 @@
+.user-card {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  border-radius: 10px;
+  color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.user-card .info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.user-card .info span {
+  font-weight: 600;
+}
+.user-card .info a {
+  color: #ffeb3b;
+  text-decoration: none;
+}
+.user-card .info a:hover {
+  text-decoration: underline;
+}
+.user-card .info .label {
+  margin-right: 5px;
+}

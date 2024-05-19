@@ -52,6 +52,8 @@ import { DeletedatashowComponent } from './deletedatashow/deletedatashow.compone
 import { PrimiumuserComponent } from './primiumuser/primiumuser.component';
 import { FreeuserComponent } from './freeuser/freeuser.component';
 import { RoleManagementComponent } from './role-management/role-management.component';
+import { OnlineuserComponent } from './onlineuser/onlineuser.component';
+import { SuspendeduserComponent } from './suspendeduser/suspendeduser.component';
 
 
 @NgModule({
@@ -98,6 +100,8 @@ import { RoleManagementComponent } from './role-management/role-management.compo
     PrimiumuserComponent,
     FreeuserComponent,
     RoleManagementComponent,
+    OnlineuserComponent,
+    SuspendeduserComponent,
 
   ],
   imports: [

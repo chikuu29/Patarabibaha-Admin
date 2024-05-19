@@ -17,7 +17,7 @@
   <div class="commen">
     <button [style]="{ 'background-color': '#FF1A0A', 'color': '#FFFFFF' }" type="button" class="btn"
       (click)="deletedata()">
-      <i class="fas fa-trash-alt"></i> Delete
+      <i class="fas fa-trash-alt"></i> Suspend
     </button>
   </div>
   <div class="commen">
@@ -142,10 +142,10 @@
                     </td>
                     <td title="Ready for Professional Open">
                       <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel" *ngIf="data.deleted == 1">
-                        Not Deleted
+                        Not Suspend
                       </div>
                       <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel" *ngIf="data.deleted == 0">
-                        Deleted
+                        Suspended
                       </div>
                     </td>
                     <td title="Ready for Professional Open">

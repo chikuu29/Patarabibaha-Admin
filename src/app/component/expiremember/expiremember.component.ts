@@ -56,12 +56,17 @@ export class ExpirememberComponent implements OnInit {
     private ApiParameter: ApiParameterScript,
     private router: Router,
     private modalService: NgbModal,
-    private CommonService : CommonService
+    private CommonService: CommonService
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     let _this: any = this;
     _this[this.currentFunction](0, this.collectionSize);
+    let check = document.querySelectorAll('.check');
+    check.forEach((checkbox: any, key: any) => {
+      checkbox.checked = false;
+    });
   }
   changepaginetdata(event: any) {
     this.page = 1;
@@ -343,13 +348,32 @@ export class ExpirememberComponent implements OnInit {
     }
     console.log(this.allId);
   }
-  sendMail(){
-    let param = {
-      mailIds: this.allId,
-      filepath: environment.filePath
-    }
-    this.CommonService.expiredMail(param).subscribe((res:any)=>{
+  sendMail() {
+    if (this.allId.length == 0) {
+      Swal.fire({
+        icon: 'question',
+        text: 'Select one user',
+      });
+    } else {
+      let param = {
+        mailIds: this.allId,
+        filepath: environment.filePath,
+      };
+      console.log(param);
 
-    });
+      this.CommonService.expiredMail(param).subscribe((res: any) => {});
+      Swal.fire({
+        icon: 'success',
+        text: 'Mail send',
+      }).then(() => {
+        this.ngOnInit();
+      });
+    }
+
+    // let param = {
+    //   mailIds: this.allId,
+    //   filepath: environment.filePath,
+    // };
+    // this.CommonService.expiredMail(param).subscribe((res: any) => {});
   }
 }

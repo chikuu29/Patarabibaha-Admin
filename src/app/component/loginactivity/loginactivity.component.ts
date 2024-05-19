@@ -77,8 +77,6 @@ export class LoginactivityComponent implements OnInit {
     this.router.navigate(['login-activity/details/', encripted]);
   }
   fatchdata(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    //$data = DB::table('user_like')->select('liked_by_profile_id', DB::raw("count(*) as count"))->groupBy('liked_by_profile_id')->where('isLiked',1)->get();
-
     let quary = `SELECT a.user_id, COUNT(*) AS count ,COUNT(*) OVER () AS total_count
     FROM login_activity AS a
     LEFT JOIN user_info AS b ON a.user_id = b.user_id
@@ -101,9 +99,7 @@ export class LoginactivityComponent implements OnInit {
      OR c.auth_phone_no like '%${search_text}%'
    `;
     }
-
     console.log(quary);
-    
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
       console.log(res);
@@ -119,30 +115,5 @@ export class LoginactivityComponent implements OnInit {
       }
       console.log(this.login_activity);
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // this.CommonService.getLoginCount().subscribe((res: any) => {
-    //   console.log(res);
-    //   if (res.success && res['data'].length > 0) {
-    //     this.login_activity = res['data']
-    //   }
-    // })
   }
 }

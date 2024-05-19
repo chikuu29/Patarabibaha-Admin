@@ -115,6 +115,10 @@ export class CommonService {
   expiredMail(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'expiredMail', apiData, { headers: this.headers });
   }
+  freeMail(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'freeMail', apiData, { headers: this.headers });
+  }
+
 
 
 
