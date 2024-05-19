@@ -31,10 +31,10 @@ export class AuthGuard implements CanActivate {
 
         if (admin && admin.token) {
           const routerLinksPermission = this._auth.getAppUrlPermission['routerLinksPermission']
-          console.log(routerLinksPermission);
+          // console.log(routerLinksPermission);
           
           let str = state.url
-          console.log("url",str);
+          // console.log("url",str);
           // return true
           let index = str.indexOf('/', str.indexOf('/') + 1);
           // Extract the part of the string before the second '/'
