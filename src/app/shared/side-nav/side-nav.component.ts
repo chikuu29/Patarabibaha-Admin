@@ -17,7 +17,7 @@ export class SideNavComponent implements OnInit {
   profilephotocount: number = 0;
   deliteeeqest: number = 0;
   phoneapprovedata: number = 0;
-  navConfig:any=[]
+  navConfig: any = []
   // navConfig = [
   //   {
   //     requiredRouterLink: true,
@@ -600,21 +600,72 @@ export class SideNavComponent implements OnInit {
 
 
 
-    this.ApiParameter.fetchdata("admin", apiData).subscribe((res: any) => {
-      if (res.success && res['data'].length > 0) {
-        // console.log(res['data'][0]['permission']);
-        const retrivePermission = JSON.parse(res['data'][0]['permission'])
+    if (this._auth.getAppUrlPermission && isArray(this._auth.getAppUrlPermission["permissionFoeNavMenu"])) {
 
-        if(isArray(retrivePermission)){
-          this.navConfig=_.filter(retrivePermission,{permissionGranted:true, displayInSideNav:true})
+      console.log("loadePermision From Local storage");
+
+
+      // const routerLinks = _.flatMap(this._auth.getAppUrlPermission, (i) => {
+      //   if (i.routerLink && i.routerLink !== '') {
+      //     if (i.submenu && _.isArray(i.submenu)) {
+      //       return [i.routerLink, ..._.map(i.submenu, 'routerLink')];
+      //     } else {
+      //       return [i.routerLink];
+      //     }
+      //   }
+      //   return [];
+      // });
+
+      // console.log(routerLinks);
+      console.log(this._auth.getAppUrlPermission);
+
+    
+
+
+      this.navConfig = this._auth.getAppUrlPermission['permissionFoeNavMenu']
+
+    } else {
+      this.ApiParameter.fetchdata("admin", apiData).subscribe((res: any) => {
+        if (res.success && res['data'].length > 0) {
+          // console.log(res['data'][0]['permission']);
+          const retrivePermission = JSON.parse(res['data'][0]['permission'])
+          // const routerLinks = _.flatMap(retrivePermission, (i) => {
+          //   if (i.routerLink && i.routerLink == '') {
+
+
+          //     if (i.submenu && _.isArray(i.submenu)) {
+          //       return [i.routerLink, ..._.map(i.submenu, 'routerLink')];
+          //     } else {
+          //       return [i.routerLink];
+          //     }
+          //   }
+          //   return [];
+          // });
+          const routerLinks = _.flatMap(retrivePermission, (i:any) => {
+            if (i.submenu && _.isArray(i.submenu)) {
+              return [..._.map(i.submenu, 'routerLink')];
+            } else {
+              return [i.routerLink];
+            }
+         
+        });
+          if (isArray(retrivePermission)) {
+            this.navConfig = _.filter(retrivePermission, { permissionGranted: true, displayInSideNav: true })
+            this._auth.setAppUrlPermission({ permissionFoeNavMenu: this.navConfig, routerLinksPermission: routerLinks })
+          } else {
+            this._auth.setAppUrlPermission({ permissionFoeNavMenu: [], routerLinksPermission: routerLinks })
+          }
+
+
+        } else {
+          this.navConfig = []
         }
 
-      }else{
-        this.navConfig=[]
-      }
+
+      })
+    }
 
 
-    })
 
   }
 

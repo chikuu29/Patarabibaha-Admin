@@ -23,7 +23,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     ChangeuserpassComponent,
     TwostepverificationComponent,
     SubadmincreateComponent,
-    SubadminviewComponent,
+    SubadminviewComponent
     
   ],
   imports: [

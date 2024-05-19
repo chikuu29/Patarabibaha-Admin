@@ -64,7 +64,7 @@ const routes: Routes = [
 
       {
         path: 'error-page',
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         component: ErrorPageComponent,
         pathMatch: 'full'
       }

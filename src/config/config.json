@@ -79,7 +79,7 @@
     {
       "order": 1,
       "requiredRouterLink": true,
-      "routerLink": "landing-page",
+      "routerLink": "/landing-page",
       "icon": "mdi mdi-airplane-landing",
       "text": "Landing Page",
       "roles": [
@@ -92,7 +92,7 @@
     {
       "order": 2,
       "requiredRouterLink": true,
-      "routerLink": "dashboard",
+      "routerLink": "/dashboard",
       "icon": "mdi mdi-speedometer",
       "text": "Dashboard",
       "hidden": false,

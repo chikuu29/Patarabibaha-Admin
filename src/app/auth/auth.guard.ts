@@ -27,19 +27,24 @@ export class AuthGuard implements CanActivate {
 
       take(1),
       map(admin => {
-        console.log("Auth Gaurd",admin);
-        
+        console.log("Auth Gaurd", admin);
+
         if (admin && admin.token) {
-          const appConfig = this.appservices.getappconfig;
+          const routerLinksPermission = this._auth.getAppUrlPermission['routerLinksPermission']
+          console.log(routerLinksPermission);
+          
           let str = state.url
-          // let index = str.indexOf('/', str.indexOf('/') + 1);
+          console.log("url",str);
+          // return true
+          let index = str.indexOf('/', str.indexOf('/') + 1);
           // Extract the part of the string before the second '/'
-          // let result = str.substring(0, index)
-          // var finalUrl=isEmpty(result)?state.url:result;
-          // if (appConfig['roleConfig'][admin.role]['accessRoutUrl'].includes(finalUrl)) {
-          return true
-          // }
-          // return this._router.createUrlTree(['error-page']);
+          let result = str.substring(0, index)
+          var finalUrl = isEmpty(result) ? state.url : result;
+          if (routerLinksPermission.includes(finalUrl)) {
+            return true
+          }
+          // return true
+          return this._router.createUrlTree(['page_not_found']);
         } else {
           this._router.navigate(['auth/sign-in'], { queryParams: { redirectUrl: state.url } });
           return false
