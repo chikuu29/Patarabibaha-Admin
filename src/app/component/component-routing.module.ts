@@ -260,7 +260,7 @@ const routes: Routes = [
       },
       {
         path: 'page_not_found',
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         component: PageNotFoundComponent
       },
 

@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
           // Extract the part of the string before the second '/'
           let result = str.substring(0, index)
           var finalUrl = isEmpty(result) ? state.url : result;
-          if (routerLinksPermission.includes(finalUrl) || admin.role=="SUPPER_ADMIN") {
+          if (routerLinksPermission.includes(finalUrl) || admin.role=="SUPPER_ADMIN" || state.url=='/page_not_found') {
             return true
           }
           // return true
