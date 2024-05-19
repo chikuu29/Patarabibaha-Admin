@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -10,7 +10,7 @@ import { AppService } from 'src/app/services/app.service';
   templateUrl: './load-permission.component.html',
   styleUrls: ['./load-permission.component.scss']
 })
-export class LoadPermissionComponent implements OnInit {
+export class LoadPermissionComponent implements OnInit, OnDestroy {
   @BlockUI() blockUI: NgBlockUI;
 
   @Input() user_id: string = ""
@@ -20,14 +20,23 @@ export class LoadPermissionComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private app: AppService,
     private api: ApiParameterScript
-  ) { }
+  ) {
+
+
+    if (this.app.getappconfig && this.app.getappconfig['navConfig'] && this.app.getappconfig['navConfig'].length > 0) {
+      this.navConfig = _.cloneDeep(this.app.getappconfig['navConfig'])
+    } else {
+      this.navConfig = []
+    }
+  }
+  ngOnDestroy(): void {
+    // throw new Error('Method not implemented.');
+    this.navConfig = []
+    this.retrivePermission = []
+  }
 
   ngOnInit(): void {
     console.log(this.app.getappconfig);
-
-
-
-
     this.blockUI.start('Fetch User Information')
     const apiData = {
       "projection": ["permission"],
@@ -37,36 +46,28 @@ export class LoadPermissionComponent implements OnInit {
 
 
 
+
     this.api.fetchdata("admin", apiData).subscribe((res: any) => {
       console.log("user", res);
       this.blockUI.stop()
       if (res.success && res['data'].length > 0) {
         console.log(res['data'][0]['permission']);
         this.retrivePermission = JSON.parse(res['data'][0]['permission'])
+        // console.log("this.navConfig", this.navConfig);
+        // console.log("this.retrivePermission", this.retrivePermission);
 
-
-        console.log("this.navConfig", this.navConfig);
-        console.log("this.retrivePermission", this.retrivePermission);
-
-
-        console.log([...this.retrivePermission,...this.navConfig]);
-        
-        const mergedArray = this.mergeArrays(this.retrivePermission, this.navConfig);
-
-        this.navConfig = mergedArray
-        console.log("mergedArray", mergedArray);
-
-        //  this.retrivePermission.map((i:any)=>{
-
-        //   console.log(i);
-
-        //   if(i.submenu && i.submenu.length>0){
-
-        //   }
-
-
-        //  })
-
+        if (_.isArray(this.retrivePermission)) {
+          _.map(this.navConfig, (i: any) => {
+            const existingItem = this.retrivePermission.find((item: any) => item.text === i.text);
+            if (existingItem) {
+              // _.merge(i,existingItem)
+              // console.log("hiii",this.mergeObjects(i,existingItem));
+              // i=this.mergeObjects(i,existingItem)
+              i['permissionGranted'] = this.mergeObjects(i, existingItem)['permissionGranted']
+              // i=this.mergeObjects(i,existingItem)
+            }
+          })
+        }
 
       } else {
 
@@ -78,11 +79,8 @@ export class LoadPermissionComponent implements OnInit {
 
 
 
-    if (this.app.getappconfig && this.app.getappconfig['navConfig'] && this.app.getappconfig['navConfig'].length > 0) {
-      this.navConfig = this.app.getappconfig['navConfig']
-    } else {
-      this.navConfig = []
-    }
+
+
 
 
   }
@@ -93,16 +91,16 @@ export class LoadPermissionComponent implements OnInit {
 
   private mergeSubmenus(submenu1: any[], submenu2: any[]): any[] {
     if (!submenu1 || submenu1.length === 0) {
-      return submenu2;
+      return [];
     }
     if (!submenu2 || submenu2.length === 0) {
-      return submenu1;
+      return [];
     }
 
     const mergedSubmenu = [...submenu1];
 
     for (const item of submenu2) {
-      const existingItem = mergedSubmenu.find(i => i.id === item.id);
+      const existingItem = mergedSubmenu.find(i => i.text === item.text);
       if (!existingItem) {
         mergedSubmenu.push(item);
       } else {
@@ -114,7 +112,17 @@ export class LoadPermissionComponent implements OnInit {
   }
 
   private mergeObjects(obj1: any, obj2: any): any {
+
+    // console.log("mergedSubmenu", obj1);
+    // console.log("mergedSubmenu2", obj2);
     const mergedSubmenu = this.mergeSubmenus(obj1.submenu, obj2.submenu);
+    // console.log(mergedSubmenu);
+
+    // console.log("hoo", {
+    //   ...obj1,
+    //   ...obj2,
+    //   submenu: mergedSubmenu
+    // });
 
     return {
       ...obj1,
@@ -128,12 +136,18 @@ export class LoadPermissionComponent implements OnInit {
       return [this.mergeObjects(array1[0], array2[0])];
     }
 
+    console.log("ok", [...array1, ...array2]);
+
+
     return [...array1, ...array2].reduce((acc, current) => {
-      const existingItem = acc.find((item:any) => item.text === current.text);
+      console.log("acc", acc);
+      console.log("current", current)
+
+      const existingItem = acc.find((item: any) => item.text === current.text);
       if (!existingItem) {
         return acc.concat([current]);
       } else {
-        return acc.map((item:any) => item.text === current.text ? this.mergeObjects(item, current) : item);
+        return acc.map((item: any) => item.text === current.text ? this.mergeObjects(item, current) : item);
       }
     }, []);
   }

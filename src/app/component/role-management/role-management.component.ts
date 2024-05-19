@@ -74,6 +74,9 @@ export class RoleManagementComponent implements OnInit {
     modelRef.componentInstance.user_id=user_id,
     modelRef.result.then((permissions: any) => {
       this.userFormData.controls.permission.setValue(JSON.stringify(permissions))
+    },(dissmiss:any)=>{
+      console.log(dissmiss);
+      
     })
 
   }
