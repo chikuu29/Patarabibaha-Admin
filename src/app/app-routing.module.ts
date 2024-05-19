@@ -49,7 +49,7 @@ const routes: Routes = [
           }
         ]
 
-      },
+      }
     ]
   },
   {
@@ -69,11 +69,11 @@ const routes: Routes = [
 
 
 
-  {
-    path: 'error-page',
-    canActivate: [AuthGuard],
-    component: PageNotFoundComponent
-  },
+  // {
+  //   path: 'error-page',
+  //   // canActivate: [AuthGuard],
+  //   component: PageNotFoundComponent
+  // },
   {
 
     path: "**",

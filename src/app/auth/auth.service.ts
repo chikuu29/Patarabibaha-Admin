@@ -77,7 +77,7 @@ export class AuthService {
       console.log("AUTO LOGIN SUCCESSFULL", authInfo);
       this.authentication(authInfo.id, authInfo.name, authInfo.email, true, authInfo.role, authInfo._refreshkey, authInfo.expiration_date)
     } else {
-      console.log("YOUR TOKEN EXPIRA ON "+moment(authInfo.expiration_date * 1000).format('llll'));
+      console.log("YOUR TOKEN EXPIRA ON " + moment(authInfo.expiration_date * 1000).format('llll'));
       this.admin.next(null)
       localStorage.clear()
 
@@ -86,8 +86,8 @@ export class AuthService {
   }
   public autoLogout(expiration_date: number) {
     const currentDate = Math.floor(new Date().getTime() / 1000);
-    console.log("activating Auto Logout",expiration_date);
-    var delay=(expiration_date-currentDate)*1000;
+    console.log("activating Auto Logout", expiration_date);
+    var delay = (expiration_date - currentDate) * 1000;
     this.deactiveAutoLogout = setTimeout(() => {
       this.logout()
     }, delay);
@@ -151,6 +151,29 @@ export class AuthService {
 
     return this.http.post(`${this.getApipath()}auth/validate-sucure-authentication.php`, apiDATA)
   }
+
+
+
+
+  public setAppUrlPermission(permission: any) {
+    secureCryptoStorage.setItem("appPermission", JSON.stringify(permission));
+  }
+
+  get getAppUrlPermission() {
+    try {
+      var appPermission = secureCryptoStorage.getItem('appPermission');
+      if (appPermission != null) {
+        return JSON.parse(appPermission)
+      } else {
+        return undefined;
+      }
+
+    } catch (error) {
+      return undefined
+    }
+  }
+
+
 
 
 

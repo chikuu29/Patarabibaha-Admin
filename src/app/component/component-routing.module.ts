@@ -44,6 +44,8 @@ import { UnderconstractionComponent } from '../shared/underconstraction/undercon
 import { RoleManagementComponent } from './role-management/role-management.component';
 import { OnlineuserComponent } from './onlineuser/onlineuser.component';
 import { SuspendeduserComponent } from './suspendeduser/suspendeduser.component';
+import { PageNotFoundComponent } from '../pages/page-not-found/page-not-found.component';
+import { ErrorPageComponent } from '../pages/error-page/error-page.component';
 
 
 
@@ -255,6 +257,11 @@ const routes: Routes = [
         path:'suspenduser',
         canActivate: [AuthGuard],
         component: SuspendeduserComponent
+      },
+      {
+        path: 'page_not_found',
+        canActivate: [AuthGuard],
+        component: PageNotFoundComponent
       },
 
 

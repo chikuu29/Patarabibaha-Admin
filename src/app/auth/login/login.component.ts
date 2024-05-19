@@ -6,6 +6,9 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { AuthService } from '../auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { ApiParameterScript } from 'src/app/script/api-parameter';
+import { isArray } from 'lodash';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,7 +32,8 @@ export class LoginComponent implements OnInit {
     private Title: Title,
     private _auth: AuthService,
     private _router: Router,
-    private alert: ToastrService
+    private alert: ToastrService,
+    private api: ApiParameterScript
   ) { }
 
   ngOnInit(): void {
@@ -59,12 +63,44 @@ export class LoginComponent implements OnInit {
           // console.log(res);
           // // console.log(res);
           if (res.success) {
+
+
+            this._auth.authentication(res.id, res.name, res.email, true, res.role, res.token, res.exp);
+
             this.alert.success("Login Successfull")
             // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login Successfull' })
-            var expiration_date = new Date(new Date().getTime() + 86400 * 1000).toString();
-            this._auth.authentication(res.id, res.name, res.email, true, res.role, res.token, res.exp);
-            console.log(this.redirectUrl);
-            location.href = this.redirectUrl
+            const apiData = {
+              "projection": ["permission"],
+              "whereConditions":
+                { 'UserId': res.id }
+            }
+
+            this.api.fetchdata("admin", apiData).subscribe((res: any) => {
+              if (res.success && res['data'].length > 0) {
+                const retrivePermission = JSON.parse(res['data'][0]['permission'])
+                const routerLinks = _.flatMap(retrivePermission, (i: any) => {
+                  if (i.submenu && _.isArray(i.submenu)) {
+                    return [..._.map(i.submenu, 'routerLink')];
+                  } else {
+                    return [i.routerLink];
+                  }
+
+                });
+                if (isArray(retrivePermission)) {
+                  const navConfig = _.filter(retrivePermission, { permissionGranted: true, displayInSideNav: true })
+                  this._auth.setAppUrlPermission({ permissionFoeNavMenu: navConfig, routerLinksPermission: routerLinks })
+                } else {
+                  this._auth.setAppUrlPermission({ permissionFoeNavMenu: [], routerLinksPermission: routerLinks })
+                }
+              }else{
+
+                this._auth.setAppUrlPermission({ permissionFoeNavMenu: [], routerLinksPermission: [] })
+              }
+              var expiration_date = new Date(new Date().getTime() + 86400 * 1000).toString();
+              console.log(this.redirectUrl);
+              location.href = this.redirectUrl
+
+            })
             // this._router.navigateByUrl(this.redirectUrl)
           } else {
             this.alert.error(res.message)
