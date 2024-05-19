@@ -72,13 +72,13 @@ export class SideNavComponent implements OnInit {
           id: 'admin-05',
         },
         {
-          routerLink: '/u-c',
+          routerLink: '/onlineuser',
           icon: 'fa-solid fa-lightbulb',
           text: 'Online user',
           id: 'admin-06',
         },
         {
-          routerLink: '/u-c',
+          routerLink: '/suspenduser',
           icon: 'fa-solid fa-lightbulb',
           text: 'Suspend user',
           id: 'admin-07',
