@@ -203,7 +203,7 @@ export class EmailvalidationComponent implements OnInit {
     loadSpecificData: boolean = false,
     search_text?: any
   ) {
-    let Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_phone_varification = 0 AND a.user_gender = 'Male'
+    let Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_mail_varification = 0 AND a.user_gender = 'Male'
       ORDER BY a.user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
     if (loadSpecificData) {
@@ -241,7 +241,7 @@ export class EmailvalidationComponent implements OnInit {
     loadSpecificData: boolean = false,
     search_text?: any
   ) {
-    let Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_phone_varification = 0 AND a.user_gender = 'Female'
+    let Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a left join auth_user as b on a.user_id = b.auth_ID WHERE a.user_mail_varification = 0 AND a.user_gender = 'Female'
       ORDER BY a.user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
     if (loadSpecificData) {
