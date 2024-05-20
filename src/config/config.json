@@ -805,10 +805,17 @@
     }
     ,
     {
-      "order": 23,
+      "order": 24,
       "requiredRouterLink": true,
       "routerLink": "/role_management",
       "text": "Role Management",
+      "displayInSideNav":false
+    },
+	  {
+      "order": 25,
+      "requiredRouterLink": true,
+      "routerLink": "/user",
+      "text": "User View",
       "displayInSideNav":false
     }
   ]
