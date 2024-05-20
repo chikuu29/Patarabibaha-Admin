@@ -149,7 +149,7 @@ export class AlluserdataComponent implements OnInit {
   fillter(event: any, start = 0) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    console.log('click fillter', event);
+    //console.log('click fillter', event);
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -157,7 +157,6 @@ export class AlluserdataComponent implements OnInit {
     LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
     LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
     LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
-    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
     LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID WHERE  ORDER BY user_info.user_creation_date_time DESC`;
     if (event.isqueryGenerated) {
@@ -168,7 +167,6 @@ export class AlluserdataComponent implements OnInit {
     LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
     LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
     LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
-    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
     LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}  ORDER BY user_info.user_creation_date_time DESC`;

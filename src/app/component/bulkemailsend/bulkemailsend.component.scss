@@ -477,7 +477,7 @@ font-weight: bold;
   width: 100%;
   max-width: 600px;
   height: 200px;
-  margin: 0 auto;
+  margin: 5px auto;
   padding: 20px;
   background-color: #f0f0f0;
   border-radius: 8px;
@@ -537,6 +537,15 @@ label {
 label {
   color: #555; /* Change label text color */
 }
+
+/* Assuming the button for image has a class or attribute you can target */
+:host ::ng-deep .ql-toolbar .ql-image {
+  display: none !important;
+}
+.upload-warning {
+  color: red;
+}
+
 
 
 

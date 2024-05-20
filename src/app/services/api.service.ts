@@ -139,6 +139,10 @@ export class ApiService {
   public sendCustmMail(param:any){
     return this.http.post(this.appservices.getApipath() + 'sendCustmMail', param, { headers: this.headers })
   }
+  public eventImageUplode(param:any){
+    return this.http.post(this.appservices.getApipath() + 'eventImageUplode', param, { headers: this.headers })
+  }
+
 
 
 

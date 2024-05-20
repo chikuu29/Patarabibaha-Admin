@@ -11,9 +11,9 @@
       </ng-container>
     </div>
     <ng-container *ngIf="kpi.text == 'Cast' ">
-     <div (click)="resetcast()">
-      <i class="fas fa-sync-alt"></i>
-     </div>
+      <div (click)="resetcast()">
+        <i class="fas fa-sync-alt"></i>
+      </div>
     </ng-container>
 
   </ng-container>
@@ -175,24 +175,44 @@
     </div>
   </div>
 </div>
-<div class="Subject">
-  <label for="Subjectid" class="">Enter Email Subject</label>
-  <br>
- <input type="text" name="" [(ngModel)]="Subject" id="Subjectid">
-</div>
-<div class="pediter">
-  <label for="editer">Enter Email Message</label>
-  <p-editor [(ngModel)]="message" id="editer" [style]="{ height: '100px' }"></p-editor>
-</div>
-<div class="container">
-
-  <div class="inner-container">
-    <span class="emailspan" *ngFor="let allId of allId">{{ allId }}</span>
+<div>
+  <div class="Subject">
+    <label for="Subjectid" class="">Enter Email Subject</label>
+    <br>
+    <input type="text" name="" [(ngModel)]="Subject" id="Subjectid">
+  </div>
+  <div class="pediter">
+    <label for="editer">Enter Email Message</label>
+    <p-editor [(ngModel)]="message" id="editer" [style]="{ height: '100px' }"></p-editor>
+  </div>
+  <div class="image-upload">
+    <label for="imageInput">Upload Image</label>
+    <br>
+    <input type="file" id="imageInput" (change)="onFileSelected($event)" accept="image/*">
+    <button (click)="triggerFileInput()">Upload Image</button>
+    <!-- Add an img tag to display the selected image -->
+    <div *ngIf="selectedImage">
+      <h5>Before Uplode</h5>
+      <img [src]="selectedImage" alt="Selected Image" style="max-width: 100%; max-height: 200px;"/>
+    </div>
+    <div *ngIf="imgview">
+      <h5>After Uplode</h5>
+      <img [src]="filepath+filenameints" alt="Selected Image" style="max-width: 100%; max-height: 200px;"/>
+    </div>
+    <div class="upload-warning">After upload, do not refresh the page. Image is not mandatory.</div>
+  </div>
+  <div class="container">
+    <div class="inner-container">
+      <span class="emailspan" *ngFor="let allId of allId">{{ allId }}</span>
+    </div>
+  </div>
+  <div class="bten">
+    <button (click)="sendemail()">Send Email</button>
   </div>
 </div>
-<div class="bten">
-  <button (click)="sendemail()">Send Email</button>
-</div>
+
+
+
 
 
 

@@ -504,7 +504,7 @@ export class FillterModalComponent implements OnInit {
     };
     const fillterData: any = this.removeBlankProperties(this.fillterForm.value);
 
-    console.log('fillterData', fillterData);
+
 
     const filteredtableKeyMappingObject = _.pickBy(
       _.mapValues(tableKeyMapping, (values) =>
@@ -513,7 +513,7 @@ export class FillterModalComponent implements OnInit {
       (values) => values.length > 0
     );
 
-    console.log(filteredtableKeyMappingObject);
+ //   console.log(filteredtableKeyMappingObject);
 
     var query = '';
     Object.keys(filteredtableKeyMappingObject).forEach((table, i) => {
@@ -555,7 +555,63 @@ export class FillterModalComponent implements OnInit {
       );
     });
 
-    console.log('Query', query);
+   // console.log('fillterData', fillterData.user_max_age);
+
+    // fillterForm = new FormGroup({
+    //   user_id: new FormControl('', []),
+    //   user_gender: new FormControl([], []),
+    //   user_physical_status: new FormControl([], []),
+    //   user_min_age: new FormControl('', []),
+    //   user_max_age: new FormControl('', []),
+    //   user_body_type: new FormControl([], []),
+    //   user_mangalik: new FormControl([], []),
+    //   user_highest_education: new FormControl([], []),
+    //   user_min_height: new FormControl('', []),
+    //   user_max_height: new FormControl('', []),
+    //   user_religion: new FormControl([], []),
+    //   user_country: new FormControl([], []),
+    //   user_marital_status: new FormControl([], []),
+    //   user_state: new FormControl([], []),
+    //   user_city: new FormControl([], []),
+    //   user_employed_In: new FormControl([], []),
+    //   user_occupation: new FormControl([], []),
+    //   user_mother_toungh: new FormControl([], []),
+    //   user_min_anual_income: new FormControl('', []),
+    //   user_max_anual_income: new FormControl('', []),
+    //   user_nakhyatra: new FormControl([], []),
+    //   user_zodiacs: new FormControl([], []),
+    //   user_gotra: new FormControl([], []),
+    //   user_caste: new FormControl([], []),
+    //   user_complextion: new FormControl([], []),
+    //   user_deg: new FormControl([], []),
+    //   user_family_value: new FormControl([], []),
+    //   user_family_status: new FormControl([], []),
+    // });
+   // console.log('Query', query);
+    if(fillterData.user_max_age != undefined && fillterData.user_min_age != undefined){
+      if(query == ''){
+      query +=  `user_info.user_age BETWEEN ${fillterData.user_min_age} AND ${fillterData.user_max_age}`
+      }else{
+      query +=  ` AND user_info.user_age BETWEEN ${fillterData.user_min_age} AND ${fillterData.user_max_age}`
+      }
+    }
+    if(fillterData.user_min_height != undefined && fillterData.user_max_height){
+      if(query == ''){
+        query +=  `user_physical_details.user_height BETWEEN ${fillterData.user_min_height} AND ${fillterData.user_max_height}`
+      }else{
+        query +=  ` AND user_physical_details.user_height BETWEEN ${fillterData.user_min_height} AND ${fillterData.user_max_height}`
+      }
+    }
+    if(fillterData.user_min_anual_income != undefined && fillterData.user_max_anual_income){
+      if(query == ''){
+        query +=  `user_education_occupations.user_anual_income BETWEEN ${fillterData.user_min_anual_income} AND ${fillterData.user_max_anual_income}`
+      }else{
+        query +=  ` AND user_education_occupations.user_anual_income BETWEEN ${fillterData.user_min_anual_income} AND ${fillterData.user_max_anual_income}`
+      }
+    }
+
+
+
 
     this.modal.close({
       // whereConditions:

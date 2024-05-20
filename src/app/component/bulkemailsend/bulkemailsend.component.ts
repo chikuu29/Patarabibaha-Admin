@@ -15,6 +15,7 @@ export class BulkemailsendComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   alldata: any;
+  filepath:any = environment.filePath+'storage/event_img/';
   tableData: any = [];
   filterText: string;
   allId: any[] = [];
@@ -27,6 +28,7 @@ export class BulkemailsendComponent implements OnInit {
   currentFunction: string = 'getAllData';
   message: any;
   Subject: any;
+  imgview:boolean = false;
   kpiTileConfig: any[] = [
     {
       text: 'All Data',
@@ -111,6 +113,8 @@ export class BulkemailsendComponent implements OnInit {
   totalFetchrecord: number = 0;
   date: any;
   selectedOption: string = '';
+  selectedImage: any;
+  filenameints: any;
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router,
@@ -796,18 +800,26 @@ export class BulkemailsendComponent implements OnInit {
   }
 
   sendemail() {
+    let imagedata
+    if(this.filenameints == '' || this.filenameints == undefined){
+      imagedata = '200'
+    }else{
+      imagedata = this.filepath+this.filenameints
+    }
     if (this.Subject == '' || this.Subject == undefined) {
       this.alert.error('Subject Not Given', 'Error');
     } else if (this.message == '' || this.message == undefined) {
       this.alert.error('Please enter a message before sending.', 'Error');
     } else if (this.allId.length == 0) {
       this.alert.error('Email Not Selected', 'Error');
-    } else {
+    }
+    else {
       let param = {
         Subject: this.Subject,
         message: this.message,
         mailIds: this.allId,
         filepath: environment.filePath,
+        imgpath : imagedata
       };
 
       console.log(param);
@@ -818,5 +830,46 @@ export class BulkemailsendComponent implements OnInit {
         // this.ngOnInit();
       });
     }
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    const reader = new FileReader();
+
+    if (file) {
+      if (file.size >= 3 * 1024 * 1024) {
+        Swal.fire('Error', 'File size exceeds 3MB limit.', 'error');
+      } else if (
+        !(
+          file.type === 'image/jpeg' ||
+          file.type === 'image/gif' ||
+          file.type === 'image/png'
+        )
+      ) {
+        Swal.fire(
+          'Error',
+          'Invalid file type. Please upload JPG, GIF, or PNG.',
+          'error'
+        );
+      } else {
+        reader.onload = () => {
+          this.selectedImage = reader.result;
+          // Log the selectedImage after it's loaded
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+  triggerFileInput(){
+    let param ={
+      data:this.selectedImage
+    }
+    this.ApiService.eventImageUplode(param).subscribe((res:any)=>{
+      if(res.success){
+        this.filenameints = res.Filename;
+        this.imgview = true;
+        this.selectedImage = undefined;
+      }
+    })
   }
 }
