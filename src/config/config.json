@@ -142,13 +142,13 @@
           "id": "admin-05"
         },
         {
-          "routerLink": "/u-c",
+          "routerLink": "/onlineuser",
           "icon": "fa-solid fa-lightbulb",
           "text": "Online user",
           "id": "admin-06"
         },
         {
-          "routerLink": "/u-c",
+          "routerLink": "/suspenduser",
           "icon": "fa-solid fa-lightbulb",
           "text": "Suspend user",
           "id": "admin-07"
@@ -438,7 +438,7 @@
           "text": "Firebase Setting"
         }
       ]
-     
+
     },
     {
       "order": 8,
@@ -682,7 +682,7 @@
           "text": "All Payment Getway"
         },
         {
-          "routerLink": "/u-c",
+          "routerLink": "/barcode-page",
           "text": "Offline Payment"
         },
         {
@@ -778,15 +778,19 @@
       "displayInSideNav":true,
       "submenu": [
         {
-          "routerLink": "/u-c",
+          "routerLink": "/support-ticket",
           "text": "Support Ticket"
+        },
+        {
+          "routerLink": "/feedback",
+          "text": "Feedback"
         }
       ]
     },
     {
       "order": 22,
       "requiredRouterLink": true,
-      "routerLink": "database-backup",
+      "routerLink": "/database-backup",
       "icon": "mdi mdi-airplane-landing",
       "text": "Database Backup",
       "hidden": false,
@@ -817,6 +821,38 @@
       "routerLink": "/user",
       "text": "User View",
       "displayInSideNav":false
+    },
+    {
+      "order": 26,
+      "requiredRouterLink": true,
+      "routerLink": "/matches-page",
+      "text": "Match Page By Id",
+      "displayInSideNav":false
+    },
+    {
+      "order": 27,
+      "requiredRouterLink": true,
+      "routerLink": "/view-spotlight",
+      "text": "View Spotlight",
+      "displayInSideNav":false
+    },
+    {
+      "order": 28,
+      "requiredRouterLink": true,
+      "routerLink": "/pass",
+      "text": "Change Password From Admin End",
+      "displayInSideNav":false
+    },
+    {
+      "order": 29,
+      "requiredRouterLink": true,
+      "routerLink": "/plan-Deatils",
+      "text": " User Plan Details View",
+      "displayInSideNav":false
     }
+
+
+
+
   ]
 }

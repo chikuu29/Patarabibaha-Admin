@@ -1,0 +1,21 @@
+<div *ngIf="dataoffeedback" class="feedback-container">
+  <div class="close-icon" (click)="closeFeedback()">×</div>
+  <strong class="subject">Subject:</strong>
+  <h2 class="subject">{{ dataoffeedback.Subject }}</h2>
+  <strong class="feedback">Feedback:</strong>
+  <p class="feedback">{{ dataoffeedback.Feedback }}</p>
+  <ng-container *ngIf="dataoffeedback?.status == 1">
+    <p [ngClass]="{'admin-messagered': isAdminMessageEmpty(), 'admin-messagegreen': !isAdminMessageEmpty()}">
+      <strong>Admin Message:</strong>
+      {{ dataoffeedback.admin_message === '' || dataoffeedback.admin_message === null ? 'Admin not Responded' :
+      dataoffeedback.admin_message}}
+    </p>
+  </ng-container>
+  <ng-container *ngIf="dataoffeedback?.status == 0">
+    <form (ngSubmit)="submitAdminMessage()">
+      <textarea [(ngModel)]="adminMessage" name="adminMessage" rows="4" class="admin-textarea" placeholder="Enter admin message..."></textarea>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </ng-container>
+</div>
+

@@ -58,6 +58,7 @@ export class MatchmakingComponent implements OnInit {
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
+         OR a.user_gender = '${search_text}'
          ORDER BY a.user_creation_date_time DESC
        `;
     }

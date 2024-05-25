@@ -46,7 +46,8 @@ import { OnlineuserComponent } from './onlineuser/onlineuser.component';
 import { SuspendeduserComponent } from './suspendeduser/suspendeduser.component';
 import { PageNotFoundComponent } from '../pages/page-not-found/page-not-found.component';
 import { ErrorPageComponent } from '../pages/error-page/error-page.component';
-
+import { TicketComponent } from './ticket/ticket.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 
@@ -262,7 +263,20 @@ const routes: Routes = [
         path: 'page_not_found',
         canActivate: [AuthGuard],
         component: PageNotFoundComponent
+      },{
+        path: 'support-ticket',
+        canActivate: [AuthGuard],
+        component: TicketComponent
+      },{
+        path: 'feedback',
+        canActivate: [AuthGuard],
+        component: FeedbackComponent
       },
+
+
+
+
+
 
 
 

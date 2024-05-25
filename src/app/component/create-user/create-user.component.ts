@@ -139,14 +139,13 @@ export class CreateUserComponent implements OnInit {
     this.form3 = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       phone: [
-        '',
-        [Validators.required, Validators.pattern(/^(?:\+?91)?[789]\d{9}$/)],
+        ''
       ],
       password: ['', [Validators.required]],
       countryCode : ['91']
     });
   }
-
+  // [Validators.required, Validators.pattern(/^(?:\+?91)?[789]\d{9}$/)]
   ngOnInit(): void {
     this.getcountrycode();
     this.dayOption = Array.from({ length: 31 }, (_, i) =>

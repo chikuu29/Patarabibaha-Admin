@@ -69,12 +69,17 @@ export class FreeuserComponent implements OnInit {
       LIMIT ${limit} OFFSET ${start}`;
     if (loadSpecificData) {
       Quary = `select * ,COUNT(*) OVER () AS total_count from user_info
-      where user_membership_plan_type = 'Free'
-      OR user_id = '${search_text}'
+      where
+       user_id = '${search_text}'
       OR user_phone_no = '${search_text}'
       OR user_whatsapp_no = '${search_text}'
-      OR user_id  = '${search_text}'`;
+      OR user_id  = '${search_text}'
+      OR user_gender = '${search_text}'
+      AND user_membership_plan_type = '${this.membersheepdata}'
+      `;
     }
+    console.log(Quary);
+
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {

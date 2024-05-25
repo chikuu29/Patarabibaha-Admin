@@ -1,0 +1,23 @@
+<!-- task-status.component.html -->
+<div class="query-container">
+  <button class="close-btn" (click)="close()">X</button>
+  <h2>Query:</h2>
+  <p style="color: red; font-weight: bold;">{{ dataoffeedback?.user_content }}</p>
+
+  <div class="status-section">
+    <label for="statusSelect">Status:</label>
+    <select id="statusSelect" (change)="onStatusChange($event)" [(ngModel)]="status">
+      <option value="1">Pending</option>
+      <option value="2">Work On It</option>
+      <option value="3">Resolved</option>
+    </select>
+  </div>
+
+  <div class="resolution-details" *ngIf="details">
+    <h3>Resolution Details</h3>
+    <textarea id="resolutionDetails" placeholder="Enter resolution details" [(ngModel)]="resolutionDetails"></textarea>
+  </div>
+  <div class="resolution-details">
+    <button (click)="saveResolution()">Save</button>
+  </div>
+</div>

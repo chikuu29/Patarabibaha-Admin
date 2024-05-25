@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   ViewChildren,
   QueryList,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -14,10 +15,9 @@ import { MatCheckbox } from '@angular/material/checkbox';
 @Component({
   selector: 'app-primiumuser',
   templateUrl: './primiumuser.component.html',
-  styleUrls: ['./primiumuser.component.scss']
+  styleUrls: ['./primiumuser.component.scss'],
 })
 export class PrimiumuserComponent implements OnInit {
-
   alldata: any;
   tableData: any = [];
   filterText: string;
@@ -29,61 +29,73 @@ export class PrimiumuserComponent implements OnInit {
   offset = 1;
   pegination_required: boolean = false;
   currentFunction: string = 'getAllData';
-  defultdata :any;
+  defultdata: any;
   totalDataCount: number = 0;
   totalFetchrecord: number = 0;
   constructor(
     private ApiParameter: ApiParameterScript,
-    private router: Router
-  ) { }
+    private router: Router,
+    private cdr: ChangeDetectorRef // ChangeDetectorRef added
+  ) {}
 
   ngOnInit(): void {
+    this.ApiParameter.fetchdata('membership_plan', {
+      projection: ['*'],
+      whereConditions: { membership_plan_default: 1 },
+    }).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        console.log(res['data'][0].membership_plan_type);
+        this.defultdata = res['data'][0].membership_plan_type;
+        this.getAllData(0, this.collectionSize);
+      }
+    });
+
     this.allId = [];
     this.page = 1;
     this.collectionSize = 10;
-    this.getAllData(0,this.collectionSize);
   }
-  getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"], "whereConditions": { membership_plan_default: 1 } }).subscribe((res: any) => {
-      console.log(res['data'][0].membership_plan_type);
-      this.defultdata = res['data'][0].membership_plan_type;
-      if (res.success && res['data'].length > 0) {
-        let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+  getAllData(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
+    this.pegination_required = true;
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE user_membership_plan_type <> '${this.defultdata}'
       ORDER BY a.user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
-        if (loadSpecificData) {
-          quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
-      FROM user_info AS a
-      LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-      WHERE a.user_id = '${search_text}'
+    if (loadSpecificData) {
+      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+               FROM user_info AS a
+                LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
+                 WHERE a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
+         OR a.user_gender = '${search_text}'
          AND a.user_membership_plan_type <> '${this.defultdata}';
        `;
-        }
-        this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-          console.log(res);
-          if (res.success && res['data'].length > 0) {
-            this.totalDataCount = res['data'][0].total_count;
-            this.totalFetchrecord = start + res['data'].length
-            this.collectionSize = Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-            console.log(this.collectionSize);
-            this.tableData = res['data'];
-          } else {
-            this.collectionSize = 1;
-            this.tableData = [];
-          }
-        });
-      }
+    }
+    console.log(quary);
 
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        this.tableData = res['data'];
+        console.log(this.tableData);
+        this.cdr.detectChanges(); // Manually trigger change detection
+      } else {
+        this.collectionSize = 1;
+        this.tableData = [];
+      }
     });
   }
-
-
 
   getSearchText(event: any) {
     this.filterText = event;
@@ -91,8 +103,6 @@ export class PrimiumuserComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
-    // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any, start = 0) {
     //this.pegination_required = false;
@@ -156,6 +166,4 @@ export class PrimiumuserComponent implements OnInit {
     let _this: any = this;
     _this[this.currentFunction](0, Number(event.target.value));
   }
-
-
 }

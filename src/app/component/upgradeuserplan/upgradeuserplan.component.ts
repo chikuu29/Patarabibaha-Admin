@@ -77,6 +77,7 @@ export class UpgradeuserplanComponent implements OnInit {
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
+         OR a.user_gender = '${search_text}'
          AND a.user_membership_plan_type <> '${this.defultdata}';
        `;
         }

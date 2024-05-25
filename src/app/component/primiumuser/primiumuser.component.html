@@ -46,7 +46,7 @@
               </thead>
               <tbody>
                 <ng-container
-                  *ngFor="let data of tableData | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
+                  *ngFor="let data of tableData | fillter:['user_fname','user_gender','user_id','user_email','auth_phone_no']:filterText ; index as i">
                   <tr>
                     <td>{{ i+1 }}</td>
                     <td [title]="data?.user_fname+' '+data?.user_lname"> {{data?.user_fname+'

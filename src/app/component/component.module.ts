@@ -54,6 +54,10 @@ import { FreeuserComponent } from './freeuser/freeuser.component';
 import { RoleManagementComponent } from './role-management/role-management.component';
 import { OnlineuserComponent } from './onlineuser/onlineuser.component';
 import { SuspendeduserComponent } from './suspendeduser/suspendeduser.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { TicketComponent } from './ticket/ticket.component';
+import { ViewsubfeedbackComponent } from './viewsubfeedback/viewsubfeedback.component';
+import { TicketviewComponent } from './ticket/ticketview/ticketview.component';
 
 
 @NgModule({
@@ -102,6 +106,10 @@ import { SuspendeduserComponent } from './suspendeduser/suspendeduser.component'
     RoleManagementComponent,
     OnlineuserComponent,
     SuspendeduserComponent,
+    FeedbackComponent,
+    TicketComponent,
+    ViewsubfeedbackComponent,
+    TicketviewComponent,
 
   ],
   imports: [

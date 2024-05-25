@@ -139,17 +139,15 @@ export class AlluserdataComponent implements OnInit {
   }
   getSearchText(event: any) {
     this.filterText = event;
+    let _this: any = this;
+    _this[this.currentFunction](0, this.apiFetchRecordLimit, true, event);
   }
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any, start = 0) {
-    //this.pegination_required = false;
-    //this.currentFunction = 'fillter';
-    //console.log('click fillter', event);
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -171,16 +169,12 @@ export class AlluserdataComponent implements OnInit {
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}  ORDER BY user_info.user_creation_date_time DESC`;
     }
-
-    console.log(query);
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
         this.tableData = res['data'];
         this.currentFunction = 'fillter';
       } else {
@@ -208,7 +202,6 @@ export class AlluserdataComponent implements OnInit {
         text: 'Do you want to Suspend',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -249,7 +242,6 @@ export class AlluserdataComponent implements OnInit {
         text: 'Do you want to Recover',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -290,7 +282,6 @@ export class AlluserdataComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -331,7 +322,6 @@ export class AlluserdataComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        //console.log(r);
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -458,19 +448,17 @@ export class AlluserdataComponent implements OnInit {
       LIMIT ${limit} OFFSET ${start}`;
 
     if (loadSpecificData) {
-      quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+      quary = `SELECT a.*, b.*
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
+         OR a.user_gender = '${search_text}'
          ORDER BY a.user_creation_date_time DESC
        `;
     }
-
-    // console.log("query",quary);
-
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -481,7 +469,6 @@ export class AlluserdataComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -507,17 +494,17 @@ export class AlluserdataComponent implements OnInit {
             FROM user_info AS a
             LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
             WHERE
-                a.online_status=1
-                AND a.user_id = '${search_text}'
+                a.user_id = '${search_text}'
                OR b.auth_ID = '${search_text}'
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}'
+               OR a.user_gender = '${search_text}'
+               AND a.online_status=1
                ORDER BY a.user_creation_date_time DESC;
              `;
     }
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      console.log(res);
       if (res.success) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
@@ -525,7 +512,6 @@ export class AlluserdataComponent implements OnInit {
           Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) *
           10;
         this.tableData = res['data'];
-        console.log(this.tableData);
       } else {
         this.tableData = [];
       }
@@ -537,8 +523,6 @@ export class AlluserdataComponent implements OnInit {
     loadSpecificData: boolean = false,
     search_text?: any
   ) {
-    alert(loadSpecificData);
-    alert(this.currentFunction);
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
           FROM user_info AS a
           LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
@@ -550,19 +534,19 @@ export class AlluserdataComponent implements OnInit {
             FROM user_info AS a
             LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
             WHERE
-                a.online_status=1
-                AND a.user_id = '${search_text}'
+                a.user_id = '${search_text}'
                OR b.auth_ID = '${search_text}'
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}'
+               OR a.user_gender = '${search_text}'
+               AND a.status=0
                ORDER BY a.user_creation_date_time DESC;
              `;
     }
-   console.log(quary);
 
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      //console.log(res);
+      //
       if (res.success && res['data'].length > 0) {
         // alert('ll')
         this.totalDataCount = res['data'][0].total_count;
@@ -572,11 +556,10 @@ export class AlluserdataComponent implements OnInit {
           10;
 
         this.tableData = res['data'];
-         console.log(this.tableData);
       } else {
         this.collectionSize = 1;
         this.tableData = [];
-        // console.log(this.tableData);
+        //
       }
     });
   }
@@ -598,16 +581,18 @@ export class AlluserdataComponent implements OnInit {
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE
-          a.online_status=1
+
           AND a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
+         OR a.user_gender = '${search_text}'
+         AND  a.deleted=0
          ORDER BY a.user_creation_date_time DESC;
        `;
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      //console.log(res);
+      //
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
@@ -615,18 +600,20 @@ export class AlluserdataComponent implements OnInit {
           Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) *
           10;
         this.tableData = res['data'];
-        //console.log(this.tableData);
+        //
       } else {
         this.collectionSize = 1;
         this.tableData = [];
       }
     });
   }
-  getAllPublishedData( start: number,
+  getAllPublishedData(
+    start: number,
     limit: number,
     loadSpecificData: boolean = false,
-    search_text?: any){
-      let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
+    search_text?: any
+  ) {
+    let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
           FROM user_info AS a
           LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
           a.status=1
@@ -637,17 +624,18 @@ export class AlluserdataComponent implements OnInit {
             FROM user_info AS a
             LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
             WHERE
-                a.online_status=1
-                AND a.user_id = '${search_text}'
+                 a.user_id = '${search_text}'
                OR b.auth_ID = '${search_text}'
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}'
+               OR a.user_gender = '${search_text}'
+               AND a.status=1
                ORDER BY a.user_creation_date_time DESC;
              `;
     }
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      //console.log(res);
+      //
       if (res.success && res['data'].length > 0) {
         // alert('ll')
         this.totalDataCount = res['data'][0].total_count;
@@ -657,11 +645,11 @@ export class AlluserdataComponent implements OnInit {
           10;
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        //
       } else {
         this.collectionSize = 1;
         this.tableData = [];
-        // console.log(this.tableData);
+        //
       }
     });
   }
@@ -692,7 +680,7 @@ export class AlluserdataComponent implements OnInit {
   //      `;
   //   }
   //   this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-  //     console.log(res);
+  //
   //     if (res.success && res['data'].length > 0) {
   //       this.totalDataCount = res['data'][0].total_count;
   //       this.totalFetchrecord = start + res['data'].length;
@@ -700,7 +688,7 @@ export class AlluserdataComponent implements OnInit {
   //         Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) *
   //         10;
   //       this.tableData = res['data'];
-  //       console.log(this.tableData);
+  //
   //     } else {
   //       this.collectionSize = 1;
   //       this.tableData = [];
@@ -718,21 +706,25 @@ export class AlluserdataComponent implements OnInit {
     FROM user_info AS a
     LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
     a.user_status="Approved"
+    ORDER BY a.user_creation_date_time DESC
     LIMIT ${limit} OFFSET ${start}`;
     if (loadSpecificData) {
       quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE
-          a.online_status=1
-          AND a.user_id = '${search_text}'
+          a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
-         OR a.user_lname = '${search_text}';
+         OR a.user_lname = '${search_text}'
+         OR a.user_gender = '${search_text}'
+         AND a.user_status="Approved"
+         ORDER BY a.user_creation_date_time DESC
+         ;
+
        `;
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      console.log(res);
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
@@ -740,7 +732,6 @@ export class AlluserdataComponent implements OnInit {
           Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) *
           10;
         this.tableData = res['data'];
-        console.log(this.tableData);
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -765,11 +756,12 @@ export class AlluserdataComponent implements OnInit {
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE
-          a.online_status=1
-          AND a.user_id = '${search_text}'
+          a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
+         OR a.user_gender = '${search_text}'
+         AND a.user_status="Pending"
          ORDER BY a.user_creation_date_time DESC;
        `;
     }
@@ -781,7 +773,6 @@ export class AlluserdataComponent implements OnInit {
           Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) *
           10;
         this.tableData = res['data'];
-        console.log(this.tableData);
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -794,8 +785,6 @@ export class AlluserdataComponent implements OnInit {
     loadSpecificData: boolean = false,
     search_text?: any
   ) {
-    //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.user_status="Approved" AND a.deleted=1 AND a.status=1';
-
     let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
     FROM user_info AS a
     LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID where
@@ -807,11 +796,14 @@ export class AlluserdataComponent implements OnInit {
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE
-          a.online_status=1
-          AND a.user_id = '${search_text}'
+         a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
+         OR a.user_gender = '${search_text}'
+         AND a.user_status = "Approved"
+         AND a.deleted = 1
+         AND a.status = 1
          ORDER BY a.user_creation_date_time DESC;
        `;
     }
@@ -823,7 +815,6 @@ export class AlluserdataComponent implements OnInit {
           Math.round(res['data'][0].total_count / this.apiFetchRecordLimit) *
           10;
         this.tableData = res['data'];
-        console.log(this.tableData);
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -833,13 +824,10 @@ export class AlluserdataComponent implements OnInit {
 
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    console.log(check);
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        console.log('p');
-
         this.allId.push(parseInt(this.tableData[key].Id));
         checkbox.checked = true;
       });
@@ -849,11 +837,8 @@ export class AlluserdataComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    console.log(this.allId);
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
-
     if (e.target.checked) {
       this.allId.push(parseInt(id));
     } else {
@@ -862,7 +847,6 @@ export class AlluserdataComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
   }
 
   viwePlan(data: any) {

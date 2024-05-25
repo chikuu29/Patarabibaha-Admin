@@ -81,6 +81,7 @@ export class ExpirememberComponent implements OnInit {
     this.filterText = event;
   }
   search(search_text: any) {
+    alert(this.currentFunction);
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
     // console.log(search_text);
@@ -167,16 +168,18 @@ export class ExpirememberComponent implements OnInit {
       Join user_info as b join user_plan_deatils as c on
           a.auth_ID = b.user_id
       AND b.user_id = c.user_id
-      where c.active_status = 1 AND c.plan_ending_date < now()
-      WHERE b.user_id = '${search_text}'
+
+      WHERE
+      b.user_id = '${search_text}'
       OR a.auth_ID = '${search_text}'
       OR b.user_fname = '${search_text}'
       OR b.user_lname = '${search_text}'
       OR a.auth_phone_no like '%${search_text}%'
+      OR b.user_gender = '${search_text}'
+      AND c.active_status = 1 AND c.plan_ending_date < now()
       `;
     }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
@@ -271,22 +274,49 @@ export class ExpirememberComponent implements OnInit {
     );
     modalRef.componentInstance.user_Data = data;
   }
-  freeUser() {
+  freeUser(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
     let Quary = 'select * from membership_plan where membership_plan_default=1';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
       if (res.success && res['data'].length > 0) {
         let free = res['data'][0].membership_plan_type;
-        //console.log(free);
 
-        let Quary =
-          'select * from auth_user as a Join user_info as b join user_plan_deatils as c on a.auth_ID = b.user_id AND b.user_id = c.user_id where c.active_status = 1 AND c.user_plan_type =' +
-          `'${free}'` +
-          ';';
+        let Quary = `select * , COUNT(*) OVER () AS total_count from auth_user as a Join
+          user_info as b join user_plan_deatils as c on
+          a.auth_ID = b.user_id AND b.user_id = c.user_id
+          where c.active_status = 1
+          AND c.user_plan_type ='${free}'
+          LIMIT ${limit} OFFSET ${start} ;
+          `;
+        if (loadSpecificData) {
+          Quary = `select * , COUNT(*) OVER () AS total_count from auth_user as a Join
+          user_info as b join user_plan_deatils as c on
+          a.auth_ID = b.user_id AND b.user_id = c.user_id
+          where
+          b.user_id = '${search_text}'
+         OR a.auth_ID = '${search_text}'
+         OR b.user_fname = '${search_text}'
+         OR b.user_lname = '${search_text}'
+         OR a.auth_phone_no like '%${search_text}%'
+         OR b.user_gender = '${search_text}'
+         AND  c.active_status = 1
+         AND c.user_plan_type ='${free}'
+      `;
+        }
         console.log(Quary);
         this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
           console.log(res);
           if (res.success && res['data'].length > 0) {
+            this.totalDataCount = res['data'][0].total_count;
+            this.totalFetchrecord = start + res['data'].length;
+            this.collectionSize =
+              Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) *
+              10;
             this.finaldata = res['data'];
             console.log(this.finaldata);
           }
@@ -294,7 +324,12 @@ export class ExpirememberComponent implements OnInit {
       }
     });
   }
-  premiumUser() {
+  premiumUser(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
     let Quary = 'select * from membership_plan where membership_plan_default=1';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       console.log(res);
@@ -302,12 +337,35 @@ export class ExpirememberComponent implements OnInit {
         let free = res['data'][0].membership_plan_type;
         //console.log(free);
 
-        let Quary = `select * from auth_user as a Join user_info as b join user_plan_deatils as c on a.auth_ID = b.user_id AND b.user_id = c.user_id where c.active_status = 1 AND c.user_plan_type <>'${free}'
-        ORDER BY b.user_creation_date_time DESC;`;
+        let Quary = `select * from auth_user as a Join user_info as b join user_plan_deatils as c
+        on a.auth_ID = b.user_id AND b.user_id = c.user_id
+        where c.active_status = 1 AND c.user_plan_type <>'${free}'
+        ORDER BY b.user_creation_date_time DESC
+        LIMIT ${limit} OFFSET ${start}
+        ;`;
+        if (loadSpecificData) {
+          Quary = `select * from auth_user as a Join user_info as b join user_plan_deatils as c
+        on a.auth_ID = b.user_id AND b.user_id = c.user_id
+        where
+        b.user_id = '${search_text}'
+        OR a.auth_ID = '${search_text}'
+        OR b.user_fname = '${search_text}'
+        OR b.user_lname = '${search_text}'
+        OR a.auth_phone_no like '%${search_text}%'
+        OR b.user_gender = '${search_text}'
+        AND c.active_status = 1 AND c.user_plan_type <>'${free}'
+        ORDER BY b.user_creation_date_time DESC
+        ;`;
+        }
         console.log(Quary);
         this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
           console.log(res);
           if (res.success && res['data'].length > 0) {
+            this.totalDataCount = res['data'][0].total_count;
+            this.totalFetchrecord = start + res['data'].length;
+            this.collectionSize =
+              Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) *
+              10;
             this.finaldata = res['data'];
             console.log(this.finaldata);
           }

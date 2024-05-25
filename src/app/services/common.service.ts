@@ -118,6 +118,10 @@ export class CommonService {
   freeMail(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'freeMail', apiData, { headers: this.headers });
   }
+  feedbackAdminEntry(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'feedbackAdminEntry', apiData, { headers: this.headers });
+  }
+
 
 
 

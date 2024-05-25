@@ -62,7 +62,7 @@
               </thead>
               <tbody>
                 <ng-container
-                  *ngFor="let data of finaldata | fillter:['user_fname','user_id','user_email','auth_phone_no']:filterText ; index as i">
+                  *ngFor="let data of finaldata | fillter:['user_fname','user_gender','user_id','user_email','auth_phone_no']:filterText ; index as i">
                   <tr>
                     <td class="text-center">
                       <input type="checkbox" class="check" [value]="data?.user_id"
