@@ -26,57 +26,59 @@ export class ApiParameterScript {
     }
 
 
-   /**
-     * {
-            "table":"country_table",
-            "projection":["*"],
-            "whereConditions":[
-                ["country_name", "INDIA"]
+    /**
+      * {
+             "table":"country_table",
+             "projection":["*"],
+             "whereConditions":[
+                 ["country_name", "INDIA"]
+ 
+           ],
+           "whereNotConditions":{}
+         }
+ 
+      * @param db
+      * @param apiData
+      * @param offset :Numbser
+      * @param limit :Numbser
+      * @param order_by
+      * @example "column_name"
+      * @author Suryanarayan Biswal
+      * @since 20-10-2022
+      */
+    public fetchdata(db: string, apiData: any, offset: Number = 0, limit: Number = 100, order_by?: string) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+                apiData['table'] = db;
+                apiData['offset'] = offset
+                apiData['limit'] = limit
+                apiData['order_by'] = order_by && order_by !== '' ? order_by : ''
+                apiData['whereNotConditions'] = apiData['whereNotConditions'] ? apiData['whereNotConditions'] : {}
+                this.blockUI.start("Please Wait")
+                const encryptedData = this.cryptography.encryptData(apiData)
+                this.apiservices.getdata(encryptedData).subscribe(
+                    (res: any) => {
 
-          ]
-        }
 
-     * @param db
-     * @param apiData
-     * @param offset :Numbser
-     * @param limit :Numbser
-     * @param order_by
-     * @example "column_name"
-     * @author Suryanarayan Biswal
-     * @since 20-10-2022
-     */
-        public fetchdata(db: string, apiData: any, offset: Number = 0, limit: Number = 100, order_by?: string) {
-          const simpleObservable = new Observable((observer) => {
-              try {
-                  apiData['table'] = db;
-                  apiData['offset'] = offset
-                  apiData['limit'] = limit
-                  apiData['order_by'] = order_by && order_by !== '' ? order_by : ''
-                  this.blockUI.start("Please Wait")
-                  const encryptedData=this.cryptography.encryptData(apiData)
-                  this.apiservices.getdata(encryptedData).subscribe(
-                      (res: any) => {
-
-
-                          this.blockUI.stop()
-                          res = JSON.parse(this.cryptography.decryptData(JSON.stringify(res)));
-                          observer.next(res);
-                          observer.complete();
-                      }, (err: any) => {
-                          this.blockUI.stop()
-                          observer.next(err);
-                          observer.complete();
-                      }
-                  )
-              } catch (error) {
-                  this.blockUI.stop()
-                  console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
-                  observer.next(error);
-                  observer.complete();
-              }
-          });
-          return simpleObservable;
-      }
+                        this.blockUI.stop()
+                        res = JSON.parse(this.cryptography.decryptData(JSON.stringify(res)));
+                        observer.next(res);
+                        observer.complete();
+                    }, (err: any) => {
+                        this.blockUI.stop()
+                        observer.next(err);
+                        observer.complete();
+                    }
+                )
+            } catch (error) {
+                this.blockUI.stop()
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
 
 
     /**
@@ -99,7 +101,7 @@ export class ApiParameterScript {
         const simpleObservable = new Observable((observer) => {
             try {
                 apiData['table'] = db;
-                const encryptedData=this.cryptography.encryptData(apiData)
+                const encryptedData = this.cryptography.encryptData(apiData)
                 this.apiservices.update(encryptedData).subscribe((res: any) => {
                     observer.next(res);
                     observer.complete();
@@ -150,8 +152,8 @@ export class ApiParameterScript {
                 //     apiData['loginInfo'] = loginInfo;
 
                 console.log(apiData);
-                
-                const encryptedData=this.cryptography.encryptData(apiData)
+
+                const encryptedData = this.cryptography.encryptData(apiData)
                 this.apiservices.save(encryptedData).subscribe((res: any) => {
                     observer.next(res);
                     observer.complete();
@@ -169,14 +171,14 @@ export class ApiParameterScript {
         return simpleObservable;
     }
 
-   /**
-   * @param db
-   * @example "DB_NAME"
-   * @param apiData
-   * @example  {"whereConditions": { user_ID: this.appservices.authStatus.profile_id }}
-   * @author Suryanarayan Biswal
-   * @since 20-10-2022
-   */
+    /**
+    * @param db
+    * @example "DB_NAME"
+    * @param apiData
+    * @example  {"whereConditions": { user_ID: this.appservices.authStatus.profile_id }}
+    * @author Suryanarayan Biswal
+    * @since 20-10-2022
+    */
     public deletedata(db: string, apiData: any) {
         const simpleObservable = new Observable((observer) => {
             try {
@@ -192,11 +194,11 @@ export class ApiParameterScript {
                 // let outhForDelete = appConfig['roleConfig'][getrole] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForDelete'] ? appConfig['roleConfig'][getrole]['authorizationDBAcessForDelete'].includes(db) : false : false;
                 // if (appConfig['roleConfig'][getrole] && (outh && outhForDelete)) {
                 //     apiData['loginInfo'] = loginInfo;
-                const encryptedData=this.cryptography.encryptData(apiData)
+                const encryptedData = this.cryptography.encryptData(apiData)
                 this.apiservices.delete(encryptedData).subscribe((res: any) => {
-                        observer.next(res);
-                        observer.complete();
-                    })
+                    observer.next(res);
+                    observer.complete();
+                })
                 // } else {
                 //     observer.next({ "success": false, "message": "Permission Denied for Delete Operation" });
                 //     observer.complete();
@@ -346,41 +348,41 @@ export class ApiParameterScript {
     * @author Suryanarayan Biswal
     * @since 11-06-2023
     */
-public makeActinForMultipulData(db:any ,apidata: any) {
+    public makeActinForMultipulData(db: any, apidata: any) {
 
-    const simpleObservable = new Observable((observer) => {
-        try {
-            apidata['table'] = db;
-            this.apiservices.makeActinForMultipulData(apidata).subscribe((res: any) => {
-                observer.next(res);
+        const simpleObservable = new Observable((observer) => {
+            try {
+                apidata['table'] = db;
+                this.apiservices.makeActinForMultipulData(apidata).subscribe((res: any) => {
+                    observer.next(res);
+                    observer.complete();
+                })
+
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
                 observer.complete();
-            })
+            }
+        });
+        return simpleObservable;
+    }
+    public makeActinForMultipuldeleteData(db: any, apidata: any) {
 
-        } catch (error) {
-            console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
-            observer.next(error);
-            observer.complete();
-        }
-    });
-    return simpleObservable;
-}
-public makeActinForMultipuldeleteData(db:any ,apidata: any) {
+        const simpleObservable = new Observable((observer) => {
+            try {
+                apidata['table'] = db;
+                this.apiservices.makeActinForMultipuldeleteData(apidata).subscribe((res: any) => {
+                    observer.next(res);
+                    observer.complete();
+                })
 
-  const simpleObservable = new Observable((observer) => {
-      try {
-          apidata['table'] = db;
-          this.apiservices.makeActinForMultipuldeleteData(apidata).subscribe((res: any) => {
-              observer.next(res);
-              observer.complete();
-          })
-
-      } catch (error) {
-          console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
-          observer.next(error);
-          observer.complete();
-      }
-  });
-  return simpleObservable;
-}
+            } catch (error) {
+                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                observer.next(error);
+                observer.complete();
+            }
+        });
+        return simpleObservable;
+    }
 
 }

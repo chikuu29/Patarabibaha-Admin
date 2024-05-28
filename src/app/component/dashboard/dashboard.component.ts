@@ -159,7 +159,8 @@ export class DashboardComponent implements OnInit {
         this.user_data_message = "All Paid Members"
         apiData = {
           "projection": ["*"],
-          "whereConditions": { "user_membership_plan_active": 1, 'user_membership_plan_type': 'Gold' }
+          "whereConditions": { "user_membership_plan_active": 1 },
+          "whereNotConditions":{'user_membership_plan_type': 'Free'}
         }
 
         break;
@@ -200,7 +201,6 @@ export class DashboardComponent implements OnInit {
     var offset = this.page * 10 - 10
     this.apiparameter.fetchdata('user_info', apiData, offset, 10).subscribe((res: any) => {
       console.log("res", res);
-
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['totalCount'];
         this.userInfoDATA = res['data'];
