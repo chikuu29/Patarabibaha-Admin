@@ -24,159 +24,159 @@
 </div> -->
 <app-graph-data-view></app-graph-data-view>
 <div class="main-pane p-0">
-    <div class="container-fluid content-wrapper p-0">
-        <div class="row">
-            <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card" (click)="laodMemberInfo('Inactive',false,true)">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-9">
-                                <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">{{allInactiveUser}}</h3>
-                                    <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="icon icon-box-success ">
-                                    <i class="fa-solid fa-users"></i>
-                                    <!-- <span class="mdi mdi-arrow-top-right icon-item"></span> -->
-                                </div>
-                            </div>
-                        </div>
-                        <h6 class="text-muted font-weight-normal">All Recent Register Members</h6>
-                        <ng-container *ngIf="allInactiveUserClick">
-                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
-                        </ng-container>
-                    </div>
+  <div class="container-fluid content-wrapper p-0">
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
+        <div class="card" (click)="laodMemberInfo('Inactive',false,true)">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <div class="d-flex align-items-center align-self-start">
+                  <h3 class="mb-0">{{allInactiveUser}}</h3>
+                  <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                 </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card" (click)="laodMemberInfo('Approved',false,true)">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-9">
-                                <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">{{allApprovedUser}}</h3>
-                                    <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p> -->
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="icon icon-box-success">
-                                    <i class="fa-solid fa-thumbs-up"
-                                        style="--fa-primary-color: #050505; --fa-secondary-color: #e41111;"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <h6 class="text-muted font-weight-normal">Approved Members</h6>
-                        <ng-container *ngIf="allApprovedUserClick">
-                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
-                        </ng-container>
-                    </div>
+              </div>
+              <div class="col-3">
+                <div class="icon icon-box-success ">
+                  <i class="fa-solid fa-users"></i>
+                  <!-- <span class="mdi mdi-arrow-top-right icon-item"></span> -->
                 </div>
+              </div>
             </div>
-            <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card" (click)="laodMemberInfo('Paid',false,true)">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-9">
-                                <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">{{allPaidUser}}</h3>
-                                    <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> -->
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="icon icon-box-warning">
-                                    <i class="fa-solid fa-crown" style="color: #f91f06;"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <h6 class="text-muted font-weight-normal">Paid Members</h6>
-                        <ng-container *ngIf="allPaidUsrClick">
-                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
-                        </ng-container>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
-                <div class="card" (click)="laodMemberInfo('All',false,true)">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-9">
-                                <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">{{allUserCount}}</h3>
-                                    <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="icon icon-box-success ">
-                                    <i class="fa-solid fa-users" style="color: #005af5;"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <h6 class="text-muted font-weight-normal">Total Members</h6>
-                        <ng-container *ngIf="allUserClick">
-                            <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
-                        </ng-container>
-                    </div>
-                </div>
-            </div>
+            <h6 class="text-muted font-weight-normal">All Recent Register Members</h6>
+            <ng-container *ngIf="allInactiveUserClick">
+              <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
+            </ng-container>
+          </div>
         </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
+        <div class="card" (click)="laodMemberInfo('Approved',false,true)">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <div class="d-flex align-items-center align-self-start">
+                  <h3 class="mb-0">{{allApprovedUser}}</h3>
+                  <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p> -->
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="icon icon-box-success">
+                  <i class="fa-solid fa-thumbs-up"
+                    style="--fa-primary-color: #050505; --fa-secondary-color: #e41111;"></i>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-muted font-weight-normal">Approved Members</h6>
+            <ng-container *ngIf="allApprovedUserClick">
+              <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
+        <div class="card" (click)="laodMemberInfo('Paid',false,true)">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <div class="d-flex align-items-center align-self-start">
+                  <h3 class="mb-0">{{allPaidUser}}</h3>
+                  <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> -->
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="icon icon-box-warning">
+                  <i class="fa-solid fa-crown" style="color: #f91f06;"></i>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-muted font-weight-normal">Paid Members</h6>
+            <ng-container *ngIf="allPaidUsrClick">
+              <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 grid-margin stretch-card curser-pointer">
+        <div class="card" (click)="laodMemberInfo('All',false,true)">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <div class="d-flex align-items-center align-self-start">
+                  <h3 class="mb-0">{{allUserCount}}</h3>
+                  <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="icon icon-box-success ">
+                  <i class="fa-solid fa-users" style="color: #005af5;"></i>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-muted font-weight-normal">Total Members</h6>
+            <ng-container *ngIf="allUserClick">
+              <mat-progress-bar mode="indeterminate" [color]="'accent'"></mat-progress-bar>
+            </ng-container>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="d-flex justify-between align-items-center">
-        <div>
-            <!-- Search Start -->
-            <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" (clickSearch)="search($event)" ></app-search>
+  </div>
+  <div class="d-flex justify-between align-items-center">
+    <div>
+      <!-- Search Start -->
+      <app-search (getSerachText)="getSearchText($event)" [search_btn]="true"
+        (clickSearch)="search($event)"></app-search>
 
-            <!-- Search End -->
-        </div>
-        <div *ngIf="collectionSize>10">
-            <!-- <h3 class="text-light text-muted mb-5">{{user_data_message}} </h3> -->
-            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="3" [rotate]="true" [ellipses]="false"
-            [boundaryLinks]="false" class="" size="lg" (pageChange)="onpageChnage()"></ngb-pagination>
-        </div>
-       
+      <!-- Search End -->
+    </div>
+    <div *ngIf="collectionSize>10">
+      <!-- <h3 class="text-light text-muted mb-5">{{user_data_message}} </h3> -->
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="3" [rotate]="true" [ellipses]="false"
+        [boundaryLinks]="false" class="" size="lg" (pageChange)="onpageChnage()"></ngb-pagination>
     </div>
 
+  </div>
 
-    <div class="container-fluid data-view-container mt-3">
-        <div class="row">
 
-            <div class="w-100 grid grid-cols-2 gap-3 sm:gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
+  <div class="container-fluid data-view-container mt-3">
+    <div class="row">
 
-                <ng-container *ngFor="let user of userInfoDATA |fillter :['user_id','user_fname','user_lname']:filterText">
-                    <div class="relative product-container">
-                        <div class=" cursor-pointer overflow-hidden transition-all duration-300 ">
-                            <div
-                                class="overflow-clip rounded-md lg:rounded-xl flex flex-col justify-between relative flex-1">
-                                <div class="relative flex items-center justify-center overflow-hidden rounded-t-lg flex-1 flex-col"
-                                    [routerLink]="'/user/'+user.user_id">
-                                    <div class=" relative w-full aspect-square product-img-container ">
-                                        <div class="w-full h-full bg-cover product-img "
-                                            style="z-index: 0; background-image: url('{{image +user.user_profile_image}}');background-repeat: no-repeat;background-size: cover">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="py-1 lg:py-2 bg-white rounded-b-lg flex flex-col justify-between ">
-                                    <div class="px-1 lg:px-2 mb-2">
-                                        <button mat-button color="accent" class="w-100 mb-2 text-wrap"
-                                            style="width: 6rem;">{{user?.user_fname |uppercase}}&nbsp;{{user?.user_lname
-                                            |uppercase}} </button>
-                                        <!-- <h1 class="text-12px text-14px text-16px font-semibold line-clamp-2 h-36px sm:h-[40px] text-center fw-bold mt-3 text-wrap"
+      <div class="w-100 grid grid-cols-2 gap-3 sm:gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
+
+        <ng-container *ngFor="let user of userInfoDATA |fillter :['user_id','user_fname','user_lname']:filterText">
+          <div class="relative product-container">
+            <div class=" cursor-pointer overflow-hidden transition-all duration-300 ">
+              <div class="overflow-clip rounded-md lg:rounded-xl flex flex-col justify-between relative flex-1">
+                <div class="relative flex items-center justify-center overflow-hidden rounded-t-lg flex-1 flex-col"
+                  [routerLink]="'/user/'+user.user_id">
+                  <div class=" relative w-full aspect-square product-img-container ">
+                    <div class="w-full h-full bg-cover product-img "
+                      style="z-index: 0; background-image: url('{{image +user.user_profile_image}}');background-repeat: no-repeat;background-size: cover">
+                    </div>
+                  </div>
+                </div>
+                <div class="py-1 lg:py-2 bg-white rounded-b-lg flex flex-col justify-between ">
+                  <div class="px-1 lg:px-2 mb-2">
+                    <button mat-button color="accent" class="w-100 mb-2 text-wrap"
+                      style="width: 6rem;">{{user?.user_fname |uppercase}}&nbsp;{{user?.user_lname
+                      |uppercase}} </button>
+                    <!-- <h1 class="text-12px text-14px text-16px font-semibold line-clamp-2 h-36px sm:h-[40px] text-center fw-bold mt-3 text-wrap"
                                         style="color: #8a6d3b; size: 10px;">{{user?.user_fname |uppercase}}&nbsp;{{user?.user_lname
                                         |uppercase}}</h1> -->
-                                        <button mat-raised-button color="accent" class="w-100">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-container>
+                    <button mat-raised-button color="accent" class="w-100">Details</button>
+                  </div>
+                </div>
+              </div>
             </div>
-
-
-        </div>
-        <ng-container *ngIf="userInfoDATA.length==0">
-            <p class="text-center text-danger fs-5">No Data Found</p>
+          </div>
         </ng-container>
+      </div>
+
+
     </div>
+    <ng-container *ngIf="userInfoDATA.length==0">
+      <p class="text-center text-danger fs-5">No Data Found</p>
+    </ng-container>
+  </div>
 </div>

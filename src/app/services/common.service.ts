@@ -121,6 +121,9 @@ export class CommonService {
   feedbackAdminEntry(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'feedbackAdminEntry', apiData, { headers: this.headers });
   }
+  upload(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'upload', apiData, { headers: this.headers });
+  }
 
 
 

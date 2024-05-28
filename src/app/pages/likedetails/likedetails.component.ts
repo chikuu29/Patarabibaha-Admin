@@ -47,6 +47,10 @@ export class LikedetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.likedetalis = new FormGroup({
+      id: new FormControl('', []),
+      Like_name: new FormControl(''),
+    });
     this.getlikeData(0, this.apiFetchRecordLimit);
   }
   addlike() {
@@ -55,11 +59,11 @@ export class LikedetailsComponent implements OnInit {
       if (this.likedetalis.value.id == '') {
         let updateData = {
           data: {
-            name: this.likedetalis.value.Like_name,
+            Like_name: this.likedetalis.value.Like_name,
             created_At: moment().toISOString(),
           },
         };
-        this.ApiParameter.savedata('gotra', updateData).subscribe(
+        this.ApiParameter.savedata('like_detalis', updateData).subscribe(
           (res: any) => {
             // console.log(res);
             if (res.success) {
@@ -81,12 +85,12 @@ export class LikedetailsComponent implements OnInit {
       }else{
         let updateData = {
           data: {
-            name: this.likedetalis.value.Like_name,
+            Like_name: this.likedetalis.value.Like_name,
             created_At: moment().toISOString(),
           },
           whereConditions: { id: this.likedetalis.value.id },
         };
-        this.ApiParameter.updatedata('gotra', updateData).subscribe(
+        this.ApiParameter.updatedata('like_detalis', updateData).subscribe(
           (res: any) => {
             // console.log(res);
             if (res.success) {
@@ -398,7 +402,7 @@ export class LikedetailsComponent implements OnInit {
         // this.countryalldata = res['data'];
         this.likedetalis.patchValue(res['data'][0]);
         this.button = 'UPDATE';
-        this.editedcast = res['data'][0].name;
+        this.editedcast = res['data'][0].Like_name;
         //console.log(this.countrygroup);
       }
     });

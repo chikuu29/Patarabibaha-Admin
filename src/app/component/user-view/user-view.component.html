@@ -42,20 +42,22 @@
 
       </div>
     </ng-container>
-    <ng-container *ngIf="userAllData && userAllData?.user_profile_status == 'Not Completed'">
+    <ng-container *ngIf="userAllData && userAllData?.user_profile_status == 'Not Completed' ">
       <div class="alert alert-warning">
         <h4 class="fw-bold text-danger">
           <i class="fa-solid fa-star me-2"></i>NOT COMPLETED
         </h4>
         <p>This User Not Fill All <span *ngIf="basicDetailsForm.value.user_gender == 'male'">His</span><span
             *ngIf="basicDetailsForm.value.user_gender == 'female'">Her</span> Details</p>
-        <p>
-          <span class="text-danger">You Just Review And Approved This User
-          </span>
-          Click Below Button
-        </p>
-        <button mat-raised-button color="accent" class="me-2 p-2 w-100" (click)="activeAccount()">Approved</button>
+        <ng-container *ngIf="userAllData?.user_info?.user_status == 'Pending'">
 
+          <p>
+            <span class="text-danger">You Just Review And Approved This User
+            </span>
+            Click Below Button
+          </p>
+          <button mat-raised-button color="accent" class="me-2 p-2 w-100" (click)="activeAccount()">Approved</button>
+        </ng-container>
       </div>
     </ng-container>
 

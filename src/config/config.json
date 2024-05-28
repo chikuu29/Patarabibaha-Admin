@@ -847,9 +847,17 @@
       "order": 29,
       "requiredRouterLink": true,
       "routerLink": "/plan-Deatils",
-      "text": " User Plan Details View",
+      "text": "User Plan Details View",
+      "displayInSideNav":false
+    },
+    {
+      "order": 29,
+      "requiredRouterLink": false,
+      "routerLink": "/approve",
+      "text": "Approval",
       "displayInSideNav":false
     }
+
 
 
 
