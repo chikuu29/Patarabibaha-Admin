@@ -15,7 +15,7 @@
         </ng-container>
     </ng-container>
     <ng-container>
-        <div class="search-input " style="  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+        <div class="search-input " [ngClass]="cls" style="  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
             <input type="text" (keyup)="changeSearchText(filterText)" [(ngModel)]="filterText"
                 placeholder="Filter by any column" />
             <div class="symbol">

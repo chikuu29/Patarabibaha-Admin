@@ -4,20 +4,20 @@
   <div class="row">
     <div class="col-5">
       <div class="holder">
-        <div class="caption row p-3 justify-content-center align-items-center">
-          <div class="col">
+        <div class="caption  p-3 justify-content-center align-items-center">
+          <div class="text-center">
             <span class="fw-bold fs-3">Show User </span>
             <p class="text-danger">Total {{userData.length}} Record Found</p>
+            <app-search cls="w-100" (getSerachText)="getSearchText($event)"></app-search>
           </div>
-          <div class="col d-flex justify-content-end align-items-center">
-            <p-button label="" icon="pi pi-filter-fill" [loading]="false"></p-button>
-          </div>
+      
+         
 
         </div>
         <mat-divider></mat-divider>
         <div class="p-3 main-content-holder">
-          <ng-container *ngFor="let user of userData">
-            <div class="card p-3 m-3">
+          <ng-container *ngFor="let user of userData |fillter:['UserId','role','email_id']:filterText ;">
+            <div class="card p-3 mb-2">
               <p class="fw-bold"><i class="fa-solid fa-user text-success"></i> {{user.name}}</p>
               <div class="d-flex justify-content-between">
                 <p><span class="fw-bold">Role :</span> {{user.role}}</p>
@@ -28,16 +28,6 @@
                 </p>
               </div>
 
-              <!-- <div class="action">
-                                <button pButton pRipple type="button" label="Expand"
-                                    class="p-button-success p-button-text" (click)="expand(user)"><i
-                                        class="fa-solid fa-expand  expand fw-bold me-1"></i></button>
-                                <button pButton pRipple type="button" label="Delete"
-                                    class="p-button-danger p-button-text" (click)="delete(user.UserId)"><i
-                                        class="fa-solid fa-trash  fw-bold me-1"></i></button>
-
-
-                            </div> -->
 
               <div class="action">
                 <button pButton pRipple type="button" label="Expand" class="p-button-success p-button-text"

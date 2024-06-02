@@ -591,11 +591,7 @@ export class SideNavComponent implements OnInit {
 
 
   loadSideNav() {
-    const apiData = {
-      "projection": ["permission"],
-      "whereConditions":
-        { 'UserId': this.app.authStatus.id }
-    }
+
 
 
 
@@ -617,52 +613,60 @@ export class SideNavComponent implements OnInit {
       // });
 
       // console.log(routerLinks);
-      console.log(this._auth.getAppUrlPermission);
-
-    
+      // console.log(this._auth.getAppUrlPermission);
 
 
-      this.navConfig = this._auth.getAppUrlPermission['permissionFoeNavMenu']
+
+      this.navConfig = _.filter(this._auth.getAppUrlPermission['permissionFoeNavMenu'], { permissionGranted: true, displayInSideNav: true })
+
+      // this.navConfig = this._auth.getAppUrlPermission['permissionFoeNavMenu']
 
     } else {
-      this.ApiParameter.fetchdata("admin", apiData).subscribe((res: any) => {
-        if (res.success && res['data'].length > 0) {
-          // console.log(res['data'][0]['permission']);
-          const retrivePermission = JSON.parse(res['data'][0]['permission'])
-          // const routerLinks = _.flatMap(retrivePermission, (i) => {
-          //   if (i.routerLink && i.routerLink == '') {
+      if (this.app.authStatus.role != "SUPER_ADMIN") {
+        const apiData = {
+          "projection": ["permission"],
+          "whereConditions":
+            { 'UserId': this.app.authStatus.id }
+        }
+        this.ApiParameter.fetchdata("admin", apiData).subscribe((res: any) => {
+          if (res.success && res['data'].length > 0) {
+            const retrivePermission = JSON.parse(res['data'][0]['permission'])
+            const routerLinks = _.flatMap(retrivePermission, (i: any) => {
+              if (i.submenu && _.isArray(i.submenu)) {
+                return [..._.map(i.submenu, 'routerLink')];
+              } else {
+                return [i.routerLink];
+              }
 
-
-          //     if (i.submenu && _.isArray(i.submenu)) {
-          //       return [i.routerLink, ..._.map(i.submenu, 'routerLink')];
-          //     } else {
-          //       return [i.routerLink];
-          //     }
-          //   }
-          //   return [];
-          // });
-          const routerLinks = _.flatMap(retrivePermission, (i:any) => {
-            if (i.submenu && _.isArray(i.submenu)) {
-              return [..._.map(i.submenu, 'routerLink')];
+            });
+            if (isArray(retrivePermission)) {
+              this.navConfig = _.filter(retrivePermission, { permissionGranted: true, displayInSideNav: true })
+              this._auth.setAppUrlPermission({ permissionFoeNavMenu: this.navConfig, routerLinksPermission: routerLinks })
             } else {
-              return [i.routerLink];
+              this._auth.setAppUrlPermission({ permissionFoeNavMenu: [], routerLinksPermission: routerLinks })
             }
-         
-        });
-          if (isArray(retrivePermission)) {
-            this.navConfig = _.filter(retrivePermission, { permissionGranted: true, displayInSideNav: true })
-            this._auth.setAppUrlPermission({ permissionFoeNavMenu: this.navConfig, routerLinksPermission: routerLinks })
+
+
           } else {
-            this._auth.setAppUrlPermission({ permissionFoeNavMenu: [], routerLinksPermission: routerLinks })
+            this.navConfig = []
           }
 
 
-        } else {
-          this.navConfig = []
-        }
+        })
+      } else {
+       
+   
+        const routerLinks = _.flatMap(this.app.getappconfig['navConfig'], (i: any) => {
+          if (i.submenu && _.isArray(i.submenu)) {
+            return [..._.map(i.submenu, 'routerLink')];
+          } else {
+            return [i.routerLink];
+          }
+        });
+        this._auth.setAppUrlPermission({ permissionFoeNavMenu: this.app.getappconfig['navConfig'], routerLinksPermission: routerLinks })
 
+      }
 
-      })
     }
 
 
