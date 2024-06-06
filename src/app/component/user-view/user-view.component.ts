@@ -1612,7 +1612,7 @@ QUALIFICATION:- ${this.finaldata.user_highest_education}
 <br>
 JOB LOCATION:- ${this.finaldata.user_occupation_location}
 <br>
-ANNUAL INCOME:- ${this.finaldata.user_anual_income}
+ANNUAL INCOME:- ${this.finaldata.user_anual_income * 100000}
 <br>
 HOME TOWN:- ${this.finaldata.user_Permanent_city}
 <br><br>
