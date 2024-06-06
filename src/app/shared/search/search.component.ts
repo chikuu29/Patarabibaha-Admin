@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class SearchComponent implements OnInit {
   @Input() btnWithText: false
+  @Input() cls: any
   @Input() filterText: any
   @Input() search_btn: boolean = false
   @Input() fillter_btn: boolean = false

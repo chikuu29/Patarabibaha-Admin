@@ -50,7 +50,7 @@ export class RoleManagementComponent implements OnInit {
   public allowToUpdate: boolean = true;
   public allowToCancle: boolean = true;
   public selectRole: string[] = ['SUPER_ADMIN', 'ADMIN', 'SUBADMIN'];
-
+  filterText:string=''
   constructor(
     private apiParameter: ApiParameterScript,
     private appservices: AppService,
@@ -68,7 +68,10 @@ export class RoleManagementComponent implements OnInit {
     //   // console.log(this.selectRole);
     // }
   }
-
+  getSearchText(event: any) {
+    this.filterText = event;
+   
+  }
   loadPermission(user_id: any) {
     const options: NgbModalOptions = {
       size: 'xl',
