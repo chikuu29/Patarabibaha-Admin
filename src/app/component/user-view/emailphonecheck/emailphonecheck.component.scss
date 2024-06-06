@@ -1,0 +1,56 @@
+.query-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.close-btn {
+  align-self: flex-end;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.input-container {
+  margin-top: 10px;
+}
+
+mat-card {
+  width: 100%;
+  padding: 20px;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Ensure mat-form-field has visible borders */
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.mat-form-field-appearance-fill .mat-form-field-underline {
+  height: 2px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-underline::before {
+  background-color: rgba(0, 0, 0, 0.42);
+  height: 1px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-underline::after {
+  background-color: #3f51b5; /* Primary color, adjust as needed */
+}
+.pm{
+  display: flex;
+  justify-content: space-around;
+}

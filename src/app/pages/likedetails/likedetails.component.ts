@@ -265,7 +265,7 @@ export class LikedetailsComponent implements OnInit {
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipuldeleteData(
-            'gotra',
+            'like_detalis',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {

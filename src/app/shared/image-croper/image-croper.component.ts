@@ -69,7 +69,7 @@ export class ImageCroperComponent implements OnInit {
       data: this.imageinbase64,
       user_Id: this.user_id,
     };
-    this.CommonService.upload(param).subscribe((response: any) => {
+    this.CommonService.uplodeimageadmin(param).subscribe((response: any) => {
       if (response.success) {
         Swal.fire(response.message, '', 'success');
         this.activeModal.close();

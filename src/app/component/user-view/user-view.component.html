@@ -130,16 +130,29 @@
                         <mat-label>Profile Email</mat-label>
                         <input formControlName="profile_email" matInput placeholder="Profile Email" />
                       </mat-form-field>
+                      <div class="text-left text-danger text-[red] text-[12px] md:h-[0.8rem] h-[1rem]">
+                        Before email update, check availability.
+                      </div>
                     </div>
                     <div class="form-group col-md-6">
                       <mat-form-field appearance="outline" class="flex-fill w-100">
                         <mat-label>Profile Phone</mat-label>
                         <input formControlName="profile_phone" matInput placeholder="Profile Phone" />
                       </mat-form-field>
+                      <div class="text-left text-danger text-[red] text-[12px] md:h-[0.8rem] h-[1rem]">
+                        Before phone update, check availability.
+                      </div>
                     </div>
                   </div>
                 </fieldset>
               </form>
+              <div class="row mt-2">
+                <div class="col-sm-12">
+                  <button mat-raised-button color="accent" (click)="check()" class="me-2">
+                    Update Phone No Or Email Id
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -282,15 +295,18 @@
                       <mat-datepicker #picker></mat-datepicker>
                     </div>
                   </div>
-                  <div class="form-group col-md-6">
+                  <!-- <div class="form-group col-md-6">
                     <mat-form-field isReadonly appearance="outline" class="flex-fill w-100">
                       <mat-label>Profile Email</mat-label>
                       <input formControlName="user_email" matInput placeholder="Profile Email" />
                     </mat-form-field>
-                  </div>
+                    <div style="color: red;font-size: 12px;">
+                      Before updating the email id, check the availability of the new email id.
+                    </div>
+                  </div> -->
                 </div>
                 <div class="row">
-                  <div class="form-group col-md-6">
+                  <!-- <div class="form-group col-md-6">
                     <label class="mb-3 text-muted fw-bold">Country Code For Whatsapp</label>
                     <p-dropdown [options]="countrycode" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Marital Status" [style]="{ width: '100%' }"
@@ -311,18 +327,18 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
-                  </div>
+                  </div> -->
                   <div class="form-group col-md-6">
                     <label class="mb-3 text-muted fw-bold">Country Code For Mobile</label>
                     <p-dropdown [options]="countrycode" optionLabel="name" [filter]="true" filterBy="name"
                       [showClear]="true" placeholder="Marital Status" [style]="{ width: '100%' }"
-                      formControlName="country_code" optionValue="value">
+                      formControlName="whats_app_c_code" optionValue="value">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
                           <div>
                             {{
                             this.basicDetailsForm.value
-                            .country_code | formatannual:countrycode
+                            .whats_app_c_code | formatannual:countrycode
                             }}
                           </div>
                         </div>
@@ -339,15 +355,19 @@
                   <div class="form-group col-md-6">
                     <mat-form-field isReadonly appearance="outline" class="flex-fill w-100">
                       <mat-label>Profile Whats up no</mat-label>
-                      <input formControlName="user_whatsapp_no" matInput placeholder="Profile Email" />
+                      <input formControlName="user_whatsapp_no" matInput placeholder="Whats app number" />
                     </mat-form-field>
+
                   </div>
-                  <div class="form-group col-md-6">
+                  <!-- <div class="form-group col-md-6">
                     <mat-form-field appearance="outline" class="flex-fill w-100">
                       <mat-label>Profile Phone</mat-label>
                       <input formControlName="user_phone_no" matInput placeholder="Profile Phone" />
                     </mat-form-field>
-                  </div>
+                    <div style="color: red; font-size: 12px;">
+                      Before updating the phone number, check the availability of the new phone number.
+                    </div>
+                  </div> -->
                 </div>
               </form>
               <div class="row mt-2">

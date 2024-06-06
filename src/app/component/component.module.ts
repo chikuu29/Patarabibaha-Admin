@@ -58,6 +58,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { TicketComponent } from './ticket/ticket.component';
 import { ViewsubfeedbackComponent } from './viewsubfeedback/viewsubfeedback.component';
 import { TicketviewComponent } from './ticket/ticketview/ticketview.component';
+import { EmailphonecheckComponent } from './user-view/emailphonecheck/emailphonecheck.component';
 
 
 @NgModule({
@@ -110,6 +111,7 @@ import { TicketviewComponent } from './ticket/ticketview/ticketview.component';
     TicketComponent,
     ViewsubfeedbackComponent,
     TicketviewComponent,
+    EmailphonecheckComponent,
 
   ],
   imports: [
