@@ -12,6 +12,7 @@ export class GraphDataViewComponent implements OnInit {
   basicData: any;
   basicDataForCustomer: any;
   basicOptions: any;
+  basicOptions1: any;
   data: any;
   customerCoute: number = 0;
   userCount: number = 0;
@@ -23,9 +24,14 @@ export class GraphDataViewComponent implements OnInit {
   acceptedCaseCounte: number = 0;
   maledata: number = 0;
   femaledata: number = 0;
+  femaleper: any = 0;
+  maleper: any = 0;
+  paiChartCasedata1: any;
   constructor(private apiparameter: ApiParameterScript) {}
 
   ngOnInit(): void {
+    this.findFemalecount();
+    this.findMalecount();
     let query =
       "SELECT DATE_FORMAT(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s'), '%b') AS month, YEAR(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s')) AS year, COUNT(*) AS user_count FROM user_info  GROUP BY YEAR(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s')), MONTH(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s')) ORDER BY YEAR(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s')), MONTH(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s'));";
 
@@ -104,8 +110,9 @@ export class GraphDataViewComponent implements OnInit {
         },
       ],
     };
-    this.findFemalecount();
-    this.findMalecount();
+
+    this.createPaiChartForAgricultureCase1();
+
   }
 
   createCoustomerChart(data: any, seletedYear: any) {
@@ -197,24 +204,56 @@ export class GraphDataViewComponent implements OnInit {
       },
     };
   }
+
   findMalecount() {
-    let agricultureCaseQuery = `Select count(1) as gender from user_info where user_gender = 'Male'`;
+    let agricultureCaseQuery = `SELECT count(1) as allc ,(Select count(1) as gender from user_info where user_gender = 'Male') as Male FROM user_info;`;
     this.apiparameter
       .fetchDataFormQuery(agricultureCaseQuery)
       .subscribe((res: any) => {
+        console.log(res);
+
         if (res.success) {
-          this.maledata = res['data'][0].gender
+          this.maledata = res['data'][0].Male;
+          let total = res['data'][0].allc;
+          this.maleper = ((this.maledata / total) * 100).toFixed(0);
+        }
+      });
+
+  }
+  findFemalecount() {
+    let agricultureCaseQuery = `SELECT count(1) as allc ,(Select count(1) as gender from user_info where user_gender = 'Female') as Female FROM user_info;`;
+    this.apiparameter
+      .fetchDataFormQuery(agricultureCaseQuery)
+      .subscribe((res: any) => {
+        console.log(res);
+
+        if (res.success) {
+          this.femaledata = res['data'][0].Female;
+          let total = res['data'][0].allc;
+          this.femaleper = ((this.femaledata / total) * 100).toFixed(0);
         }
       });
   }
-  findFemalecount() {
-    let agricultureCaseQuery = `Select count(1) as gender from user_info where user_gender = 'Female'`;
-    this.apiparameter
-      .fetchDataFormQuery(agricultureCaseQuery)
-      .subscribe((res: any) => {
-        if (res.success) {
-          this.femaledata = res['data'][0].gender
-        }
-      });
+
+  createPaiChartForAgricultureCase1() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    this.paiChartCasedata1 = {
+      datasets: [
+        {
+          data: [this.maledata, this.femaledata],
+          backgroundColor: [
+            documentStyle.getPropertyValue('--yellow-400'),
+            documentStyle.getPropertyValue('--yellow-500'),
+            documentStyle.getPropertyValue('--green-500'),
+          ],
+          hoverBackgroundColor: [
+            documentStyle.getPropertyValue('--yellow-400'),
+            documentStyle.getPropertyValue('--yellow-400'),
+            documentStyle.getPropertyValue('--green-400'),
+          ],
+        },
+      ],
+    };
   }
 }

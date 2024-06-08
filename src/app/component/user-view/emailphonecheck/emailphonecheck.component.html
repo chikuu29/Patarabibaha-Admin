@@ -1,0 +1,54 @@
+<div class="query-container mat-dialog-content">
+  <button mat-icon-button class="close-btn" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <form [formGroup]="form">
+    <mat-card>
+      <div class="pm">
+        <div>
+          <mat-checkbox formControlName="phone">Phone</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="email">Email</mat-checkbox>
+        </div>
+      </div>
+      <mat-card-content *ngIf="form.get('phone')?.value">
+        <div class="input-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Country Code</mat-label>
+            <mat-select formControlName="countryCode">
+              <mat-option *ngFor="let dataofcountry of countrycode" [value]="dataofcountry?.phonecode">{{ dataofcountry?.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="input-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter phone number</mat-label>
+            <input matInput type="tel" formControlName="phoneNumber" placeholder="Enter phone number">
+          </mat-form-field>
+        </div>
+        <div>
+          <span>Current Phone Number <strong style="color: brown;">+{{  data?.c_code }} {{ data?.phone }}</strong></span>
+        </div>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="phoneNo()" type="submit">Update</button>
+        </mat-card-actions>
+      </mat-card-content>
+      <mat-card-content *ngIf="this.form.get('email')?.value">
+        <div class="input-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter email</mat-label>
+            <input matInput type="email" formControlName="emailText" placeholder="Enter email">
+          </mat-form-field>
+        </div>
+        <div>
+          <span>Current Email <strong style="color: brown;">{{ data?.email }}</strong></span>
+        </div>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="emailId()" type="submit">Update</button>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

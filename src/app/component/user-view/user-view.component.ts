@@ -21,6 +21,8 @@ import { AgePipe } from 'src/app/customPipe/age.pipe';
 import { CommonService } from 'src/app/services/common.service';
 import { environment } from 'src/environments/environment';
 import { saveAs } from 'file-saver';
+import { MatDialog } from '@angular/material/dialog';
+import { EmailphonecheckComponent } from './emailphonecheck/emailphonecheck.component';
 
 ApiService;
 @Component({
@@ -77,10 +79,6 @@ export class UserViewComponent implements OnInit {
 
   anualIncomeOptions: any = [];
 
-
-
-
-
   familystatusOptions: any = [
     { name: 'Rich [ ଧନୀ ]', value: 'Rich' },
     { name: 'Middle Class [ମଧ୍ୟବିତ୍ତ]', value: 'Middle Class' },
@@ -99,8 +97,6 @@ export class UserViewComponent implements OnInit {
     },
     { name: 'Lower Class [ନିମ୍ନ ଶ୍ରେଣୀ]', value: 'Lower Class' },
   ];
-
-
 
   noofbrothersisterOptins: any = [
     { name: 0 },
@@ -481,7 +477,7 @@ export class UserViewComponent implements OnInit {
     user_occupation_details: new FormControl('', [Validators.required]),
     user_occupation_location: new FormControl('', [Validators.required]),
     completed: new FormControl(1, []),
-    user_deg : new FormControl('', [Validators.required])
+    user_deg: new FormControl('', [Validators.required]),
   });
 
   userFamilyDetailsForm = new FormGroup({
@@ -596,7 +592,8 @@ export class UserViewComponent implements OnInit {
     private api: ApiService,
     private confirmationService: ConfirmationService,
     private modalService: NgbModal,
-    private AgePipe: AgePipe
+    private AgePipe: AgePipe,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -617,7 +614,6 @@ export class UserViewComponent implements OnInit {
             this.userAllData = res;
             console.log(this.userAllData);
             console.log(this.userAllData.user_profile_status);
-
             if (this.userAllData.user_profile_status == 'Completed') {
               let updateData = {
                 data: { user_all_table_complited: 1 },
@@ -628,9 +624,6 @@ export class UserViewComponent implements OnInit {
                 updateData
               ).subscribe((res: any) => {});
             }
-
-            console.log(res.user_info);
-
             this.profileDetailsForm.patchValue({
               profile_id: res?.user_info?.user_id,
               profile_name:
@@ -704,16 +697,21 @@ export class UserViewComponent implements OnInit {
       0,
       250
     ).subscribe((res: any) => {
+      console.log(res);
+
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data']
-        .filter((obj: any) => obj.status == 1)
-        .map((obj: any) => ({ name: obj.name }));
-        this.countryOption.sort((a: any, b: any) => a.name.localeCompare(b.name));
+          .filter((obj: any) => obj.status == 1)
+          .map((obj: any) => ({ name: obj.name }));
+        this.countryOption.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
         this.countrycode = res['data'].map((obj: any) => {
           return { name: obj.name, value: obj.phonecode };
         });
-        this.countrycode.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        console.log(this.countrycode);
 
+        this.countrycode.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
     this.ApiParameterScript.fetchdata('designation', {
@@ -732,7 +730,6 @@ export class UserViewComponent implements OnInit {
       }
     });
 
-
     this.ApiParameterScript.fetchdata('like_detalis', {
       projection: ['*'],
       whereConditions: { status: 1 },
@@ -746,9 +743,7 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
-        this.likeOption.sort((a: any, b: any) =>
-          a.name.localeCompare(b.name)
-        );
+        this.likeOption.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
     });
 
@@ -797,7 +792,9 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
-        this.aducationalOptions2.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.aducationalOptions2.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
 
@@ -812,7 +809,9 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
-        this.motherTounghOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.motherTounghOptions.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
 
@@ -828,7 +827,9 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
-        this.aducationalOptions1.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.aducationalOptions1.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
 
@@ -845,7 +846,9 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
-        this.employeeInOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.employeeInOptions.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
 
@@ -861,7 +864,9 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
-        this.ocupationOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.ocupationOptions.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
 
@@ -891,7 +896,9 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
-        this.religionOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.religionOptions.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
 
@@ -907,7 +914,9 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
-        this.religionCasteOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.religionCasteOptions.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
 
@@ -922,7 +931,9 @@ export class UserViewComponent implements OnInit {
               return null;
             }
           });
-          this.gotraOption.sort((a: any, b: any) => a.name.localeCompare(b.name));
+          this.gotraOption.sort((a: any, b: any) =>
+            a.name.localeCompare(b.name)
+          );
         }
       }
     );
@@ -938,7 +949,9 @@ export class UserViewComponent implements OnInit {
             return null;
           }
         });
-        this.nakhyatraOption.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.nakhyatraOption.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
 
@@ -950,7 +963,9 @@ export class UserViewComponent implements OnInit {
         this.zodiacsOptions = res['data'].map((obj: any) => {
           return { name: obj.name, display: `${obj.name} / ${obj.odia_name}` };
         });
-        this.zodiacsOptions.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.zodiacsOptions.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
   }
@@ -1021,10 +1036,11 @@ export class UserViewComponent implements OnInit {
     this.ApiParameterScript.updatedata('user_info', updateData).subscribe(
       (res: any) => {
         if (res.success) {
+          Swal.fire('', res.message, 'success').then(() => {
+            this.ngOnInit();
+          });
           var updateData1 = {
             data: {
-              auth_email: this.basicDetailsForm.value.user_email,
-              auth_phone_no: this.basicDetailsForm.value.user_phone_no,
               auth_name:
                 this.basicDetailsForm.value.user_fname +
                 ' ' +
@@ -1565,227 +1581,80 @@ export class UserViewComponent implements OnInit {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
   public generatePDF() {
-
     let param = {
-      user_id:this.profile_id,
-      filepath : environment.filePath
-    }
-    this.commonservice.generatepdf(param).subscribe((res:any)=>{
+      user_id: this.profile_id,
+      filepath: environment.filePath,
+    };
+    this.commonservice.generatepdf(param).subscribe((res: any) => {
       console.log(res);
-      saveAs(res, this.profile_id+'.pdf');
+      saveAs(res, this.profile_id + '.pdf');
     });
-    //console.log(param);
-
-
-
-
-
-
-
-    // var head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']];
-
-    // var data2 = [
-    //   [1, 'ROBERT', 'SOFTWARE DEVELOPER', 'ENGINEERING'],
-    //   [2, 'CRISTINAO', 'QA', 'TESTING'],
-    //   [3, 'KROOS', 'MANAGER', 'MANAGEMENT'],
-    //   [4, 'XYZ', 'DEVELOPER', 'DEVLOPEMENT'],
-    //   [5, 'ABC', 'CONSULTANT', 'HR'],
-    //   [73, 'QWE', 'VICE PRESIDENT', 'MANAGEMENT'],
-    // ];
-
-    // this.blockUI.start('Generating PDF...');
-    // var pdfData = [_.cloneDeep(this.finaldata)];
-    // console.log('Click generatePDF', this.userAllData);
-
-    // const pdf = new jsPDF({
-    //   unit: 'mm',
-    //   format: 'a4', // or 'letter', 'a3', etc.
-    // });
-
-    // // const pdf = new jsPDF();
-    // // pdf.addImage(
-    // //   'https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png',
-    // //   'JPEG',
-    // //   65,
-    // //   5,
-    // //   0,
-    // //   0
-    // // ); // adjust coordinates and dimensions accordingly
-    // // Sample data with text and image URLs
-    // _.map(
-    //   pdfData,
-    //   (res: any) =>
-    //     (res.user_profile_image =
-    //       environment.baseApiURL + 'storage/' + res.user_profile_image)
-    // );
-    // console.log('Click generatePDF', pdfData);
-
-    // const data = pdfData;
-    // console.log('data', data);
-    // const keyMap = ['user_dob', 'user_height', 'HomeTown'];
-    // let yPos = 30;
-    // let currentPage = 1;
-    // data.forEach((record: any) => {
-    //   console.log(record);
-    //   console.log('pdf', pdf.internal.pageSize.getHeight());
-
-    //   pdf.addImage(record.user_profile_image, 'JPEG', 10, yPos, 50, 50);
-    //   pdf.textWithLink('ID   :' + record.user_id, 70, (yPos += 10), {
-    //     url: environment.application_url + 'member-profile/' + record.user_id,
-    //   });
-
-    //   // pdf.text(`Name: ${record.user_fname}` + ' ' + `${record.user_lname}`, 70, yPos+=10);
-    //   // pdf.text(`Age: ${this.AgePipe.transform(record.user_dob)}`, 70, yPos+=10);
-    //   pdf.text(`Gender: ${record.user_gender}`, 70, (yPos += 10));
-    //   pdf.text(
-    //     `Marital Status: ${
-    //       record.user_marital_status ? record.user_marital_status : 'NA'
-    //     }`,
-    //     70,
-    //     (yPos += 10)
-    //   );
-    //   pdf.text(
-    //     `HomeTown:  ${record.user_city ? record.user_city : 'NA'},${
-    //       record.user_city ? record.user_state : 'NA'
-    //     }`,
-    //     70,
-    //     (yPos += 10)
-    //   );
-    //   // pdf.text(`City: ${record.city ? record.city : "NA"}`, 70, yPos+=10);
-
-    //   // Draw lines to separate records
-    //   pdf.line(0, 85, 210, 85);
-    //   console.log('[record]', [record]);
-    //   pdf.text('BIODATA', 85, yPos + 35);
-    //   pdf.text(`AGE: ${this.calculateAge(record.user_dob)}`, 10, (yPos += 50));
-    //   pdf.text(
-    //     `Height: ${record.user_height ? record.user_height : 'NA'} cm`,
-    //     10,
-    //     (yPos += 10)
-    //   );
-    //   pdf.text(
-    //     `Colour: ${record.user_complextion ? record.user_complextion : 'NA'}`,
-    //     10,
-    //     (yPos += 10)
-    //   );
-    //   pdf.text('EDUCATION & OCCUPATION', 70, yPos + 20);
-    //   // pdf.table(0,60,[],record,{ autoSize: true });
-    //   // Move the Y position for the next record
-    //   pdf.text(`Education: ${record.user_highest_education}`, 10, (yPos += 50));
-    //   pdf.text(
-    //     `Occupation: ${record.user_occupation ? record.user_occupation : 'NA'}`,
-    //     10,
-    //     (yPos += 10)
-    //   );
-    //   pdf.text(
-    //     `Designation: ${
-    //       record.user_occupation_details ? record.user_occupation_details : 'NA'
-    //     }`,
-    //     10,
-    //     (yPos += 10)
-    //   );
-    //   pdf.text(
-    //     `Anulal Income:  ${
-    //       record.user_anual_income ? record.user_anual_income : 'NA'
-    //     }`,
-    //     10,
-    //     (yPos += 10)
-    //   );
-    //   pdf.text(
-    //     `Job Location:  ${
-    //       record.user_occupation_location
-    //         ? record.user_occupation_location
-    //         : 'NA'
-    //     }`,
-    //     10,
-    //     (yPos += 10)
-    //   );
-    //   pdf.text(
-    //     `Details Of Job:  ${
-    //       record.user_occupation_details ? record.user_occupation_details : 'NA'
-    //     }`,
-    //     10,
-    //     (yPos += 10)
-    //   );
-    //   pdf.text(
-    //     `Rashi:  ${record.user_zodiacs ? record.user_zodiacs : 'NA'}`,
-    //     10,
-    //     (yPos += 10)
-    //   );
-    //   pdf.text(
-    //     `Nakhyatra:  ${record.user_nakhyatra ? record.user_nakhyatra : 'NA'}`,
-    //     10,
-    //     (yPos += 10)
-    //   );
-    //   yPos = 30;
-
-    //   // if (yPos + 60 > pdf.internal.pageSize.getHeight()) {
-    //   // pdf.addPage();
-    //   // pdf.addImage("https://admin.choicemarriage.com/api/storage/logo_image/6521ccbea425d.png", 'JPEG', 65, 5, 0, 0); // adjust coordinates and dimensions accordingly
-    //   // Sample data with text and image URLs
-    //   ///currentPage++;
-    //   // yPos = 30; // Reset Y position for the new page
-    //   // }
-    // });
-
-    // const pdfFileName =
-    //   'matching_report_' + `${this.profile_id}_` + moment().toString() + '.pdf';
-    // pdf.save(pdfFileName, { returnPromise: true }).then((res: any) => {
-    //   // console.log(res);
-    //   this.blockUI.stop();
-    // });
   }
   shareData() {
     console.log(this.finaldata);
     let type1 = this.finaldata.user_gender == 'female' ? 'Bride' : 'Groom';
     let type2 = this.finaldata.user_gender == 'female' ? 'Groom' : 'Bride';
     let link =
-      'https://choicemarriage.com/member-profile/' + this.finaldata.auth_ID;
-    Swal.fire({
-      html:
-        `
-        <div class="">
-        <div>
-           Required ${type2}
-        </div>
-        <br>
-        <i class="fa fa-arrow-down" aria-hidden="true"></i> Details of ${type1} <i class="fa fa-arrow-down" aria-hidden="true"></i>
-         <div>
-         DOB:-${this.finaldata.user_dob}
-         </div>
-         <div>
-         HEIGHT:-${this.finaldata.user_height}
-         </div>
-         <div>
-         Colour:- ${this.finaldata.user_complextion}
-         </div>
-         <div>
-          QUALIFICATION:- ${this.finaldata.user_highest_education}
-          </div>
-          <div>
-          OCCUPATION:- ${this.finaldata.user_occupation}` +
-        ` ` +
-        `${this.finaldata.user_occupation_details}
-          </div>
+      'https://choicemarriage.com/v1/member-profile/' + this.finaldata.auth_ID;
 
-          <div>
-          JOB LOCATION:-  ${this.finaldata.user_occupation_location}
-          </div>
-          <div>
-          ANNUAL INCOME:-  ${this.finaldata.user_anual_income}
-          </div>
-          <div>
-          HOME TOWN:- ${this.finaldata.user_Permanent_city}
-          </div>
-          <br>
-          <div>
-          CLIICK HERE FOR MORE INFORMATION WITH PHOTO
-          </div>
-          <div>
-            <a href="https://wa.me?text=${link}"> ${link}</a>
-          </div>
-         </div>
-        `,
+    let details = `
+Required ${type2}
+<br><br>
+<i class="fa fa-arrow-down" aria-hidden="true"></i> Details Of ${type1} <i class="fa fa-arrow-down" aria-hidden="true"></i>
+<br>
+DOB:- ${this.finaldata.user_dob}
+<br>
+HEIGHT:- ${this.finaldata.user_height}
+<br>
+Colour:- ${this.finaldata.user_complextion}
+<br>
+QUALIFICATION:- ${this.finaldata.user_highest_education}
+<br>
+JOB LOCATION:- ${this.finaldata.user_occupation_location}
+<br>
+ANNUAL INCOME:- ${this.finaldata.user_anual_income * 100000}
+<br>
+HOME TOWN:- ${this.finaldata.user_Permanent_city}
+<br><br>
+CLICK HERE FOR MORE INFORMATION WITH PHOTO
+<br>
+<a href="https://wa.me?text=${link}">${link}</a>
+`;
+
+    Swal.fire({
+      html: `<div>${details}</div>`,
+      showCancelButton: true,
+      confirmButtonText: 'Copy Details',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let  textToCopy= details;
+//         let textToCopy = `
+// Required ${type2}\n
+// Details of ${type1}\n
+// DOB:- ${this.finaldata.user_dob}\n
+// HEIGHT:- ${this.finaldata.user_height}\n
+// Colour:- ${this.finaldata.user_complextion}\n
+// QUALIFICATION:- ${this.finaldata.user_highest_education}\n
+// JOB LOCATION:- ${this.finaldata.user_occupation_location}\n
+// ANNUAL INCOME:- ${this.finaldata.user_anual_income * 100000}\n
+// HOME TOWN:- ${this.finaldata.user_Permanent_city}\n
+// CLICK HERE FOR MORE INFORMATION WITH PHOTO\n
+// ${link}
+//     `;
+
+        navigator.clipboard
+          .writeText(textToCopy)
+          .then(() => {
+            Swal.fire(
+              'Copied!',
+              'Details have been copied to the clipboard',
+              'success'
+            );
+          })
+          .catch((err) => {
+            Swal.fire('Error', 'Failed to copy details', 'error');
+          });
+      }
     });
   }
 
@@ -1869,5 +1738,19 @@ export class UserViewComponent implements OnInit {
         }
       });
     }
+  }
+  check() {
+    //alert(this.profileDetailsForm.value.profile_id)
+
+    const dialogRef = this.dialog.open(EmailphonecheckComponent, {
+      width: '400px',
+      data: {
+        id: this.profileDetailsForm.value.profile_id,
+        phone: this.profileDetailsForm.value.profile_phone,
+        email: this.profileDetailsForm.value.profile_email,
+        c_code: this.basicDetailsForm.value.country_code,
+      },
+      disableClose: true,
+    });
   }
 }

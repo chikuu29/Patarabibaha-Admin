@@ -124,6 +124,9 @@ export class CommonService {
   upload(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'upload', apiData, { headers: this.headers });
   }
+  uplodeimageadmin(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'uplodeimageadmin', apiData, { headers: this.headers });
+  }
 
 
 

@@ -151,7 +151,7 @@ export class MobilenochangeComponent implements OnInit {
     this.offset =
       this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit;
   }
-  update(data: any, newgender: any, oldgender: any ,ccode:any) {
+  update(data: any, newgender: any, oldgender: any, ccode: any) {
     Swal.fire({
       icon: 'question',
       text: 'Do you want to Change Mobile Number Of ' + data,
@@ -164,14 +164,14 @@ export class MobilenochangeComponent implements OnInit {
           console.log(res);
           if (res.success && res['data'].length > 0) {
             Swal.fire({
-              text: 'That Phone no already exists. For '+res['data'][0].auth_ID
+              text:
+                'That Phone no already exists. For ' + res['data'][0].auth_ID,
             });
-
           } else {
             let updateData = {
               data: {
                 user_phone_no: newgender,
-                country_code: ccode
+                country_code: ccode,
               },
               whereConditions: { user_id: data },
             };
@@ -181,7 +181,6 @@ export class MobilenochangeComponent implements OnInit {
                   let updateData = {
                     data: {
                       auth_phone_no: newgender,
-
                     },
                     whereConditions: { auth_ID: data },
                   };
@@ -217,6 +216,21 @@ export class MobilenochangeComponent implements OnInit {
                             icon: 'success',
                             text: 'Changed',
                           }).then(() => {
+                            let updateData2 = {
+                              data: {
+                                user_email: newgender,
+                              },
+                              whereConditions: {
+                                user_email: oldgender,
+                              },
+                            };
+                            this.ApiParameter.updatedata(
+                              'user_plan_deatils',
+                              updateData2
+                            ).subscribe((res: any) => {
+                              if (res.success) {
+                              }
+                            });
                             this.ngOnInit();
                           });
                         }
