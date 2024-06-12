@@ -24,6 +24,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
 import { EditorModule } from 'primeng/editor';
 import { TagModule } from 'primeng/tag';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @NgModule({
   declarations: [],
   imports: [
@@ -51,7 +52,8 @@ import { TagModule } from 'primeng/tag';
     CalendarModule,
     DialogModule,
     EditorModule,
-    TagModule
+    TagModule,
+    ProgressSpinnerModule
    
   ],
   exports:[
@@ -78,7 +80,8 @@ import { TagModule } from 'primeng/tag';
     CalendarModule,
     DialogModule,
     EditorModule,
-    TagModule
+    TagModule,
+    ProgressSpinnerModule
   ]
 })
 export class PrimengModule { }

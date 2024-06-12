@@ -130,9 +130,11 @@ export class ImageViewOperationComponent implements OnInit {
   }
 
   delet(image: any) {
+    this.blockUI.start("Please Wait...")
     this.ApiParameterScript.deletedata('user_profile_images', {
       whereConditions: { id: image.id },
     }).subscribe((res: any) => {
+      this.blockUI.stop()
       console.log(res);
       if (res.status) {
         this.ngOnInit();

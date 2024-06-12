@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 // .form-container {
 // 	width: 100vw;
 // 	height: 100vh;
@@ -10,7 +10,7 @@
 .upload-files-container {
 	// background-color: #f7fff7;
 	width: 100%;
-	padding: 30px 60px;
+	padding: 15px 30px;
 	// border-radius: 40px;
 	display: flex;
    	align-items: center;
@@ -22,12 +22,12 @@
 	border: 2px dashed #7b2cbf;
 	border-radius: 40px;
 	margin: 10px 0 15px;
-	padding: 30px 50px;
-	width: 350px;
+	padding: 15px 30px;
+	max-width: 233px;
 	text-align: center;
 }
 .drag-file-area .upload-icon {
-	font-size: 50px;
+	font-size: 30px;
 }
 .drag-file-area h3 {
 	font-size: 26px;
@@ -99,26 +99,70 @@
 .remove-file-icon {
 	cursor: pointer;
 }
-.progress-bar {
-	display: flex;
-	position: absolute;
-	bottom: 0;
-	left: 4.5%;
-	width: 0;
-	height: 5px;
-	border-radius: 25px;
-	background-color: #4BB543;
-}
+// .progress-bar {
+// 	display: flex;
+// 	position: absolute;
+// 	bottom: 0;
+// 	left: 4.5%;
+// 	width: 0;
+// 	height: 5px;
+// 	border-radius: 25px;
+// 	background-color: #4BB543;
+// }
+// .upload-button {
+// 	font-family: 'Montserrat';
+// 	background-color: #7b2cbf;
+// 	color: #f7fff7;
+// 	// display: flex;
+// 	align-items: center;
+// 	font-size: 18px;
+// 	border: none;
+// 	border-radius: 20px;
+// 	margin: 10px;
+// 	padding: 13.5px 50px;
+// 	cursor: pointer;
+// }
+
+
 .upload-button {
-	font-family: 'Montserrat';
-	background-color: #7b2cbf;
-	color: #f7fff7;
-	// display: flex;
+	position: relative;
+	overflow: hidden;
+  }
+  
+  .progress-wrapper {
+	position: relative;
+	z-index: 1;
+  }
+  
+  .progress-bar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	background-color: rgba(19, 126, 241, 0.3); /* Adjust the color as needed */
+	transition: width 0.4s ease;
+	color: white;
+	z-index: 0;
+  }
+  
+  .upload-button span {
+	position: relative;
+	z-index: 2;
+  }
+  .loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
 	align-items: center;
-	font-size: 18px;
-	border: none;
-	border-radius: 20px;
-	margin: 10px;
-	padding: 13.5px 50px;
-	cursor: pointer;
-}
+	background-color: rgba(255, 255, 255, 0.7); /* Adjust opacity as needed */
+  }
+  
+  .custom-loader {
+	width: 50px; /* Adjust size of the spinner */
+	height: 50px; /* Adjust size of the spinner */
+  }
+  

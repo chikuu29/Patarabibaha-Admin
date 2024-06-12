@@ -1,9 +1,7 @@
-<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
-
-
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Upload Picture's, </h4>
-    <button type="button" class="btn-close" (click)="activeModal.dismiss()"></button>
+    <button mat-raised-button color="primary">Upload Photos <i class="fa-solid fa-upload fa-fade"></i></button>
+    <button mat-raised-button color="accent" (click)="activeModal.dismiss()"><i
+            class="fa-regular fa-rectangle-xmark"></i></button>
 </div>
 <div class="modal-body">
 
@@ -12,33 +10,52 @@
             <div class="upload-files-container">
                 <div class="drag-file-area text-center">
                     <label class="d-flex align-items-center flex-column">
-                        <span class="material-icons-outlined upload-icon"> file_upload </span>
-                        <h3 class="dynamic-message text-center"><span class="browse-files me-2"> <input type="file" accept="image/*"
-                                    class="default-file-input" (change)="fileChangeEvent($event)" /> <span
-                                    class="browse-files-text me-2">browse file</span>
+                        <span class="material-icons-outlined upload-icon"> <i class="fa-solid fa-upload fa-fade"></i>
+                        </span>
+                        <h3 class="dynamic-message text-center"><span class="browse-files me-2"> <input type="file"
+                                    accept="image/*" class="default-file-input" (change)="fileChangeEvent($event)" />
+                                <span class="browse-files-text me-2">browse file</span>
                             </span></h3>
                         <span>from device</span>
                     </label>
                 </div>
-               
+
             </div>
         </form>
     </ng-container>
-
-
     <!-- <input type="file" (change)="fileChangeEvent($event)" /> -->
     <ng-container *ngIf="fileSelected">
         <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="4 / 3"
             format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)"
-            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()" ></image-cropper>
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
         <div class="text-center">
             <p class="p-2">Preview</p>
-            <img [src]="croppedImage" width="200px" height="200px" />
+            <!-- <img [src]="croppedImage" width="200px" height="200px" loading="lazy" /> -->
+            <div class="image-container" *ngIf="!loadingImage">
+                <img [src]="croppedImage" width="200px" height="200px">
+
+            </div>
+         
         </div>
-        <button type="button" class="upload-button w-100" (click)="uploadFile()"> Upload </button>
+
+        <!-- <button mat-raised-button color="primary" class="w-100" (click)="uploadFile()" [disabled]="isUploading">
+            <div class="progress-wrapper">
+                <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+                <span *ngIf="!isUploading">Upload <i class="fa-solid fa-cloud ps-1"></i> </span>
+                <span *ngIf="isUploading">Uploading... {{ uploadProgress }}%</span>
+            </div>
+        </button>
+        <mat-progress-bar *ngIf="isUploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar> -->
     </ng-container>
 </div>
-<div class="modal-footer text-center" >
-    <!-- <button type="button" class="upload-button w-100" (click)="uploadFile()"> Upload </button> -->
-    
+<div class="modal-footer text-center">
+    <button mat-raised-button color="primary" class="w-100" (click)="uploadFile()"
+        [disabled]="isUploading || !fileSelected">
+        <div class="progress-wrapper">
+            <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+            <span *ngIf="!isUploading">Upload <i class="fa-solid fa-cloud ps-1"></i> </span>
+            <span *ngIf="isUploading">Uploading... {{ uploadProgress }}%</span>
+        </div>
+    </button>
+    <mat-progress-bar *ngIf="isUploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 </div>
