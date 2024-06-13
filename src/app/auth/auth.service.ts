@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppService } from '../services/app.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, Subject } from 'rxjs';
 import { admin } from '../app-Module/admin';
 import { environment } from 'src/environments/environment';
@@ -52,7 +52,13 @@ export class AuthService {
     return environment.baseApiURL;
   }
   public signIn(data: any) {
-    return this.http.post(`${this.getApipath()}adminLogin`, data)
+    const httpOptions = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post(`${this.getApipath()}adminLogin`, data, httpOptions)
   }
 
   public authentication(id: string, name: string, email: string, isLogin: boolean, role: String, _refreshkey: any, expiration_date: any) {

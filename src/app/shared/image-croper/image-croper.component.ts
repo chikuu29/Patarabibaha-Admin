@@ -24,6 +24,9 @@ export class ImageCroperComponent implements OnInit {
   uploadURL: any;
   crop_imgae: any;
   imageinbase64: string | ArrayBuffer | null;
+  isUploading:boolean=false
+  uploadProgress:number=0
+  loadingImage:boolean=false
   constructor(
     private http: HttpClient,
     private sanitizer: DomSanitizer,
@@ -39,6 +42,7 @@ export class ImageCroperComponent implements OnInit {
 
     this.imageChangedEvent = event;
     this.fileSelected = true;
+    this.loadingImage=true
   }
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
@@ -47,12 +51,16 @@ export class ImageCroperComponent implements OnInit {
     console.log(event.blob);
     this.crop_imgae = event.blob;
     this.convertBlobToBase64(this.crop_imgae);
+   
     // event.blob can be used to upload the cropped image
   }
   imageLoaded(image: LoadedImage) {
     // show cropper
+    console.log("imageLoaded");
   }
   cropperReady() {
+    console.log("cropperReady");
+    this.loadingImage=false
     // cropper ready
   }
   loadImageFailed() {
@@ -69,11 +77,36 @@ export class ImageCroperComponent implements OnInit {
       data: this.imageinbase64,
       user_Id: this.user_id,
     };
-    this.CommonService.uplodeimageadmin(param).subscribe((response: any) => {
-      if (response.success) {
-        Swal.fire(response.message, '', 'success');
-        this.activeModal.close();
+    this.isUploading=true
+    this.uploadProgress=0
+    this.CommonService.uplodeimageadmin(param).subscribe((event: any) => {
+
+      console.log(event);
+      if(event.status=="progress"){
+        // this.isUploading=true
+        this.uploadProgress=event.progress
+        
+
+      }else if(event.status=="completed"){
+        this.isUploading=false
+       
+        Swal.fire({
+          title: `<strong style='color:#5c54a0; font-size:30px;'>${event.body.message}</strong>`,
+          html: '<h2>Congratulation</h2> <div class="pyro"><div class="before"></div><div class="after"></div></div>',
+          icon: 'success',
+        }).then((res: any) => {
+          this.activeModal.close();
+        });
+      
       }
+      
+      // if (response.success) {
+      //   Swal.fire(response.message, '', 'success');
+      //   this.activeModal.close();
+      // }
+    },(error:any)=>{
+      this.isUploading=false
+      Swal.fire(error.message, error.statusText, 'error');
     });
 
     // this.uploadURL = `${this.appservices.getApipath()}upload?q=${this.user_id}`;

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { AppService } from 'src/app/services/app.service';
+import { take } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -124,8 +125,32 @@ export class CommonService {
   upload(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'upload', apiData, { headers: this.headers });
   }
-  uplodeimageadmin(apiData:any){
-    return this.http.post(this.appservices.getApipath() + 'uplodeimageadmin', apiData, { headers: this.headers });
+  // uplodeimageadmin(apiData:any){
+  //   return this.http.post(this.appservices.getApipath() + 'uplodeimageadmin', apiData, {reportProgress:true,observe:"events"}).pipe(
+  //     .map(take(1))
+  //   );
+
+
+    uplodeimageadmin(apiData: any): Observable<any> {
+      return this.http.post(this.appservices.getApipath() + 'uplodeimageadmin', apiData, {
+        reportProgress: true,
+        observe: 'events'
+      }).pipe(
+        map((event:any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              return { status: 'progress', progress: Math.round((100 * event.loaded) / event.total) };
+            case HttpEventType.Response:
+              return { status: 'completed', body: event.body };
+            default:
+              return `Unhandled event: ${event.type}`;
+          }
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.error('Upload failed:', error);
+          return throwError(error);
+        })
+      );
   }
 
 

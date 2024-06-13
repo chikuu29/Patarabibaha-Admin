@@ -1544,9 +1544,15 @@ export class UserViewComponent implements OnInit {
     console.log(this.profile_id);
 
     const modalRef = this.modalService.open(ImageCroperComponent, {
+      // size: 'xl',
+      // backdrop: false,
+      // scrollable: true,
       size: 'xl',
-      backdrop: false,
+      centered: true,
       scrollable: true,
+      backdrop: false,
+      windowClass: 'custom-backdrop',
+      backdropClass:'custom-backdrop-border'
     });
     modalRef.componentInstance.user_id = this.profile_id;
   }
