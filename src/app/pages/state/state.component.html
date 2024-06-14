@@ -6,12 +6,12 @@
       <form [formGroup]="stategroup">
         <label>Select Country</label>
         <p-dropdown [options]="countryOption" [showClear]="true" optionLabel="name" [filter]="true"
-          placeholder="Select Country" [style]="{ width: '100%' }" formControlName="country_name" optionValue="name">
+          placeholder="Select Country" [style]="{ width: '100%' }" formControlName="country_name" optionValue="id">
           <ng-template pTemplate="selectedItem">
             <div class="country-item country-item-value">
               <div>
                 {{
-                stategroup.value.country_name || ""
+                stategroup.value.country_name
                 }}
               </div>
             </div>
@@ -43,20 +43,6 @@
 
 
 <div class="outline">
-  <!-- <div class="commen">
-    <select class="custom-select">
-      <option value="option1">State</option>
-      <option value="option2">Option 2</option>
-      <option value="option3">Option 3</option>
-    </select>
-  </div>
-  <div class="commen">
-    <select class="custom-select">
-      <option value="option1">Country</option>
-      <option value="option2">Option 2</option>
-      <option value="option3">Option 3</option>
-    </select>
-  </div> -->
   <div class="commen">
     <button type="button" [style]="{ 'background-color': '#009788', 'color': '#FFFFFF' }" class="btn"
       (click)="publishuser()">
@@ -90,7 +76,8 @@
         </div>
 
         <div class="kt-portlet__head-toolbar">
-          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="false"></app-search>
+          <app-search (getSerachText)="getSearchText($event)" [search_btn]="true" [fillter_btn]="false"
+            (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
         </div>
       </div>
       <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y" id="grid_scroll_body"

@@ -36,7 +36,7 @@ export function initStartUpAPIConfiugration(AppInitializationServiceServiceServi
   }
 }
 export function checkLoginMode(auth: AuthService) {
-  
+
   return () => {
     // Initialization code, e.g., fetching configuration data
     return auth.autoSignIn();

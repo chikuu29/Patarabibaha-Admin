@@ -42,12 +42,12 @@ export class ZodiacsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllZodiacdata(0, this.apiFetchRecordLimit);
-    
+
 
   }
 
   getSearchText(event: any) {
-    
+
 
     this.filterText = event;
   }
@@ -57,7 +57,7 @@ export class ZodiacsComponent implements OnInit {
       status: 24,
     };
     this.api.zodiacs(param).subscribe((res: any) => {
-      
+
       if (res.status) {
         this.zodiacsalldata = res.message;
       }
@@ -91,18 +91,18 @@ export class ZodiacsComponent implements OnInit {
       quary = `SELECT *,
       COUNT(*) OVER () AS total_count
       FROM zodiacs
-      ORDER BY name ASC
       WHERE name = '${search_text}'
+      OR odia_name = '${search_text}'
          ORDER BY name ASC
        `;
     }
-    
-    
+
+
 
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      
+
 
       this.blockUI.stop();
 
@@ -111,9 +111,9 @@ export class ZodiacsComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
-        
+
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -128,7 +128,7 @@ export class ZodiacsComponent implements OnInit {
     //   // this.totalFetchrecord = offset+res['count']
     //   // this.totalCount = res['totalCount']
     //   // this.collectionSize = res['totalCount']
-    //   
+    //
     //   if (res.status) {
     //     this.zodiacsalldata = res.message
     //   }
@@ -145,12 +145,12 @@ export class ZodiacsComponent implements OnInit {
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    
+
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        
+
 
         this.allId.push(parseInt(this.tableData[key].id));
         checkbox.checked = true;
@@ -161,10 +161,10 @@ export class ZodiacsComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
+
   }
   getId(id: any, e: any) {
-    
+
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -174,7 +174,7 @@ export class ZodiacsComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
+
   }
 
   publishuser() {
@@ -186,7 +186,7 @@ export class ZodiacsComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -227,7 +227,7 @@ export class ZodiacsComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -258,57 +258,51 @@ export class ZodiacsComponent implements OnInit {
       });
     }
   }
-  // deletedata() {
-  //   if (this.allId.length == 0) {
-  //     Swal.fire('Warning', 'Please select any record', 'warning');
-  //   } else {
-  //     Swal.fire({
-  //       icon: 'question',
-  //       text: 'Do you want to Delete',
-  //       showCancelButton: true,
-  //     }).then((r: any) => {
-  //       
-  //        if (r.isConfirmed) {
-  //         let updateData = {
-  //               data: {
-  //                 deleted: 0,
-  //               },
-  //               type: 'Delete',
-  //               whereConditions: this.allId,
-  //             };
-  //         this.ApiParameter.deletedata(
-  //               'zodiacs',
-  //               updateData
-  //             ).subscribe((res: any) =>{
+  search(search_text: any) {
+    let _this: any = this;
+    _this[this.currentFunction](0, 10, true, search_text);
+  }
+  fillter(event: any) {
+    var query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`;
+    if (event.isqueryGenerated) {
+      query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+    ${event.whereConditions}`;
+    }
 
-  //             })
-  //       //   let updateData = {
-  //       //     data: {
-  //       //       deleted: 0,
-  //       //     },
-  //       //     type: 'Delete',
-  //       //     whereConditions: this.allId,
-  //       //   };
-  //       //   this.ApiParameter.makeActinForMultipulData(
-  //       //     'zodiacs',
-  //       //     updateData
-  //       //   ).subscribe((res: any) => {
-  //       //     if (res.success) {
-  //       //       Swal.fire({
-  //       //         icon: 'success',
-  //       //         text: 'deleted',
-  //       //       }).then(() => {
-  //       //         this.ngOnInit();
-  //       //       });
-  //       //     } else {
-  //       //       Swal.fire({
-  //       //         icon: 'warning',
-  //       //         text: res.message,
-  //       //       });
-  //       //     }
-  //       //   });
-  //        }
-  //     });
-  //   }
-  // }
+
+
+    this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
+
+      if (res.success && res['data'].length > 0) {
+        this.collectionSize = res['data'].length;
+        this.offset = 1;
+        this.totalFetchrecord = this.collectionSize;
+        this.tableData = res['data'];
+
+      } else {
+        this.offset = 0;
+        this.totalFetchrecord = 0;
+        this.collectionSize = 0;
+        this.tableData = [];
+      }
+    });
+  }
 }

@@ -35,7 +35,7 @@ export class CityComponent implements OnInit {
   totalCount: number = 0;
   totalFetchrecord: number = 0;
   offset = 1;
-  allId: any[];
+  allId: any[] = [];
   pegination_required: any;
   apiFetchRecordLimit: any = 10;
   currentFunction: string = 'getcitydata';
@@ -73,7 +73,7 @@ export class CityComponent implements OnInit {
     //         return null
     //       }
     //     });
-    //     
+    //
     //   }
     // });
     this.getcountryname();
@@ -99,19 +99,19 @@ export class CityComponent implements OnInit {
       quary = `SELECT *,
       COUNT(*) OVER () AS total_count
       FROM city
-      ORDER BY country_name ASC, state_name ASC , city_name ASC
-      WHERE name = '${search_text}'
+      WHERE
+          city_name = '${search_text}'
+         OR state_name = '${search_text}'
          OR country_name = '${search_text}'
-         ORDER BY name ASC
+         ORDER BY country_name ASC, state_name ASC , city_name ASC
        `;
     }
-    
-    
+
 
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      
+
 
       this.blockUI.stop();
 
@@ -120,9 +120,9 @@ export class CityComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
-        
+
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -133,7 +133,7 @@ export class CityComponent implements OnInit {
 
 
   getSearchText(event:any){
-    
+
 
     this.filterText = event
   }
@@ -150,7 +150,7 @@ export class CityComponent implements OnInit {
   }
 
   getstatefilter(country_name: any) {
-    
+
     this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { "country_name": country_name, "status": 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
 
@@ -159,7 +159,7 @@ export class CityComponent implements OnInit {
           return { name: obj.name };
 
         });
-        
+
 
       } else {
         this.stateOption = []
@@ -174,7 +174,7 @@ export class CityComponent implements OnInit {
     this.ApiParameter.fetchdata('country', { "projection": ["*"] }, 0,250).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.countryalldata = res['data'];
-        
+
       }
     })
   }
@@ -183,7 +183,7 @@ export class CityComponent implements OnInit {
 
       if (res.success && res['data'].length > 0) {
         this.statealldatabycountry = res['data'];
-        
+
 
       }
 
@@ -207,7 +207,7 @@ export class CityComponent implements OnInit {
         }
 
         this.ApiParameter.savedata('city', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -241,7 +241,7 @@ export class CityComponent implements OnInit {
           "whereConditions": { id: this.citygroup.value.id }
         }
         this.ApiParameter.updatedata('city', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -276,7 +276,7 @@ export class CityComponent implements OnInit {
   fatchdata() {
     let offset = this.page * 10 - 10
     this.ApiParameter.fetchdata('city', { "projection": ["*"] },offset, 10).subscribe((res: any) => {
-      
+
       this.totalFetchrecord = offset+res['count']
       this.totalCount = res['totalCount']
       this.collectionSize = res['totalCount']
@@ -299,7 +299,7 @@ export class CityComponent implements OnInit {
         this.citygroup.patchValue(res['data'][0]);
         this.button = "Update";
         this.editedcast = this.citygroup.value.city_name;
-        
+
 
       }
     });
@@ -329,7 +329,7 @@ export class CityComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -370,7 +370,7 @@ export class CityComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -410,7 +410,7 @@ export class CityComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -443,12 +443,12 @@ export class CityComponent implements OnInit {
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    
+
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        
+
 
         this.allId.push(parseInt(this.tableData[key].id));
         checkbox.checked = true;
@@ -459,10 +459,10 @@ export class CityComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
+
   }
   getId(id: any, e: any) {
-    
+
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -472,7 +472,7 @@ export class CityComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
+
   }
   changepaginetdata(event: any) {
     this.page = 1;
@@ -481,5 +481,54 @@ export class CityComponent implements OnInit {
     this.apiFetchRecordLimit = Number(event.target.value);
     let _this: any = this;
     _this[this.currentFunction](0, Number(event.target.value));
+  }
+  fillter(event: any) {
+    var query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`;
+    if (event.isqueryGenerated) {
+      query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+    ${event.whereConditions}`;
+    }
+
+
+
+    this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
+
+      if (res.success && res['data'].length > 0) {
+        this.collectionSize = res['data'].length;
+        this.offset = 1;
+        this.totalFetchrecord = this.collectionSize;
+        this.tableData = res['data'];
+
+      } else {
+        this.offset = 0;
+        this.totalFetchrecord = 0;
+        this.collectionSize = 0;
+        this.tableData = [];
+      }
+    });
+  }
+  search(search_text: any) {
+    let _this: any = this;
+    _this[this.currentFunction](0, 10, true, search_text);
+
+    // this.getAllData(0, 10, true, search_text)
   }
 }

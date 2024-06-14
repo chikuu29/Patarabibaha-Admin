@@ -33,7 +33,7 @@ export class ContryComponent implements OnInit {
   totalCount: number = 0;
   totalFetchrecord: number = 0;
   offset = 1;
-  allId: any[];
+  allId: any[] = [];
   pegination_required: any;
   apiFetchRecordLimit: any = 10;
   currentFunction: string = 'showCountry';
@@ -56,8 +56,6 @@ export class ContryComponent implements OnInit {
   }
 
   getSearchText(event: any) {
-    
-
     this.filterText = event;
   }
 
@@ -84,7 +82,7 @@ export class ContryComponent implements OnInit {
 
         this.ApiParameter.savedata('country', updateData).subscribe(
           (res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -117,7 +115,7 @@ export class ContryComponent implements OnInit {
         };
         this.ApiParameter.updatedata('country', updateData).subscribe(
           (res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -160,7 +158,7 @@ export class ContryComponent implements OnInit {
       FROM country
       ORDER BY name ASC
       LIMIT ${limit} OFFSET ${start}`;
-    
+
 
     if (loadSpecificData) {
       quary = `SELECT *, COUNT(*) OVER () AS total_count
@@ -171,12 +169,12 @@ export class ContryComponent implements OnInit {
        `;
     }
 
-    
+
 
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      
+
 
       this.blockUI.stop();
 
@@ -185,7 +183,7 @@ export class ContryComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -206,13 +204,13 @@ export class ContryComponent implements OnInit {
         this.countrygroup.patchValue(res['data'][0]);
         this.button = 'Update';
         this.editedcast = this.countrygroup.value.name;
-        
+
       }
     });
   }
 
   delete(id: any, name: any) {
-    
+
 
     this.blockUI.start('Deleting...');
     this.ApiParameter.deletedata('country', {
@@ -243,12 +241,12 @@ export class ContryComponent implements OnInit {
 
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    
+
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        
+
 
         this.allId.push(parseInt(this.tableData[key].id));
         checkbox.checked = true;
@@ -259,10 +257,10 @@ export class ContryComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
+
   }
   getId(id: any, e: any) {
-    
+
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -272,7 +270,7 @@ export class ContryComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
+
   }
 
   publishuser() {
@@ -284,7 +282,7 @@ export class ContryComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -325,7 +323,7 @@ export class ContryComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -373,7 +371,7 @@ export class ContryComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -407,13 +405,8 @@ export class ContryComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
-    // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-    //this.pegination_required = false;
-    //this.currentFunction = 'fillter';
-    
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -438,16 +431,16 @@ export class ContryComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        
+
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;

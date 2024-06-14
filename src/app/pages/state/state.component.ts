@@ -27,12 +27,12 @@ export class StateComponent implements OnInit {
   page: number = 1;
   count: number = 0;
   tableSize: number = 10;
-  options = [10, 15, 50, 100, 500, 1000 ,10000,10000000];
+  options = [10, 15, 50, 100, 500, 1000, 10000, 10000000];
   button: any = 'ADD';
   totalCount: number = 0;
   totalFetchrecord: number = 0;
   offset = 1;
-  allId: any[];
+  allId: any[] = [];
   pegination_required: any;
   apiFetchRecordLimit: any = 10;
   currentFunction: string = 'getStateData';
@@ -58,6 +58,11 @@ export class StateComponent implements OnInit {
     this.getStateData(0, this.apiFetchRecordLimit);
   }
 
+  search(search_text: any) {
+    let _this: any = this;
+    _this[this.currentFunction](0, 10, true, search_text);
+  }
+
   getStateData(
     start: number,
     limit: number,
@@ -75,20 +80,17 @@ export class StateComponent implements OnInit {
       quary = `SELECT *,
       COUNT(*) OVER () AS total_count
       FROM state
-      ORDER BY country_name ASC, name ASC
       WHERE name = '${search_text}'
          OR country_name = '${search_text}'
          ORDER BY name ASC
        `;
     }
-    
-    
+
+    console.log(quary);
 
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      
-
       this.blockUI.stop();
 
       if (res.success && res['data'].length > 0) {
@@ -96,9 +98,8 @@ export class StateComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
-        
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -107,8 +108,6 @@ export class StateComponent implements OnInit {
   }
 
   getSearchText(event: any) {
-    
-
     this.filterText = event;
   }
 
@@ -133,7 +132,7 @@ export class StateComponent implements OnInit {
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data'].map((obj: any) => {
           //if (obj.status == 1) {
-          return { name: obj.name };
+          return { name: obj.name, id: obj.id };
           // } else {
           // return null;
           // }
@@ -141,7 +140,6 @@ export class StateComponent implements OnInit {
         this.countryOption.sort((a: any, b: any) =>
           a.name.localeCompare(b.name)
         );
-        
       }
     });
   }
@@ -159,7 +157,6 @@ export class StateComponent implements OnInit {
 
         this.ApiParameter.savedata('state', updateData).subscribe(
           (res: any) => {
-            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -239,8 +236,6 @@ export class StateComponent implements OnInit {
   }
 
   delete(id: any, name: any) {
-    
-
     this.blockUI.start('Deleting...');
     this.ApiParameter.deletedata('state', {
       whereConditions: { id: id },
@@ -263,13 +258,10 @@ export class StateComponent implements OnInit {
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        
-
         this.allId.push(parseInt(this.tableData[key].id));
         checkbox.checked = true;
       });
@@ -279,11 +271,8 @@ export class StateComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
   }
   getId(id: any, e: any) {
-    
-
     if (e.target.checked) {
       this.allId.push(parseInt(id));
     } else {
@@ -292,7 +281,6 @@ export class StateComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
   }
   changepaginetdata(event: any) {
     this.page = 1;
@@ -312,7 +300,6 @@ export class StateComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -353,7 +340,6 @@ export class StateComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -393,7 +379,6 @@ export class StateComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -423,5 +408,44 @@ export class StateComponent implements OnInit {
         }
       });
     }
+  }
+  fillter(event: any) {
+    var query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`;
+    if (event.isqueryGenerated) {
+      query = `SELECT * , COUNT(*) OVER () AS total_count
+    FROM user_info
+    LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+    LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+    LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+    LEFT JOIN user_horoscope ON user_info.user_id = user_horoscope.user_id
+    LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+    LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+    LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+    ${event.whereConditions}`;
+    }
+
+    this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        this.collectionSize = res['data'].length;
+        this.offset = 1;
+        this.totalFetchrecord = this.collectionSize;
+        this.tableData = res['data'];
+      } else {
+        this.offset = 0;
+        this.totalFetchrecord = 0;
+        this.collectionSize = 0;
+        this.tableData = [];
+      }
+    });
   }
 }

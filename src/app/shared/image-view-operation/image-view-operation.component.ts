@@ -130,8 +130,6 @@ export class ImageViewOperationComponent implements OnInit {
   }
 
   delet(image: any) {
-    // this.blockUI.start("Please Wait...");
-
     Swal.fire({
       title: 'Do You Want to Delete?',
       icon: 'warning',
@@ -171,8 +169,6 @@ export class ImageViewOperationComponent implements OnInit {
       } else [Swal.fire('Error', res.message, 'error')];
     });
   }
-
-
 
   setProfile_picture(image: any) {
     this.blockUI.start('Please Wait...');
