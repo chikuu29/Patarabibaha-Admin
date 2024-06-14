@@ -56,7 +56,7 @@ export class BarcodeComponent implements OnInit {
       'date': moment().toISOString()
     }
     console.log(param);
-    
+
     this.CommonService.barCode(param).subscribe((res: any) => {
       if (res.success) {
         Swal.fire({
@@ -75,7 +75,7 @@ export class BarcodeComponent implements OnInit {
   }
 
   fatchdata() {
-    this.ApiParameter.fetchdata('barcode', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('barCode', { "projection": ["*"] }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.image = res['data'];
       }
@@ -91,7 +91,7 @@ export class BarcodeComponent implements OnInit {
       console.log(r);
       if (r.isConfirmed) {
         this.blockUI.start('Deleting...')
-        this.ApiParameter.deletedata('barcode', { "whereConditions": { id: id } }).subscribe((res: any) => {
+        this.ApiParameter.deletedata('barCode', { "whereConditions": { id: id } }).subscribe((res: any) => {
           this.blockUI.stop();
           if (res.success) {
             Swal.fire('Success', res.message, 'success').then(() => {
@@ -119,7 +119,7 @@ export class BarcodeComponent implements OnInit {
             },
             "whereConditions": { id: id }
           }
-          this.ApiParameter.updatedata('barcode', updateData).subscribe((res: any) => {
+          this.ApiParameter.updatedata('barCode', updateData).subscribe((res: any) => {
             // console.log(res);
             if (res.success) {
               Swal.fire({
@@ -152,7 +152,7 @@ export class BarcodeComponent implements OnInit {
             },
             "whereConditions": { id: id }
           }
-          this.ApiParameter.updatedata('barcode', updateData).subscribe((res: any) => {
+          this.ApiParameter.updatedata('barCode', updateData).subscribe((res: any) => {
             // console.log(res);
             if (res.success) {
               Swal.fire({

@@ -44,74 +44,7 @@ export class CreateUserComponent implements OnInit {
   ];
   countryCodes = [];
 
-  year: any[] = [
-    '1985',
-    '1986',
-    '1987',
-    '1988',
-    '1989',
-    '1990',
-    '1991',
-    '1992',
-    '1993',
-    '1994',
-    '1995',
-    '1996',
-    '1997',
-    '1998',
-    '1999',
-    '2000',
-    '2001',
-    '2002',
-    '2003',
-    '2004',
-    '2005',
-    '2006',
-    '2007',
-    '2008',
-    '2009',
-    '2010',
-    '2011',
-    '2012',
-    '2013',
-    '2014',
-    '2015',
-    '2016',
-    '2017',
-    '2018',
-    '2019',
-    '2020',
-    '2021',
-    '2022',
-    '2023',
-    '2024',
-    '2025',
-    '2026',
-    '2027',
-    '2028',
-    '2029',
-    '2030',
-    '2031',
-    '2032',
-    '2033',
-    '2034',
-    '2035',
-    '2036',
-    '2037',
-    '2038',
-    '2039',
-    '2040',
-    '2041',
-    '2042',
-    '2043',
-    '2044',
-    '2045',
-    '2046',
-    '2047',
-    '2048',
-    '2049',
-    '2050',
-  ];
+ year: any[] = Array.from({ length: 101 }, (_, index) => 1950 + index);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -204,7 +137,8 @@ export class CreateUserComponent implements OnInit {
   }
 
   signup() {
-    this.blockUI.start('Setup Account...');
+
+    // this.blockUI.start('Setup Account...');
     var apiData = {
       profileType: this.form1.value.profileType,
       gender: this.form1.value.gender,
@@ -215,9 +149,10 @@ export class CreateUserComponent implements OnInit {
       phone: `${this.form3.value.phone}`,
       password: this.form3.value.password,
       url: environment.application_url,
+      ccode : this.form3.value.countryCode
       // "profileID":this.profileID
     };
-    // console.log("Formdata", apiData);
+    // // console.log("Formdata", apiData);
 
     this.registerServices.setupuserAuthAccount(apiData).subscribe(
       (res: any) => {
@@ -279,46 +214,7 @@ export class CreateUserComponent implements OnInit {
       this.activeFormTab('form3');
     }
 
-    // var apiData = {
-    //   "fname": this.form3.value.fname,
-    //   "lname": this.form3.value.lname,
-    //   "dob": moment(this.form3.value.dob).format('YYYY-MM-DD'),
-    //   "profileID":this.profileID
-    // }
-    // console.log(apiData);
-    // this.blockUI.start("Please Wait...")
-    // this.registerServices.setProfile(apiData).subscribe((res:any)=>{
 
-    //   this.blockUI.stop();
-    //   if(res.success){
-
-    //     Swal.fire('Success!',res.message,'success').then(()=>{
-
-    //       var credential={
-    //         userID: this.form2.value.email,
-    //         password: this.form2.value.password
-    //       }
-
-    //       this.blockUI.start('Please Wait')
-    //       this.auth.signIn(credential).subscribe((authRes:any)=>{
-    //         this.blockUI.stop()
-    //         if (authRes.status) {
-    //           // this.alert.success(res.message, "Done");
-    //           // localStorage.setItem('loginiinfo', JSON.stringify(res))
-    //           var expiration_date = new Date(new Date().getTime() + 86400 * 1000).toString();
-    //           this.auth.authentication(authRes.profile_id, authRes.profile_name, authRes.profile_email, true, "LOGIN_USER", expiration_date);
-    //           location.reload()
-    //         } else {
-    //           this.alert.error(res.message);
-    //         }
-    //       })
-    //       this.activeModal.close();
-    //     })
-    //   }else{
-    //     Swal.fire('OPS!',res.message,'error')
-    //   }
-
-    // })
   }
 
   getcountrycode() {

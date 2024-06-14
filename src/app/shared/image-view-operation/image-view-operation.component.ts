@@ -130,14 +130,25 @@ export class ImageViewOperationComponent implements OnInit {
   }
 
   delet(image: any) {
-    this.blockUI.start("Please Wait...")
-    this.ApiParameterScript.deletedata('user_profile_images', {
-      whereConditions: { id: image.id },
-    }).subscribe((res: any) => {
-      this.blockUI.stop()
-      console.log(res);
-      if (res.status) {
-        this.ngOnInit();
+    // this.blockUI.start("Please Wait...");
+
+    Swal.fire({
+      title: 'Do You Want to Delete?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ApiParameterScript.deletedata('user_profile_images', {
+          whereConditions: { id: image.id },
+        }).subscribe((res: any) => {
+          this.blockUI.stop();
+          console.log(res);
+          if (res.status) {
+            this.ngOnInit();
+          }
+        });
       }
     });
   }

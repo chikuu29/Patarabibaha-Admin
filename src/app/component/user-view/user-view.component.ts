@@ -130,7 +130,12 @@ export class UserViewComponent implements OnInit {
   stateOption: any = [];
   cityOption: any = [];
 
-  dietOptions: any = [{ name: 'Vegetarian' }, { name: 'Non-Vegetarian' }];
+  dietOptions: any = [
+    { name: 'Full Vegetarian' },
+    { name: 'Non Vegetarian' },
+    { name: 'Occasional Nonveg' },
+    { name: 'Eggiterian' },
+  ];
   smokingOptions: any = [
     { name: 'Yes' },
     { name: 'No' },
@@ -438,113 +443,113 @@ export class UserViewComponent implements OnInit {
   likeOption: any = [];
 
   profileDetailsForm = new FormGroup({
-    profile_id: new FormControl('', [Validators.required]),
-    profile_name: new FormControl('', [Validators.required]),
-    profile_email: new FormControl('', [Validators.required]),
-    profile_phone: new FormControl('', [Validators.required]),
+    profile_id: new FormControl(''),
+    profile_name: new FormControl(''),
+    profile_email: new FormControl(''),
+    profile_phone: new FormControl(''),
   });
 
   basicDetailsForm = new FormGroup({
-    user_fname: new FormControl('', [Validators.required]),
-    user_lname: new FormControl('', [Validators.required]),
+    user_fname: new FormControl(''),
+    user_lname: new FormControl(''),
     user_email: new FormControl(this.appservices.authStatus.profile_email, [
       Validators.required,
     ]),
-    user_profileType: new FormControl('', [Validators.required]),
-    user_gender: new FormControl('', [Validators.required]),
-    user_mother_toungh: new FormControl('', [Validators.required]),
-    user_marital_status: new FormControl('', [Validators.required]),
-    user_dob: new FormControl('', [Validators.required]),
-    user_phone_no: new FormControl('', [Validators.required]),
-    user_whatsapp_no: new FormControl('', [Validators.required]),
-    country_code: new FormControl('', [Validators.required]),
-    whats_app_c_code: new FormControl('', [Validators.required]),
+    user_profileType: new FormControl(''),
+    user_gender: new FormControl(''),
+    user_mother_toungh: new FormControl(''),
+    user_marital_status: new FormControl(''),
+    user_dob: new FormControl(''),
+    user_phone_no: new FormControl(''),
+    user_whatsapp_no: new FormControl(''),
+    country_code: new FormControl(''),
+    whats_app_c_code: new FormControl(''),
   });
 
   user_religionDetailsForm = new FormGroup({
     user_ID: new FormControl('', []),
-    user_religion: new FormControl('', [Validators.required]),
-    user_caste: new FormControl('', [Validators.required]),
-    user_subcaste: new FormControl('', [Validators.required]),
+    user_religion: new FormControl(''),
+    user_caste: new FormControl(''),
+    user_subcaste: new FormControl(''),
   });
   education_occupationDetailsForm = new FormGroup({
     user_ID: new FormControl('', []),
-    user_occupation: new FormControl('', [Validators.required]),
-    user_employed_In: new FormControl('', [Validators.required]),
-    user_anual_income: new FormControl('', [Validators.required]),
-    user_additional_education: new FormControl('', [Validators.required]),
-    user_highest_education: new FormControl('', [Validators.required]),
-    user_occupation_details: new FormControl('', [Validators.required]),
-    user_occupation_location: new FormControl('', [Validators.required]),
+    user_occupation: new FormControl(''),
+    user_employed_In: new FormControl(''),
+    user_anual_income: new FormControl(''),
+    user_additional_education: new FormControl(''),
+    user_highest_education: new FormControl(''),
+    user_occupation_details: new FormControl(''),
+    user_occupation_location: new FormControl(''),
     completed: new FormControl(1, []),
-    user_deg: new FormControl('', [Validators.required]),
+    user_deg: new FormControl(''),
   });
 
   userFamilyDetailsForm = new FormGroup({
     user_ID: new FormControl('', []),
-    user_family_type: new FormControl('', [Validators.required]),
-    user_family_value: new FormControl('', [Validators.required]),
-    user_family_status: new FormControl('', [Validators.required]),
-    user_father_name: new FormControl('', [Validators.required]),
-    user_mother_name: new FormControl('', [Validators.required]),
-    user_father_occupation: new FormControl('', [Validators.required]),
-    user_mothers_occupation: new FormControl('', [Validators.required]),
-    user_no_of_unmarried_brother: new FormControl('', [Validators.required]),
-    user_no_of_unmarried_sister: new FormControl('', [Validators.required]),
-    user_no_of_married_sister: new FormControl('', [Validators.required]),
-    user_no_of_married_brother: new FormControl('', [Validators.required]),
+    user_family_type: new FormControl(''),
+    user_family_value: new FormControl(''),
+    user_family_status: new FormControl(''),
+    user_father_name: new FormControl(''),
+    user_mother_name: new FormControl(''),
+    user_father_occupation: new FormControl(''),
+    user_mothers_occupation: new FormControl(''),
+    user_no_of_unmarried_brother: new FormControl(''),
+    user_no_of_unmarried_sister: new FormControl(''),
+    user_no_of_married_sister: new FormControl(''),
+    user_no_of_married_brother: new FormControl(''),
     completed: new FormControl(1, []),
   });
 
   locationDetailsForm = new FormGroup({
     user_ID: new FormControl('', []),
-    user_country: new FormControl('', [Validators.required]),
-    user_state: new FormControl('', [Validators.required]),
-    user_city: new FormControl('', [Validators.required]),
-    user_Address: new FormControl('', [Validators.required]),
-    user_Permanent_Address: new FormControl('', [Validators.required]),
+    user_country: new FormControl(''),
+    user_state: new FormControl(''),
+    user_city: new FormControl(''),
+    user_Address: new FormControl(''),
+    user_Permanent_Address: new FormControl(''),
     user_current_and_permanent_address_same: new FormControl('No', [
       Validators.required,
     ]),
-    user_Permanent_city: new FormControl('', [Validators.required]),
-    user_Permanent_state: new FormControl('', [Validators.required]),
-    user_Permanent_country: new FormControl('', [Validators.required]),
+    user_Permanent_city: new FormControl(''),
+    user_Permanent_state: new FormControl(''),
+    user_Permanent_country: new FormControl(''),
     completed: new FormControl(1, []),
   });
   userAboutDetailsForm = new FormGroup({
     user_ID: new FormControl('', []),
-    user_about: new FormControl('', [Validators.required]),
+    user_about: new FormControl(''),
     completed: new FormControl(1, []),
   });
 
   habitHobbiesForm = new FormGroup({
     user_ID: new FormControl('', []),
-    user_diet: new FormControl('', [Validators.required]),
-    user_smoking: new FormControl('', [Validators.required]),
-    user_drinking: new FormControl('', [Validators.required]),
-    user_like: new FormControl('', [Validators.required]),
+    user_diet: new FormControl(''),
+    user_smoking: new FormControl(''),
+    user_drinking: new FormControl(''),
+    user_like: new FormControl(''),
     completed: new FormControl(1, []),
   });
 
   physicalDeatilsForm = new FormGroup({
     user_ID: new FormControl('', []),
-    user_height: new FormControl('', [Validators.required]),
-    user_weight: new FormControl('', [Validators.required]),
-    user_body_type: new FormControl('', [Validators.required]),
-    user_complextion: new FormControl('', [Validators.required]),
-    user_physical_status: new FormControl('', [Validators.required]),
+    user_height: new FormControl(''),
+    user_weight: new FormControl(''),
+    user_body_type: new FormControl(''),
+    user_complextion: new FormControl(''),
+    user_physical_status: new FormControl(''),
     completed: new FormControl(1, []),
   });
 
   horoscopeForm = new FormGroup({
     user_id: new FormControl('', []),
-    user_horoscope: new FormControl('Yes', [Validators.required]),
-    user_mangalik: new FormControl('Yes', [Validators.required]),
-    user_dateoftime: new FormControl('', [Validators.required]),
-    user_dateofplace: new FormControl('', [Validators.required]),
-    user_gotra: new FormControl('', [Validators.required]),
-    user_zodiacs: new FormControl('', [Validators.required]),
-    user_nakhyatra: new FormControl('', [Validators.required]),
+    user_horoscope: new FormControl('Yes'),
+    user_mangalik: new FormControl('Yes'),
+    user_dateoftime: new FormControl(''),
+    user_dateofplace: new FormControl(''),
+    user_gotra: new FormControl(''),
+    user_zodiacs: new FormControl(''),
+    user_nakhyatra: new FormControl(''),
     completed: new FormControl(1, []),
   });
   nakhyatraOption: any = [];
@@ -1552,7 +1557,7 @@ export class UserViewComponent implements OnInit {
       scrollable: true,
       backdrop: false,
       windowClass: 'custom-backdrop',
-      backdropClass:'custom-backdrop-border'
+      backdropClass: 'custom-backdrop-border',
     });
     modalRef.componentInstance.user_id = this.profile_id;
   }
@@ -1612,7 +1617,9 @@ DOB:- ${this.finaldata.user_dob}
 <br>
 HEIGHT:- ${this.finaldata.user_height}
 <br>
-Colour:- ${this.finaldata.user_complextion}
+COLOUR:- ${this.finaldata.user_complextion}
+<br>
+RASI:- ${this.finaldata.user_zodiacs}
 <br>
 QUALIFICATION:- ${this.finaldata.user_highest_education}
 <br>
@@ -1633,20 +1640,21 @@ CLICK HERE FOR MORE INFORMATION WITH PHOTO
       confirmButtonText: 'Copy Details',
     }).then((result) => {
       if (result.isConfirmed) {
-        let  textToCopy= details;
-//         let textToCopy = `
-// Required ${type2}\n
-// Details of ${type1}\n
-// DOB:- ${this.finaldata.user_dob}\n
-// HEIGHT:- ${this.finaldata.user_height}\n
-// Colour:- ${this.finaldata.user_complextion}\n
-// QUALIFICATION:- ${this.finaldata.user_highest_education}\n
-// JOB LOCATION:- ${this.finaldata.user_occupation_location}\n
-// ANNUAL INCOME:- ${this.finaldata.user_anual_income * 100000}\n
-// HOME TOWN:- ${this.finaldata.user_Permanent_city}\n
-// CLICK HERE FOR MORE INFORMATION WITH PHOTO\n
-// ${link}
-//     `;
+        // let  textToCopy= details;
+        let textToCopy = `
+Required ${type2}\n
+Details of ${type1}\n
+DOB:- ${this.finaldata.user_dob}\n
+HEIGHT:- ${this.finaldata.user_height}\n
+Colour:- ${this.finaldata.user_complextion}\n
+RASI:- ${this.finaldata.user_zodiacs}\n
+QUALIFICATION:- ${this.finaldata.user_highest_education}\n
+JOB LOCATION:- ${this.finaldata.user_occupation_location}\n
+ANNUAL INCOME:- ${this.finaldata.user_anual_income * 100000}\n
+HOME TOWN:- ${this.finaldata.user_Permanent_city}\n
+CLICK HERE FOR MORE INFORMATION WITH PHOTO\n
+${link}
+    `;
 
         navigator.clipboard
           .writeText(textToCopy)
@@ -1757,6 +1765,14 @@ CLICK HERE FOR MORE INFORMATION WITH PHOTO
         c_code: this.basicDetailsForm.value.country_code,
       },
       disableClose: true,
+    });
+  }
+  generateAboutUs(): void {
+    // Generate the content for the "About Me" textarea (replace this with your actual content generation logic)
+    let aboutMeContent =
+      "I'm a [Your Age] year old [Your Gender], residing in [Your Current Location]. Professionally, I'm a [Your Occupation] with [Number of Years] years of experience. I'm passionate about [Your Interests/Hobbies] and value spending quality time with loved ones. I'm [Personality Trait 1], [Personality Trait 2], and [Personality Trait 3]. Seeking a life partner who shares similar values, respects traditions, and believes in mutual understanding. I believe in the sanctity of marriage and look forward to building a loving, respectful, and fulfilling relationship based on trust and companionship.";
+    this.userAboutDetailsForm.patchValue({
+      user_about: aboutMeContent,
     });
   }
 }

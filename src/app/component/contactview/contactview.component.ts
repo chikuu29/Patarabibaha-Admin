@@ -51,17 +51,18 @@ export class ContactviewComponent implements OnInit {
       FROM user_activities_for_contact_details
       WHERE profile_view_by_profile_id = '${search_text}'
          OR profile_view_by_name   = '${search_text}'
-         OR profile_view_by_name = '${search_text}'
-         OR viewed_profile_name = '${search_text}';
-         ORDER BY a.user_creation_date_time DESC
+         OR viewed_profile_id = '${search_text}'
+         OR viewed_profile_name = '${search_text}'
+         ORDER BY created_At DESC ;
        `;
     }
 
-   // console.log("query",quary);
+  // console.log("query",quary);
 
     this.blockUI.start('Loading...')
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
+     // console.log(res);
 
 
       if (res.success && res['data'].length > 0) {
@@ -69,8 +70,9 @@ export class ContactviewComponent implements OnInit {
         this.totalDataCount=res['data'][0].total_count;
         this.totalFetchrecord =start+res['data'].length
         this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
-       console.log(this.collectionSize);
+      // console.log(this.collectionSize);
         this.tableData = res['data'];
+        console.log(this.tableData);
 
       } else {
         this.collectionSize = 1;
