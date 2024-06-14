@@ -1,6 +1,7 @@
 <nav class="sidebar sidebar-offcanvas " id="sidebar" style="height: 100%;"
   [ngClass]="!isSidenavCoolapedForSmallScreen?'active':''">
-  <div class="text-center sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top" style="background-color: #ffffff;">
+  <div class="text-center sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top"
+    style="background-color: #ffffff;">
     <a class="sidebar-brand brand-logo " routerLink="/"><span class="fw-bold"
         style="font-weight: bold !important;">Patarbibaha</span></a>
     <a class="sidebar-brand brand-logo-mini" routerLink="/"><span class="fw-bold"
@@ -72,9 +73,9 @@
     <li class="nav-item nav-category">
       <span class="nav-link">Navigation</span>
     </li>
-    <li class="nav-item menu-items" *ngFor="let navmenu of navConfig,let i=index">
+    <li class="nav-item menu-items " *ngFor="let navmenu of navConfig,let i=index" style="cursor: pointer;">
       <ng-container *ngIf="navmenu.requiredRouterLink">
-        <a class="nav-link"  [routerLink]="navmenu.requiredRouterLink?[navmenu.routerLink]:[]"
+        <a class="nav-link" [routerLink]="navmenu.requiredRouterLink?[navmenu.routerLink]:[]"
           (click)="activeSubmenu(i)">
           <span class="menu-icon">
             <i [class]="navmenu.icon"></i>
@@ -89,7 +90,12 @@
             <i [class]="navmenu.icon"></i>
           </span>
           <span class="menu-title">{{navmenu.text}}</span>
-          <i class="menu-arrow"></i>
+          <!-- <i class="menu-arrow"></i> -->
+          <ng-container *ngIf="navmenu['submenu'] && navmenu['submenu'].length>0 && !isSidenavCoolapsed">
+
+            <i class="fa-solid fa-chevron-down" style="margin-left: auto" *ngIf="navmenu.submenuActive"></i>
+            <i class="fa-solid fa-chevron-right" style="margin-left: auto" *ngIf="!navmenu.submenuActive"></i>
+          </ng-container>
         </a>
         <div class="collapse" [id]="'nav-ui-'+i" [ngClass]="navmenu['submenu'] && navmenu.submenuActive?'show':'hide'">
           <ul class="nav flex-column sub-menu">

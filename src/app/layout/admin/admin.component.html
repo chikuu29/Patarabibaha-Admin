@@ -1,5 +1,5 @@
 <div class="container-scroller" [ngClass]="isSidenavCoolapsed?'sidebar-icon-only':'sidebar-hidden'">
-    <app-side-nav [isSidenavCoolapedForSmallScreen]="isSidenavCoolapedForSmallScreen"></app-side-nav>
+    <app-side-nav [isSidenavCoolapedForSmallScreen]="isSidenavCoolapedForSmallScreen" [isSidenavCoolapsed]="isSidenavCoolapsed" ></app-side-nav>
     <div class="container-fluid page-body-wrapper" style="padding: 0px;">
         <app-nav-bar (isSidenavCoolapsed)="Show($event)" (isSidenavCoolapedForSmallScreen)="showSideNavForSmallScreen($event)"></app-nav-bar>
         <div class="main-panel ">

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as _ from 'lodash';
 import { isArray } from 'lodash';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -13,11 +13,16 @@ import { CryptographyService } from 'src/app/services/cryptography.service';
 })
 export class SideNavComponent implements OnInit {
   @Input() isSidenavCoolapedForSmallScreen = false;
+  @Input() isSidenavCoolapsed = false;
   usercount: number = 0;
   profilephotocount: number = 0;
   deliteeeqest: number = 0;
   phoneapprovedata: number = 0;
   navConfig: any = []
+
+  collapsed: boolean = false
+  collapsedForSmallScreen:boolean=false
+
   constructor(
     private ApiParameter: ApiParameterScript,
     private cryptographyservice: CryptographyService,
@@ -32,6 +37,8 @@ export class SideNavComponent implements OnInit {
     this.getProfileImageAprrove();
     this.getDeleteRequestdata();
     this.phoneapprove();
+    
+    
   }
 
 

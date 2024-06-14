@@ -11,6 +11,8 @@ export class NavBarComponent implements OnInit {
   collapsedForSmallScreen:boolean=false
   @Output() isSidenavCoolapsed: EventEmitter<boolean> = new EventEmitter();
   collapsedSideNav() {
+    console.log("cliks",this.collapsed);
+    
     this.collapsed = !this.collapsed;
     this.isSidenavCoolapsed.emit(this.collapsed);
   }
