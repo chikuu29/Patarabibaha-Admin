@@ -22,12 +22,14 @@ export class NavBarComponent implements OnInit {
   }
   elem: any;
   activeFullScreenMode: boolean = false
+  authInfo:any
   constructor(
     private auth:AuthService,
     @Inject(DOCUMENT) private document: any
   ) { }
 
   ngOnInit(): void {
+    this.authInfo=this.auth.getAuthStatus()
     this.elem = document.documentElement;
   }
 
