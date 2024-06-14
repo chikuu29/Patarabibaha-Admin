@@ -41,15 +41,15 @@ export class FeedbackComponent implements OnInit {
               LIMIT ${limit} OFFSET ${start};`;
     this.ApiParameter.fetchDataFormQuery(query).subscribe((resd: any) => {
       if (resd.success && resd['data'].length > 0) {
-        console.log(resd);
+        
         this.tableData = resd['data'];
         this.totalDataCount = resd['data'][0].total_count;
-        console.log(this.totalDataCount);
+        
         this.totalFetchrecord = start + resd['data'].length;
         this.collectionSize =
           Math.ceil(resd['data'][0].total_count / this.apiFetchRecordLimit) *
           10;
-        console.log(this.collectionSize);
+        
         this.tableData = resd['data'];
       }
     });
@@ -91,7 +91,7 @@ export class FeedbackComponent implements OnInit {
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}`;
     }
-    console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {

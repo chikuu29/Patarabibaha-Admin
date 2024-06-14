@@ -13303,12 +13303,12 @@ input[type="button"].btn-block {
 .dropdown-item:focus {
   color: #16181b;
   text-decoration: none;
-  background-color: #13151b;
+  /* background-color: #13151b; */
 }
 
 .dropdown-item.active,
 .dropdown-item:active {
-  color: #fff;
+  /* color: #fff; */
   text-decoration: none;
   background-color: #007bff;
 }
@@ -16302,13 +16302,13 @@ a.badge-success.focus,
   background-color: #8f5fe8;
 }
 
-a.badge-info:hover,
+/* a.badge-info:hover,
 .preview-list .preview-item .preview-thumbnail a.badge.badge-offline:hover,
 a.badge-info:focus,
 .preview-list .preview-item .preview-thumbnail a.badge.badge-offline:focus {
   color: #fff;
   background-color: #7032e2;
-}
+} */
 
 a.badge-info:focus,
 .preview-list .preview-item .preview-thumbnail a.badge.badge-offline:focus,
@@ -30519,7 +30519,7 @@ div.tagsinput span.tag a {
   }
 
   .sidebar-icon-only .sidebar {
-    width: 70px;
+    width: 90px;
   }
 
   .sidebar-icon-only .sidebar .sidebar-brand-wrapper {

@@ -57,7 +57,7 @@ export class ImageViewOperationComponent implements OnInit {
             });
           });
 
-          console.log('allProfileImage_Data', this.allProfileImage_Data);
+
         } else {
           this.allProfileImage_Data = [];
         }
@@ -119,7 +119,7 @@ export class ImageViewOperationComponent implements OnInit {
       'user_profile_images',
       update_Dta
     ).subscribe((res: any) => {
-      console.log(res);
+
       this.blockUI.stop();
       if (res.success) {
         Swal.fire('Success', res.message, 'success').then(() => {
@@ -144,7 +144,6 @@ export class ImageViewOperationComponent implements OnInit {
           whereConditions: { id: image.id },
         }).subscribe((res: any) => {
           this.blockUI.stop();
-          console.log(res);
           if (res.status) {
             this.ngOnInit();
           }
@@ -163,7 +162,7 @@ export class ImageViewOperationComponent implements OnInit {
       'user_profile_images',
       update_Dta
     ).subscribe((res: any) => {
-      console.log(res);
+
       this.blockUI.stop();
       if (res.success) {
         Swal.fire('Success', res.message, 'success').then(() => {
@@ -173,6 +172,8 @@ export class ImageViewOperationComponent implements OnInit {
     });
   }
 
+
+
   setProfile_picture(image: any) {
     this.blockUI.start('Please Wait...');
     var update_Dta = {
@@ -181,7 +182,7 @@ export class ImageViewOperationComponent implements OnInit {
     };
     this.ApiParameterScript.updatedata('user_info', update_Dta).subscribe(
       (res: any) => {
-        console.log(res);
+
         this.blockUI.stop();
         if (res.success) {
           Swal.fire('Success', res.message, 'success').then(() => {

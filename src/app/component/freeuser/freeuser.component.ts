@@ -47,7 +47,7 @@ export class FreeuserComponent implements OnInit {
     let Quary = `SELECT * FROM membership_plan WHERE membership_plan_default = 1`;
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        //console.log();
+        
         this.membersheepdata = res['data'][0].membership_plan_type;
         this.getAllData(0, this.collectionSize);
       }
@@ -78,17 +78,17 @@ export class FreeuserComponent implements OnInit {
       AND user_membership_plan_type = '${this.membersheepdata}'
       `;
     }
-    console.log(Quary);
+    
 
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.tableData = res['data'];
-        console.log(this.tableData);
+        
       }
     });
   }
@@ -99,13 +99,13 @@ export class FreeuserComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any, start = 0) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    console.log('click fillter', event);
+    
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -130,7 +130,7 @@ export class FreeuserComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
@@ -138,7 +138,7 @@ export class FreeuserComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
         this.currentFunction = 'fillter';
       } else {
@@ -166,12 +166,12 @@ export class FreeuserComponent implements OnInit {
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    console.log(check);
+    
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        console.log('p');
+        
 
         this.allId.push(this.tableData[key].user_email);
         checkbox.checked = true;
@@ -182,10 +182,10 @@ export class FreeuserComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
+    
 
     if (e.target.checked) {
       this.allId.push(id);
@@ -195,7 +195,7 @@ export class FreeuserComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
   sendMail() {
     if (this.allId.length == 0) {
@@ -208,7 +208,7 @@ export class FreeuserComponent implements OnInit {
         mailIds: this.allId,
         filepath: environment.filePath,
       };
-      console.log(param);
+      
 
       this.commonservice.freeMail(param).subscribe((res: any) => {});
       Swal.fire({

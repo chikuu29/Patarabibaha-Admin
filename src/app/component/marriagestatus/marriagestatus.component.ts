@@ -74,18 +74,18 @@ export class MarriagestatusComponent implements OnInit {
          OR a.user_lname = '${search_text}';
        `;
     }
-   // console.log(quary);
+   
 
 
 
-    // console.log(quary);
+    
     this.blockUI.start('Loading...')
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
       if (res.success && res['data'].length > 0) {
         this.collectionSize = Math.round(res['data'][0].total_count);
         this.finaldata = res['data'];
-        console.log(this.finaldata);
+        
       }else{
         this.collectionSize = 1;
         this.finaldata = [];
@@ -110,7 +110,7 @@ export class MarriagestatusComponent implements OnInit {
         element.checked = false;
       });
     }
-    console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
 
@@ -122,7 +122,7 @@ export class MarriagestatusComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
 
 }

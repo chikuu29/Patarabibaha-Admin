@@ -41,7 +41,7 @@ export class IgnoredeatilsComponent implements OnInit {
     this.ApiParameter.fetchdata('user_activities', { "projection": ["*"], "whereConditions": { user_id: data } }).subscribe((res: any) => {
 
       if (res.success && res['data'].length > 0) {
-        console.log(res['data'][0].user_block_list);
+        
         
         this.alldataoflike = res['data'][0].user_block_list.split(',').map((ele:any)=>{
           return {'id' : ele}
@@ -55,7 +55,7 @@ export class IgnoredeatilsComponent implements OnInit {
         //   })}
           
         // });
-        console.log(this.alldataoflike);
+        
         
       }
     })
@@ -64,7 +64,7 @@ export class IgnoredeatilsComponent implements OnInit {
     this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_id: data } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.userdata = res['data'][0];
-        console.log(this.userdata);
+        
 
       }
     });

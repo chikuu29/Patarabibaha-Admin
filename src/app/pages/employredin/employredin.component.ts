@@ -53,7 +53,7 @@ export class EmployredinComponent implements OnInit {
     this.getAllData(0, this.apiFetchRecordLimit);
   }
   getSearchText(event: any) {
-    console.log(event);
+    
 
     this.filterText = event;
   }
@@ -77,7 +77,7 @@ export class EmployredinComponent implements OnInit {
         };
         this.ApiParameter.savedata('employer_in', updateData).subscribe(
           (res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -102,7 +102,7 @@ export class EmployredinComponent implements OnInit {
         };
         this.ApiParameter.updatedata('employer_in', updateData1).subscribe(
           (res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -154,9 +154,9 @@ export class EmployredinComponent implements OnInit {
           WHERE Employer_in_name LIKE '%${search_text}%'
            ORDER BY LOWER(Employer_in_name) ASC;
          `;
-      console.log(quary);
+      
     }
-    console.log(quary);
+    
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -167,7 +167,7 @@ export class EmployredinComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -182,7 +182,7 @@ export class EmployredinComponent implements OnInit {
     //   offset,
     //   10
     // ).subscribe((res: any) => {
-    //   // console.log(res['data'][0]);
+    //   
 
     //   this.totalFetchrecord = offset + res['count'];
     //   this.totalCount = res['totalCount'];
@@ -190,7 +190,7 @@ export class EmployredinComponent implements OnInit {
     //   if (res.success) {
     //     //this.privacypalicy.patchValue(res['data'][0])
     //     this.tabledata = res['data'];
-    //     // console.log(this.privacypalicy.patchValue(res['data'][0]));
+    //     );
     //   }
     // });
   }
@@ -207,7 +207,7 @@ export class EmployredinComponent implements OnInit {
           this.rdata = res['data'].filter((val: any) => {
             return (val = val.id == data);
           });
-          //console.log(this.rdata);
+          
 
           this.Employer.patchValue(this.rdata[0]);
           this.editedcast = this.rdata[0].Employer_in_name;
@@ -217,7 +217,7 @@ export class EmployredinComponent implements OnInit {
     );
   }
   deleted(data: any) {
-    //console.log(id);
+    
     this.blockUI.start('Deleting...');
     this.ApiParameter.deletedata('employer_in', {
       whereConditions: { id: data },
@@ -243,7 +243,7 @@ export class EmployredinComponent implements OnInit {
   //       "whereConditions": { id: id }
   //     }
   //     this.ApiParameter.updatedata('employer_in', updateData).subscribe((res: any) => {
-  //       // console.log(res);
+  //       
   //       if (res.success) {
   //         Swal.fire({
   //           icon: 'success',
@@ -267,7 +267,7 @@ export class EmployredinComponent implements OnInit {
   //       "whereConditions": { id: id }
   //     }
   //     this.ApiParameter.updatedata('employer_in', updateData).subscribe((res: any) => {
-  //       // console.log(res);
+  //       
   //       if (res.success) {
   //         Swal.fire({
   //           icon: 'success',
@@ -295,7 +295,7 @@ export class EmployredinComponent implements OnInit {
   //     };
   //     this.ApiParameter.updatedata('mother_tongue', updateData).subscribe(
   //       (res: any) => {
-  //         // console.log(res);
+  //         
   //         if (res.success) {
   //           Swal.fire({
   //             icon: 'success',
@@ -320,7 +320,7 @@ export class EmployredinComponent implements OnInit {
   //     };
   //     this.ApiParameter.updatedata('mother_tongue', updateData).subscribe(
   //       (res: any) => {
-  //         // console.log(res);
+  //         
   //         if (res.success) {
   //           Swal.fire({
   //             icon: 'success',
@@ -347,7 +347,7 @@ export class EmployredinComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -388,7 +388,7 @@ export class EmployredinComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        //console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -428,7 +428,7 @@ export class EmployredinComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             deleted: 'Delete',
@@ -460,13 +460,13 @@ export class EmployredinComponent implements OnInit {
     //alert(this.currentFunction)
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    console.log('click fillter', event);
+    
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -491,16 +491,16 @@ export class EmployredinComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log('Filtter Record', res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -510,10 +510,10 @@ export class EmployredinComponent implements OnInit {
     });
   }
   checkAll(e: any) {
-    console.log(this.tableData);
+    
 
     let check = document.querySelectorAll('.check');
-    //console.log(check);
+    
 
     this.allId = [];
     if (e.target.checked) {
@@ -527,10 +527,10 @@ export class EmployredinComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    //console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
+    
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -540,7 +540,7 @@ export class EmployredinComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
   changepaginetdata(event: any) {
     this.page = 1;

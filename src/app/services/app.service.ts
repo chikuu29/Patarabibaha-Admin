@@ -19,7 +19,7 @@ export class AppService {
     // this.appConfig = appConfig;
     // this.appDetailConfig = appDetailConfig
     this.country_state_district_Data = country_state_district['states']
-    console.log("Calling App Services");
+    
     this.setAuthorizationTokenKey()
   }
 

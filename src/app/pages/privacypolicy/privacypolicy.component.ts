@@ -41,7 +41,7 @@ export class PrivacypolicyComponent implements OnInit {
       }
 
       this.ApiParameter.updatedata('privacy_policy',updateData).subscribe((res: any) => {
-        console.log(res);
+        
         if (res.success) {
           Swal.fire({
             icon: 'success',

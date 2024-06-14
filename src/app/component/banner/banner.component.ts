@@ -87,7 +87,7 @@ export class BannerComponent implements OnInit {
       icon: 'question',
       text: 'Do You Want to Delete'
     }).then((r: any) => {
-      console.log(r);
+      
       if (r.isConfirmed) {
         this.blockUI.start('Deleting...')
         this.ApiParameter.deletedata('banner_image', { "whereConditions": { id: id } }).subscribe((res: any) => {
@@ -119,7 +119,7 @@ export class BannerComponent implements OnInit {
             "whereConditions": { id: id }
           }
           this.ApiParameter.updatedata('banner_image', updateData).subscribe((res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -152,7 +152,7 @@ export class BannerComponent implements OnInit {
             "whereConditions": { id: id }
           }
           this.ApiParameter.updatedata('banner_image', updateData).subscribe((res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',

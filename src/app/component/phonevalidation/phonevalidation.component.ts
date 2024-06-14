@@ -54,7 +54,7 @@ export class PhonevalidationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.kpiTileConfig);
+    
 
     this.page = 1;
     this.collectionSize = 10;
@@ -96,17 +96,17 @@ export class PhonevalidationComponent implements OnInit {
       OR b.auth_phone_no like '%${search_text}%')
       AND  a.user_phone_varification = 0`;
     }
-    console.log(Quary);
+    
 
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-        console.log(this.finaldata);
+        
       }
     });
   }
@@ -128,7 +128,7 @@ export class PhonevalidationComponent implements OnInit {
         };
         this.ApiParameter.updatedata('user_info', updateData).subscribe(
           (res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -163,11 +163,11 @@ export class PhonevalidationComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-    // console.log("click fillter", event);
+    
     var query = `SELECT *
      FROM user_info
      LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -189,17 +189,17 @@ export class PhonevalidationComponent implements OnInit {
      LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
      ${event.whereConditions}`;
     }
-    //console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
-        // console.log(this.collectionSize);
+        
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       }
     });
   }
@@ -235,17 +235,17 @@ export class PhonevalidationComponent implements OnInit {
       `;
 
     }
-    console.log(Quary);
+    
 
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-        console.log(this.finaldata);
+        
       }
     });
 
@@ -273,17 +273,17 @@ export class PhonevalidationComponent implements OnInit {
       `;
 
     }
-    console.log(Quary);
+    
 
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-        console.log(this.finaldata);
+        
       }
     });
 

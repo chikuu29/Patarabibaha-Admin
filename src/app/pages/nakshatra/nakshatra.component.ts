@@ -46,7 +46,7 @@ export class NakshatraComponent implements OnInit {
   }
 
   getSearchText(event: any) {
-    console.log(event);
+    
 
     this.filterText = event;
   }
@@ -81,13 +81,13 @@ export class NakshatraComponent implements OnInit {
          ORDER BY name ASC
        `;
     }
-    //console.log(quary);
-    // console.log("query",quary);
+    
+    
 
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      console.log(res);
+      
 
       this.blockUI.stop();
 
@@ -96,9 +96,9 @@ export class NakshatraComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
-        console.log(this.tableData);
+        
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -121,7 +121,7 @@ export class NakshatraComponent implements OnInit {
     };
 
     this.api.nakshatra(param).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.status) {
         this.nakshatra = res.message;
       }
@@ -129,12 +129,12 @@ export class NakshatraComponent implements OnInit {
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    console.log(check);
+    
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        console.log('p');
+        
 
         this.allId.push(parseInt(this.tableData[key].id));
         checkbox.checked = true;
@@ -145,10 +145,10 @@ export class NakshatraComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
+    
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -158,7 +158,7 @@ export class NakshatraComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
   edit(){
     window.scrollTo({

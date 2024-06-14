@@ -52,7 +52,7 @@ export class ApprovalviweComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.id);
+    
     this.getuserMale();
     this.getuserFemale();
     if (this.id != '') {
@@ -64,12 +64,12 @@ export class ApprovalviweComponent implements OnInit {
 
       this.ApiParameterScript.fetchDataFormQuery(query).subscribe(
         (res: any) => {
-          console.log(res);
+          
           if (res.success && res['data'].length > 0) {
             //this.alldata = res['data'][0];
             this.successStoryForm.patchValue(res['data'][0]);
             this.image = res['data'][0].wedding_photo;
-            console.log(this.successStoryForm);
+            
           }
         }
       );
@@ -85,7 +85,7 @@ export class ApprovalviweComponent implements OnInit {
 
   // Function to filter options based on the search query
   filterOptions(value: string, options: any[]): any[] {
-    console.log(options);
+    
 
     const filterValue = value.toLowerCase();
     return options.filter(
@@ -107,7 +107,7 @@ export class ApprovalviweComponent implements OnInit {
     `;
 
     this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.filteredOptions1 = res['data'];
         this.userfullnamemale =  res['data'];
@@ -122,7 +122,7 @@ export class ApprovalviweComponent implements OnInit {
     `;
 
     this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.filteredOptions2 = res['data'];
         this.userfullnamefemale = res['data'];
@@ -148,7 +148,7 @@ export class ApprovalviweComponent implements OnInit {
     this.successStoryForm.patchValue({
       wedding_photo: this.imageSrc,
     });
-    //console.log(this.successstorybyuser.value.wedding_photo)
+    
   }
   approve() {
     let date1 = moment(this.successStoryForm.value.marriage_date).format(

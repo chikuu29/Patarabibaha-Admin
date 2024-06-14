@@ -160,7 +160,7 @@ export class CouponComponent implements OnInit {
   }
 
   deleted(data: any) {
-    //console.log(id);
+    
     this.blockUI.start('Deleting...')
     this.ApiParameter.deletedata('coupon_code', { "whereConditions": { id: data } }).subscribe((res: any) => {
       this.blockUI.stop();
@@ -184,7 +184,7 @@ export class CouponComponent implements OnInit {
         "whereConditions": { id: id }
       }
       this.ApiParameter.updatedata('coupon_code', updateData).subscribe((res: any) => {
-        // console.log(res);
+        
         if (res.success) {
           Swal.fire({
             icon: 'success',
@@ -208,7 +208,7 @@ export class CouponComponent implements OnInit {
         "whereConditions": { id: id }
       }
       this.ApiParameter.updatedata('coupon_code', updateData).subscribe((res: any) => {
-        // console.log(res);
+        
         if (res.success) {
           Swal.fire({
             icon: 'success',

@@ -44,7 +44,7 @@ export class TwostepverificationComponent implements OnInit {
         this.id = this.user_id[0];
         this.fname = this.user_id[1];
         this.lname = this.user_id[2]
-        //console.log(this.user_id);
+        
       }
     });
   }

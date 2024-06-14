@@ -35,17 +35,17 @@ export class GraphDataViewComponent implements OnInit {
     let query =
       "SELECT DATE_FORMAT(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s'), '%b') AS month, YEAR(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s')) AS year, COUNT(*) AS user_count FROM user_info  GROUP BY YEAR(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s')), MONTH(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s')) ORDER BY YEAR(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s')), MONTH(STR_TO_DATE(user_creation_date_time, '%Y-%m-%d %H:%i:%s'));";
 
-    console.log(query);
+    
 
     this.apiparameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log('resss', res);
+      
 
       if (res.success) {
         this.userCount = _.sumBy(res['data'], 'user_count');
         // this.customerCoute = res['data'][0].count
         this.createCoustomerChart(res['data'], moment().year());
       } else {
-        console.log('res', res);
+        
       }
     });
     let query_customer =
@@ -53,14 +53,14 @@ export class GraphDataViewComponent implements OnInit {
     this.apiparameter
       .fetchDataFormQuery(query_customer)
       .subscribe((res: any) => {
-        // console.log('res', res);
+        
 
         if (res.success) {
           this.customerCoute = _.sumBy(res['data'], 'admin_count');
           // this.customerCoute = res['data'][0].count
           this.createAdminCoustomerChart(res['data'], moment().year());
         } else {
-          console.log('res', res);
+          
         }
       });
 
@@ -70,7 +70,7 @@ export class GraphDataViewComponent implements OnInit {
     this.apiparameter
       .fetchDataFormQuery(agricultureCaseQuery)
       .subscribe((res: any) => {
-        console.log('res', res);
+        
 
         if (res.success) {
           this.totalcaseCount = _.sumBy(res['data'], 'count');
@@ -84,7 +84,7 @@ export class GraphDataViewComponent implements OnInit {
           // this.acceptedCaseCounte = _.filter(res['data'], { 'case_status': "accepted" })[0].count
           this.createPaiChartForAgricultureCase(res['data']);
         } else {
-          console.log('res', res);
+          
         }
       });
     const documentStyle = getComputedStyle(document.documentElement);
@@ -116,10 +116,10 @@ export class GraphDataViewComponent implements OnInit {
   }
 
   createCoustomerChart(data: any, seletedYear: any) {
-    // console.log('allData', data);
+    
     var filtterDataInYear = _.filter(data, { year: seletedYear });
 
-    // console.log("filtterDataInYear", filtterDataInYear);
+    
 
     const userCountArray = _.map(filtterDataInYear, 'user_count');
     const userMonthArray = _.map(filtterDataInYear, 'month');
@@ -140,19 +140,19 @@ export class GraphDataViewComponent implements OnInit {
   }
 
   createAdminCoustomerChart(data: any, seletedYear: any) {
-    console.log(seletedYear);
+    
 
-    console.log('allData', data);
+    
     var filtterDataInYear = _.filter(data, { year: seletedYear });
 
-    console.log('filtterDataInYear', filtterDataInYear);
+    
 
     const userCountArray = _.map(filtterDataInYear, 'admin_count');
     const userMonthArray = _.map(filtterDataInYear, 'month');
 
-    console.log('userCountArray', userCountArray);
+    
 
-    console.log('userMonthArray', userMonthArray);
+    
 
     this.basicDataForCustomer = {
       labels: userMonthArray,
@@ -210,7 +210,7 @@ export class GraphDataViewComponent implements OnInit {
     this.apiparameter
       .fetchDataFormQuery(agricultureCaseQuery)
       .subscribe((res: any) => {
-        console.log(res);
+        
 
         if (res.success) {
           this.maledata = res['data'][0].Male;
@@ -225,7 +225,7 @@ export class GraphDataViewComponent implements OnInit {
     this.apiparameter
       .fetchDataFormQuery(agricultureCaseQuery)
       .subscribe((res: any) => {
-        console.log(res);
+        
 
         if (res.success) {
           this.femaledata = res['data'][0].Female;

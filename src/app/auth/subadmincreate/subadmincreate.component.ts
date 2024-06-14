@@ -85,7 +85,7 @@ export class SubadmincreateComponent implements OnInit {
         })
       } else {
         if (this.admin.value.Password == this.admin.value.conformpass) {
-          console.log(this.admin.value);
+          
           let updateData = {
             "data": {
               'name': this.admin.value.name,
@@ -149,7 +149,7 @@ export class SubadmincreateComponent implements OnInit {
         })
       } else {
         if (this.admin.value.Password == this.admin.value.conformpass) {
-          console.log(this.admin.value);
+          
           let updateData = {
             "data": {
               'name': this.admin.value.name,

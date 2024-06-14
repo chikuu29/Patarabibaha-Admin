@@ -20,7 +20,7 @@ export class ViewchatingpageComponent implements OnInit {
       let encryptSecretKey = 'Lipun@123';
       const bytes = CryptoJS.AES.decrypt(res.id, encryptSecretKey);
       let data =  JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      console.log(data);
+      
 
     });
   }

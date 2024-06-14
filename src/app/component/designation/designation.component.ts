@@ -56,7 +56,7 @@ export class DesignationComponent implements OnInit {
   }
 
   getSearchText(event:any){
-    console.log(event);
+    
 
     this.filterText = event
   }
@@ -73,7 +73,7 @@ export class DesignationComponent implements OnInit {
           },
         }
         this.ApiParameter.savedata('designation', updateData).subscribe((res: any) => {
-          // console.log(res);
+          
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -96,7 +96,7 @@ export class DesignationComponent implements OnInit {
           "whereConditions":{id:this.rdata[0].id}
         }
         this.ApiParameter.updatedata('designation', updateData1).subscribe((res: any) => {
-          // console.log(res);
+          
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -149,9 +149,9 @@ export class DesignationComponent implements OnInit {
           WHERE designation LIKE '%${search_text}%'
           ORDER BY name ASC;
          `;
-      //console.log(quary);
+      
     }
-    console.log(quary);
+    
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -162,7 +162,7 @@ export class DesignationComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -181,7 +181,7 @@ export class DesignationComponent implements OnInit {
 
     // let offset = this.page * 10 - 10
     // this.ApiParameter.fetchdata('designation', { "projection": ["*"] },offset,10).subscribe((res: any) => {
-    //   // console.log(res['data'][0]);
+    //   
 
     //   this.totalFetchrecord = offset+res['count']
     //   this.totalCount = res['totalCount']
@@ -189,7 +189,7 @@ export class DesignationComponent implements OnInit {
     //   if (res.success) {
     //     //this.privacypalicy.patchValue(res['data'][0])
     //     this.tabledata = res['data'];
-    //     // console.log(this.privacypalicy.patchValue(res['data'][0]));
+    //     );
 
     //   }
     // })
@@ -207,7 +207,7 @@ export class DesignationComponent implements OnInit {
       if (res.success) {
         // this.tabledata = res['data'];
        this.rdata = res['data'].filter((val: any) => { return val = val.id == data });
-        //console.log(rdata);
+        
 
         this.Employer.patchValue(this.rdata[0]);
         this.editedcast = this.rdata[0].designation;
@@ -215,7 +215,7 @@ export class DesignationComponent implements OnInit {
     })
   }
   deleted(data:any){
-    //console.log(id);
+    
     this.blockUI.start('Deleting...')
     this.ApiParameter.deletedata('designation', { "whereConditions": { id: data } }).subscribe((res: any) => {
       this.blockUI.stop();
@@ -239,7 +239,7 @@ export class DesignationComponent implements OnInit {
         "whereConditions": { id: id }
       }
       this.ApiParameter.updatedata('designation', updateData).subscribe((res: any) => {
-        // console.log(res);
+        
         if (res.success) {
           Swal.fire({
             icon: 'success',
@@ -263,7 +263,7 @@ export class DesignationComponent implements OnInit {
         "whereConditions": { id: id }
       }
       this.ApiParameter.updatedata('designation', updateData).subscribe((res: any) => {
-        // console.log(res);
+        
         if (res.success) {
           Swal.fire({
             icon: 'success',
@@ -291,7 +291,7 @@ export class DesignationComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -332,7 +332,7 @@ export class DesignationComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        //console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -372,7 +372,7 @@ export class DesignationComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             deleted: 'Delete',
@@ -404,13 +404,13 @@ export class DesignationComponent implements OnInit {
     //alert(this.currentFunction)
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    console.log('click fillter', event);
+    
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -435,16 +435,16 @@ export class DesignationComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log('Filtter Record', res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -454,10 +454,10 @@ export class DesignationComponent implements OnInit {
     });
   }
   checkAll(e: any) {
-    console.log(this.tableData);
+    
 
     let check = document.querySelectorAll('.check');
-    //console.log(check);
+    
 
     this.allId = [];
     if (e.target.checked) {
@@ -471,10 +471,10 @@ export class DesignationComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    //console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
+    
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -484,7 +484,7 @@ export class DesignationComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
   changepaginetdata(event: any) {
     this.page = 1;

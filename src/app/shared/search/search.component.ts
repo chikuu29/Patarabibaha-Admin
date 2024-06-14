@@ -45,7 +45,7 @@ export class SearchComponent implements OnInit {
 
   }
   clickSearchMethod(search_text: string) {
-    console.log("Search Click", search_text);
+    
 
     if (search_text && search_text != '') {
       this.clickSearch.emit(search_text);

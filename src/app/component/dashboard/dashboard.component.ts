@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
     this.filterText = event
   }
   search(search_text: any) {
-    console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
     var typeOfUser = "Approved"
     if (this.allPaidUsrClick) typeOfUser = "Paid"
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onpageChnage() {
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
     // this.page=1;
 
@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
         case "Approved":
           query = "SELECT COUNT(user_id) as count FROM user_info WHERE user_membership_plan_active=1"
           this.apiparameter.fetchDataFormQuery(query).subscribe((res: any) => {
-            console.log(res);
+            
             if (res.success && res['data'].length > 0) {
 
               this.allApprovedUser = res['data'][0].count ? res['data'][0].count : 0
@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
         case 'Paid':
           query = "SELECT COUNT(user_id) as count FROM user_info WHERE user_membership_plan_active=1 AND user_membership_plan_type !='Free'"
           this.apiparameter.fetchDataFormQuery(query).subscribe((res: any) => {
-            console.log(res);
+            
             if (res.success && res['data'].length > 0) {
 
               this.allPaidUser = res['data'][0].count ? res['data'][0].count : 0
@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
         case "Inactive":
           query = "SELECT COUNT(user_id) as count FROM user_info WHERE user_membership_plan_active=0"
           this.apiparameter.fetchDataFormQuery(query).subscribe((res: any) => {
-            console.log(res);
+            
             if (res.success && res['data'].length > 0) {
 
               this.allInactiveUser = res['data'][0].count ? res['data'][0].count : 0
@@ -113,7 +113,7 @@ export class DashboardComponent implements OnInit {
         case "All":
           query = "SELECT COUNT(user_id) as count FROM user_info"
           this.apiparameter.fetchDataFormQuery(query).subscribe((res: any) => {
-            console.log("res", res);
+            
             if (res.success && res['data'].length > 0) {
 
               this.allUserCount = res['data'][0].count ? res['data'][0].count : 0
@@ -200,7 +200,7 @@ export class DashboardComponent implements OnInit {
 
     var offset = this.page * 10 - 10
     this.apiparameter.fetchdata('user_info', apiData, offset, 10).subscribe((res: any) => {
-      console.log("res", res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['totalCount'];
         this.userInfoDATA = res['data'];

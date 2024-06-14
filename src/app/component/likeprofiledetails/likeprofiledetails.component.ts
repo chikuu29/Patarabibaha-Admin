@@ -73,7 +73,7 @@ export class LikeprofiledetailsComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
 
   }
@@ -106,22 +106,22 @@ export class LikeprofiledetailsComponent implements OnInit {
      OR c.auth_phone_no like '%${search_text}%'`;
     }
 
-    console.log(quary);
+    
     
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length
         this.collectionSize = Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.alldataoflike = res['data'];
       } else {
         this.collectionSize = 1;
         this.alldataoflike = [];
       }
-      console.log(this.alldataoflike);
+      
     });
 
 
@@ -154,7 +154,7 @@ export class LikeprofiledetailsComponent implements OnInit {
     this.ApiParameter.fetchdata('user_info', { "projection": ["*"] ,"whereConditions": { user_id : data } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.userdata = res['data'][0];
-        console.log(this.userdata);
+        
         
       }
     });

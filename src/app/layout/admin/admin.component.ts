@@ -14,11 +14,13 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
   }
   Show(data: boolean) {
+    console.log("show");
+    
     this.isSidenavCoolapsed = data;
   }
 
   showSideNavForSmallScreen(data:boolean){
-    console.log(data);
+    
     
     this.isSidenavCoolapedForSmallScreen=data
   }

@@ -73,7 +73,7 @@ export class CityComponent implements OnInit {
     //         return null
     //       }
     //     });
-    //     console.log(this.countryOption);
+    //     
     //   }
     // });
     this.getcountryname();
@@ -105,13 +105,13 @@ export class CityComponent implements OnInit {
          ORDER BY name ASC
        `;
     }
-    //console.log(quary);
-    // console.log("query",quary);
+    
+    
 
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      console.log(res);
+      
 
       this.blockUI.stop();
 
@@ -120,9 +120,9 @@ export class CityComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
-        console.log(this.tableData);
+        
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -133,7 +133,7 @@ export class CityComponent implements OnInit {
 
 
   getSearchText(event:any){
-    console.log(event);
+    
 
     this.filterText = event
   }
@@ -150,7 +150,7 @@ export class CityComponent implements OnInit {
   }
 
   getstatefilter(country_name: any) {
-    console.log(country_name);
+    
     this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { "country_name": country_name, "status": 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
 
@@ -159,7 +159,7 @@ export class CityComponent implements OnInit {
           return { name: obj.name };
 
         });
-        console.log(this.countryOption);
+        
 
       } else {
         this.stateOption = []
@@ -174,7 +174,7 @@ export class CityComponent implements OnInit {
     this.ApiParameter.fetchdata('country', { "projection": ["*"] }, 0,250).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.countryalldata = res['data'];
-        console.log(this.countryalldata);
+        
       }
     })
   }
@@ -183,7 +183,7 @@ export class CityComponent implements OnInit {
 
       if (res.success && res['data'].length > 0) {
         this.statealldatabycountry = res['data'];
-        console.log(this.statealldatabycountry);
+        
 
       }
 
@@ -207,7 +207,7 @@ export class CityComponent implements OnInit {
         }
 
         this.ApiParameter.savedata('city', updateData).subscribe((res: any) => {
-          // console.log(res);
+          
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -241,7 +241,7 @@ export class CityComponent implements OnInit {
           "whereConditions": { id: this.citygroup.value.id }
         }
         this.ApiParameter.updatedata('city', updateData).subscribe((res: any) => {
-          // console.log(res);
+          
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -276,7 +276,7 @@ export class CityComponent implements OnInit {
   fatchdata() {
     let offset = this.page * 10 - 10
     this.ApiParameter.fetchdata('city', { "projection": ["*"] },offset, 10).subscribe((res: any) => {
-      // console.log(res['data'][0]);
+      
       this.totalFetchrecord = offset+res['count']
       this.totalCount = res['totalCount']
       this.collectionSize = res['totalCount']
@@ -299,7 +299,7 @@ export class CityComponent implements OnInit {
         this.citygroup.patchValue(res['data'][0]);
         this.button = "Update";
         this.editedcast = this.citygroup.value.city_name;
-        // console.log(this.city);
+        
 
       }
     });
@@ -329,7 +329,7 @@ export class CityComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -370,7 +370,7 @@ export class CityComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        //console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -410,7 +410,7 @@ export class CityComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -443,12 +443,12 @@ export class CityComponent implements OnInit {
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    console.log(check);
+    
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        console.log('p');
+        
 
         this.allId.push(parseInt(this.tableData[key].id));
         checkbox.checked = true;
@@ -459,10 +459,10 @@ export class CityComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
+    
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -472,7 +472,7 @@ export class CityComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
   changepaginetdata(event: any) {
     this.page = 1;

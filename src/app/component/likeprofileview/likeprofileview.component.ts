@@ -101,22 +101,22 @@ export class LikeprofileviewComponent implements OnInit {
      OR c.auth_phone_no like '%${search_text}%'
    `;
   }
-    console.log(quary);
+    
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length
         this.collectionSize = Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.like_activity = res['data'];
       } else {
         this.collectionSize = 1;
         this.like_activity = [];
       }
-      console.log(this.like_activity);
+      
     });
 
 
@@ -140,7 +140,7 @@ export class LikeprofileviewComponent implements OnInit {
 
 
     // this.CommonService.getLikeCount().subscribe((res: any) => {
-    //   //console.log(res);
+    //   
     //   if (res.success && res['data'].length > 0) {
     //     this.like_activity = res['data'];
     //     this.countele = this.like_activity.length;

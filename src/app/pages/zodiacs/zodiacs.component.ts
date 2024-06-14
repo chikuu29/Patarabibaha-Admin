@@ -42,12 +42,12 @@ export class ZodiacsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllZodiacdata(0, this.apiFetchRecordLimit);
-    console.log(this.allId);
+    
 
   }
 
   getSearchText(event: any) {
-    console.log(event);
+    
 
     this.filterText = event;
   }
@@ -57,7 +57,7 @@ export class ZodiacsComponent implements OnInit {
       status: 24,
     };
     this.api.zodiacs(param).subscribe((res: any) => {
-      // console.log(res);
+      
       if (res.status) {
         this.zodiacsalldata = res.message;
       }
@@ -96,13 +96,13 @@ export class ZodiacsComponent implements OnInit {
          ORDER BY name ASC
        `;
     }
-    //console.log(quary);
-    // console.log("query",quary);
+    
+    
 
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      console.log(res);
+      
 
       this.blockUI.stop();
 
@@ -111,9 +111,9 @@ export class ZodiacsComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
-        console.log(this.tableData);
+        
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -128,7 +128,7 @@ export class ZodiacsComponent implements OnInit {
     //   // this.totalFetchrecord = offset+res['count']
     //   // this.totalCount = res['totalCount']
     //   // this.collectionSize = res['totalCount']
-    //   // console.log(res);
+    //   
     //   if (res.status) {
     //     this.zodiacsalldata = res.message
     //   }
@@ -145,12 +145,12 @@ export class ZodiacsComponent implements OnInit {
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    console.log(check);
+    
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        console.log('p');
+        
 
         this.allId.push(parseInt(this.tableData[key].id));
         checkbox.checked = true;
@@ -161,10 +161,10 @@ export class ZodiacsComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
+    
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -174,7 +174,7 @@ export class ZodiacsComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
 
   publishuser() {
@@ -186,7 +186,7 @@ export class ZodiacsComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -227,7 +227,7 @@ export class ZodiacsComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        //console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -267,7 +267,7 @@ export class ZodiacsComponent implements OnInit {
   //       text: 'Do you want to Delete',
   //       showCancelButton: true,
   //     }).then((r: any) => {
-  //       console.log(r);
+  //       
   //        if (r.isConfirmed) {
   //         let updateData = {
   //               data: {

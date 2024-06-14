@@ -60,7 +60,7 @@ export class UpgradeuserplanComponent implements OnInit {
   }
   getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
     this.ApiParameter.fetchdata('membership_plan', { "projection": ["*"], "whereConditions": { membership_plan_default: 1 } }).subscribe((res: any) => {
-      console.log(res['data'][0].membership_plan_type);
+      
       this.defultdata = res['data'][0].membership_plan_type;
       if (res.success && res['data'].length > 0) {
         let quary = `SELECT a.*, b.*, COUNT(*) OVER () AS total_count
@@ -83,12 +83,12 @@ export class UpgradeuserplanComponent implements OnInit {
         }
         this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
           this.blockUI.stop()
-          console.log(res);
+          
           if (res.success && res['data'].length > 0) {
             this.totalDataCount = res['data'][0].total_count;
             this.totalFetchrecord = start + res['data'].length
             this.collectionSize = Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-            console.log(this.collectionSize);
+            
             this.tableData = res['data'];
           } else {
             this.collectionSize = 1;
@@ -98,7 +98,7 @@ export class UpgradeuserplanComponent implements OnInit {
       }
 
     });
-    console.log(this.tableData);
+    
 
   }
   userpage(data: any) {

@@ -27,22 +27,22 @@ export class AuthGuard implements CanActivate {
 
       take(1),
       map(admin => {
-        console.log("Auth Gaurd", admin);
+        
 
         if (admin && admin.token) {
           const routerLinksPermission = this._auth.getAppUrlPermission['routerLinksPermission']
-           //console.log(routerLinksPermission);
+           
 
           let str = state.url
-           //console.log("url",str);
+           
           // return true
           let index = str.indexOf('/', str.indexOf('/') + 1);
           // Extract the part of the string before the second '/'
           let result = str.substring(0, index)
-          //console.log(result);
+          
 
           var finalUrl = isEmpty(result) ? state.url : result;
-          //console.log(finalUrl);
+          
 
           if (routerLinksPermission.includes(finalUrl) || admin.role=="SUPPER_ADMIN" || state.url=='/page_not_found') {
             return true

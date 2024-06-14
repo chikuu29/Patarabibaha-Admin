@@ -54,7 +54,7 @@ export class ChatRoomComponent implements OnInit {
     // Get the viewport height
     const viewportHeight =
       window.innerHeight || document.documentElement.clientHeight;
-    console.log('viewportHeight', viewportHeight);
+    
 
     // Set the height of the container dynamically
     this.containerHeight = viewportHeight * 0.5; // Adjust the multiplier as needed
@@ -67,7 +67,7 @@ export class ChatRoomComponent implements OnInit {
     );
   }
   ngAfterContentChecked(): void {
-    // console.log("ngAfterContentChecked");
+    
     if (this.chatContainer && this.chatContainer.nativeElement) {
       this.scrollToBottom();
     }
@@ -75,7 +75,7 @@ export class ChatRoomComponent implements OnInit {
 
   ngOnInit(): void {
     this._rout.params.subscribe((connection_params: any) => {
-      console.log(connection_params);
+      
       this.sender_id = connection_params.profile_id;
       this.intiatingConnection(connection_params.chat_rome_id);
     });
@@ -86,9 +86,9 @@ export class ChatRoomComponent implements OnInit {
       })
       .subscribe((res: any) => {
         if (res.success && res['data'].length > 0) {
-          console.log(res['data']);
+          
           this.staticMessageData = _.map(res['data']);
-          console.log(this.staticMessageData);
+          
         }
       });
   }
@@ -98,7 +98,7 @@ export class ChatRoomComponent implements OnInit {
     // Scroll to the end of the chat container
   }
   send() {
-    console.log(this.messageCreationForm);
+    
     if (this.messageCreationForm.valid) {
       var saveData = {
         data: this.messageCreationForm.value,
@@ -179,7 +179,7 @@ export class ChatRoomComponent implements OnInit {
         whereConditions: { chat_room_id: connection_id },
       })
       .subscribe((messageRes: any) => {
-        console.log('Message Histroy', messageRes);
+        
         this.blockUI.stop();
         if (messageRes.success && messageRes['data'].length > 0) {
           this.message = messageRes['data'];
