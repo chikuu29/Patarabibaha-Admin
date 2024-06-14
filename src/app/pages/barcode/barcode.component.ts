@@ -44,7 +44,7 @@ export class BarcodeComponent implements OnInit {
   _handleReaderLoaded(e: any) {
     let reader = e.target;
     this.imageSrc = reader.result;
-    console.log(this.imageSrc)
+    
   }
 
   submit() {
@@ -55,7 +55,7 @@ export class BarcodeComponent implements OnInit {
       'name' : this.accountholdername,
       'date': moment().toISOString()
     }
-    console.log(param);
+    
     
     this.CommonService.barCode(param).subscribe((res: any) => {
       if (res.success) {
@@ -88,7 +88,7 @@ export class BarcodeComponent implements OnInit {
       icon: 'question',
       text: 'Do You Want to Delete'
     }).then((r: any) => {
-      console.log(r);
+      
       if (r.isConfirmed) {
         this.blockUI.start('Deleting...')
         this.ApiParameter.deletedata('barcode', { "whereConditions": { id: id } }).subscribe((res: any) => {
@@ -120,7 +120,7 @@ export class BarcodeComponent implements OnInit {
             "whereConditions": { id: id }
           }
           this.ApiParameter.updatedata('barcode', updateData).subscribe((res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -153,7 +153,7 @@ export class BarcodeComponent implements OnInit {
             "whereConditions": { id: id }
           }
           this.ApiParameter.updatedata('barcode', updateData).subscribe((res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',

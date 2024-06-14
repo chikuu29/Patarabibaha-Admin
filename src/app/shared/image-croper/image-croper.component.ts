@@ -38,7 +38,7 @@ export class ImageCroperComponent implements OnInit {
   }
 
   fileChangeEvent(event: any): void {
-    console.log(event);
+    
 
     this.imageChangedEvent = event;
     this.fileSelected = true;
@@ -48,7 +48,7 @@ export class ImageCroperComponent implements OnInit {
     this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
       event.objectUrl ? event.objectUrl : ''
     );
-    console.log(event.blob);
+    
     this.crop_imgae = event.blob;
     this.convertBlobToBase64(this.crop_imgae);
    
@@ -56,10 +56,10 @@ export class ImageCroperComponent implements OnInit {
   }
   imageLoaded(image: LoadedImage) {
     // show cropper
-    console.log("imageLoaded");
+    
   }
   cropperReady() {
-    console.log("cropperReady");
+    
     this.loadingImage=false
     // cropper ready
   }
@@ -71,8 +71,8 @@ export class ImageCroperComponent implements OnInit {
   }
 
   uploadFile() {
-    console.log(this.imageinbase64);
-    console.log(this.user_id);
+    
+    
     let param = {
       data: this.imageinbase64,
       user_Id: this.user_id,
@@ -81,7 +81,7 @@ export class ImageCroperComponent implements OnInit {
     this.uploadProgress=0
     this.CommonService.uplodeimageadmin(param).subscribe((event: any) => {
 
-      console.log(event);
+      
       if(event.status=="progress"){
         // this.isUploading=true
         this.uploadProgress=event.progress
@@ -114,7 +114,7 @@ export class ImageCroperComponent implements OnInit {
     // const uploadData = new FormData();
     // uploadData.append('uploadfile[]', this.crop_imgae);
 
-    // console.log(this.crop_imgae);
+    
 
     // this.blockUI.start('Uploading ....');
     // const haderforpdf = new HttpHeaders()
@@ -137,7 +137,7 @@ export class ImageCroperComponent implements OnInit {
     //       } else {
     //         Swal.fire(response.message, '', 'success');
     //       }
-    //       // console.log('Upload successful!', response);
+    //       
     //       // Handle success response
     //     },
     //     (error: any) => {

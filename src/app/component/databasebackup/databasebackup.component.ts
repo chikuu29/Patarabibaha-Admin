@@ -39,27 +39,27 @@ export class DatabasebackupComponent implements OnInit {
     let dbname;
     let db = `SELECT DATABASE() as db; `;
     this.ApiParameter.fetchDataFormQuery(db).subscribe((res: any) => {
-      console.log(res);
+      
 
       if (res.success && res['data'].length > 0) {
         dbname = res['data'][0].db;
-        console.log(dbname);
+        
         let query = `SELECT table_name ,COUNT(*) OVER () AS total_count
             FROM information_schema.tables
             WHERE table_schema = '${dbname}'
             LIMIT ${limit} OFFSET ${start};`;
         this.ApiParameter.fetchDataFormQuery(query).subscribe((resd: any) => {
           if (resd.success && resd['data'].length > 0) {
-            console.log(resd);
+            
             this.tableData = resd['data'];
             this.totalDataCount = resd['data'][0].total_count;
-            console.log(this.totalDataCount);
+            
             this.totalFetchrecord = start + resd['data'].length;
             this.collectionSize =
               Math.ceil(
                 resd['data'][0].total_count / this.apiFetchRecordLimit
               ) * 10;
-            console.log(this.collectionSize);
+            
             this.tableData = resd['data'];
           }
         });
@@ -81,11 +81,11 @@ export class DatabasebackupComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-    // console.log("click fillter", event);
+    
     var query = `SELECT *
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -107,17 +107,17 @@ export class DatabasebackupComponent implements OnInit {
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}`;
     }
-    console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
-        // console.log(this.collectionSize);
+        
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       }
     });
   }
@@ -132,7 +132,7 @@ export class DatabasebackupComponent implements OnInit {
   }
   backup() {
     this.apiservice.dataBaseBackup().subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success) {
         // Open the modal and get a reference to the component instance
         const modalRef = this.modalService.open(NotificationComponent, {

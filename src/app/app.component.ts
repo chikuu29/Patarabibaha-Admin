@@ -16,7 +16,7 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    console.log("App Start",this._router.url);
+    
     // this._authServices.autoSignIn();
     
   }

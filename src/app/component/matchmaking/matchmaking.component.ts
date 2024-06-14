@@ -63,7 +63,7 @@ export class MatchmakingComponent implements OnInit {
        `;
     }
 
-     console.log("query",quary);
+     
 
 
 
@@ -74,7 +74,7 @@ export class MatchmakingComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -94,13 +94,13 @@ export class MatchmakingComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any, start = 0) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    console.log('click fillter', event);
+    
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -125,7 +125,7 @@ export class MatchmakingComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
@@ -133,7 +133,7 @@ export class MatchmakingComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
         this.currentFunction = 'fillter';
       } else {

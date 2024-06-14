@@ -38,7 +38,7 @@ export class EmailphonecheckComponent implements OnInit {
       whereConditions: {},
     },0,250).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        console.log(res['data']);
+        
         this.countrycode = res['data'];
       }
     });

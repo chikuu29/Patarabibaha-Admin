@@ -66,7 +66,7 @@ export class PlanDeatilsComponent implements OnInit {
 
       if (getprofile_res.success && getprofile_res['data'].length > 0) {
         this.plan = getprofile_res['data'];
-        console.log(this.plan);
+        
       }else{
         this.plan = [];
       }
@@ -106,7 +106,7 @@ export class PlanDeatilsComponent implements OnInit {
 
       if (getprofile_res.success && getprofile_res['data'].length > 0) {
           this.editedplandetails = getprofile_res['data'];
-          console.log(this.editedplandetails);
+          
 
       }
     });
@@ -115,8 +115,8 @@ export class PlanDeatilsComponent implements OnInit {
   openDetailsModal(details: any) {
     this.modalDetails = details;
     this.modalVisible = true;
-    console.log(this.modalVisible);
-    console.log(this.modalDetails);
+    
+    
   }
   // Function to close modal
   closeModal() {

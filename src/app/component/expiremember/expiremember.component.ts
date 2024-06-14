@@ -84,11 +84,11 @@ export class ExpirememberComponent implements OnInit {
     alert(this.currentFunction);
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-    // console.log("click fillter", event);
+    
     var query = `SELECT *
      FROM user_info
      LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -110,17 +110,17 @@ export class ExpirememberComponent implements OnInit {
      LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
      ${event.whereConditions}`;
     }
-    //console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
-        // console.log(this.collectionSize);
+        
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       }
     });
   }
@@ -186,7 +186,7 @@ export class ExpirememberComponent implements OnInit {
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-        console.log(this.finaldata);
+        
       }
     });
   }
@@ -202,7 +202,7 @@ export class ExpirememberComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -212,7 +212,7 @@ export class ExpirememberComponent implements OnInit {
           };
           this.ApiParameter.updatedata('user_info', updateData).subscribe(
             (res: any) => {
-              // console.log(res);
+              
               if (res.success) {
                 Swal.fire({
                   icon: 'success',
@@ -246,7 +246,7 @@ export class ExpirememberComponent implements OnInit {
           };
           this.ApiParameter.updatedata('user_info', updateData).subscribe(
             (res: any) => {
-              // console.log(res);
+              
               if (res.success) {
                 Swal.fire({
                   icon: 'success',
@@ -282,7 +282,7 @@ export class ExpirememberComponent implements OnInit {
   ) {
     let Quary = 'select * from membership_plan where membership_plan_default=1';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         let free = res['data'][0].membership_plan_type;
 
@@ -308,9 +308,9 @@ export class ExpirememberComponent implements OnInit {
          AND c.user_plan_type ='${free}'
       `;
         }
-        console.log(Quary);
+        
         this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-          console.log(res);
+          
           if (res.success && res['data'].length > 0) {
             this.totalDataCount = res['data'][0].total_count;
             this.totalFetchrecord = start + res['data'].length;
@@ -318,7 +318,7 @@ export class ExpirememberComponent implements OnInit {
               Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) *
               10;
             this.finaldata = res['data'];
-            console.log(this.finaldata);
+            
           }
         });
       }
@@ -332,10 +332,10 @@ export class ExpirememberComponent implements OnInit {
   ) {
     let Quary = 'select * from membership_plan where membership_plan_default=1';
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         let free = res['data'][0].membership_plan_type;
-        //console.log(free);
+        
 
         let Quary = `select * from auth_user as a Join user_info as b join user_plan_deatils as c
         on a.auth_ID = b.user_id AND b.user_id = c.user_id
@@ -357,9 +357,9 @@ export class ExpirememberComponent implements OnInit {
         ORDER BY b.user_creation_date_time DESC
         ;`;
         }
-        console.log(Quary);
+        
         this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-          console.log(res);
+          
           if (res.success && res['data'].length > 0) {
             this.totalDataCount = res['data'][0].total_count;
             this.totalFetchrecord = start + res['data'].length;
@@ -367,7 +367,7 @@ export class ExpirememberComponent implements OnInit {
               Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) *
               10;
             this.finaldata = res['data'];
-            console.log(this.finaldata);
+            
           }
         });
       }
@@ -375,12 +375,12 @@ export class ExpirememberComponent implements OnInit {
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    console.log(check);
+    
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        console.log('p');
+        
 
         this.allId.push(this.finaldata[key].user_email);
         checkbox.checked = true;
@@ -391,10 +391,10 @@ export class ExpirememberComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
+    
 
     if (e.target.checked) {
       this.allId.push(id);
@@ -404,7 +404,7 @@ export class ExpirememberComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
   sendMail() {
     if (this.allId.length == 0) {
@@ -417,7 +417,7 @@ export class ExpirememberComponent implements OnInit {
         mailIds: this.allId,
         filepath: environment.filePath,
       };
-      console.log(param);
+      
 
       this.CommonService.expiredMail(param).subscribe((res: any) => {});
       Swal.fire({

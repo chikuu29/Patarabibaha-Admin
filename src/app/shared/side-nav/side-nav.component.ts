@@ -598,7 +598,7 @@ export class SideNavComponent implements OnInit {
 
     if (this._auth.getAppUrlPermission && isArray(this._auth.getAppUrlPermission["permissionFoeNavMenu"])) {
 
-      console.log("loadePermision From Local storage");
+      
 
 
       // const routerLinks = _.flatMap(this._auth.getAppUrlPermission, (i) => {
@@ -612,8 +612,8 @@ export class SideNavComponent implements OnInit {
       //   return [];
       // });
 
-      // console.log(routerLinks);
-      // console.log(this._auth.getAppUrlPermission);
+      
+      
 
 
 
@@ -680,7 +680,7 @@ export class SideNavComponent implements OnInit {
     }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.usercount = res['data'].length;
-        //console.log();
+        
       }
     });
   }
@@ -710,17 +710,17 @@ export class SideNavComponent implements OnInit {
       whereConditions: { phone_no_request: 1 },
     }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-        console.log(res['data']);
+        
 
         this.phoneapprovedata = res['data'].length;
-        console.log(this.phoneapprovedata);
+        
       }
     });
   }
 
   public activeSubmenu(index: number) {
     this.navConfig[index];
-    console.log(this.navConfig[index]);
+    
     if (this.navConfig[index].submenuActive) {
       this.navConfig[index]['submenuActive'] = false;
     } else {

@@ -56,7 +56,7 @@ export class MassageComponent implements OnInit {
         };
         this.ApiParameter.savedata('message', updateData).subscribe(
           (res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -88,7 +88,7 @@ export class MassageComponent implements OnInit {
         };
         this.ApiParameter.updatedata('message', updateData).subscribe(
           (res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -130,14 +130,14 @@ export class MassageComponent implements OnInit {
     `;
     }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-        console.log(this.finaldata);
+        
       }
     });
   }
@@ -154,7 +154,7 @@ export class MassageComponent implements OnInit {
       if (res.success && res['data'].length > 0) {
         this.button = 'UPDATE';
         this.cahting.patchValue(res['data'][0]);
-        //console.log(this.statealldatabycountry);
+        
       }
     });
   }
@@ -174,11 +174,11 @@ export class MassageComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-    // console.log("click fillter", event);
+    
     var query = `SELECT *
      FROM user_info
      LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -200,17 +200,17 @@ export class MassageComponent implements OnInit {
      LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
      ${event.whereConditions}`;
     }
-    //console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
-        // console.log(this.collectionSize);
+        
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       }
     });
   }
@@ -225,12 +225,12 @@ export class MassageComponent implements OnInit {
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    console.log(check);
+    
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        console.log('p');
+        
 
         this.allId.push(parseInt(this.finaldata[key].id));
         checkbox.checked = true;
@@ -241,10 +241,10 @@ export class MassageComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
+    
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -254,7 +254,7 @@ export class MassageComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
   publishuser() {
     if (this.allId.length == 0) {
@@ -265,7 +265,7 @@ export class MassageComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -306,7 +306,7 @@ export class MassageComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        //console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {

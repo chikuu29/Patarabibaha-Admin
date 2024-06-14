@@ -20,7 +20,7 @@ export class AppInitializationServiceServiceService {
     return new Promise<void>((resolve, reject) => {
       this.http.get('../../config/config.json?var_' + this.getRandomNumber()).subscribe((config: any) => {
         if (Object.keys(config).length > 0) {
-          console.log(config);
+          
           this.app.startUpAPIConfigSetup = config;
           // resolve()
         }
@@ -34,7 +34,7 @@ export class AppInitializationServiceServiceService {
   //   return new Promise<void>((resolve, reject) => {
   //     this.http.get('../../config/app.json?var_' + this.getRandomNumber()).subscribe((config: any) => {
   //       if (Object.keys(config).length > 0) {
-  //         console.log(config);
+  //         
   //         this.app.setAppVersion = config;
   //         // resolve()
   //       }

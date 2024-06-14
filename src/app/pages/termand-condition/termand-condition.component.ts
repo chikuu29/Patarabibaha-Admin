@@ -51,7 +51,7 @@ export class TermandConditionComponent implements OnInit {
       }
 
       this.ApiParameter.updatedata('termand_condition',updateData).subscribe((res: any) => {
-        console.log(res);
+        
         if (res.success) {
           Swal.fire({
             icon: 'success',

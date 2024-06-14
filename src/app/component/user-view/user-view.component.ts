@@ -612,8 +612,8 @@ export class UserViewComponent implements OnInit {
           this.blockUI.stop();
           if (res.success) {
             this.userAllData = res;
-            console.log(this.userAllData);
-            console.log(this.userAllData.user_profile_status);
+            
+            
             if (this.userAllData.user_profile_status == 'Completed') {
               let updateData = {
                 data: { user_all_table_complited: 1 },
@@ -640,7 +640,7 @@ export class UserViewComponent implements OnInit {
             this.horoscopeForm.patchValue(res['user_horoscope_deatils']);
             this.userFamilyDetailsForm.patchValue(res['user_family']);
             this.habitHobbiesForm.patchValue(res['user_diet_hobbies']);
-            console.log(res['user_physical_details']);
+            
 
             this.physicalDeatilsForm.patchValue(res['user_physical_details']);
             this.basicDetailsForm.patchValue(res['user_info']);
@@ -661,7 +661,7 @@ export class UserViewComponent implements OnInit {
         'user_profile_images',
         profileApiData
       ).subscribe((getprofile_res: any) => {
-        // console.log("getprofile_res", getprofile_res);
+        
 
         if (getprofile_res.success && getprofile_res['data'].length > 0) {
           this.showupload = true;
@@ -697,7 +697,7 @@ export class UserViewComponent implements OnInit {
       0,
       250
     ).subscribe((res: any) => {
-      console.log(res);
+      
 
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data']
@@ -709,7 +709,7 @@ export class UserViewComponent implements OnInit {
         this.countrycode = res['data'].map((obj: any) => {
           return { name: obj.name, value: obj.phonecode };
         });
-        console.log(this.countrycode);
+        
 
         this.countrycode.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
@@ -1400,7 +1400,7 @@ export class UserViewComponent implements OnInit {
 
   onUpload(event: any) {
     var res = event.originalEvent['body'];
-    console.log('event', event.files);
+    
 
     if (res.success) {
       this.selecteduploadedFiles = [];
@@ -1449,12 +1449,12 @@ export class UserViewComponent implements OnInit {
   }
 
   onClearSelectedFile() {
-    console.log('Calling onClearSelectedFile');
+    
     this.selecteduploadedFiles = this.images;
   }
 
   onRemoveFile(event: any) {
-    console.log('Calling onRemoveFile');
+    
     _.remove(
       this.selecteduploadedFiles,
       (item) =>
@@ -1508,7 +1508,7 @@ export class UserViewComponent implements OnInit {
   }
 
   getstatefilter(country_name: any) {
-    console.log('getstatefilter', country_name);
+    
     this.ApiParameterScript.fetchdata('state', {
       projection: ['*'],
       whereConditions: { country_name: country_name, status: 1 },
@@ -1525,7 +1525,7 @@ export class UserViewComponent implements OnInit {
   }
 
   getcityfilter(state_name: any) {
-    console.log(state_name);
+    
     this.ApiParameterScript.fetchdata('city', {
       projection: ['*'],
       whereConditions: { state_name: state_name },
@@ -1541,7 +1541,7 @@ export class UserViewComponent implements OnInit {
   }
 
   loadUploadComponent() {
-    console.log(this.profile_id);
+    
 
     const modalRef = this.modalService.open(ImageCroperComponent, {
       // size: 'xl',
@@ -1563,7 +1563,7 @@ export class UserViewComponent implements OnInit {
     this.commonservice.getAllDataById(params).subscribe((res: any) => {
       if (res.status) {
         this.finaldata = res['data'][0];
-        console.log(this.finaldata);
+        
       }
     });
   }
@@ -1575,7 +1575,7 @@ export class UserViewComponent implements OnInit {
     }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.logo = res['data'][0].image;
-        console.log(this.logo);
+        
       }
     });
   }
@@ -1592,12 +1592,12 @@ export class UserViewComponent implements OnInit {
       filepath: environment.filePath,
     };
     this.commonservice.generatepdf(param).subscribe((res: any) => {
-      console.log(res);
+      
       saveAs(res, this.profile_id + '.pdf');
     });
   }
   shareData() {
-    console.log(this.finaldata);
+    
     let type1 = this.finaldata.user_gender == 'female' ? 'Bride' : 'Groom';
     let type2 = this.finaldata.user_gender == 'female' ? 'Groom' : 'Bride';
     let link =
@@ -1691,14 +1691,14 @@ CLICK HERE FOR MORE INFORMATION WITH PHOTO
         0,
         10000000
       ).subscribe((res: any) => {
-        // console.log(res);
+        
 
         if (res.success && res['data'].length > 0) {
           this.stateOption1 = res['data'].map((obj: any) => {
             return { name: obj.name };
           });
 
-          //console.log(this.stateOption);
+          
         } else {
           this.stateOption1 = [];
           // this.partnerPreferenceForm.controls.user_state.reset();

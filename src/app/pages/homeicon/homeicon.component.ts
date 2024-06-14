@@ -33,7 +33,7 @@ export class HomeiconComponent implements OnInit  {
   }
 
   getSearchText(event: any) {
-    console.log(event);
+    
 
     this.filterText = event
   }
@@ -56,7 +56,7 @@ export class HomeiconComponent implements OnInit  {
   _handleReaderLoaded(e: any) {
     let reader = e.target;
     this.imageSrc = reader.result;
-    console.log(this.imageSrc)
+    
   }
 
   submit() {
@@ -95,7 +95,7 @@ export class HomeiconComponent implements OnInit  {
       icon: 'question',
       text: 'Do You Want to Delete'
     }).then((r: any) => {
-      console.log(r);
+      
       if (r.isConfirmed) {
         this.blockUI.start('Deleting...')
         this.ApiParameter.deletedata('homepage_icon', { "whereConditions": { id: id } }).subscribe((res: any) => {
@@ -128,7 +128,7 @@ export class HomeiconComponent implements OnInit  {
             "whereConditions": { id: id }
           }
           this.ApiParameter.updatedata('homepage_icon', updateData).subscribe((res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -161,7 +161,7 @@ export class HomeiconComponent implements OnInit  {
             "whereConditions": { id: id }
           }
           this.ApiParameter.updatedata('homepage_icon', updateData).subscribe((res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',

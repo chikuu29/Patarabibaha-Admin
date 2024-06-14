@@ -564,7 +564,7 @@ export class PartnerPreferenceComponent implements OnInit {
 
   userupartnerpreferenceForm_submit() {
     if (this.partnerPreferenceForm.valid) {
-      console.log(this.partnerPreferenceForm.value);
+      
 
       let updateData = {
         data: this.partnerPreferenceForm.value,
@@ -693,7 +693,7 @@ export class PartnerPreferenceComponent implements OnInit {
                       'user_info',
                       change
                     ).subscribe((res: any) => {
-                      console.log(res);
+                      
 
                       if (res.success) {
                         location.reload();
@@ -711,10 +711,10 @@ export class PartnerPreferenceComponent implements OnInit {
         }
       });
     } else {
-      console.log(this.partnerPreferenceForm.valid);
-      console.log(this.highterror);
-      console.log(this.ageerrormsg);
-      console.log(this.partnerPreferenceForm.valid && this.highterror && this.ageerrormsg);
+      
+      
+      
+      
     }
   }
 

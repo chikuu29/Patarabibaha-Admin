@@ -69,7 +69,7 @@ export class SocialmediaComponent implements OnInit {
     // this.api
     //   .socialMediaLink(this.socialMediaForm.value)
     //   .subscribe((res: any) => {
-    //     console.log(res);
+    //     
 
     //     if (res.status) {
     //       Swal.fire({
@@ -90,7 +90,7 @@ export class SocialmediaComponent implements OnInit {
     };
     this.ApiParameter.fetchdata('social_media_links', apiData).subscribe(
       (res: any) => {
-        console.log(res['data'][0]);
+        
         if (res.success) {
           this.socialMediaForm.patchValue(res['data'][0]);
         }

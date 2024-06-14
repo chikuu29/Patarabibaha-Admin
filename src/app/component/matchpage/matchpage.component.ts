@@ -167,7 +167,7 @@ export class MatchpageComponent implements OnInit {
        `;
     }
 
-    console.log('query', quary);
+    
 
     this.blockUI.start('Loading...');
 
@@ -179,7 +179,7 @@ export class MatchpageComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -245,7 +245,7 @@ export class MatchpageComponent implements OnInit {
         if (res.status) {
           this.finaldata = {};
           this.tableData = res['data'];
-          console.log(this.finaldata);
+          
         } else {
           this.tableData = [];
         }
@@ -259,7 +259,7 @@ export class MatchpageComponent implements OnInit {
       if (res.status) {
         this.finaldata = {};
         this.tableData = res['data'];
-        console.log(this.finaldata);
+        
       } else {
         this.tableData = [];
       }
@@ -274,7 +274,7 @@ export class MatchpageComponent implements OnInit {
       if (res.status) {
         this.finaldata = {};
         this.tableData = res['data'];
-        console.log(this.finaldata);
+        
       } else {
         this.tableData = [];
       }
@@ -294,7 +294,7 @@ export class MatchpageComponent implements OnInit {
     }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.logo = res['data'][0].image;
-        console.log(this.logo);
+        
       }
     });
   }
@@ -315,7 +315,7 @@ export class MatchpageComponent implements OnInit {
       filepath: environment.filePath,
     };
     this.commonservice.generatemergepdf(param).subscribe((res: any) => {
-      console.log(res);
+      
       count++;
       saveAs(res, 'choicemarriage.pdf');
       if (this.allIdForpdf.length == count) {
@@ -337,7 +337,7 @@ export class MatchpageComponent implements OnInit {
         sendid: this.user_id,
         filePath: environment.filePath,
       };
-      // console.log(param);
+      
       this.commonservice.sendData(param).subscribe((res: any) => {
         if (res.code == 200) {
           Swal.fire({
@@ -366,8 +366,8 @@ export class MatchpageComponent implements OnInit {
         element.checked = false;
       });
     }
-    console.log(this.allId);
-    console.log(this.allIdForpdf);
+    
+    
   }
   getId(id: any, e: any, uid: any) {
     if (e.target.checked) {
@@ -381,8 +381,8 @@ export class MatchpageComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
-    console.log(this.allIdForpdf);
+    
+    
   }
   changepaginetdata(event: any) {
     this.page = 1;
@@ -398,13 +398,13 @@ export class MatchpageComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any, start = 0) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    console.log('click fillter', event);
+    
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -429,7 +429,7 @@ export class MatchpageComponent implements OnInit {
     ${event.whereConditions}  ORDER BY user_info.user_creation_date_time DESC`;
     }
 
-    console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
@@ -437,7 +437,7 @@ export class MatchpageComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
         this.currentFunction = 'fillter';
       } else {

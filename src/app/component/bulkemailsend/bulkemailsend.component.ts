@@ -159,17 +159,17 @@ export class BulkemailsendComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    console.log(check);
+    
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        console.log('p');
+        
 
         this.allId.push(this.tableData[key].user_email);
         checkbox.checked = true;
@@ -180,10 +180,10 @@ export class BulkemailsendComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
+    
 
     if (e.target.checked) {
       this.allId.push(id);
@@ -193,12 +193,12 @@ export class BulkemailsendComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    console.log('click fillter', event);
+    
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -223,16 +223,16 @@ export class BulkemailsendComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log('Filtter Record', res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -275,7 +275,7 @@ export class BulkemailsendComponent implements OnInit {
        `;
     }
 
-    // console.log("query",quary);
+    
 
     this.blockUI.start('Loading...');
 
@@ -287,7 +287,7 @@ export class BulkemailsendComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -322,7 +322,7 @@ export class BulkemailsendComponent implements OnInit {
        `;
     }
 
-    // console.log("query",quary);
+    
 
     this.blockUI.start('Loading...');
 
@@ -334,7 +334,7 @@ export class BulkemailsendComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -369,7 +369,7 @@ export class BulkemailsendComponent implements OnInit {
     }
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         // alert('ll')
         this.totalDataCount = res['data'][0].total_count;
@@ -379,11 +379,11 @@ export class BulkemailsendComponent implements OnInit {
           10;
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       } else {
         this.collectionSize = 1;
         this.tableData = [];
-        // console.log(this.tableData);
+        
       }
     });
   }
@@ -414,7 +414,7 @@ export class BulkemailsendComponent implements OnInit {
     }
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         // alert('ll')
         this.totalDataCount = res['data'][0].total_count;
@@ -424,11 +424,11 @@ export class BulkemailsendComponent implements OnInit {
           10;
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       } else {
         this.collectionSize = 1;
         this.tableData = [];
-        // console.log(this.tableData);
+        
       }
     });
   }
@@ -459,7 +459,7 @@ export class BulkemailsendComponent implements OnInit {
     }
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         // alert('ll')
         this.totalDataCount = res['data'][0].total_count;
@@ -469,11 +469,11 @@ export class BulkemailsendComponent implements OnInit {
           10;
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       } else {
         this.collectionSize = 1;
         this.tableData = [];
-        // console.log(this.tableData);
+        
       }
     });
   }
@@ -504,7 +504,7 @@ export class BulkemailsendComponent implements OnInit {
     }
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         // alert('ll')
         this.totalDataCount = res['data'][0].total_count;
@@ -514,11 +514,11 @@ export class BulkemailsendComponent implements OnInit {
           10;
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       } else {
         this.collectionSize = 1;
         this.tableData = [];
-        // console.log(this.tableData);
+        
       }
     });
   }
@@ -550,7 +550,7 @@ export class BulkemailsendComponent implements OnInit {
     }
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         // alert('ll')
         this.totalDataCount = res['data'][0].total_count;
@@ -560,11 +560,11 @@ export class BulkemailsendComponent implements OnInit {
           10;
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       } else {
         this.collectionSize = 1;
         this.tableData = [];
-        // console.log(this.tableData);
+        
       }
     });
   }
@@ -596,7 +596,7 @@ export class BulkemailsendComponent implements OnInit {
     }
     //let Quary = 'select * from user_info as a left join auth_user as b on a.user_id = b.auth_ID where a.status=0';
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         // alert('ll')
         this.totalDataCount = res['data'][0].total_count;
@@ -606,11 +606,11 @@ export class BulkemailsendComponent implements OnInit {
           10;
 
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       } else {
         this.collectionSize = 1;
         this.tableData = [];
-        // console.log(this.tableData);
+        
       }
     });
   }
@@ -643,14 +643,14 @@ export class BulkemailsendComponent implements OnInit {
       `;
     }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.tableData = res['data'];
-        //console.log(this.tableData);
+        
       }
     });
   }
@@ -665,7 +665,7 @@ export class BulkemailsendComponent implements OnInit {
       let Quary = `select * From cast_table WHERE status = 1`;
       this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
         if (res.success && res['data'].length > 0) {
-          console.log(res['data']);
+          
           const optionsHtml = res['data']
             .map(
               (option: any) => `
@@ -722,7 +722,7 @@ export class BulkemailsendComponent implements OnInit {
                  `;
               }
 
-              // console.log("query",quary);
+              
 
               this.blockUI.start('Loading...');
 
@@ -737,7 +737,7 @@ export class BulkemailsendComponent implements OnInit {
                       Math.ceil(
                         res['data'][0].total_count / this.apiFetchRecordLimit
                       ) * 10;
-                    console.log(this.collectionSize);
+                    
                     this.tableData = res['data'];
                   } else {
                     this.collectionSize = 1;
@@ -773,7 +773,7 @@ export class BulkemailsendComponent implements OnInit {
                  `;
       }
 
-      // console.log("query",quary);
+      
 
       this.blockUI.start('Loading...');
 
@@ -786,7 +786,7 @@ export class BulkemailsendComponent implements OnInit {
           this.collectionSize =
             Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) *
             10;
-          console.log(this.collectionSize);
+          
           this.tableData = res['data'];
         } else {
           this.collectionSize = 1;
@@ -822,7 +822,7 @@ export class BulkemailsendComponent implements OnInit {
         imgpath : imagedata
       };
 
-      console.log(param);
+      
       this.alert.success('Email Sent', 'Success');
       this.ngOnInit();
       this.ApiService.sendCustmMail(param).subscribe((res: any) => {

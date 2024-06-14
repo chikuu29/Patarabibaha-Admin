@@ -13,7 +13,7 @@ export class CommonService {
   headers: any;
   haderforpdf:any;
   constructor(private http: HttpClient,private appservices:AppService) {
-    console.log("Calling Api Services");
+    
     var headers = new HttpHeaders()
       // .set("Authorization",this.appservices.authStatus._refreshkey)
       //.set("Access-Control-Allow-Origin", "http://localhost:4200")

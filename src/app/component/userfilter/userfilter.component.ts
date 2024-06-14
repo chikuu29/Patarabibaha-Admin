@@ -288,7 +288,7 @@ export class UserfilterComponent implements OnInit {
         this.religionOptions = res['data'].map((obj: any) => {
             return { name: obj.religion_name };
         });
-        console.log(this.religionOptions);
+        
 
       }
 
@@ -360,7 +360,7 @@ export class UserfilterComponent implements OnInit {
       "isJsonData": true,
       "jsonDataID": { user_ID: this.user_id }
     }
-   console.log(this.partnerPreferenceForm.value);
+   
 
    this.commonservice.filterData(updateData).subscribe((res:any)=>{
     

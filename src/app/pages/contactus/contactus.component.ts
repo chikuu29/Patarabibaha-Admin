@@ -42,7 +42,7 @@ export class ContactusComponent implements OnInit {
       }
 
       this.ApiParameter.updatedata('contactus',updateData).subscribe((res: any) => {
-        console.log(res);
+        
         if (res.success) {
           Swal.fire({
             icon: 'success',

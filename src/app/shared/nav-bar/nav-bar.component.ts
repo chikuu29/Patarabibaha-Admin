@@ -32,7 +32,7 @@ export class NavBarComponent implements OnInit {
   }
 
   openFullscreen() {
-    console.log("active FullScreen Mode" );
+    
     if (!this.activeFullScreenMode) {
       this.activeFullScreenMode=true
       if (this.elem.requestFullscreen) {
@@ -54,7 +54,7 @@ export class NavBarComponent implements OnInit {
   }
   /* Close fullscreen */
   closeFullscreen() {
-    console.log("In active FullScreen Mode");
+    
     if (this.document.exitFullscreen) {
       this.document.exitFullscreen();
      

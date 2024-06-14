@@ -142,17 +142,17 @@ export class BulksmssendComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    console.log(check);
+    
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        console.log('p');
+        
 
         this.allId.push(this.tableData[key].user_phone_no);
         checkbox.checked = true;
@@ -163,10 +163,10 @@ export class BulksmssendComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    console.log(this.allId);
+    
   }
   getId(id: any, e: any) {
-    console.log('hii', e);
+    
 
     if (e.target.checked) {
       this.allId.push(id);
@@ -176,12 +176,12 @@ export class BulksmssendComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    console.log(this.allId);
+    
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    console.log('click fillter', event);
+    
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -206,16 +206,16 @@ export class BulksmssendComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    console.log(query);
+    
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      console.log('Filtter Record', res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        // console.log(this.tableData);
+        
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -258,7 +258,7 @@ export class BulksmssendComponent implements OnInit {
        `;
     }
 
-    // console.log("query",quary);
+    
 
     this.blockUI.start('Loading...');
 
@@ -270,7 +270,7 @@ export class BulksmssendComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        console.log(this.collectionSize);
+        
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;

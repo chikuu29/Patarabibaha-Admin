@@ -32,7 +32,7 @@ export class MarriagecombinationComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedroute.params.subscribe((res:any)=>{
-       // console.log(res);
+       
         if(res.id != ''){
           this.urlid = res.id
           let quary = `select user_gender from user_info where user_id = '${this.urlid}'`;
@@ -41,13 +41,13 @@ export class MarriagecombinationComponent implements OnInit {
               this.gender = res['data'][0].user_gender;
               this.getAllData(this.page * 10 - 10, 10);
             }
-            console.log(this.gender);
+            
 
           });
           this.getAllData(this.page * 10 - 10, 10);
         }
     });
-    //console.log(this.urlid);
+    
 
   }
 
@@ -65,7 +65,7 @@ export class MarriagecombinationComponent implements OnInit {
   search(search_text: any) {
     let _this:any = this;
     this.getAllData(0, 10,true,search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
 
   }
@@ -92,18 +92,18 @@ export class MarriagecombinationComponent implements OnInit {
          OR a.user_lname = '${search_text}';
        `;
     }
-   // console.log(quary);
+   
 
 
 
-    // console.log(quary);
+    
     this.blockUI.start('Loading...')
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
       if (res.success && res['data'].length > 0) {
         this.collectionSize = Math.round(res['data'][0].total_count);
         this.finaldata = res['data'];
-        console.log(this.finaldata);
+        
       }else{
         this.collectionSize = 1;
         this.finaldata = [];
@@ -121,8 +121,8 @@ export class MarriagecombinationComponent implements OnInit {
     `,
     }).then((con:any)=>{
       var val :any =document.getElementById('success');
-      // console.log(con);
-      // console.log(val?.value);
+      
+      
       if(con.isConfirmed){
         let updateData = {
           "data": {
@@ -153,7 +153,7 @@ export class MarriagecombinationComponent implements OnInit {
             // }
 
             this.ApiParameter.savedata('gotra', updateData).subscribe((res: any) => {
-              // console.log(res);
+              
               if (res.success) {
 
               } })

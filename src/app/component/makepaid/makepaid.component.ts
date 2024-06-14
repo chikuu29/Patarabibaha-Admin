@@ -43,7 +43,7 @@ export class MakepaidComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
 
   }
@@ -84,12 +84,12 @@ export class MakepaidComponent implements OnInit {
     }
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.totalDataCount=res['data'][0].total_count;
         this.totalFetchrecord =start+res['data'].length
         this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
-         console.log(this.collectionSize);
+         
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -111,7 +111,7 @@ export class MakepaidComponent implements OnInit {
         // this.getAllData(0,this.apiFetchRecordLimit);
         let _this: any = this;
         _this[this.currentFunction](0,this.apiFetchRecordLimit);
-        console.log(this.defultdata);
+        
       }
     })
   }

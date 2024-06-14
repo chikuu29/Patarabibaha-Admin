@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
   }
 
   showSideNavForSmallScreen(data:boolean){
-    console.log(data);
+    
     
     this.isSidenavCoolapedForSmallScreen=data
   }

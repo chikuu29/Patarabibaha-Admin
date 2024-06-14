@@ -62,7 +62,7 @@ export class ChatUserViewComponent implements OnInit {
 
     var offset = this.page * 10 - 10
     this.apiparameter.fetchdata('user_info', apiData, offset, 10).subscribe((res: any) => {
-      console.log("res", res);
+      
 
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['totalCount'];
@@ -77,7 +77,7 @@ export class ChatUserViewComponent implements OnInit {
   }
 
   onpageChnage() {
-    // console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
     // this.page=1;
 
@@ -90,7 +90,7 @@ export class ChatUserViewComponent implements OnInit {
     this.filterText = event
   }
   search(search_text: any) {
-    console.log(search_text);
+    
     // this.getAllData(0, 10, true, search_text)
     // var typeOfUser = "Approved"
     // if (this.allPaidUsrClick) typeOfUser = "Paid"

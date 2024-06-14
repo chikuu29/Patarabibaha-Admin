@@ -173,7 +173,7 @@ export class HomepageeventComponent implements OnInit {
     
           })
         }
-       // console.log(respo);
+       
 
       });
 

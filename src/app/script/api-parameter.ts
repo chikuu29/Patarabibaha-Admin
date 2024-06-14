@@ -22,7 +22,7 @@ export class ApiParameterScript {
         private cryptography: CryptographyService
 
     ) {
-        console.log("Calling API Parametere");
+        
     }
 
 
@@ -72,7 +72,7 @@ export class ApiParameterScript {
                 )
             } catch (error) {
                 this.blockUI.stop()
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                
                 observer.next(error);
                 observer.complete();
             }
@@ -107,7 +107,7 @@ export class ApiParameterScript {
                     observer.complete();
                 })
             } catch (error) {
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                
                 observer.next(error);
                 observer.complete();
             }
@@ -142,7 +142,7 @@ export class ApiParameterScript {
                 apiData['table'] = db;
                 apiData['isJsonData'] = apiData['isJsonData'] ? apiData['isJsonData'] : false;
                 apiData['jsonDataID'] = apiData['isJsonData'] ? apiData['jsonDataID'] : {}
-                console.log(apiData);
+                
                 // const appConfig = this.appservices.getappconfig;
                 // const loginInfo = this.appservices.authStatus;
                 // let getrole = loginInfo['role'] ? loginInfo['role'] : '';
@@ -151,7 +151,7 @@ export class ApiParameterScript {
                 // if (appConfig['roleConfig'][getrole] && (outh && outhForUpdate)) {
                 //     apiData['loginInfo'] = loginInfo;
 
-                console.log(apiData);
+                
 
                 const encryptedData = this.cryptography.encryptData(apiData)
                 this.apiservices.save(encryptedData).subscribe((res: any) => {
@@ -163,7 +163,7 @@ export class ApiParameterScript {
                 //     observer.complete();
                 // }
             } catch (error) {
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                
                 observer.next(error);
                 observer.complete();
             }
@@ -204,7 +204,7 @@ export class ApiParameterScript {
                 //     observer.complete();
                 // }
             } catch (error) {
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                
                 observer.next(error);
                 observer.complete();
             }
@@ -263,7 +263,7 @@ export class ApiParameterScript {
                 )
 
             } catch (error) {
-                console.log({ "methodName": "ApiParameterScript.fetchDataFormQuery", "error": error });
+                
                 observer.next(error);
                 observer.complete();
             }
@@ -301,7 +301,7 @@ export class ApiParameterScript {
                     observer.complete();
                 }
             } catch (error) {
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                
                 observer.next(error);
                 observer.complete();
             }
@@ -335,7 +335,7 @@ export class ApiParameterScript {
                 })
 
             } catch (error) {
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                
                 observer.next(error);
                 observer.complete();
             }
@@ -359,7 +359,7 @@ export class ApiParameterScript {
                 })
 
             } catch (error) {
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                
                 observer.next(error);
                 observer.complete();
             }
@@ -377,7 +377,7 @@ export class ApiParameterScript {
                 })
 
             } catch (error) {
-                console.log({ "methodName": "ApiParameterScript.fetchdata", "error": error });
+                
                 observer.next(error);
                 observer.complete();
             }

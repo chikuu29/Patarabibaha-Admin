@@ -36,7 +36,7 @@ export class SalesreportComponent implements OnInit {
     from user_plan_deatils as a join membership_plan as b on a.user_plan_id = b.membership_plan_id
     order by plan_stating_date`;
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.filteredData = res['data'];
         this.finaldata = res['data'];
@@ -53,7 +53,7 @@ export class SalesreportComponent implements OnInit {
           }
         });
         let i = 0;
-        console.log(this.filteredData);
+        
       }
     });
   }
@@ -88,11 +88,11 @@ export class SalesreportComponent implements OnInit {
     //this.filteredData = this.finaldata
     this.flg = false;
     const filterValue = event.target.value.toLowerCase();
-    console.log(filterValue);
+    
 
     this.filteredData = this.filteredData.filter((data: any) => {
       return data[field].toLowerCase().includes(filterValue);
     });
-    console.log(this.filteredData);
+    
   }
 }

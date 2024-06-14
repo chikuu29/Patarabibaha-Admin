@@ -158,7 +158,7 @@ export class SalapprovalComponent implements OnInit {
     console.log(query);
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
@@ -303,7 +303,7 @@ export class SalapprovalComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        //console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {

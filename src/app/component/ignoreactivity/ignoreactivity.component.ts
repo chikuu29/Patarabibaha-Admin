@@ -38,7 +38,7 @@ export class IgnoreactivityComponent implements OnInit {
           let countele = ele.user_block_list.split(',').length;
           return {'id' : ele.user_id , 'count' : countele}
         });
-        console.log(this.userdata); 
+         
       }
     });
   }

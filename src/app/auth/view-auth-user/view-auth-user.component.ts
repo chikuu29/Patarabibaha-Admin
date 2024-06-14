@@ -32,13 +32,13 @@ export class ViewAuthUserComponent implements OnInit {
   }
 
   getSearchText(event: any) {
-    console.log(event);
+    
 
     this.filterText = event
   }
 
   onpageChnage() {
-    // console.log(this.page);
+    
     var executeName = "active"
     if (this.allAuthUserClick) executeName = "All"
     else if (this.activeAuthUserClick) executeName = "active"
@@ -56,7 +56,7 @@ export class ViewAuthUserComponent implements OnInit {
         case "active":
           query = "SELECT COUNT(auth_ID) as count FROM auth_user WHERE account_status='active'"
           this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
-            console.log(res);
+            
             if (res.success && res['data'].length > 0) {
 
               this.activeAuthUserCount = res['data'][0].count ? res['data'][0].count : 0
@@ -72,7 +72,7 @@ export class ViewAuthUserComponent implements OnInit {
         case "inactive":
           query = "SELECT COUNT(auth_ID) as count FROM auth_user WHERE account_status='inactive'"
           this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
-            console.log(res);
+            
             if (res.success && res['data'].length > 0) {
 
               this.inactiveAuthUserCount = res['data'][0].count ? res['data'][0].count : 0
@@ -85,7 +85,7 @@ export class ViewAuthUserComponent implements OnInit {
         case "All":
           query = "SELECT COUNT(auth_ID) as count FROM auth_user"
           this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
-            console.log(res);
+            
             if (res.success && res['data'].length > 0) {
 
               this.allAuthUserCount = res['data'][0].count ? res['data'][0].count : 0

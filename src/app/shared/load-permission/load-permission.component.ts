@@ -36,7 +36,7 @@ export class LoadPermissionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log(this.app.getappconfig);
+    
     this.blockUI.start('Fetch User Information')
     const apiData = {
       "projection": ["permission"],
@@ -48,13 +48,13 @@ export class LoadPermissionComponent implements OnInit, OnDestroy {
 
 
     this.api.fetchdata("admin", apiData).subscribe((res: any) => {
-      console.log("user", res);
+      
       this.blockUI.stop()
       if (res.success && res['data'].length > 0) {
-        console.log(res['data'][0]['permission']);
+        
         this.retrivePermission = JSON.parse(res['data'][0]['permission'])
-        // console.log("this.navConfig", this.navConfig);
-        // console.log("this.retrivePermission", this.retrivePermission);
+        
+        
 
         if (_.isArray(this.retrivePermission)) {
           _.map(this.navConfig, (i: any) => {
@@ -113,10 +113,10 @@ export class LoadPermissionComponent implements OnInit, OnDestroy {
 
   private mergeObjects(obj1: any, obj2: any): any {
 
-    // console.log("mergedSubmenu", obj1);
-    // console.log("mergedSubmenu2", obj2);
+    
+    
     const mergedSubmenu = this.mergeSubmenus(obj1.submenu, obj2.submenu);
-    // console.log(mergedSubmenu);
+    
 
     // console.log("hoo", {
     //   ...obj1,
@@ -136,12 +136,12 @@ export class LoadPermissionComponent implements OnInit, OnDestroy {
       return [this.mergeObjects(array1[0], array2[0])];
     }
 
-    console.log("ok", [...array1, ...array2]);
+    
 
 
     return [...array1, ...array2].reduce((acc, current) => {
-      console.log("acc", acc);
-      console.log("current", current)
+      
+      
 
       const existingItem = acc.find((item: any) => item.text === current.text);
       if (!existingItem) {
@@ -154,14 +154,14 @@ export class LoadPermissionComponent implements OnInit, OnDestroy {
 
 
   save() {
-    console.log(this.navConfig);
+    
     let navConfig = _.cloneDeep(_.filter(this.navConfig, { 'permissionGranted': true }))
     navConfig.map((t: any) => {
       if (t['submenu'] && t['submenu'].length > 0) {
         t['submenu'] = _.filter(t['submenu'], { 'permissionGranted': true })
       }
     })
-    console.log(navConfig);
+    
 
 
     this.activeModal.close(navConfig);

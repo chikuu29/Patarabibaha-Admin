@@ -65,7 +65,7 @@ export class RoleManagementComponent implements OnInit {
     this.getUserDetails();
     // if (this.appservices.getappconfig) {
     //   this.selectRole = Object.keys(this.appservices.getappconfig['roleConfig'])
-    //   // console.log(this.selectRole);
+    //   
     // }
   }
   getSearchText(event: any) {
@@ -91,7 +91,7 @@ export class RoleManagementComponent implements OnInit {
           );
         },
         (dissmiss: any) => {
-          console.log(dissmiss);
+          
         }
       );
   }
@@ -103,7 +103,7 @@ export class RoleManagementComponent implements OnInit {
       whereConditions: {},
     };
     this.apiParameter.fetchdata('admin', apiData).subscribe((res: any) => {
-      console.log('user', res);
+      
       this.blockUI.stop();
       if (res.success && res['data'].length > 0) {
         this.userData = res['data'];
@@ -139,7 +139,7 @@ export class RoleManagementComponent implements OnInit {
         };
         this.apiParameter.deletedata('admin', apiData).subscribe((res: any) => {
           this.blockUI.stop();
-          console.log(res);
+          
           if (res.success) {
             Swal.fire('Success', res.message, 'success').then((res) => {
               this.ngOnInit();
@@ -199,7 +199,7 @@ export class RoleManagementComponent implements OnInit {
 
   public save() {
     this.blockUI.start('Creating User');
-    console.log(this.userFormData.value);
+    
     // this.auth.createUserRole(this.userFormData.value).subscribe((res: any) => {
     //   this.blockUI.stop()
     //   if (res.success) {
@@ -218,7 +218,7 @@ export class RoleManagementComponent implements OnInit {
 
     this.apiParameter.savedata('admin', apiData).subscribe((res: any) => {
       this.blockUI.stop();
-      console.log(res);
+      
 
       if (res.success) {
         // Swal.fire(
@@ -241,7 +241,7 @@ export class RoleManagementComponent implements OnInit {
   }
   public update() {
     // var updatedta:any=delete this.userFormData.value.Password
-    // console.log(updatedta);
+    
 
     var apiData: any = {
       data: this.userFormData.value,
@@ -249,7 +249,7 @@ export class RoleManagementComponent implements OnInit {
     };
 
     apiData['creater_name'] = this.appservices.authStatus.name;
-    console.log(this.userFormData.value);
+    
     this.blockUI.start('Updating...');
     this.apiParameter.updatedata('admin', apiData).subscribe((res: any) => {
       this.blockUI.stop();
@@ -339,7 +339,7 @@ export class RoleManagementComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -372,7 +372,7 @@ export class RoleManagementComponent implements OnInit {
         text: 'Do you want to Publish',
         showCancelButton: true,
       }).then((r: any) => {
-        console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {

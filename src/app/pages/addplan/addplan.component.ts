@@ -40,7 +40,7 @@ export class AddplanComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedroute.params.subscribe((res:any)=>{
-      console.log(res.id);
+      
       if(res.id == undefined || res.id == ''){
         this.fatchtype();
         this.typechange= false;
@@ -216,9 +216,9 @@ export class AddplanComponent implements OnInit {
       let param = {
          'value' : this.memberplan.value
       }
-      console.log(param);
+      
       this.api.memberpaln(param).subscribe((res:any)=>{
-        console.log(res);
+        
 
           if(res.status){
             Swal.fire({
@@ -258,7 +258,7 @@ export class AddplanComponent implements OnInit {
         this.ApiParameter.fetchdata('type', { "projection": ["*"],"whereConditions": { used: 1 } }).subscribe((res1: any) => {
           if (res1.success && res1['data'].length > 0) {
             this.typedata = res1['data'].filter((ele:any)=>{
-              console.log(ele);
+              
               if(ele.name == res['data'][0].membership_plan_type ){
                 return ele;
               }

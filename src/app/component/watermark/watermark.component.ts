@@ -42,7 +42,7 @@ export class WatermarkComponent implements OnInit {
   _handleReaderLoaded(e: any) {
     let reader = e.target;
     this.imageSrc = reader.result;
-    console.log(this.imageSrc)
+    
   }
 
   fatchdata() {
@@ -90,7 +90,7 @@ export class WatermarkComponent implements OnInit {
             "whereConditions": { id: id }
           }
           this.ApiParameter.updatedata('watermark', updateData).subscribe((res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -123,7 +123,7 @@ export class WatermarkComponent implements OnInit {
             "whereConditions": { id: id }
           }
           this.ApiParameter.updatedata('watermark', updateData).subscribe((res: any) => {
-            // console.log(res);
+            
             if (res.success) {
               Swal.fire({
                 icon: 'success',

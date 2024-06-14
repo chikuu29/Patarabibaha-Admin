@@ -151,7 +151,7 @@ export class CreateUserComponent implements OnInit {
     this.dayOption = Array.from({ length: 31 }, (_, i) =>
       (i + 1).toString().padStart(2, '0')
     );
-    console.log(this.dayOption);
+    
 
     setTimeout(() => {
       this.activeFormTab('form1');
@@ -179,7 +179,7 @@ export class CreateUserComponent implements OnInit {
       },
     ];
 
-    // console.log("get", getactiveForm);
+    
 
     activeFormArrayList.forEach((e1: any) => {
       if (e1.active && e1.name !== 'form1') {
@@ -197,7 +197,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   continue() {
-    // console.log("Form 1", this.form1.value);
+    
     var form1 = document.querySelector('.form1');
     form1?.classList.remove('active-step');
     this.activeFormTab('form2');
@@ -217,12 +217,12 @@ export class CreateUserComponent implements OnInit {
       url: environment.application_url,
       // "profileID":this.profileID
     };
-    // console.log("Formdata", apiData);
+    
 
     this.registerServices.setupuserAuthAccount(apiData).subscribe(
       (res: any) => {
         this.blockUI.stop();
-        console.log(res);
+        
 
         if (res.success) {
           Swal.fire('Success!', res.message, 'success').then(() => {
@@ -248,20 +248,20 @@ export class CreateUserComponent implements OnInit {
         } else {
           this.alert.error(res.message, 'Information');
         }
-        // console.log(res);
+        
       },
       (err: any) => {
         this.blockUI.stop();
         this.alert.error(err.message, 'OPS!');
-        console.log(err);
+        
       }
     );
   }
 
   setProfile() {
-    // console.log("Form 1", this.form2.value);
+    
     var dob = `${this.form2.value.year}-${this.form2.value.month}-${this.form2.value.day}`;
-    // console.log(dob);
+    
 
     const inputDate = new Date(dob);
     const currentDate = new Date();
@@ -285,7 +285,7 @@ export class CreateUserComponent implements OnInit {
     //   "dob": moment(this.form3.value.dob).format('YYYY-MM-DD'),
     //   "profileID":this.profileID
     // }
-    // console.log(apiData);
+    
     // this.blockUI.start("Please Wait...")
     // this.registerServices.setProfile(apiData).subscribe((res:any)=>{
 

@@ -138,7 +138,7 @@ if (loadSpecificData) {
     console.log(query);
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      //console.log(res);
+      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
@@ -259,7 +259,7 @@ if (loadSpecificData) {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        //console.log(r);
+        
         if (r.isConfirmed) {
           let updateData = {
             data: {

@@ -363,7 +363,7 @@ export class FillterModalComponent implements OnInit {
         this.religionOptions = res['data'].map((obj: any) => {
           return { name: obj.religion_name };
         });
-        console.log(this.religionOptions);
+        
       }
     });
 
@@ -513,11 +513,11 @@ export class FillterModalComponent implements OnInit {
       (values) => values.length > 0
     );
 
- //   console.log(filteredtableKeyMappingObject);
+ //   
 
     var query = '';
     Object.keys(filteredtableKeyMappingObject).forEach((table, i) => {
-      // console.log("index",index);
+      
       var condition1 =
         Object.keys(filteredtableKeyMappingObject).length - 1 != i
           ? true
@@ -530,7 +530,7 @@ export class FillterModalComponent implements OnInit {
             condition1
               ? ' AND '
               : '';
-          // console.log("yydyd", condition);
+          
           var gen = '';
           if (
             fillterData[key] &&
@@ -555,7 +555,7 @@ export class FillterModalComponent implements OnInit {
       );
     });
 
-   // console.log('fillterData', fillterData.user_max_age);
+   
 
     // fillterForm = new FormGroup({
     //   user_id: new FormControl('', []),
@@ -587,7 +587,7 @@ export class FillterModalComponent implements OnInit {
     //   user_family_value: new FormControl([], []),
     //   user_family_status: new FormControl([], []),
     // });
-   // console.log('Query', query);
+   
     if(fillterData.user_max_age != undefined && fillterData.user_min_age != undefined){
       if(query == ''){
       query +=  `user_info.user_age BETWEEN ${fillterData.user_min_age} AND ${fillterData.user_max_age}`
