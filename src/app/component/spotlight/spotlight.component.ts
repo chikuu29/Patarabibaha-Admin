@@ -55,7 +55,7 @@ export class SpotlightComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
 
   }
@@ -64,7 +64,7 @@ export class SpotlightComponent implements OnInit {
   }
   change() {
     if (this.name == 'FEMALE') {
-      
+
       this.name = 'MALE';
       this.page = 1;
       this.offset = 1;
@@ -102,23 +102,23 @@ export class SpotlightComponent implements OnInit {
          AND a.user_status = 'Approved' AND a.user_gender = 'male' AND spotlight = 0;
        `;
     }
-    
-    
-    
+
+
+
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
-      
+
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length
         this.collectionSize = Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.finaldata = res['data'];
       } else {
         this.collectionSize = 1;
         this.finaldata = [];
       }
-      
+
     });
 
 
@@ -136,7 +136,7 @@ export class SpotlightComponent implements OnInit {
     // this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_status: 'Approved', user_gender: 'male' ,spotlight:1 } }).subscribe((res: any) => {
     //   if (res.success && res['data'].length > 0) {
     //     this.finaldata = res['data'];
-    //     
+    //
     //   }
     // })
   }
@@ -159,25 +159,25 @@ export class SpotlightComponent implements OnInit {
          AND  AND a.user_status = 'Approved' AND a.user_gender = 'male' AND spotlight = 0;
        `;
     }
-    
-    
+
+
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
-      
+
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length
         this.collectionSize = Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.finaldata = res['data'];
       } else {
         this.collectionSize = 1;
         this.finaldata = [];
       }
-      
-      
-      
-      
+
+
+
+
     });
 
 
@@ -198,7 +198,7 @@ export class SpotlightComponent implements OnInit {
     // this.ApiParameter.fetchdata('user_info', { "projection": ["*"], "whereConditions": { user_status: 'Approved', user_gender: 'female',spotlight:1 } }).subscribe((res: any) => {
     //   if (res.success && res['data'].length > 0) {
     //     this.finaldata = res['data'];
-    //     
+    //
     //   }
     // })
   }
@@ -233,7 +233,7 @@ export class SpotlightComponent implements OnInit {
               //   ///this.name = 'FEMALE'
               //   this.male();
               // }
-            }); 
+            });
           }
         });
       }

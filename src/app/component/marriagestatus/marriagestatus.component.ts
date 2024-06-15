@@ -28,6 +28,7 @@ export class MarriagestatusComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.allId = [];
     let all = <any>document.getElementById('all');
     all.checked = false;
     this.allId = [];
@@ -74,18 +75,18 @@ export class MarriagestatusComponent implements OnInit {
          OR a.user_lname = '${search_text}';
        `;
     }
-   
 
 
 
-    
+
+
     this.blockUI.start('Loading...')
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
       if (res.success && res['data'].length > 0) {
         this.collectionSize = Math.round(res['data'][0].total_count);
         this.finaldata = res['data'];
-        
+
       }else{
         this.collectionSize = 1;
         this.finaldata = [];
@@ -110,7 +111,7 @@ export class MarriagestatusComponent implements OnInit {
         element.checked = false;
       });
     }
-    
+
   }
   getId(id: any, e: any) {
 
@@ -122,7 +123,7 @@ export class MarriagestatusComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
+
   }
 
 }

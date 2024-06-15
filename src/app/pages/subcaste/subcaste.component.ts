@@ -49,6 +49,7 @@ export class SubcasteComponent implements OnInit {
   castOption: any;
   subcast: any;
   ngOnInit(): void {
+    this.allId = [];
     this.subcastgroup = new FormGroup({
       id: new FormControl(''),
       sub_cast_name: new FormControl(''),
@@ -60,7 +61,7 @@ export class SubcasteComponent implements OnInit {
   }
 
   getSearchText(event: any) {
-    
+
 
     this.filterText = event;
   }
@@ -69,7 +70,7 @@ export class SubcasteComponent implements OnInit {
       (res: any) => {
         if (res.success) {
           // this.cast = res['data'];
-          
+
 
           this.castOption = res['data'].map((obj: any) => {
             if (obj.status == 1) {
@@ -98,12 +99,12 @@ export class SubcasteComponent implements OnInit {
       quary = `SELECT *,
       COUNT(*) OVER () AS total_count
        FROM sub_cast
-          WHERE sub_cast LIKE '%${search_text}%'
+          WHERE sub_cast_name LIKE '%${search_text}%'
           ORDER BY cast_name ASC , sub_cast_name ASC;
          `;
-      
+
     }
-    
+
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -114,40 +115,13 @@ export class SubcasteComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
         this.tableData = [];
       }
     });
-
-
-
-
-
-
-
-
-
-
-    // let offset = this.page * 10 - 10;
-    // this.ApiParameter.fetchdata(
-    //   'sub_cast',
-    //   { projection: ['*'] },
-    //   offset,
-    //   10
-    // ).subscribe((res: any) => {
-    //   
-
-    //   this.totalFetchrecord = offset + res['count'];
-    //   this.totalCount = res['totalCount'];
-    //   this.collectionSize = res['totalCount'];
-    //   if (res.success) {
-    //     this.subcast = res['data'];
-    //     );
-    //   }
-    // });
   }
 
   adddata() {
@@ -173,7 +147,7 @@ export class SubcasteComponent implements OnInit {
 
         this.ApiParameter.savedata('sub_cast', updateData).subscribe(
           (res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -247,7 +221,7 @@ export class SubcasteComponent implements OnInit {
       projection: ['*'],
       whereConditions: { id: id },
     }).subscribe((res: any) => {
-      
+
 
       if (res.success && res['data'].length > 0) {
         this.subcastgroup.patchValue(res['data'][0]);
@@ -283,7 +257,7 @@ export class SubcasteComponent implements OnInit {
       };
       this.ApiParameter.updatedata('sub_cast', updateData).subscribe(
         (res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -308,7 +282,7 @@ export class SubcasteComponent implements OnInit {
       };
       this.ApiParameter.updatedata('sub_cast', updateData).subscribe(
         (res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -335,7 +309,7 @@ export class SubcasteComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -376,7 +350,7 @@ export class SubcasteComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -416,7 +390,7 @@ export class SubcasteComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             deleted: 'Delete',
@@ -448,13 +422,13 @@ export class SubcasteComponent implements OnInit {
     //alert(this.currentFunction)
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    
+
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -479,16 +453,16 @@ export class SubcasteComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        
+
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -498,10 +472,10 @@ export class SubcasteComponent implements OnInit {
     });
   }
   checkAll(e: any) {
-    
+
 
     let check = document.querySelectorAll('.check');
-    
+
 
     this.allId = [];
     if (e.target.checked) {
@@ -515,10 +489,10 @@ export class SubcasteComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
+
   }
   getId(id: any, e: any) {
-    
+
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -528,7 +502,7 @@ export class SubcasteComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
+
   }
   changepaginetdata(event: any) {
     this.page = 1;

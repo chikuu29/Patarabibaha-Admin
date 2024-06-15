@@ -44,6 +44,7 @@ export class SalapprovalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.totalFetchrecord = 10;
     this.getsalslip(0, this.totalFetchrecord);
     this.getalluser();
@@ -158,7 +159,7 @@ export class SalapprovalComponent implements OnInit {
     console.log(query);
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
@@ -303,7 +304,7 @@ export class SalapprovalComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {

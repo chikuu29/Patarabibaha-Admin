@@ -55,6 +55,7 @@ export class SuspendeduserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     this.allId = [];
     let _this: any = this;
     _this[this.currentFunction](0, this.collectionSize);
@@ -78,11 +79,11 @@ export class SuspendeduserComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-    
+
     var query = `SELECT *
      FROM user_info
      LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -104,17 +105,17 @@ export class SuspendeduserComponent implements OnInit {
      LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
      ${event.whereConditions}`;
     }
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
-        
+
 
         this.tableData = res['data'];
-        
+
       }
     });
   }
@@ -169,14 +170,14 @@ export class SuspendeduserComponent implements OnInit {
       `;
     }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-        
+
       }
     });
   }
@@ -207,14 +208,14 @@ export class SuspendeduserComponent implements OnInit {
       `;
     }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-        
+
       }
     });
   }
@@ -245,14 +246,14 @@ export class SuspendeduserComponent implements OnInit {
       `;
     }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-        
+
       }
     });
 
@@ -301,12 +302,12 @@ export class SuspendeduserComponent implements OnInit {
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
-    
+
 
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-        
+
 
         this.allId.push(parseInt(this.finaldata[key].Id));
         checkbox.checked = true;
@@ -317,7 +318,7 @@ export class SuspendeduserComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
+
   }
   getId(id: any, e: any) {
     if (e.target.checked) {
@@ -328,7 +329,7 @@ export class SuspendeduserComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
+
   }
   sendMail() {
     if (this.allId.length == 0) {
@@ -341,7 +342,7 @@ export class SuspendeduserComponent implements OnInit {
         mailIds: this.allId,
         filepath: environment.filePath,
       };
-      
+
 
       this.CommonService.expiredMail(param).subscribe((res: any) => {});
       Swal.fire({

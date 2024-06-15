@@ -36,8 +36,9 @@ export class UserapproveComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.getuserAprrove(0, this.totalFetchrecord);
-    
+
   }
 
   getuserAprrove(
@@ -126,10 +127,10 @@ export class UserapproveComponent implements OnInit {
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}`;
     }
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=

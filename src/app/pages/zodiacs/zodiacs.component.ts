@@ -41,6 +41,7 @@ export class ZodiacsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.getAllZodiacdata(0, this.apiFetchRecordLimit);
 
 

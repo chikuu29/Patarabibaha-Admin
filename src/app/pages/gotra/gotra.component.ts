@@ -48,6 +48,7 @@ export class GotraComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.gotragroup = new FormGroup({
       id: new FormControl('', []),
       name: new FormControl(''),
@@ -57,7 +58,7 @@ export class GotraComponent implements OnInit {
   }
 
   getSearchText(event: any) {
-    
+
 
     this.filterText = event;
   }
@@ -74,7 +75,7 @@ export class GotraComponent implements OnInit {
 
         this.ApiParameter.savedata('gotra', updateData).subscribe(
           (res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -108,7 +109,7 @@ export class GotraComponent implements OnInit {
         };
         this.ApiParameter.updatedata('gotra', updateData).subscribe(
           (res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -155,12 +156,12 @@ export class GotraComponent implements OnInit {
       quary = `SELECT *,
       COUNT(*) OVER () AS total_count
        FROM gotra
-          WHERE sub_cast LIKE '%${search_text}%'
+          WHERE name LIKE '%${search_text}%'
           ORDER BY name ASC;
          `;
-      
+
     }
-    
+
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -171,24 +172,13 @@ export class GotraComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
         this.tableData = [];
       }
     });
-
-    // let offset = this.page * 10 - 10
-    // this.ApiParameter.fetchdata('gotra', { "projection": ["*"] },offset,10).subscribe((res: any) => {
-    //   this.totalFetchrecord = offset+res['count']
-    //   this.totalCount = res['totalCount']
-    //   this.collectionSize = res['totalCount']
-    //   if (res.success && res['data'].length > 0) {
-    //     this.gotraalldata = res['data'];
-    //     
-    //   }
-    // });
   }
   update(data: any) {
     window.scrollTo({
@@ -204,7 +194,7 @@ export class GotraComponent implements OnInit {
         this.gotragroup.patchValue(res['data'][0]);
         this.button = 'UPDATE';
         this.editedcast = res['data'][0].name;
-        
+
       }
     });
   }
@@ -234,7 +224,7 @@ export class GotraComponent implements OnInit {
       };
       this.ApiParameter.updatedata('gotra', updateData).subscribe(
         (res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -259,7 +249,7 @@ export class GotraComponent implements OnInit {
       };
       this.ApiParameter.updatedata('gotra', updateData).subscribe(
         (res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -286,7 +276,7 @@ export class GotraComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -327,7 +317,7 @@ export class GotraComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -367,7 +357,7 @@ export class GotraComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             deleted: 'Delete',
@@ -399,13 +389,13 @@ export class GotraComponent implements OnInit {
     //alert(this.currentFunction)
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    
+
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -430,16 +420,16 @@ export class GotraComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        
+
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -449,10 +439,10 @@ export class GotraComponent implements OnInit {
     });
   }
   checkAll(e: any) {
-    
+
 
     let check = document.querySelectorAll('.check');
-    
+
 
     this.allId = [];
     if (e.target.checked) {
@@ -466,10 +456,10 @@ export class GotraComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
+
   }
   getId(id: any, e: any) {
-    
+
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -479,7 +469,7 @@ export class GotraComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
+
   }
   changepaginetdata(event: any) {
     this.page = 1;

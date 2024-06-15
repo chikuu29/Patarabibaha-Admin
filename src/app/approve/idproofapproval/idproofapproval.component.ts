@@ -44,6 +44,7 @@ export class IdproofapprovalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.totalFetchrecord = 10;
     this.getIdProof(0, this.totalFetchrecord);
     this.getalluser();
@@ -160,7 +161,7 @@ export class IdproofapprovalComponent implements OnInit {
     console.log(query);
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
@@ -305,7 +306,7 @@ export class IdproofapprovalComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {

@@ -32,6 +32,7 @@ export class ChangeuserpassComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.getAllData(0, this.totalFetchrecord);
   }
   userpage(data: any, fname: any, lname: any) {
@@ -65,17 +66,17 @@ export class ChangeuserpassComponent implements OnInit {
            ORDER BY user_creation_date_time DESC ;
             `;
     }
-    
+
 
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
-        
+
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -90,11 +91,11 @@ export class ChangeuserpassComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-    
+
     var query = `SELECT *
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -116,17 +117,17 @@ export class ChangeuserpassComponent implements OnInit {
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}`;
     }
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
-        
+
 
         this.tableData = res['data'];
-        
+
       }
     });
   }

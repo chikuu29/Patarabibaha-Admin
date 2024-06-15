@@ -54,7 +54,7 @@ export class CityComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.allId = [];
     this.citygroup = new FormGroup({
       id: new FormControl('',),
       country_name: new FormControl(''),

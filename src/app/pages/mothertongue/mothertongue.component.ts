@@ -46,6 +46,7 @@ export class MothertongueComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.page = 1
     this.mothertongue = new FormGroup({
       mother_tongue_name: new FormControl(''),
@@ -55,7 +56,7 @@ export class MothertongueComponent implements OnInit {
   }
 
   getSearchText(event: any) {
-    
+
 
     this.filterText = event;
   }
@@ -80,7 +81,7 @@ export class MothertongueComponent implements OnInit {
 
         this.ApiParameter.savedata('mother_tongue', updateData).subscribe(
           (res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -103,11 +104,11 @@ export class MothertongueComponent implements OnInit {
           },
           whereConditions: { id: this.originaldata[0].id },
         };
-        
+
 
         this.ApiParameter.updatedata('mother_tongue', updateData1).subscribe(
           (res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -157,7 +158,7 @@ export class MothertongueComponent implements OnInit {
         mother_tongue_name = '${search_text}'
            ORDER BY mother_tongue_name ASC
          `;
-      
+
     }
 
     this.blockUI.start('Loading...');
@@ -170,7 +171,7 @@ export class MothertongueComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -188,7 +189,7 @@ export class MothertongueComponent implements OnInit {
     //   this.totalFetchrecord = offset + res['count'];
     //   this.totalCount = res['totalCount'];
     //   this.collectionSize = res['totalCount'];
-    //   
+    //
 
     //   if (res.success) {
     //     //this.privacypalicy.patchValue(res['data'][0])
@@ -205,7 +206,7 @@ export class MothertongueComponent implements OnInit {
     this.ApiParameter.fetchdata('mother_tongue', {
       projection: ['*'],
     }).subscribe((res: any) => {
-      
+
       this.action = 'Update';
       if (res.success) {
         this.tabledata = res['data'];
@@ -220,7 +221,7 @@ export class MothertongueComponent implements OnInit {
     });
   }
   deleted(data: any) {
-    
+
     this.blockUI.start('Deleting...');
     this.ApiParameter.deletedata('mother_tongue', {
       whereConditions: { id: data },
@@ -246,7 +247,7 @@ export class MothertongueComponent implements OnInit {
       };
       this.ApiParameter.updatedata('mother_tongue', updateData).subscribe(
         (res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -271,7 +272,7 @@ export class MothertongueComponent implements OnInit {
       };
       this.ApiParameter.updatedata('mother_tongue', updateData).subscribe(
         (res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -298,7 +299,7 @@ export class MothertongueComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -339,7 +340,7 @@ export class MothertongueComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -379,7 +380,7 @@ export class MothertongueComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             deleted: 'Delete',
@@ -410,13 +411,13 @@ export class MothertongueComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    
+
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -441,16 +442,16 @@ export class MothertongueComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        
+
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -460,10 +461,10 @@ export class MothertongueComponent implements OnInit {
     });
   }
   checkAll(e: any) {
-    
+
 
     let check = document.querySelectorAll('.check');
-    
+
 
     this.allId = [];
     if (e.target.checked) {
@@ -477,10 +478,10 @@ export class MothertongueComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
+
   }
   getId(id: any, e: any) {
-    
+
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -490,7 +491,7 @@ export class MothertongueComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
+
   }
   changepaginetdata(event: any) {
     this.page = 1;

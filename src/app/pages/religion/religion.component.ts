@@ -47,6 +47,7 @@ export class ReligionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.religion = new FormGroup({
       id: new FormControl(''),
       religion_name: new FormControl(''),
@@ -55,7 +56,7 @@ export class ReligionComponent implements OnInit {
     this.getAllData(0, this.apiFetchRecordLimit);
   }
   getSearchText(event: any) {
-    
+
 
     this.filterText = event;
   }
@@ -70,7 +71,7 @@ export class ReligionComponent implements OnInit {
         };
         this.ApiParameter.savedata('religion', updateData).subscribe(
           (res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -102,7 +103,7 @@ export class ReligionComponent implements OnInit {
         };
         this.ApiParameter.updatedata('religion', updateData).subscribe(
           (res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -154,11 +155,11 @@ export class ReligionComponent implements OnInit {
       COUNT(*) OVER () AS total_count
        FROM religion
           WHERE religion_name LIKE '%${search_text}%'
-           ORDER BY LOWER(religion_name) ASC;
+           ORDER BY religion_name ASC;
          `;
-      
+
     }
-    
+
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -169,7 +170,7 @@ export class ReligionComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -200,7 +201,7 @@ export class ReligionComponent implements OnInit {
       projection: ['*'],
       whereConditions: { id: data },
     }).subscribe((res: any) => {
-      
+
       this.button = 'Update';
       if (res.success) {
         this.religion.patchValue(res['data'][0]);
@@ -233,7 +234,7 @@ export class ReligionComponent implements OnInit {
       };
       this.ApiParameter.updatedata('religion', updateData).subscribe(
         (res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -258,7 +259,7 @@ export class ReligionComponent implements OnInit {
       };
       this.ApiParameter.updatedata('religion', updateData).subscribe(
         (res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -285,7 +286,7 @@ export class ReligionComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -326,7 +327,7 @@ export class ReligionComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -366,7 +367,7 @@ export class ReligionComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        
+
         if (r.isConfirmed) {
           let updateData = {
             deleted: 'Delete',
@@ -398,13 +399,13 @@ export class ReligionComponent implements OnInit {
     //alert(this.currentFunction)
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    
+
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -429,16 +430,16 @@ export class ReligionComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        
+
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -448,10 +449,10 @@ export class ReligionComponent implements OnInit {
     });
   }
   checkAll(e: any) {
-    
+
 
     let check = document.querySelectorAll('.check');
-    
+
 
     this.allId = [];
     if (e.target.checked) {
@@ -465,10 +466,10 @@ export class ReligionComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
+
   }
   getId(id: any, e: any) {
-    
+
 
     if (e.target.checked) {
       this.allId.push(parseInt(id));
@@ -478,7 +479,7 @@ export class ReligionComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
+
   }
   changepaginetdata(event: any) {
     this.page = 1;

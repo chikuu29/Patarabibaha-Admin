@@ -47,6 +47,7 @@ export class ContryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.showCountry(0, this.apiFetchRecordLimit);
     this.button = 'ADD';
   }

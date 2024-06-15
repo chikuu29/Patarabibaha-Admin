@@ -45,11 +45,12 @@ export class AnnualincomeComponent implements OnInit {
     private api: ApiService,
     private Arouter: ActivatedRoute,
     private router: Router,
-    private CommonService : CommonService,
+    private CommonService: CommonService,
     private ApiParameter: ApiParameterScript
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.annualincome = new FormGroup({
       id: new FormControl(''),
       annualincome: new FormControl(Number()),
@@ -70,32 +71,26 @@ export class AnnualincomeComponent implements OnInit {
   }
   insert() {
     if (this.annualincome.value.annualincome_text == 'Thousand') {
-        //this.annualincome.value.amount = this.annualincome.value.annualincome ;
-      this.annualincome.value.annualincome = Number(this.annualincome.value.amount) / 100;
-      
+      //this.annualincome.value.amount = this.annualincome.value.annualincome ;
+      this.annualincome.value.annualincome =
+        Number(this.annualincome.value.amount) / 100;
     } else {
-
-        this.annualincome.value.annualincome = this.annualincome.value.amount ;
-
+      this.annualincome.value.annualincome = this.annualincome.value.amount;
     }
-
-   
-
 
     if (this.button == 'ADD') {
       if (this.annualincome.valid) {
         let updateData = {
           data: {
             annualincome: this.annualincome.value.annualincome,
-            annualincome_text:this.annualincome.value.annualincome_text,
-            amount:this.annualincome.value.amount,
+            annualincome_text: this.annualincome.value.annualincome_text,
+            amount: this.annualincome.value.amount,
             created_At: moment().toISOString(),
           },
         };
 
         this.ApiParameter.savedata('annual_income', updateData).subscribe(
           (res: any) => {
-            
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -122,26 +117,24 @@ export class AnnualincomeComponent implements OnInit {
         let updateData = {
           data: {
             annualincome: this.annualincome.value.annualincome,
-            annualincome_text:this.annualincome.value.annualincome_text,
-            amount:this.annualincome.value.amount,
+            annualincome_text: this.annualincome.value.annualincome_text,
+            amount: this.annualincome.value.amount,
             //"created_At": moment().toISOString()
           },
           whereConditions: { id: this.annualincome.value.id },
         };
         this.ApiParameter.updatedata('annual_income', updateData).subscribe(
           (res: any) => {
-            
             if (res.success) {
-
               let update = {
-                "oldcast": this.editedcast,
-                "newdata" : this.annualincome.value.annualincome,
-                "tablename" : "user_education_occupations",
-                "coulemnname" : "user_anual_income"
-              }
-              this.CommonService.coloumUpdated(update).subscribe((res:any)=>{
-
-              });
+                oldcast: this.editedcast,
+                newdata: this.annualincome.value.annualincome,
+                tablename: 'user_education_occupations',
+                coulemnname: 'user_anual_income',
+              };
+              this.CommonService.coloumUpdated(update).subscribe(
+                (res: any) => {}
+              );
               Swal.fire({
                 icon: 'success',
                 text: res.message,
@@ -164,45 +157,45 @@ export class AnnualincomeComponent implements OnInit {
       }
     }
   }
-  getAllAnnualIncome( start: number,
+  getAllAnnualIncome(
+    start: number,
     limit: number,
     loadSpecificData: boolean = false,
-    search_text?: any) {
-      this.pegination_required = true;
-      var quary = `SELECT *, COUNT(*) OVER () AS total_count
+    search_text?: any
+  ) {
+    this.pegination_required = true;
+    var quary = `SELECT *, COUNT(*) OVER () AS total_count
         FROM annual_income
         ORDER BY annualincome DESC
         LIMIT ${limit} OFFSET ${start}`;
 
-      if (loadSpecificData) {
-        quary = `SELECT *, COUNT(*) OVER () AS total_count
+    if (loadSpecificData) {
+      quary = `SELECT *, COUNT(*) OVER () AS total_count
         FROM annual_income
         WHERE annualincome = '${search_text}'
-        annualincome_text = '${search_text}'
-        amount = '${search_text}'
+        OR annualincome_text = '${search_text}'
+        OR  amount = '${search_text}'
            ORDER BY annualincome DESC
          `;
+    }
+
+    this.blockUI.start('Loading...');
+
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      this.blockUI.stop();
+
+      if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+
+        this.tableData = res['data'];
+      } else {
+        this.collectionSize = 1;
+        this.tableData = [];
       }
-
-      this.blockUI.start('Loading...');
-
-      this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-        this.blockUI.stop();
-
-        if (res.success && res['data'].length > 0) {
-          this.totalDataCount = res['data'][0].total_count;
-          this.totalFetchrecord = start + res['data'].length;
-          this.collectionSize =
-            Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-          
-          this.tableData = res['data'];
-        } else {
-          this.collectionSize = 1;
-          this.tableData = [];
-        }
-      });
-
-
+    });
   }
   update(data: any) {
     this.ApiParameter.fetchdata('annual_income', {
@@ -215,7 +208,6 @@ export class AnnualincomeComponent implements OnInit {
         this.editedcast = this.annualincome.value.annualincome;
         this.button = 'Update';
         document.getElementById('inlineFormInputName2')?.focus();
-        
       }
     });
 
@@ -231,7 +223,6 @@ export class AnnualincomeComponent implements OnInit {
   }
 
   deleted(data: any) {
-    
     this.blockUI.start('Deleting...');
     this.ApiParameter.deletedata('annual_income', {
       whereConditions: { id: data },
@@ -257,7 +248,6 @@ export class AnnualincomeComponent implements OnInit {
       };
       this.ApiParameter.updatedata('annual_income', updateData).subscribe(
         (res: any) => {
-          
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -282,7 +272,6 @@ export class AnnualincomeComponent implements OnInit {
       };
       this.ApiParameter.updatedata('annual_income', updateData).subscribe(
         (res: any) => {
-          
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -307,13 +296,13 @@ export class AnnualincomeComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    
+
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -338,16 +327,12 @@ export class AnnualincomeComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -365,10 +350,7 @@ export class AnnualincomeComponent implements OnInit {
     _this[this.currentFunction](0, Number(event.target.value));
   }
   checkAll(e: any) {
-    
-
     let check = document.querySelectorAll('.check');
-    
 
     this.allId = [];
     if (e.target.checked) {
@@ -382,11 +364,8 @@ export class AnnualincomeComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
   }
   getId(id: any, e: any) {
-    
-
     if (e.target.checked) {
       this.allId.push(parseInt(id));
     } else {
@@ -395,7 +374,6 @@ export class AnnualincomeComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
   }
   publishuser() {
     if (this.allId.length == 0) {
@@ -406,7 +384,6 @@ export class AnnualincomeComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -447,7 +424,6 @@ export class AnnualincomeComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -478,7 +454,7 @@ export class AnnualincomeComponent implements OnInit {
       });
     }
   }
-  deletedata(){
+  deletedata() {
     if (this.allId.length == 0) {
       Swal.fire('Warning', 'Please select any record', 'warning');
     } else {
@@ -487,7 +463,6 @@ export class AnnualincomeComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             type: 'Delete',

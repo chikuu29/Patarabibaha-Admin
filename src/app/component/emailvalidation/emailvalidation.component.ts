@@ -54,6 +54,7 @@ export class EmailvalidationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.fatch(0,this.collectionSize);
   }
   loadKpi(functionName: string, kpiNum: number) {
@@ -88,13 +89,13 @@ export class EmailvalidationComponent implements OnInit {
       OR b.auth_phone_no like '%${search_text}%'`
       }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.totalDataCount=res['data'][0].total_count;
         this.totalFetchrecord =start+res['data'].length
         this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
         this.finaldata = res['data'];
-        
+
       }
     });
   }
@@ -115,7 +116,7 @@ export class EmailvalidationComponent implements OnInit {
           "whereConditions": { id: data }
         }
         this.ApiParameter.updatedata('user_info', updateData).subscribe((res: any) => {
-          
+
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -149,12 +150,12 @@ export class EmailvalidationComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
 
   }
   fillter(event: any) {
-    
+
     var query = `SELECT *
      FROM user_info
      LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -176,17 +177,17 @@ export class EmailvalidationComponent implements OnInit {
      LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
      ${event.whereConditions}`
     }
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length
         // this.collectionSize=
-        
+
 
         this.tableData = res['data'];
-        
+
       }
 
     })
@@ -220,17 +221,17 @@ export class EmailvalidationComponent implements OnInit {
       `;
 
     }
-    
+
 
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-        
+
       }
     });
 
@@ -258,17 +259,17 @@ export class EmailvalidationComponent implements OnInit {
       `;
 
     }
-    
+
 
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-        
+
       }
     });
 

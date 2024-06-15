@@ -7,7 +7,6 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { offset } from '@popperjs/core';
 import { CommonService } from 'src/app/services/common.service';
 
-
 @Component({
   selector: 'app-addional-education',
   templateUrl: './addional-education.component.html',
@@ -44,11 +43,12 @@ export class AddionalEducationComponent implements OnInit {
   });
 
   constructor(
-    private ApiParameter: ApiParameterScript ,
+    private ApiParameter: ApiParameterScript,
     private CommonService: CommonService
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.additionaleducation = new FormGroup({
       id: new FormControl(''),
       additional_education_name: new FormControl(''),
@@ -57,8 +57,6 @@ export class AddionalEducationComponent implements OnInit {
     this.getAllData(0, this.apiFetchRecordLimit);
   }
   getSearchText(event: any) {
-    
-
     this.filterText = event;
   }
   onpageChnage() {
@@ -84,7 +82,6 @@ export class AddionalEducationComponent implements OnInit {
           'additional_education',
           updateData
         ).subscribe((res: any) => {
-          
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -118,7 +115,6 @@ export class AddionalEducationComponent implements OnInit {
           'additional_education',
           updateData
         ).subscribe((res: any) => {
-          
           if (res.success) {
             Swal.fire({
               icon: 'success',
@@ -126,7 +122,8 @@ export class AddionalEducationComponent implements OnInit {
             }).then((ress: any) => {
               let update = {
                 oldcast: this.editedcast,
-                newdata: this.additionaleducation.value.additional_education_name,
+                newdata:
+                  this.additionaleducation.value.additional_education_name,
                 tablename: 'user_education_occupations',
                 coulemnname: 'user_additional_education',
               };
@@ -167,11 +164,10 @@ export class AddionalEducationComponent implements OnInit {
       COUNT(*) OVER () AS total_count
        FROM additional_education
           WHERE additional_education_name LIKE '%${search_text}%'
-           ORDER BY LOWER(occupation_name) ASC;
+           ORDER BY additional_education_name ASC;
          `;
-      
     }
-    
+
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -182,7 +178,7 @@ export class AddionalEducationComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -204,8 +200,8 @@ export class AddionalEducationComponent implements OnInit {
   update(data: any) {
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
-  });
+      behavior: 'smooth',
+    });
     this.ApiParameter.fetchdata('additional_education', {
       projection: ['*'],
       whereConditions: { id: data },
@@ -244,7 +240,6 @@ export class AddionalEducationComponent implements OnInit {
         'additional_education',
         updateData
       ).subscribe((res: any) => {
-        
         if (res.success) {
           Swal.fire({
             icon: 'success',
@@ -270,13 +265,11 @@ export class AddionalEducationComponent implements OnInit {
         'additional_education',
         updateData
       ).subscribe((res: any) => {
-        
         if (res.success) {
           Swal.fire({
             icon: 'success',
             text: 'Published',
           }).then(() => {
-
             this.ngOnInit();
           });
         } else {
@@ -297,7 +290,6 @@ export class AddionalEducationComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -307,7 +299,7 @@ export class AddionalEducationComponent implements OnInit {
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipulData(
-            'occupation',
+            'additional_education',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {
@@ -338,7 +330,6 @@ export class AddionalEducationComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -348,7 +339,7 @@ export class AddionalEducationComponent implements OnInit {
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipulData(
-            'occupation',
+            'additional_education',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {
@@ -378,14 +369,13 @@ export class AddionalEducationComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             deleted: 'Delete',
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipuldeleteData(
-            'mother_tongue',
+            'additional_education',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {
@@ -410,13 +400,13 @@ export class AddionalEducationComponent implements OnInit {
     //alert(this.currentFunction)
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    
+
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -441,16 +431,12 @@ export class AddionalEducationComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -460,10 +446,7 @@ export class AddionalEducationComponent implements OnInit {
     });
   }
   checkAll(e: any) {
-    
-
     let check = document.querySelectorAll('.check');
-    
 
     this.allId = [];
     if (e.target.checked) {
@@ -477,11 +460,8 @@ export class AddionalEducationComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
   }
   getId(id: any, e: any) {
-    
-
     if (e.target.checked) {
       this.allId.push(parseInt(id));
     } else {
@@ -490,7 +470,6 @@ export class AddionalEducationComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
   }
   changepaginetdata(event: any) {
     this.page = 1;

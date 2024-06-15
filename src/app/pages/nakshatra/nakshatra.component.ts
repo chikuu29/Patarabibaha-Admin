@@ -42,6 +42,7 @@ export class NakshatraComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.nakhetre(0, this.apiFetchRecordLimit);
   }
 

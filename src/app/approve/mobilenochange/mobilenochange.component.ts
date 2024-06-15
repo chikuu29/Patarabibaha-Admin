@@ -32,6 +32,7 @@ export class MobilenochangeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.totalFetchrecord = 10;
     this.getMobileApprove(0, this.totalFetchrecord);
   }
@@ -131,7 +132,7 @@ export class MobilenochangeComponent implements OnInit {
     console.log(query);
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=

@@ -55,6 +55,7 @@ export class ViweplanComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.allId = [];
     this.getallplain(0, this.apiFetchRecordLimit);
   }
 
@@ -73,13 +74,13 @@ export class ViweplanComponent implements OnInit {
   search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    
+
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -104,16 +105,16 @@ export class ViweplanComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
+
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        
+
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -177,7 +178,7 @@ export class ViweplanComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -199,7 +200,7 @@ export class ViweplanComponent implements OnInit {
 
       if (res.success && res['data'].length > 0) {
         this.finaldata = res['data'];
-        
+
 
       }
     })

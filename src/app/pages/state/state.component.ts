@@ -48,6 +48,7 @@ export class StateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.stategroup = new FormGroup({
       id: new FormControl('', []),
       country_name: new FormControl(''),

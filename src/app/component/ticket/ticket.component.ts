@@ -42,15 +42,15 @@ export class TicketComponent implements OnInit {
               LIMIT ${limit} OFFSET ${start};`;
     this.ApiParameter.fetchDataFormQuery(query).subscribe((resd: any) => {
       if (resd.success && resd['data'].length > 0) {
-        
+
         this.tableData = resd['data'];
         this.totalDataCount = resd['data'][0].total_count;
-        
+
         this.totalFetchrecord = start + resd['data'].length;
         this.collectionSize =
           Math.ceil(resd['data'][0].total_count / this.apiFetchRecordLimit) *
           10;
-        
+
         this.tableData = resd['data'];
       }
     });
@@ -92,7 +92,7 @@ export class TicketComponent implements OnInit {
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
     ${event.whereConditions}`;
     }
-    
+
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {

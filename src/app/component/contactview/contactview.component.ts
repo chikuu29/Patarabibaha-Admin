@@ -37,6 +37,7 @@ export class ContactviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.allId = [];
     this.getAllData(0, this.apiFetchRecordLimit);
   }
 

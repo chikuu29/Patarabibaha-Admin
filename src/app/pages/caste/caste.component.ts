@@ -6,21 +6,20 @@ import Swal from 'sweetalert2';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CommonService } from 'src/app/services/common.service';
 
-
 @Component({
   selector: 'app-caste',
   templateUrl: './caste.component.html',
-  styleUrls: ['./caste.component.scss']
+  styleUrls: ['./caste.component.scss'],
 })
 export class CasteComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
-  button:any = 'Submit';
-  filterText:any;
-  collectionSize: number = 0
-  page: number = 1
-  totalCount: number = 0
-  totalFetchrecord:number = 0;
+  button: any = 'Submit';
+  filterText: any;
+  collectionSize: number = 0;
+  page: number = 1;
+  totalCount: number = 0;
+  totalFetchrecord: number = 0;
   tabledata: any;
   action: any = 'Submit';
   rdata: any;
@@ -39,110 +38,108 @@ export class CasteComponent implements OnInit {
   editedcast: any;
   cast = new FormGroup({
     id: new FormControl(''),
-    cast_name : new FormControl('',[Validators.required])
-  })
+    cast_name: new FormControl('', [Validators.required]),
+  });
   constructor(
-    private ApiParameter: ApiParameterScript ,
-    private CommonService : CommonService
-  ) { }
+    private ApiParameter: ApiParameterScript,
+    private CommonService: CommonService
+  ) {}
 
   ngOnInit(): void {
+    this.allId = [];
     this.cast = new FormGroup({
       id: new FormControl(''),
-      cast_name : new FormControl('')
+      cast_name: new FormControl(''),
     });
     this.button = 'Submit';
     this.getAllData(0, this.apiFetchRecordLimit);
   }
 
   getSearchText(event: any) {
-    
-
-    this.filterText = event
+    this.filterText = event;
   }
   public() {
-    if(this.button == 'Submit'){
-    if (this.cast.valid) {
-      var updateData={
-        "data":{
-          "cast_name":this.cast.value.cast_name,
-          "created_At":moment().toISOString()
-        },
-      }
-      this.ApiParameter.savedata('cast_table',updateData).subscribe((res: any) => {
-       
-        if (res.success) {
-          Swal.fire({
-            icon: 'success',
-            text: res.message
-          }).then((ress: any) => {
-
-
-            this.ngOnInit();
-          });
-        } else {
-          Swal.fire({
-            icon: 'success',
-            text: res.message
-          });
-        }
-      })
-
-
-    } else {
-      Swal.fire({
-        icon: 'error',
-        text: 'Please Enter Mother Tongue Name'
-      })
-    }
-  }else if(this.button == 'Update'){
-    
-    if (this.cast.valid) {
-      let updateData={
-        "data":{
-          "cast_name":this.cast.value.cast_name,
-        },
-        "whereConditions": { id: this.cast.value.id }
-      }
-      this.ApiParameter.updatedata('cast_table',updateData).subscribe((res: any) => {
-       
-        if (res.success) {
-          Swal.fire({
-            icon: 'success',
-            text: res.message
-          }).then((ress: any) => {
-            let update = {
-              "oldcast": this.editedcast,
-              "newdata" : this.cast.value.cast_name,
-              "tablename" : "user_religion",
-              "coulemnname" : "user_caste"
+    if (this.button == 'Submit') {
+      if (this.cast.valid) {
+        var updateData = {
+          data: {
+            cast_name: this.cast.value.cast_name,
+            created_At: moment().toISOString(),
+          },
+        };
+        this.ApiParameter.savedata('cast_table', updateData).subscribe(
+          (res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: res.message,
+              }).then((ress: any) => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'success',
+                text: res.message,
+              });
             }
-            this.CommonService.coloumUpdated(update).subscribe((res:any)=>{});
-            let update1 = {
-              "oldcast": this.editedcast,
-              "newdata" : this.cast.value.cast_name,
-              "tablename" : "sub_cast",
-              "coulemnname" : "cast_name"
+          }
+        );
+      } else {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please Enter Mother Tongue Name',
+        });
+      }
+    } else if (this.button == 'Update') {
+      if (this.cast.valid) {
+        let updateData = {
+          data: {
+            cast_name: this.cast.value.cast_name,
+          },
+          whereConditions: { id: this.cast.value.id },
+        };
+        this.ApiParameter.updatedata('cast_table', updateData).subscribe(
+          (res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: res.message,
+              }).then((ress: any) => {
+                let update = {
+                  oldcast: this.editedcast,
+                  newdata: this.cast.value.cast_name,
+                  tablename: 'user_religion',
+                  coulemnname: 'user_caste',
+                };
+                this.CommonService.coloumUpdated(update).subscribe(
+                  (res: any) => {}
+                );
+                let update1 = {
+                  oldcast: this.editedcast,
+                  newdata: this.cast.value.cast_name,
+                  tablename: 'sub_cast',
+                  coulemnname: 'cast_name',
+                };
+                this.CommonService.coloumUpdated(update1).subscribe(
+                  (res: any) => {}
+                );
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'success',
+                text: res.message,
+              });
             }
-            this.CommonService.coloumUpdated(update1).subscribe((res:any)=>{});
-            this.ngOnInit();
-          });
-        } else {
-          Swal.fire({
-            icon: 'success',
-            text: res.message
-          });
-        }
-      })
-
-
-    } else {
-      Swal.fire({
-        icon: 'error',
-        text: 'Please Enter Mother Tongue Name'
-      })
+          }
+        );
+      } else {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please Enter Mother Tongue Name',
+        });
+      }
     }
-  }
   }
   getAllData(
     start: number,
@@ -161,11 +158,11 @@ export class CasteComponent implements OnInit {
       COUNT(*) OVER () AS total_count
        FROM cast_table
           WHERE cast_name LIKE '%${search_text}%'
-           ORDER BY LOWER(cast_name) ASC;
+           ORDER BY cast_name ASC;
          `;
-      
     }
-    
+    console.log(quary);
+
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -175,7 +172,7 @@ export class CasteComponent implements OnInit {
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-        
+
         this.tableData = res['data'];
       } else {
         this.collectionSize = 1;
@@ -192,79 +189,83 @@ export class CasteComponent implements OnInit {
     //   }
     // })
   }
-  update(data:any){
-    this.ApiParameter.fetchdata('cast_table', { "projection": ["*"], "whereConditions": { id: data } }).subscribe((res: any) => {
-      
-
+  update(data: any) {
+    this.ApiParameter.fetchdata('cast_table', {
+      projection: ['*'],
+      whereConditions: { id: data },
+    }).subscribe((res: any) => {
       if (res.success) {
         this.button = 'Update';
         this.cast.patchValue(res['data'][0]);
         this.editedcast = this.cast.value.cast_name;
       }
-    })
+    });
   }
-  deleted(data:any){
-    this.blockUI.start('Deleting...')
-    this.ApiParameter.deletedata('cast_table', { "whereConditions": { id: data } }).subscribe((res: any) => {
+  deleted(data: any) {
+    this.blockUI.start('Deleting...');
+    this.ApiParameter.deletedata('cast_table', {
+      whereConditions: { id: data },
+    }).subscribe((res: any) => {
       this.blockUI.stop();
       if (res.success) {
         Swal.fire('Success', res.message, 'success').then(() => {
-          this.ngOnInit()
+          this.ngOnInit();
         });
       } else {
-        Swal.fire('Error', res.message, 'error')
+        Swal.fire('Error', res.message, 'error');
       }
     });
   }
   publish(id: any, status: any) {
     if (status == 1) {
       let updateData = {
-        "data": {
-          "status": 0,
+        data: {
+          status: 0,
         },
-        "whereConditions": { id: id }
-      }
-      this.ApiParameter.updatedata('cast_table', updateData).subscribe((res: any) => {
-        
-        if (res.success) {
-          Swal.fire({
-            icon: 'success',
-            text: "Unpublished"
-          }).then(() => {
-            this.ngOnInit()
-          });
-        } else {
-          Swal.fire({
-            icon: 'warning',
-            text: res.message
-          });
+        whereConditions: { id: id },
+      };
+      this.ApiParameter.updatedata('cast_table', updateData).subscribe(
+        (res: any) => {
+          if (res.success) {
+            Swal.fire({
+              icon: 'success',
+              text: 'Unpublished',
+            }).then(() => {
+              this.ngOnInit();
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              text: res.message,
+            });
+          }
         }
-      })
+      );
     } else if (status == 0) {
       let updateData = {
-        "data": {
-          "status": 1,
+        data: {
+          status: 1,
         },
-        "whereConditions": { id: id }
-      }
-      this.ApiParameter.updatedata('cast_table', updateData).subscribe((res: any) => {
-        
-        if (res.success) {
-          Swal.fire({
-            icon: 'success',
-            text: "Published"
-          }).then(() => {
-            this.ngOnInit()
-          });
-        } else {
-          Swal.fire({
-            icon: 'warning',
-            text: res.message
-          });
+        whereConditions: { id: id },
+      };
+      this.ApiParameter.updatedata('cast_table', updateData).subscribe(
+        (res: any) => {
+          if (res.success) {
+            Swal.fire({
+              icon: 'success',
+              text: 'Published',
+            }).then(() => {
+              this.ngOnInit();
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              text: res.message,
+            });
+          }
         }
-      })
+      );
     }
-
   }
   publishuser() {
     if (this.allId.length == 0) {
@@ -275,7 +276,6 @@ export class CasteComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -316,7 +316,6 @@ export class CasteComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -356,7 +355,6 @@ export class CasteComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-        
         if (r.isConfirmed) {
           let updateData = {
             deleted: 'Delete',
@@ -388,13 +386,13 @@ export class CasteComponent implements OnInit {
     //alert(this.currentFunction)
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
     //this.pegination_required = false;
     //this.currentFunction = 'fillter';
-    
+
     var query = `SELECT * , COUNT(*) OVER () AS total_count
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -419,16 +417,12 @@ export class CasteComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-    
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-      
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-        
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -438,10 +432,7 @@ export class CasteComponent implements OnInit {
     });
   }
   checkAll(e: any) {
-    
-
     let check = document.querySelectorAll('.check');
-    
 
     this.allId = [];
     if (e.target.checked) {
@@ -455,11 +446,8 @@ export class CasteComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-    
   }
   getId(id: any, e: any) {
-    
-
     if (e.target.checked) {
       this.allId.push(parseInt(id));
     } else {
@@ -468,7 +456,7 @@ export class CasteComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-    
+
   }
   changepaginetdata(event: any) {
     this.page = 1;
@@ -487,5 +475,4 @@ export class CasteComponent implements OnInit {
     this.offset =
       this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit;
   }
-
 }

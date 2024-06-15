@@ -31,8 +31,9 @@ export class MarriagecombinationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.allId = [];
     this.activatedroute.params.subscribe((res:any)=>{
-       
+
         if(res.id != ''){
           this.urlid = res.id
           let quary = `select user_gender from user_info where user_id = '${this.urlid}'`;
@@ -41,13 +42,13 @@ export class MarriagecombinationComponent implements OnInit {
               this.gender = res['data'][0].user_gender;
               this.getAllData(this.page * 10 - 10, 10);
             }
-            
+
 
           });
           this.getAllData(this.page * 10 - 10, 10);
         }
     });
-    
+
 
   }
 
@@ -65,7 +66,7 @@ export class MarriagecombinationComponent implements OnInit {
   search(search_text: any) {
     let _this:any = this;
     this.getAllData(0, 10,true,search_text);
-    
+
     // this.getAllData(0, 10, true, search_text)
 
   }
@@ -92,18 +93,18 @@ export class MarriagecombinationComponent implements OnInit {
          OR a.user_lname = '${search_text}';
        `;
     }
-   
 
 
 
-    
+
+
     this.blockUI.start('Loading...')
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       this.blockUI.stop()
       if (res.success && res['data'].length > 0) {
         this.collectionSize = Math.round(res['data'][0].total_count);
         this.finaldata = res['data'];
-        
+
       }else{
         this.collectionSize = 1;
         this.finaldata = [];
@@ -121,8 +122,8 @@ export class MarriagecombinationComponent implements OnInit {
     `,
     }).then((con:any)=>{
       var val :any =document.getElementById('success');
-      
-      
+
+
       if(con.isConfirmed){
         let updateData = {
           "data": {
@@ -153,7 +154,7 @@ export class MarriagecombinationComponent implements OnInit {
             // }
 
             this.ApiParameter.savedata('gotra', updateData).subscribe((res: any) => {
-              
+
               if (res.success) {
 
               } })
