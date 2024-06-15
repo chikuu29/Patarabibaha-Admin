@@ -45,7 +45,7 @@ export class StateComponent implements OnInit {
     private api: ApiService,
     private ApiParameter: ApiParameterScript,
     private CommonService: CommonService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.allId = [];
@@ -71,19 +71,18 @@ export class StateComponent implements OnInit {
     search_text?: any
   ) {
     this.pegination_required = true;
-    var quary = `SELECT *,
+    var quary = `SELECT state.*,country.name as country_name,
       COUNT(*) OVER () AS total_count
-      FROM state
-      ORDER BY country_name ASC, name ASC
+      FROM state INNER JOIN country WHERE state.country_id=country.id
+      ORDER BY state.created_At DESC
       LIMIT ${limit} OFFSET ${start}`;
 
     if (loadSpecificData) {
-      quary = `SELECT *,
+      quary = `SELECT  state.*,country.name as country_name,country.id,
       COUNT(*) OVER () AS total_count
-      FROM state
-      WHERE name = '${search_text}'
-         OR country_name = '${search_text}'
-         ORDER BY name ASC
+      FROM state INNER JOIN country WHERE state.country_id=country.id AND state.name = '${search_text}'
+         OR state.country_name = '${search_text}'
+         ORDER BY state.created_At ASC
        `;
     }
 
@@ -128,7 +127,7 @@ export class StateComponent implements OnInit {
       'country',
       { projection: ['*'] },
       0,
-      250
+      20000
     ).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data'].map((obj: any) => {
@@ -150,7 +149,7 @@ export class StateComponent implements OnInit {
       if (this.stategroup.valid) {
         let updateData = {
           data: {
-            country_name: this.stategroup.value.country_name,
+            country_id: this.stategroup.value.country_name,
             name: this.stategroup.value.name,
             created_At: moment().format('YYYY-MM-DD HH:mm:ss'),
           },
@@ -184,7 +183,7 @@ export class StateComponent implements OnInit {
       if (this.stategroup.valid) {
         let updateData = {
           data: {
-            country_name: this.stategroup.value.country_name,
+            country_id: this.stategroup.value.country_name,
             name: this.stategroup.value.name,
           },
           whereConditions: { id: this.stategroup.value.id },
@@ -203,7 +202,7 @@ export class StateComponent implements OnInit {
                   coulemnname: 'user_state',
                 };
                 this.CommonService.coloumUpdated(update).subscribe(
-                  (res: any) => {}
+                  (res: any) => { }
                 );
                 this.ngOnInit();
               });
@@ -219,21 +218,38 @@ export class StateComponent implements OnInit {
     }
   }
 
-  edit(id: any) {
+  edit(data: any) {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-    this.ApiParameter.fetchdata('state', {
-      projection: ['*'],
-      whereConditions: { id: id },
-    }).subscribe((res: any) => {
-      if (res.success && res['data'].length > 0) {
-        this.stategroup.patchValue(res['data'][0]);
-        this.button = 'Update';
-        this.editedcast = this.stategroup.value.name;
-      }
-    });
+
+
+    // this.ApiParameter.fetchdata('country', {
+    //   projection: ['name'],
+    //   whereConditions: { id: data.country_id },
+    // }).subscribe((contryRes: any) => {
+
+
+    //   if (contryRes.success && contryRes['data'].length > 0) {
+
+
+        this.ApiParameter.fetchdata('state', {
+          projection: ['*'],
+          whereConditions: { id: data.id },
+        }).subscribe((res: any) => {
+          if (res.success && res['data'].length > 0) {
+            res['data'][0]['country_name']=res['data'][0]['country_id']
+            console.log(res);
+            
+            this.stategroup.patchValue(res['data'][0]);
+            this.button = 'Update';
+            this.editedcast = this.stategroup.value.name;
+          }
+        });
+      // }
+    // })
+
   }
 
   delete(id: any, name: any) {
@@ -243,13 +259,14 @@ export class StateComponent implements OnInit {
     }).subscribe((res: any) => {
       this.blockUI.stop();
       if (res.success) {
+        Swal.fire('Success', res.message, 'success').then(() => {
+          this.ngOnInit();
+        });
         this.ApiParameter.deletedata('city', {
           whereConditions: { state_name: name },
         }).subscribe((res: any) => {
           if (res.success) {
-            Swal.fire('Success', res.message, 'success').then(() => {
-              this.ngOnInit();
-            });
+
           }
         });
       } else {
