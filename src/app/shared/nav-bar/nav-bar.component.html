@@ -1,13 +1,38 @@
-<nav class="navbar p-0 fixed-top d-flex flex-row" >
+<nav class="navbar p-0 fixed-top d-flex flex-row">
   <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
     <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
   </div>
   <div class="navbar-menu-wrapper flex-grow d-flex  align-items-center">
-    <button class="navbar-toggler" mat-icon-button color="accent" data-toggle="minimize" (click)="collapsedSideNav()" style="box-shadow: rgba(100, 100, 111, 0.2) 13px 10px 29px 0px">
+    <button class="navbar-toggler" mat-icon-button color="accent" data-toggle="minimize" (click)="collapsedSideNav()"
+      style="box-shadow: rgba(100, 100, 111, 0.2) 13px 10px 29px 0px">
       <mat-icon>menu</mat-icon>
     </button>
+    <div class="search-container ms-2 me-2  d-sm-none d-lg-block" >
+      <div class="search-area">
+        <input [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search..." />
+      </div>
+      <div *ngIf="searchTerm" class="search-results">
+        <div *ngFor="let item of filteredItems">
+          <i [ngClass]="['fa-solid fa-magnifying-glass']" class="me-2"  ></i>
+          <span [innerHTML]="highlightMatch(item.text)" (click)="clickOnserchItem(item)"></span>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="search-container">
+      <div class="search-area">
+        <input [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search..." />
+      </div>
+      <div *ngIf="searchTerm" class="search-results">
+        <div *ngFor="let item of filteredItems">
+          <span [innerHTML]="highlightMatch(item)"></span>
+        </div>
+      </div>
+    </div> -->
+    
 
-    <ul class="navbar-nav navbar-nav-right" style="box-shadow: rgba(100, 100, 111, 0.2) 13px 10px 29px 0px">
+
+
+    <ul class="navbar-nav navbar-nav-right" style="box-shadow: rgba(100, 100, 111, 0.2) 13px 10px 29px 0px;border-radius: 12px;">
       <!-- <li class="nav-item dropdown d-none d-lg-block">
         <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown"
             aria-expanded="false" href="#">+ Create New Project</a>
@@ -184,8 +209,8 @@
         </div>
       </li>
     </ul>
-    <button class="navbar-toggler navbar-toggler-right d-lg-none" mat-icon-button color="accent"
-      data-toggle="offcanvas" (click)="collapedForSmallScreen()">
+    <button class="navbar-toggler navbar-toggler-right d-lg-none" mat-icon-button color="accent" data-toggle="offcanvas"
+      (click)="collapedForSmallScreen()">
       <mat-icon>menu</mat-icon>
     </button>
 
