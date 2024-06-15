@@ -29,7 +29,8 @@ import { AuthComponent } from './layout/auth/auth.component';
 import { AdminComponent } from './layout/admin/admin.component';
 import { NotificationComponent } from './shared/notification/notification.component';
 import { AppInitializationServiceServiceService } from './services/app-initialization-service-service.service';
-
+import { environment } from 'src/environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 export function initStartUpAPIConfiugration(AppInitializationServiceServiceService:AppInitializationServiceServiceService){
   return ()=>{
     return AppInitializationServiceServiceService.initStartUpAPIConfiugration()
@@ -75,7 +76,8 @@ export function checkLoginMode(auth: AuthService) {
       }
     ),
     ToastrModule.forRoot(),
-    ImageCropperModule
+    ImageCropperModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
 
   ],
   providers: [
