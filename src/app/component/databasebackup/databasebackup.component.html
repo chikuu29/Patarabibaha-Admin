@@ -33,19 +33,9 @@
                   *ngFor="let data of tableData | fillter:['table_name']:filterText ; index as i">
                   <tr >
                     <td>{{ i+1 }}</td>
-                    <td [title]="data?.table_name">
-                      <div> {{ data?.table_name }} </div>
+                    <td [title]="data?.TABLE_NAME">
+                      <div> {{ data?.TABLE_NAME }} </div>
                     </td>
-                    <!-- <td>
-                      {{ data?.marriage_date | date }}
-                    </td> -->
-                    <!-- <td>
-                      <button class="btn btn-outline-primary btn-sm me-2" title="View"
-                      (click)="View(data.id)">
-
-                        <i class="fas fa-eye"></i> View
-                      </button>
-                    </td> -->
                   </tr>
                 </ng-container>
               </tbody>

@@ -420,7 +420,7 @@ export class CityComponent implements OnInit {
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipulData(
-            'country',
+            'city',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {

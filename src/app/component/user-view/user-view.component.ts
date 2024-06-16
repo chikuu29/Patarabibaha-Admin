@@ -617,8 +617,7 @@ export class UserViewComponent implements OnInit {
           this.blockUI.stop();
           if (res.success) {
             this.userAllData = res;
-            
-            
+
             if (this.userAllData.user_profile_status == 'Completed') {
               let updateData = {
                 data: { user_all_table_complited: 1 },
@@ -645,7 +644,6 @@ export class UserViewComponent implements OnInit {
             this.horoscopeForm.patchValue(res['user_horoscope_deatils']);
             this.userFamilyDetailsForm.patchValue(res['user_family']);
             this.habitHobbiesForm.patchValue(res['user_diet_hobbies']);
-            
 
             this.physicalDeatilsForm.patchValue(res['user_physical_details']);
             this.basicDetailsForm.patchValue(res['user_info']);
@@ -666,8 +664,6 @@ export class UserViewComponent implements OnInit {
         'user_profile_images',
         profileApiData
       ).subscribe((getprofile_res: any) => {
-        
-
         if (getprofile_res.success && getprofile_res['data'].length > 0) {
           this.showupload = true;
           getprofile_res.data.forEach((element: any) => {
@@ -702,8 +698,6 @@ export class UserViewComponent implements OnInit {
       0,
       250
     ).subscribe((res: any) => {
-      
-
       if (res.success && res['data'].length > 0) {
         this.countryOption = res['data']
           .filter((obj: any) => obj.status == 1)
@@ -714,7 +708,6 @@ export class UserViewComponent implements OnInit {
         this.countrycode = res['data'].map((obj: any) => {
           return { name: obj.name, value: obj.phonecode };
         });
-        
 
         this.countrycode.sort((a: any, b: any) => a.name.localeCompare(b.name));
       }
@@ -1405,7 +1398,6 @@ export class UserViewComponent implements OnInit {
 
   onUpload(event: any) {
     var res = event.originalEvent['body'];
-    
 
     if (res.success) {
       this.selecteduploadedFiles = [];
@@ -1454,12 +1446,10 @@ export class UserViewComponent implements OnInit {
   }
 
   onClearSelectedFile() {
-    
     this.selecteduploadedFiles = this.images;
   }
 
   onRemoveFile(event: any) {
-    
     _.remove(
       this.selecteduploadedFiles,
       (item) =>
@@ -1513,7 +1503,6 @@ export class UserViewComponent implements OnInit {
   }
 
   getstatefilter(country_name: any) {
-    
     this.ApiParameterScript.fetchdata('state', {
       projection: ['*'],
       whereConditions: { country_name: country_name, status: 1 },
@@ -1530,7 +1519,6 @@ export class UserViewComponent implements OnInit {
   }
 
   getcityfilter(state_name: any) {
-    
     this.ApiParameterScript.fetchdata('city', {
       projection: ['*'],
       whereConditions: { state_name: state_name },
@@ -1546,8 +1534,6 @@ export class UserViewComponent implements OnInit {
   }
 
   loadUploadComponent() {
-    
-
     const modalRef = this.modalService.open(ImageCroperComponent, {
       // size: 'xl',
       // backdrop: false,
@@ -1568,7 +1554,6 @@ export class UserViewComponent implements OnInit {
     this.commonservice.getAllDataById(params).subscribe((res: any) => {
       if (res.status) {
         this.finaldata = res['data'][0];
-        
       }
     });
   }
@@ -1580,7 +1565,6 @@ export class UserViewComponent implements OnInit {
     }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.logo = res['data'][0].image;
-        
       }
     });
   }
@@ -1597,12 +1581,10 @@ export class UserViewComponent implements OnInit {
       filepath: environment.filePath,
     };
     this.commonservice.generatepdf(param).subscribe((res: any) => {
-      
       saveAs(res, this.profile_id + '.pdf');
     });
   }
   shareData() {
-    
     let type1 = this.finaldata.user_gender == 'female' ? 'Bride' : 'Groom';
     let type2 = this.finaldata.user_gender == 'female' ? 'Groom' : 'Bride';
     let link =
@@ -1613,21 +1595,51 @@ Required ${type2}
 <br><br>
 <i class="fa fa-arrow-down" aria-hidden="true"></i> Details Of ${type1} <i class="fa fa-arrow-down" aria-hidden="true"></i>
 <br>
-DOB:- ${this.finaldata.user_dob}
+DOB:- ${
+      this.finaldata.user_dob == null ? 'NOT UPDATE' : this.finaldata.user_dob
+    }
 <br>
-HEIGHT:- ${this.finaldata.user_height}
+HEIGHT:- ${
+      this.finaldata.user_height == null
+        ? 'NOT UPDATE'
+        : this.finaldata.user_height
+    }
 <br>
-COLOUR:- ${this.finaldata.user_complextion}
+COLOUR:- ${
+      this.finaldata.user_complextion == null
+        ? 'NOT UPDATE'
+        : this.finaldata.user_complextion
+    }
 <br>
-RASI:- ${this.finaldata.user_zodiacs}
+RASI:- ${
+      this.finaldata.user_zodiacs == null
+        ? 'NOT UPDATE'
+        : this.finaldata.user_zodiacs
+    }
 <br>
-QUALIFICATION:- ${this.finaldata.user_highest_education}
+QUALIFICATION:- ${
+      this.finaldata.user_highest_education == null
+        ? 'NOT UPDATE'
+        : this.finaldata.user_highest_education
+    }
 <br>
-JOB LOCATION:- ${this.finaldata.user_occupation_location}
+JOB LOCATION:- ${
+      this.finaldata.user_occupation_location == null
+        ? 'NOT UPDATE'
+        : this.finaldata.user_occupation_location
+    }
 <br>
-ANNUAL INCOME:- ${this.finaldata.user_anual_income * 100000}
+ANNUAL INCOME:- ${
+      this.finaldata.user_anual_income == null
+        ? 'NOT UPDATE'
+        : this.finaldata.user_anual_income * 100000
+    }
 <br>
-HOME TOWN:- ${this.finaldata.user_Permanent_city}
+HOME TOWN:- ${
+      this.finaldata.user_Permanent_city == null
+        ? 'NOT UPDATE'
+        : this.finaldata.user_Permanent_city
+    }
 <br><br>
 CLICK HERE FOR MORE INFORMATION WITH PHOTO
 <br>
@@ -1644,14 +1656,46 @@ CLICK HERE FOR MORE INFORMATION WITH PHOTO
         let textToCopy = `
 Required ${type2}\n
 Details of ${type1}\n
-DOB:- ${this.finaldata.user_dob}\n
-HEIGHT:- ${this.finaldata.user_height}\n
-Colour:- ${this.finaldata.user_complextion}\n
-RASI:- ${this.finaldata.user_zodiacs}\n
-QUALIFICATION:- ${this.finaldata.user_highest_education}\n
-JOB LOCATION:- ${this.finaldata.user_occupation_location}\n
-ANNUAL INCOME:- ${this.finaldata.user_anual_income * 100000}\n
-HOME TOWN:- ${this.finaldata.user_Permanent_city}\n
+DOB:- ${
+          this.finaldata.user_dob == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_dob
+        }\n
+HEIGHT:- ${
+          this.finaldata.user_height == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_height
+        }\n
+Colour:- ${
+          this.finaldata.user_complextion == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_complextion
+        }\n
+RASI:- ${
+          this.finaldata.user_zodiacs == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_zodiacs
+        }\n
+QUALIFICATION:- ${
+          this.finaldata.user_highest_education == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_highest_education
+        }\n
+JOB LOCATION:- ${
+          this.finaldata.user_occupation_location == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_occupation_location
+        }\n
+ANNUAL INCOME:- ${
+          this.finaldata.user_anual_income == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_anual_income * 100000
+        }\n
+HOME TOWN:- ${
+          this.finaldata.user_Permanent_city == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_Permanent_city
+        }\n
 CLICK HERE FOR MORE INFORMATION WITH PHOTO\n
 ${link}
     `;
@@ -1699,14 +1743,10 @@ ${link}
         0,
         10000000
       ).subscribe((res: any) => {
-        
-
         if (res.success && res['data'].length > 0) {
           this.stateOption1 = res['data'].map((obj: any) => {
             return { name: obj.name };
           });
-
-          
         } else {
           this.stateOption1 = [];
           // this.partnerPreferenceForm.controls.user_state.reset();
