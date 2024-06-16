@@ -253,7 +253,7 @@ export class CityComponent implements OnInit {
                 "tablename" : "user_religion",
                 "coulemnname" : "user_city"
               }
-              this.CommonService.coloumUpdated(update).subscribe((res:any)=>{});
+              // this.CommonService.coloumUpdated(update).subscribe((res:any)=>{});
               this.ngOnInit()
             });
           } else {
