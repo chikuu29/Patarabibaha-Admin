@@ -46,7 +46,7 @@ export class ApiParameterScript {
       * @author Suryanarayan Biswal
       * @since 20-10-2022
       */
-    public fetchdata(db: string, apiData: any, offset: Number = 0, limit: Number = 100000, order_by?: string) {
+    public fetchdata(db: string, apiData: any, offset: Number = 0, limit: Number = 20000, order_by?: string) {
         const simpleObservable = new Observable((observer) => {
             try {
                 apiData['table'] = db;

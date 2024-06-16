@@ -6,7 +6,6 @@ import { ApiParameterScript } from 'src/app/script/api-parameter';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 import { CommonService } from 'src/app/services/common.service';
-import { query } from '@angular/animations';
 
 
 @Component({
@@ -20,8 +19,8 @@ export class CityComponent implements OnInit {
 
   citygroup = new FormGroup({
     id: new FormControl('', []),
-    country_id: new FormControl('', [Validators.required]),
-    state_id: new FormControl('', [Validators.required]),
+    country_name: new FormControl('', [Validators.required]),
+    state_name: new FormControl('', [Validators.required]),
     city_name: new FormControl('', [Validators.required])
   });
   filterText: any;
@@ -51,15 +50,15 @@ export class CityComponent implements OnInit {
     private api: ApiService,
     private ApiParameter: ApiParameterScript,
     private ApiParameterScript: ApiParameterScript,
-    private CommonService: CommonService
+    private CommonService : CommonService
   ) { }
 
   ngOnInit(): void {
     this.allId = [];
     this.citygroup = new FormGroup({
       id: new FormControl('',),
-      country_id: new FormControl(''),
-      state_id: new FormControl(''),
+      country_name: new FormControl(''),
+      state_name: new FormControl(''),
       city_name: new FormControl('')
     });
 
@@ -87,32 +86,32 @@ export class CityComponent implements OnInit {
   getcitydata(start: number,
     limit: number,
     loadSpecificData: boolean = false,
-    search_text?: any) {
+    search_text?: any){
     this.pegination_required = true;
-    var quary = `SELECT city.*,country.name as country_name,state.name as state_name,
+    var quary = `SELECT *,
       COUNT(*) OVER () AS total_count
-      FROM city INNER JOIN country  ON city.country_id=country.id INNER JOIN state ON city.state_id=state.id
-      ORDER BY city.created_At DESC
+      FROM city
+      ORDER BY country_name ASC, state_name ASC , city_name ASC
       LIMIT ${limit} OFFSET ${start}`;
 
 
     if (loadSpecificData) {
-      quary = `SELECT city.*,country.name as country_name,state.name as state_name,
+      quary = `SELECT *,
       COUNT(*) OVER () AS total_count
-      FROM city INNER JOIN country  ON city.country_id=country.id INNER JOIN state ON city.state_id=state.id 
+      FROM city
       WHERE
-         city.city_name = '${search_text}'
-          ORDER BY city.created_At DESC
+          city_name = '${search_text}'
+         OR state_name = '${search_text}'
+         OR country_name = '${search_text}'
+         ORDER BY country_name ASC, state_name ASC , city_name ASC
        `;
     }
-    console.log(quary);
+
 
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
 
-    console.log(res);
-    
 
       this.blockUI.stop();
 
@@ -133,7 +132,7 @@ export class CityComponent implements OnInit {
 
 
 
-  getSearchText(event: any) {
+  getSearchText(event:any){
 
 
     this.filterText = event
@@ -150,17 +149,14 @@ export class CityComponent implements OnInit {
     // this.showCountry(0, this.apiFetchRecordLimit);
   }
 
-  getstatefilter(country_id: any) {
+  getstatefilter(country_name: any) {
 
-    this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { "country_id": country_id, "status": 0 } }).subscribe((res: any) => {
-      console.log(res);
+    this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { "country_name": country_name, "status": 1 } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-      
-
 
         this.stateOption = res['data'].map((obj: any) => {
 
-          return { name: obj.name,id:obj.id };
+          return { name: obj.name };
 
         });
 
@@ -175,7 +171,7 @@ export class CityComponent implements OnInit {
 
   getcountryname() {
 
-    this.ApiParameter.fetchdata('country', { "projection": ["*"] }, 0, 5000).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('country', { "projection": ["*"] }, 0,250).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.countryalldata = res['data'];
 
@@ -183,7 +179,7 @@ export class CityComponent implements OnInit {
     })
   }
   getstate() {
-    this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { country_id: this.citygroup.value.country_id } }).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { country_name: this.citygroup.value.country_name } }).subscribe((res: any) => {
 
       if (res.success && res['data'].length > 0) {
         this.statealldatabycountry = res['data'];
@@ -203,8 +199,8 @@ export class CityComponent implements OnInit {
 
         let updateData = {
           "data": {
-            "country_id": this.citygroup.value.country_id,
-            "state_id": this.citygroup.value.state_id,
+            "country_name": this.citygroup.value.country_name,
+            "state_name": this.citygroup.value.state_name,
             "city_name": this.citygroup.value.city_name,
             "created_At": moment().toISOString()
           },
@@ -238,8 +234,8 @@ export class CityComponent implements OnInit {
       if (this.citygroup.valid) {
         let updateData = {
           "data": {
-            "country_id": this.citygroup.value.country_id,
-            "state_id": this.citygroup.value.state_id,
+            "country_name": this.citygroup.value.country_name,
+            "state_name": this.citygroup.value.state_name,
             "city_name": this.citygroup.value.city_name,
           },
           "whereConditions": { id: this.citygroup.value.id }
@@ -253,11 +249,11 @@ export class CityComponent implements OnInit {
             }).then((ress: any) => {
               let update = {
                 "oldcast": this.editedcast,
-                "newdata": this.citygroup.value.city_name,
-                "tablename": "user_religion",
-                "coulemnname": "user_city"
+                "newdata" : this.citygroup.value.city_name,
+                "tablename" : "user_religion",
+                "coulemnname" : "user_city"
               }
-              this.CommonService.coloumUpdated(update).subscribe((res: any) => { });
+              // this.CommonService.coloumUpdated(update).subscribe((res:any)=>{});
               this.ngOnInit()
             });
           } else {
@@ -279,9 +275,9 @@ export class CityComponent implements OnInit {
   }
   fatchdata() {
     let offset = this.page * 10 - 10
-    this.ApiParameter.fetchdata('city', { "projection": ["*"] }, offset, 10).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('city', { "projection": ["*"] },offset, 10).subscribe((res: any) => {
 
-      this.totalFetchrecord = offset + res['count']
+      this.totalFetchrecord = offset+res['count']
       this.totalCount = res['totalCount']
       this.collectionSize = res['totalCount']
       if (res.success && res['data'].length > 0) {
@@ -299,7 +295,7 @@ export class CityComponent implements OnInit {
     this.ApiParameter.fetchdata('city', { "projection": ["*"], "whereConditions": { id: id } }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         // this.countryalldata = res['data'];
-        this.getstatefilter(res['data'][0]['country_id'])
+        this.getstatefilter(res['data'][0]['country_name'])
         this.citygroup.patchValue(res['data'][0]);
         this.button = "Update";
         this.editedcast = this.citygroup.value.city_name;
