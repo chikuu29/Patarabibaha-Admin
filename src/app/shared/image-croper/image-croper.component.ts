@@ -38,7 +38,7 @@ export class ImageCroperComponent implements OnInit {
   }
 
   fileChangeEvent(event: any): void {
-    
+
 
     this.imageChangedEvent = event;
     this.fileSelected = true;
@@ -48,18 +48,18 @@ export class ImageCroperComponent implements OnInit {
     this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
       event.objectUrl ? event.objectUrl : ''
     );
-    
+
     this.crop_imgae = event.blob;
     this.convertBlobToBase64(this.crop_imgae);
-   
+
     // event.blob can be used to upload the cropped image
   }
   imageLoaded(image: LoadedImage) {
     // show cropper
-    
+
   }
   cropperReady() {
-    
+
     this.loadingImage=false
     // cropper ready
   }
@@ -71,25 +71,26 @@ export class ImageCroperComponent implements OnInit {
   }
 
   uploadFile() {
-    
-    
+
+
     let param = {
       data: this.imageinbase64,
       user_Id: this.user_id,
     };
+
     this.isUploading=true
     this.uploadProgress=0
     this.CommonService.uplodeimageadmin(param).subscribe((event: any) => {
 
-      
+
       if(event.status=="progress"){
         // this.isUploading=true
         this.uploadProgress=event.progress
-        
+
 
       }else if(event.status=="completed"){
         this.isUploading=false
-       
+
         Swal.fire({
           title: `<strong style='color:#5c54a0; font-size:30px;'>${event.body.message}</strong>`,
           html: '<h2>Congratulation</h2> <div class="pyro"><div class="before"></div><div class="after"></div></div>',
@@ -97,9 +98,9 @@ export class ImageCroperComponent implements OnInit {
         }).then((res: any) => {
           this.activeModal.close();
         });
-      
+
       }
-      
+
       // if (response.success) {
       //   Swal.fire(response.message, '', 'success');
       //   this.activeModal.close();
@@ -114,7 +115,7 @@ export class ImageCroperComponent implements OnInit {
     // const uploadData = new FormData();
     // uploadData.append('uploadfile[]', this.crop_imgae);
 
-    
+
 
     // this.blockUI.start('Uploading ....');
     // const haderforpdf = new HttpHeaders()
@@ -137,7 +138,7 @@ export class ImageCroperComponent implements OnInit {
     //       } else {
     //         Swal.fire(response.message, '', 'success');
     //       }
-    //       
+    //
     //       // Handle success response
     //     },
     //     (error: any) => {
