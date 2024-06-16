@@ -51,9 +51,9 @@ export class HoroscopeComponent implements OnInit {
       FROM user_activities_for_horoscope_details
       WHERE profile_view_by_profile_id = '${search_text}'
          OR profile_view_by_name   = '${search_text}'
-         OR profile_view_by_name = '${search_text}'
-         OR viewed_profile_name = '${search_text}';
-         ORDER BY a.user_creation_date_time DESC
+         OR viewed_profile_id = '${search_text}'
+         OR viewed_profile_name = '${search_text}'
+         ORDER BY created_At DESC ;
        `;
     }
 
