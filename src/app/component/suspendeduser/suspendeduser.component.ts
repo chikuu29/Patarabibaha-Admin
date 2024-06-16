@@ -55,7 +55,7 @@ export class SuspendeduserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
+
     this.allId = [];
     let _this: any = this;
     _this[this.currentFunction](0, this.collectionSize);
@@ -216,6 +216,8 @@ export class SuspendeduserComponent implements OnInit {
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
 
+      }else{
+        this.finaldata = [];
       }
     });
   }
@@ -254,6 +256,8 @@ export class SuspendeduserComponent implements OnInit {
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
 
+      }else{
+        this.finaldata = [];
       }
     });
 

@@ -1,5 +1,5 @@
 <div class="card p-3">
-    
+
         <label class="text-muted fw-bold">Upload Banner Images</label>
         <input type="file" (change)="handleInputChange($event)" #fileUpload class="form-control" id="customFile" />
         <ng-container *ngIf="imageSrc!=''">
@@ -16,18 +16,18 @@
             <label class="text-muted fw-bold" for="exampleInputEmail2">Upi Id</label>
             <input type="text" class="form-control" [(ngModel)]="upiid" id="exampleInputEmail2" aria-describedby="emailHel"
                 placeholder="Upi Id">
-            
+
         </div>
         <div class="form-group">
             <label class="text-muted fw-bold" for="exampleInputEmail3">Phone Number</label>
             <input type="text" class="form-control" [(ngModel)]="phonenumber" id="exampleInputEmail3" aria-describedby="emailHe"
                 placeholder="Phone Number">
-           
+
         </div>
         <button type="button" (click)="submit()" class="btn btn-primary mb-2 mt-2">Submit</button>
-    
+
 </div>
-<div class="">
+<div class="" >
     <div class="table-holder">
         <div class="caption-header">
             <div class="caption-item">
@@ -36,7 +36,7 @@
             </div>
             <div class="caption-item">
                 <!-- Search Start -->
-                <div class="search">
+                <!-- <div class="search">
                     <input type="text" [(ngModel)]="filterText" placeholder="Filter by any column" />
                     <div class="symbol">
                         <svg class="cloud">
@@ -60,7 +60,7 @@
                       c0.023-2.188,1.832-3.942,4.039-3.918c2.206,0.024,3.976,1.816,3.951,4.004c-0.023,2.171-1.805,3.918-3.995,3.918
                       C4.622,10.623,2.833,8.831,2.845,6.631L2.845,6.631z" />
                     </symbol>
-                </svg>
+                </svg> -->
                 <!-- Search End -->
             </div>
         </div>
@@ -112,3 +112,5 @@
 
     </div>
 </div>
+
+

@@ -15,7 +15,7 @@ export class BarcodeComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   img: any;
-  image: any;
+  image: any[] = [];
   filterText: any
   accountholdername:any;
   upiid:any;
@@ -75,9 +75,11 @@ export class BarcodeComponent implements OnInit {
   }
 
   fatchdata() {
-    this.ApiParameter.fetchdata('barCode', { "projection": ["*"] }).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('barcode', { "projection": ["*"] }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.image = res['data'];
+      }else{
+        this.image =  [];
       }
     })
   }
@@ -91,7 +93,7 @@ export class BarcodeComponent implements OnInit {
 
       if (r.isConfirmed) {
         this.blockUI.start('Deleting...')
-        this.ApiParameter.deletedata('barCode', { "whereConditions": { id: id } }).subscribe((res: any) => {
+        this.ApiParameter.deletedata('barcode', { "whereConditions": { id: id } }).subscribe((res: any) => {
           this.blockUI.stop();
           if (res.success) {
             Swal.fire('Success', res.message, 'success').then(() => {
@@ -175,5 +177,6 @@ export class BarcodeComponent implements OnInit {
     }
 
   }
+
 
 }

@@ -217,7 +217,7 @@ export class AlluserdataComponent implements OnInit {
             if (res.success) {
               Swal.fire({
                 icon: 'success',
-                text: 'deleted',
+                text: 'Suspended',
               }).then(() => {
                 this.ngOnInit();
               });
@@ -257,7 +257,7 @@ export class AlluserdataComponent implements OnInit {
             if (res.success) {
               Swal.fire({
                 icon: 'success',
-                text: 'Recovered',
+                text: 'Un Suspended',
               }).then(() => {
                 this.ngOnInit();
               });
