@@ -175,8 +175,7 @@ export class ContryComponent implements OnInit {
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      console.log("res",res);
-      
+
 
       this.blockUI.stop();
 

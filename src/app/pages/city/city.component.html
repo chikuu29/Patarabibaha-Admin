@@ -6,15 +6,15 @@
           CITY NAME</button></h4>
       <form [formGroup]="citygroup">
         <div class="mb-3">
-          <p-dropdown (onChange)="getstatefilter(citygroup.value.country_id)"
-            (onClear)="getstatefilter(citygroup.value.country_id)" [options]="countryalldata" [showClear]="true"
+          <p-dropdown (onChange)="getstatefilter(citygroup.value.country_name)"
+            (onClear)="getstatefilter(citygroup.value.country_name)" [options]="countryalldata" [showClear]="true"
             class="mb-2" optionLabel="name" [filter]="true" placeholder="Select Country" [style]="{ width: '100%' }"
-            formControlName="country_id" optionValue="id">
+            formControlName="country_name" optionValue="name">
             <ng-template pTemplate="selectedItem">
               <div class="country-item country-item-value">
                 <div>
                   {{
-                  citygroup.value.country_id || ""
+                  citygroup.value.country_name || ""
                   }}
                 </div>
               </div>
@@ -28,13 +28,13 @@
         </div>
         <div class="mb-3">
           <p-dropdown [options]="stateOption" [showClear]="true" optionLabel="name" [filter]="true"
-            placeholder="Select State" [style]="{ width: '100%' }" formControlName="state_id" class="mb-2"
-            optionValue="id">
+            placeholder="Select Country" [style]="{ width: '100%' }" formControlName="state_name" class="mb-2"
+            optionValue="name">
             <ng-template pTemplate="selectedItem">
               <div class="country-item country-item-value">
                 <div>
                   {{
-                  citygroup.value.state_id || ""
+                  citygroup.value.state_name || ""
                   }}
                 </div>
               </div>
@@ -130,7 +130,7 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let data of tableData | fillter:['city_name','country_id','state_id']:filterText ; index as i">
+                <ng-container *ngFor="let data of tableData | fillter:['city_name','country_name','state_name']:filterText ; index as i">
                   <tr>
 
                     <td class="text-center">
@@ -142,10 +142,10 @@
                     <td style="cursor: pointer;width:1%">
                       {{i+1}}
                     </td>
-                    <td [title]="data?.country_id">
+                    <td [title]="data?.name">
                       <div> {{data?.country_name | uppercase}} </div>
                     </td>
-                    <td [title]="data?.state_id">
+                    <td [title]="data?.name">
                       <div> {{data?.state_name | uppercase}} </div>
                     </td>
                     <td [title]="data?.name">
