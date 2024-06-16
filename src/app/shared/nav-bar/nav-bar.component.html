@@ -9,7 +9,7 @@
     </button>
     <div class="search-container ms-2 me-2  d-sm-none d-lg-block" >
       <div class="search-area">
-        <input [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search..." />
+        <input [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search Availble Features..." />
       </div>
       <div *ngIf="searchTerm" class="search-results">
         <div *ngFor="let item of filteredItems">
