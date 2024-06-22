@@ -463,7 +463,7 @@ export class UserViewComponent implements OnInit {
     user_phone_no: new FormControl(''),
     user_whatsapp_no: new FormControl(''),
     country_code: new FormControl(''),
-    whats_app_c_code: new FormControl(''),
+    whats_app_c_code: new FormControl('91'),
   });
 
   user_religionDetailsForm = new FormGroup({
@@ -647,6 +647,12 @@ export class UserViewComponent implements OnInit {
 
             this.physicalDeatilsForm.patchValue(res['user_physical_details']);
             this.basicDetailsForm.patchValue(res['user_info']);
+           if(res['user_info'].whats_app_c_code == null || res['user_info'].whats_app_c_code == ''){
+            this.basicDetailsForm.patchValue({
+              whats_app_c_code:'91'
+            })
+           }
+
             this.getSubcaste(this.user_religionDetailsForm.value.user_caste);
             this.getstatefilter(this.locationDetailsForm.value.user_country);
             this.getcityfilter(this.locationDetailsForm.value.user_state);
@@ -1026,6 +1032,7 @@ export class UserViewComponent implements OnInit {
         user_whatsapp_no: this.basicDetailsForm.value.user_whatsapp_no,
         country_code: this.basicDetailsForm.value.country_code,
         whats_app_c_code: this.basicDetailsForm.value.whats_app_c_code,
+        user_age:moment().diff(this.basicDetailsForm.value.user_dob, 'years')
       },
       whereConditions: {
         user_id: this.profile_id,

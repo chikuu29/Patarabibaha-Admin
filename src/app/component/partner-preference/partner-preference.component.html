@@ -26,14 +26,14 @@
               <p-multiSelect [options]="maritalOptions" placeholder="Select" formControlName="user_marital_status"
                 optionLabel="name" optionValue="name" [style]="{ width: '100%' }" display="chip"
                 [title]="partnerPreferenceForm.value.user_marital_status"></p-multiSelect>
-
+                <!-- (onChange)="onFromAgeChange($event)" -->
             </div>
             <div class="form-group col-md-6">
               <label class="mb-1">From Age</label>
 
               <p-dropdown [options]="ageOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
                 placeholder="Select" [style]="{ width: '100%' }" formControlName="from_user_age" optionValue="name"
-                (onChange)="onFromAgeChange($event)">
+                >
                 <ng-template pTemplate="selectedItem">
                   <div class="country-item country-item-value">
                     <div>
@@ -58,10 +58,11 @@
               </div>
             </div>
             <div class="form-group col-md-6">
+              <!-- (onChange)="onToAgeChange($event)" -->
               <label class="mb-1">To Age</label>
               <p-dropdown [options]="ageOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
                 placeholder="Select" [style]="{ width: '100%' }" formControlName="to_user_age" optionValue="name"
-                (onChange)="onToAgeChange($event)">
+                >
                 <ng-template pTemplate="selectedItem">
                   <div class="country-item country-item-value">
                     <div>
@@ -88,11 +89,12 @@
                 To Age should be greater than From Age.
               </div>
             </div>
+            <!-- (onChange)="onMinHeightChange($event)" -->
             <div class="form-group col-md-6">
               <label class="mb-1">Min Height</label>
               <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
                 placeholder="Select" [style]="{ width: '100%' }" formControlName="user_min_height" optionValue="value"
-                (onChange)="onMinHeightChange($event)">
+                >
                 <ng-template pTemplate="selectedItem">
                   <div class="country-item country-item-value">
                     <div>
@@ -117,10 +119,11 @@
               </div>
             </div>
             <div class="form-group col-md-6">
+              <!-- (onChange)="onMaxHeightChange($event)" -->
               <label class="mb-1">Max Height</label>
               <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
                 placeholder="Select" [style]="{ width: '100%' }" formControlName="user_max_height" optionValue="value"
-                (onChange)="onMaxHeightChange($event)">
+                >
                 <ng-template pTemplate="selectedItem">
                   <div class="country-item country-item-value">
                     <div>
@@ -167,9 +170,10 @@
             </div>
             <div class="form-group col-md-6">
               <label class="mb-1">Min Annual Income</label>
+              <!-- (onChange)="onMinIncomeChange($event)" -->
               <p-dropdown [options]="anualIncomeOptions" optionLabel="name" [filter]="true" filterBy="value"
                 [showClear]="true" placeholder="Min Annual Income" [style]="{ width: '100%' }"
-                formControlName="user_min_anual_income" optionValue="value" (onChange)="onMinIncomeChange($event)">
+                formControlName="user_min_anual_income" optionValue="value" >
                 <ng-template pTemplate="selectedItem">
                   <div class="country-item country-item-value">
                     <div>
@@ -190,10 +194,11 @@
               </p-dropdown>
             </div>
             <div class="form-group col-md-6">
+              <!-- (onChange)="onMaxIncomeChange($event)" -->
               <label class="mb-1">Max Annual Income</label>
               <p-dropdown [options]="anualIncomeOptions" optionLabel="value" [filter]="true" filterBy="value"
                 [showClear]="true" placeholder="Max Annual Income" [style]="{ width: '100%' }"
-                formControlName="user_max_anual_income" optionValue="value" (onChange)="onMaxIncomeChange($event)">
+                formControlName="user_max_anual_income" optionValue="value" >
                 <ng-template pTemplate="selectedItem">
                   <div class="country-item country-item-value">
                     <div>
@@ -376,10 +381,10 @@
           <div class="row mb-3">
             <div class="form-group col-md-6">
               <label class="mb-1">From Age</label>
-
+              <!-- (onChange)="onFromAgeChange($event)" -->
               <p-dropdown [options]="ageOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
                 placeholder="Select" [style]="{ width: '100%' }" formControlName="from_user_age" optionValue="name"
-                (onChange)="onFromAgeChange($event)">
+                >
                 <ng-template pTemplate="selectedItem">
                   <div class="country-item country-item-value">
                     <div>
@@ -403,11 +408,12 @@
                 From Age is required.
               </div>
             </div>
+            <!-- (onChange)="onToAgeChange($event)" -->
             <div class="form-group col-md-6">
               <label class="mb-1">To Age</label>
               <p-dropdown [options]="ageOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
                 placeholder="Select" [style]="{ width: '100%' }" formControlName="to_user_age" optionValue="name"
-                (onChange)="onToAgeChange($event)">
+                >
                 <ng-template pTemplate="selectedItem">
                   <div class="country-item country-item-value">
                     <div>
@@ -459,10 +465,11 @@
            <!-- hight -->
           <div class="row mb-3">
             <div class="form-group col-md-6">
+              <!-- (onChange)="onMinHeightChange($event)" -->
               <label class="mb-1">Min Height</label>
               <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
                 placeholder="Select" [style]="{ width: '100%' }" formControlName="user_min_height" optionValue="value"
-                (onChange)="onMinHeightChange($event)">
+                >
                 <ng-template pTemplate="selectedItem">
                   <div class="country-item country-item-value">
                     <div>
@@ -487,10 +494,11 @@
               </div>
             </div>
             <div class="form-group col-md-6">
+              <!-- (onChange)="onMaxHeightChange($event)" -->
               <label class="mb-1">Max Height</label>
               <p-dropdown [options]="heightOptions" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
                 placeholder="Select" [style]="{ width: '100%' }" formControlName="user_max_height" optionValue="value"
-                (onChange)="onMaxHeightChange($event)">
+                >
                 <ng-template pTemplate="selectedItem">
                   <div class="country-item country-item-value">
                     <div>
@@ -527,7 +535,7 @@
       <ng-container *ngIf="!showOnlyRegistrationPage">
         <div class="row">
           <div class="col-sm-12">
-            <button  [disabled]="!partnerPreferenceForm.valid"
+            <button
             (click)="userupartnerpreferenceForm_submit()" class="btn btn-outline-primary btn-lg">
               Update
             </button>

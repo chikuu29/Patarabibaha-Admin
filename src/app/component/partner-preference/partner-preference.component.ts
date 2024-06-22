@@ -293,11 +293,11 @@ export class PartnerPreferenceComponent implements OnInit {
 
   partnerPreferenceForm = new FormGroup({
     user_ID: new FormControl('', []),
-    user_min_height: new FormControl('', [Validators.required]),
-    user_max_height: new FormControl('', [Validators.required]),
-    user_religion: new FormControl('', [Validators.required]),
+    user_min_height: new FormControl(''),
+    user_max_height: new FormControl(''),
+    user_religion: new FormControl(''),
     user_country: new FormControl(''),
-    user_marital_status: new FormControl('', [Validators.required]),
+    user_marital_status: new FormControl(''),
     user_state: new FormControl(''),
     user_city: new FormControl(''),
     user_employed_In: new FormControl(''),
@@ -308,9 +308,9 @@ export class PartnerPreferenceComponent implements OnInit {
     user_nakshatra: new FormControl(''),
     user_zodiacs: new FormControl(''),
     user_gotra: new FormControl(''),
-    to_user_age: new FormControl('', [Validators.required]),
-    from_user_age: new FormControl('', [Validators.required]),
-    user_cast: new FormControl('', [Validators.required]),
+    to_user_age: new FormControl(''),
+    from_user_age: new FormControl(''),
+    user_cast: new FormControl(''),
     user_complextion: new FormControl(''),
     user_body_type: new FormControl(''),
     user_highest_education: new FormControl(''),
@@ -564,7 +564,7 @@ export class PartnerPreferenceComponent implements OnInit {
 
   userupartnerpreferenceForm_submit() {
     if (this.partnerPreferenceForm.valid) {
-      
+
 
       let updateData = {
         data: this.partnerPreferenceForm.value,
@@ -693,7 +693,7 @@ export class PartnerPreferenceComponent implements OnInit {
                       'user_info',
                       change
                     ).subscribe((res: any) => {
-                      
+
 
                       if (res.success) {
                         location.reload();
@@ -711,101 +711,101 @@ export class PartnerPreferenceComponent implements OnInit {
         }
       });
     } else {
-      
-      
-      
-      
+
+
+
+
     }
   }
 
-  onFromAgeChange(event: any) {
-    const FromAge: any = this.partnerPreferenceForm.value.from_user_age;
-    const ToAge: any = this.partnerPreferenceForm.value.to_user_age;
+  // onFromAgeChange(event: any) {
+  //   const FromAge: any = this.partnerPreferenceForm.value.from_user_age;
+  //   const ToAge: any = this.partnerPreferenceForm.value.to_user_age;
 
-    if (FromAge < ToAge) {
-      this.partnerPreferenceForm.controls['to_user_age'].setErrors(null);
-      this.ageerrormsg = false; // Clear validation error
-    } else {
-      this.ageerrormsg = true;
-      this.partnerPreferenceForm.setErrors({ invalidRange: true });
-    }
-  }
+  //   if (FromAge < ToAge) {
+  //     this.partnerPreferenceForm.controls['to_user_age'].setErrors(null);
+  //     this.ageerrormsg = false; // Clear validation error
+  //   } else {
+  //     this.ageerrormsg = true;
+  //     this.partnerPreferenceForm.setErrors({ invalidRange: true });
+  //   }
+  // }
 
-  onToAgeChange(event: any) {
-    const FromAge: any = this.partnerPreferenceForm.value.from_user_age;
-    const ToAge: any = this.partnerPreferenceForm.value.to_user_age;
-    if (ToAge != null || ToAge != '') {
-      if (FromAge < ToAge) {
-        this.partnerPreferenceForm.controls['from_user_age'].setErrors(null); // Clear validation error
-        this.ageerrormsg = false;
-      } else {
-        this.ageerrormsg = true;
-        this.partnerPreferenceForm.setErrors({ invalidRange: true });
-      }
-    }
-  }
+  // onToAgeChange(event: any) {
+  //   const FromAge: any = this.partnerPreferenceForm.value.from_user_age;
+  //   const ToAge: any = this.partnerPreferenceForm.value.to_user_age;
+  //   if (ToAge != null || ToAge != '') {
+  //     if (FromAge < ToAge) {
+  //       this.partnerPreferenceForm.controls['from_user_age'].setErrors(null); // Clear validation error
+  //       this.ageerrormsg = false;
+  //     } else {
+  //       this.ageerrormsg = true;
+  //       this.partnerPreferenceForm.setErrors({ invalidRange: true });
+  //     }
+  //   }
+  // }
 
-  onMinHeightChange(event: any) {
-    const minHeight: any = this.partnerPreferenceForm.value.user_min_height;
-    const maxHeight: any = this.partnerPreferenceForm.value.user_max_height;
+  // onMinHeightChange(event: any) {
+  //   const minHeight: any = this.partnerPreferenceForm.value.user_min_height;
+  //   const maxHeight: any = this.partnerPreferenceForm.value.user_max_height;
 
-    if (minHeight < maxHeight) {
-      this.partnerPreferenceForm.controls['user_max_height'].setErrors(null); // Clear validation error
-      this.highterror = false;
-    } else {
-      this.highterror = true;
-      this.partnerPreferenceForm.setErrors({ invalidRange: true });
-    }
-  }
+  //   if (minHeight < maxHeight) {
+  //     this.partnerPreferenceForm.controls['user_max_height'].setErrors(null); // Clear validation error
+  //     this.highterror = false;
+  //   } else {
+  //     this.highterror = true;
+  //     this.partnerPreferenceForm.setErrors({ invalidRange: true });
+  //   }
+  // }
 
-  onMaxHeightChange(event: any) {
-    const minHeight: any = this.partnerPreferenceForm.value.user_min_height;
-    const maxHeight: any = this.partnerPreferenceForm.value.user_max_height;
+  // onMaxHeightChange(event: any) {
+  //   const minHeight: any = this.partnerPreferenceForm.value.user_min_height;
+  //   const maxHeight: any = this.partnerPreferenceForm.value.user_max_height;
 
-    if (minHeight < maxHeight) {
-      this.partnerPreferenceForm.controls['user_min_height'].setErrors(null); // Clear validation error
-      this.highterror = false;
-    } else {
-      this.highterror = true;
-      this.partnerPreferenceForm.setErrors({ invalidRange: true });
-    }
-  }
+  //   if (minHeight < maxHeight) {
+  //     this.partnerPreferenceForm.controls['user_min_height'].setErrors(null); // Clear validation error
+  //     this.highterror = false;
+  //   } else {
+  //     this.highterror = true;
+  //     this.partnerPreferenceForm.setErrors({ invalidRange: true });
+  //   }
+  // }
 
-  onMinIncomeChange(event: any) {
-    const minIncome: any =
-      this.partnerPreferenceForm.value.user_min_anual_income;
-    const maxIncome: any =
-      this.partnerPreferenceForm.value.user_max_anual_income;
+  // onMinIncomeChange(event: any) {
+  //   const minIncome: any =
+  //     this.partnerPreferenceForm.value.user_min_anual_income;
+  //   const maxIncome: any =
+  //     this.partnerPreferenceForm.value.user_max_anual_income;
 
-    if (minIncome < maxIncome) {
-      this.partnerPreferenceForm.controls['user_max_anual_income'].setErrors(
-        null
-      ); // Clear validation error
-      this.anualincomeerroe = false;
-    } else {
-      this.partnerPreferenceForm.controls['user_max_anual_income'].setErrors({
-        invalidRange: true,
-      }); // Set validation error
-      this.anualincomeerroe = true;
-    }
-  }
+  //   if (minIncome < maxIncome) {
+  //     this.partnerPreferenceForm.controls['user_max_anual_income'].setErrors(
+  //       null
+  //     ); // Clear validation error
+  //     this.anualincomeerroe = false;
+  //   } else {
+  //     this.partnerPreferenceForm.controls['user_max_anual_income'].setErrors({
+  //       invalidRange: true,
+  //     }); // Set validation error
+  //     this.anualincomeerroe = true;
+  //   }
+  // }
 
-  onMaxIncomeChange(event: any) {
-    const minIncome: any =
-      this.partnerPreferenceForm.value.user_min_anual_income;
-    const maxIncome: any =
-      this.partnerPreferenceForm.value.user_max_anual_income;
+  // onMaxIncomeChange(event: any) {
+  //   const minIncome: any =
+  //     this.partnerPreferenceForm.value.user_min_anual_income;
+  //   const maxIncome: any =
+  //     this.partnerPreferenceForm.value.user_max_anual_income;
 
-    if (minIncome < maxIncome) {
-      this.partnerPreferenceForm.controls['user_min_anual_income'].setErrors(
-        null
-      ); // Clear validation error
-      this.anualincomeerroe = false;
-    } else {
-      this.partnerPreferenceForm.controls['user_min_anual_income'].setErrors({
-        invalidRange: true,
-      }); // Set validation error
-      this.anualincomeerroe = true;
-    }
-  }
+  //   if (minIncome < maxIncome) {
+  //     this.partnerPreferenceForm.controls['user_min_anual_income'].setErrors(
+  //       null
+  //     ); // Clear validation error
+  //     this.anualincomeerroe = false;
+  //   } else {
+  //     this.partnerPreferenceForm.controls['user_min_anual_income'].setErrors({
+  //       invalidRange: true,
+  //     }); // Set validation error
+  //     this.anualincomeerroe = true;
+  //   }
+  // }
 }
