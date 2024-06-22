@@ -42,13 +42,15 @@ export class WatermarkComponent implements OnInit {
   _handleReaderLoaded(e: any) {
     let reader = e.target;
     this.imageSrc = reader.result;
-    
+
   }
 
   fatchdata() {
     this.ApiParameter.fetchdata('watermark', { "projection": ["*"] }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.image = res['data'];
+      }else{
+        this.image = [];
       }
     })
   }
@@ -58,7 +60,7 @@ export class WatermarkComponent implements OnInit {
       icon: 'question',
       text: 'Do You Want to Delete'
     }).then((r: any) => {
-      
+
       if (r.isConfirmed) {
         this.blockUI.start('Deleting...')
         this.ApiParameter.deletedata('watermark', { "whereConditions": { id: id } }).subscribe((res: any) => {
@@ -90,7 +92,7 @@ export class WatermarkComponent implements OnInit {
             "whereConditions": { id: id }
           }
           this.ApiParameter.updatedata('watermark', updateData).subscribe((res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',
@@ -123,7 +125,7 @@ export class WatermarkComponent implements OnInit {
             "whereConditions": { id: id }
           }
           this.ApiParameter.updatedata('watermark', updateData).subscribe((res: any) => {
-            
+
             if (res.success) {
               Swal.fire({
                 icon: 'success',

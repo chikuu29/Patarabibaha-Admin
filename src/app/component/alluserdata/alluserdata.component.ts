@@ -456,6 +456,7 @@ export class AlluserdataComponent implements OnInit {
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
+         OR a.user_full_name = '${search_text}'
          ORDER BY a.user_creation_date_time DESC
        `;
     }
@@ -499,6 +500,7 @@ export class AlluserdataComponent implements OnInit {
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}'
                OR a.user_gender = '${search_text}'
+               OR a.user_full_name = '${search_text}'
                AND a.online_status=1
                ORDER BY a.user_creation_date_time DESC;
              `;
@@ -539,6 +541,7 @@ export class AlluserdataComponent implements OnInit {
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}'
                OR a.user_gender = '${search_text}'
+               OR a.user_full_name = '${search_text}'
                AND a.status=0
                ORDER BY a.user_creation_date_time DESC;
              `;
@@ -587,6 +590,7 @@ export class AlluserdataComponent implements OnInit {
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
+         OR a.user_full_name = '${search_text}'
          AND  a.deleted=0
          ORDER BY a.user_creation_date_time DESC;
        `;
@@ -629,6 +633,7 @@ export class AlluserdataComponent implements OnInit {
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}'
                OR a.user_gender = '${search_text}'
+               OR a.user_full_name = '${search_text}'
                AND a.status=1
                ORDER BY a.user_creation_date_time DESC;
              `;
@@ -718,6 +723,7 @@ export class AlluserdataComponent implements OnInit {
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
+         OR a.user_full_name = '${search_text}'
          AND a.user_status="Approved"
          ORDER BY a.user_creation_date_time DESC
          ;
@@ -761,6 +767,7 @@ export class AlluserdataComponent implements OnInit {
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
+         OR a.user_full_name = '${search_text}'
          AND a.user_status="Pending"
          ORDER BY a.user_creation_date_time DESC;
        `;
@@ -801,6 +808,7 @@ export class AlluserdataComponent implements OnInit {
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
+         OR a.user_full_name = '${search_text}'
          AND a.user_status = "Approved"
          AND a.deleted = 1
          AND a.status = 1

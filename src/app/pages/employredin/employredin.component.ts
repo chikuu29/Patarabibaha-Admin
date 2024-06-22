@@ -234,111 +234,7 @@ export class EmployredinComponent implements OnInit {
     });
   }
 
-  // publish(id:any,status:any){
 
-  //   if(status == 1){
-  //     let updateData = {
-  //       "data": {
-  //         "status": 0,
-  //       },
-  //       "whereConditions": { id: id }
-  //     }
-  //     this.ApiParameter.updatedata('employer_in', updateData).subscribe((res: any) => {
-  //
-  //       if (res.success) {
-  //         Swal.fire({
-  //           icon: 'success',
-  //           text: "Unpublished"
-  //         }).then(() => {
-  //           this.ngOnInit()
-  //         });
-  //       } else {
-  //         Swal.fire({
-  //           icon: 'warning',
-  //           text: res.message
-  //         });
-  //       }
-  //     })
-
-  //   }else if(status == 0){
-  //     let updateData = {
-  //       "data": {
-  //         "status": 1,
-  //       },
-  //       "whereConditions": { id: id }
-  //     }
-  //     this.ApiParameter.updatedata('employer_in', updateData).subscribe((res: any) => {
-  //
-  //       if (res.success) {
-  //         Swal.fire({
-  //           icon: 'success',
-  //           text: "Published"
-  //         }).then(() => {
-  //           this.ngOnInit()
-  //         });
-  //       } else {
-  //         Swal.fire({
-  //           icon: 'warning',
-  //           text: res.message
-  //         });
-  //       }
-  //     })
-  //   }
-
-  // }
-  // publish(id: any, status: any) {
-  //   if (status == 1) {
-  //     let updateData = {
-  //       data: {
-  //         status: 0,
-  //       },
-  //       whereConditions: { id: id },
-  //     };
-  //     this.ApiParameter.updatedata('mother_tongue', updateData).subscribe(
-  //       (res: any) => {
-  //
-  //         if (res.success) {
-  //           Swal.fire({
-  //             icon: 'success',
-  //             text: 'Unpublished',
-  //           }).then(() => {
-  //             this.ngOnInit();
-  //           });
-  //         } else {
-  //           Swal.fire({
-  //             icon: 'warning',
-  //             text: res.message,
-  //           });
-  //         }
-  //       }
-  //     );
-  //   } else if (status == 0) {
-  //     let updateData = {
-  //       data: {
-  //         status: 1,
-  //       },
-  //       whereConditions: { id: id },
-  //     };
-  //     this.ApiParameter.updatedata('mother_tongue', updateData).subscribe(
-  //       (res: any) => {
-  //
-  //         if (res.success) {
-  //           Swal.fire({
-  //             icon: 'success',
-  //             text: 'Published',
-  //           }).then(() => {
-  //             this.ngOnInit();
-  //           });
-  //         } else {
-  //           Swal.fire({
-  //             icon: 'warning',
-  //             text: res.message,
-  //           });
-  //         }
-  //       }
-  //     );
-  //   }
-  // }
   publishuser() {
     if (this.allId.length == 0) {
       Swal.fire('Warning', 'Please select any record', 'warning');
@@ -436,7 +332,7 @@ export class EmployredinComponent implements OnInit {
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipuldeleteData(
-            'mother_tongue',
+            'employer_in',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {

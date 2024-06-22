@@ -106,8 +106,8 @@
               </thead>
               <tbody>
                 <ng-container
-                  *ngFor="let data of tableData | fillter:['user_fname','user_id','user_email','user_gender','auth_phone_no']:filterText ; index as i">
-                  <tr>
+                  *ngFor="let data of tableData | fillter:['user_fname','user_id','user_email','user_gender','user_full_name','auth_phone_no']:filterText ; index as i">
+                  <tr   [ngClass]="data.online_status == 1 ? 'my_class1' : ''">
                     <td class="text-center">
                       <input type="checkbox" class="check" [value]="data?.user_id" (change)="getId(data?.Id,$event)"
                         name="" id="">

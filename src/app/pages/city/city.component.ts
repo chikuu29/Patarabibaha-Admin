@@ -100,9 +100,9 @@ export class CityComponent implements OnInit {
       COUNT(*) OVER () AS total_count
       FROM city
       WHERE
-          city_name = '${search_text}'
-         OR state_name = '${search_text}'
-         OR country_name = '${search_text}'
+          city_name LIKE '%${search_text}%'
+         OR state_name LIKE '%${search_text}%'
+         OR country_name LIKE '%${search_text}%'
          ORDER BY country_name ASC, state_name ASC , city_name ASC
        `;
     }
