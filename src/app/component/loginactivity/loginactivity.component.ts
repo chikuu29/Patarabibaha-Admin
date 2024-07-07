@@ -82,7 +82,7 @@ export class LoginactivityComponent implements OnInit {
     LEFT JOIN user_info AS b ON a.user_id = b.user_id
     LEFT JOIN auth_user AS c ON a.user_id = c.auth_ID
     GROUP BY  a.user_id
-    ORDER BY a.login_date_time DESC
+    ORDER BY MAX(a.login_date_time) DESC
     LIMIT ${limit} OFFSET ${start}
     `;
     if (loadSpecificData) {
@@ -91,7 +91,7 @@ export class LoginactivityComponent implements OnInit {
     LEFT JOIN user_info AS b ON a.user_id = b.user_id
     LEFT JOIN auth_user AS c ON a.user_id = c.auth_ID
     GROUP BY a.user_id
-    ORDER BY a.login_date_time DESC
+    ORDER BY MAX(a.login_date_time) DESC
     WHERE a.user_id = '${search_text}'
      OR c.auth_ID = '${search_text}'
      OR b.user_fname = '${search_text}'
