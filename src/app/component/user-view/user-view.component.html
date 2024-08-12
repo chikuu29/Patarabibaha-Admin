@@ -6,6 +6,9 @@
     <div class="caption-item margin">
       <p-button label="Share Data" icon="pi pi-user" (click)="shareData()" severity="danger"></p-button>
     </div>
+    <div class="caption-item margin">
+      <p-button [label]="userAllData?.user_info?.data_come_from == null ? urlofside : userAllData?.user_info?.data_come_from" icon="pi pi-search" (click)="shareData()" severity="danger"></p-button>
+    </div>
   </div>
   <div class="main-body">
     <ng-container
@@ -22,8 +25,8 @@
           </span>
           Click Below Button
         </p>
-        <button mat-raised-button color="accent" class="me-2 p-2 w-100 bg-success"
-          (click)="activeAccount()">Un Approved</button>
+        <button mat-raised-button color="accent" class="me-2 p-2 w-100 bg-success" (click)="activeAccount()">Un
+          Approved</button>
 
       </div>
     </ng-container>
@@ -326,9 +329,7 @@
                       <mat-label>Profile Whats up no</mat-label>
                       <input formControlName="user_whatsapp_no" matInput placeholder="Whats app number" />
                     </mat-form-field>
-
                   </div>
-
                 </div>
               </form>
               <div class="row mt-2">
@@ -484,9 +485,9 @@
                     <mat-radio-group aria-label="Select an option" formControlName="user_mangalik">
                       <mat-radio-button value="Yes">Yes</mat-radio-button>
                       <mat-radio-button value="No" checked>No</mat-radio-button>
-                      <mat-radio-button value="May be" >May be</mat-radio-button>
-                      <mat-radio-button value="Anshik" >Anshik</mat-radio-button>
-                      <mat-radio-button value="Do not know" >Do not know</mat-radio-button>
+                      <mat-radio-button value="May be">May be</mat-radio-button>
+                      <mat-radio-button value="Anshik">Anshik</mat-radio-button>
+                      <mat-radio-button value="Do not know">Do not know</mat-radio-button>
                     </mat-radio-group>
                   </div>
                   <div class="row mb-3">
@@ -969,7 +970,7 @@
                   <div class="form-group col-md-6">
                     <label class="mb-1">Mothers Occupation</label>
                     <p-dropdown [options]="mothersac" optionLabel="name" [filter]="true" filterBy="name"
-                      [showClear]="false" placeholder="Fathers Occupation" formControlName="user_mothers_occupation"
+                      [showClear]="false" placeholder="Mothers Occupation" formControlName="user_mothers_occupation"
                       [style]="{ width: '100%' }" optionValue="name">
                       <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
@@ -1894,7 +1895,7 @@
                     <textarea formControlName="user_about" matInput name="" id="" cols="30" rows="10"></textarea>
                   </mat-form-field>
                   <a (click)="generateAboutUs()" class="btn btn-outline-primary mb-2"><i
-                    class="fa-solid fa-wand-magic-sparkles"></i> Auto Generate</a>
+                      class="fa-solid fa-wand-magic-sparkles"></i> Auto Generate</a>
                 </div>
               </form>
               <div class="row mt-2">

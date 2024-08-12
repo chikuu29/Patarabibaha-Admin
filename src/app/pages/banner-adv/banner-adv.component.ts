@@ -1,25 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import * as moment from 'moment';
-import { ApiParameterScript } from 'src/app/script/api-parameter';
-import Swal from 'sweetalert2';
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CommonService } from 'src/app/services/common.service';
-
+import * as moment from 'moment';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import Swal from 'sweetalert2';
+import { ApiParameterScript } from 'src/app/script/api-parameter';
+import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-gotra',
-  templateUrl: './gotra.component.html',
-  styleUrls: ['./gotra.component.scss'],
+  selector: 'app-banner-adv',
+  templateUrl: './banner-adv.component.html',
+  styleUrls: ['./banner-adv.component.scss'],
 })
-export class GotraComponent implements OnInit {
+export class BannerAdvComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
-  button: any = 'ADD';
-  gotragroup = new FormGroup({
-    id: new FormControl('', []),
-    name: new FormControl('', [Validators.required]),
-  });
+  img: any;
+  image: any;
+  filepath: string = environment.filePath + 'storage/Advertisement/banner/';
+  type: any = '';
+  public imageSrc: string = '';
   filterText: any;
   gotraalldata: any;
   collectionSize: number = 0;
@@ -39,230 +38,132 @@ export class GotraComponent implements OnInit {
   options = [10, 15, 50, 100, 500, 1000];
   offset = 1;
   pegination_required: boolean = false;
-  currentFunction: string = 'showGotra';
+  currentFunction: string = 'showAdvertisement';
   totalDataCount: number = 0;
   editedcast: any;
+  isGlobal: boolean = false;
+  isCityWise: boolean = false;
+  country: any[] = [];
+  state: any[] = [];
+  city: any[] = [];
+  countrydata: any;
+  sataedata: any[] = [];
+  citydata: any[] = [];
+  global: any = 0;
   constructor(
-    private ApiParameter: ApiParameterScript,
-    private CommonService : CommonService
+    private CommonService: CommonService,
+    private ApiParameter: ApiParameterScript
   ) {}
 
   ngOnInit(): void {
-    this.allId = [];
-    this.gotragroup = new FormGroup({
-      id: new FormControl('', []),
-      name: new FormControl(''),
-    });
-    this.button = 'ADD';
-    this.showGotra(0, this.apiFetchRecordLimit);
+    this.image = '';
+    this.imageSrc = '';
+    this.type = '';
+    this.city = [];
+    this.state = [];
+    this.country = [];
+    this.isGlobal = false;
+    this.isCityWise = false;
+    this.showAdvertisement(0, this.apiFetchRecordLimit);
+    this.getCountry();
   }
-
-  getSearchText(event: any) {
-    this.filterText = event;
-  }
-
-  addCountry() {
-    if (this.button == 'ADD') {
-      if (this.gotragroup.valid) {
-        let updateData = {
-          data: {
-            name: this.gotragroup.value.name,
-            created_At: moment().toISOString(),
-          },
-        };
-
-        this.ApiParameter.savedata('gotra', updateData).subscribe(
-          (res: any) => {
-
-            if (res.success) {
-              Swal.fire({
-                icon: 'success',
-                text: res.message,
-              }).then((ress: any) => {
-                this.gotragroup.value.name = '';
-                this.ngOnInit();
-              });
-            } else {
-              Swal.fire({
-                icon: 'success',
-                text: res.message,
-              });
-            }
-          }
-        );
-      } else {
-        Swal.fire({
-          icon: 'error',
-          text: 'Please Enter Your Gotra',
-        });
-      }
-    } else if (this.button == 'UPDATE') {
-      if (this.gotragroup.valid) {
-        let updateData = {
-          data: {
-            name: this.gotragroup.value.name,
-            created_At: moment().toISOString(),
-          },
-          whereConditions: { id: this.gotragroup.value.id },
-        };
-        this.ApiParameter.updatedata('gotra', updateData).subscribe(
-          (res: any) => {
-
-            if (res.success) {
-              Swal.fire({
-                icon: 'success',
-                text: res.message,
-              }).then((ress: any) => {
-                let update1 = {
-                  "oldcast": this.editedcast,
-                  "newdata" : this.gotragroup.value.name,
-                  "tablename" : "user_horoscope",
-                  "coulemnname" : "user_gotra"
-                }
-                this.CommonService.coloumUpdated(update1).subscribe((res:any)=>{});
-                this.ngOnInit();
-              });
-            } else {
-              Swal.fire({
-                icon: 'success',
-                text: res.message,
-              });
-            }
-          }
-        );
-      } else {
-        Swal.fire({
-          icon: 'error',
-          text: 'Please Enter Your Gotra',
-        });
-      }
+  onGlobalChange(): void {
+    if (this.isGlobal) {
+      this.global = 1;
+      this.isCityWise = false; // Deselect City-wise if Global is selected
     }
   }
-  showGotra(
-    start: number,
-    limit: number,
-    loadSpecificData: boolean = false,
-    search_text?: any
-  ) {
-    this.pegination_required = true;
-    var quary = `SELECT *, COUNT(*) OVER () AS total_count
-        FROM gotra
-        ORDER BY name ASC
-        LIMIT ${limit} OFFSET ${start}`;
-
-    if (loadSpecificData) {
-      quary = `SELECT *,
-      COUNT(*) OVER () AS total_count
-       FROM gotra
-          WHERE name LIKE '%${search_text}%'
-          ORDER BY name ASC;
-         `;
-
+  onCityWiseChange(): void {
+    if (this.isCityWise) {
+      this.global = 0;
+      this.isGlobal = false; // Deselect Global if City-wise is selected
     }
-
-    this.blockUI.start('Loading...');
-
-    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      this.blockUI.stop();
-
-      if (res.success && res['data'].length > 0) {
-        this.totalDataCount = res['data'][0].total_count;
-        this.totalFetchrecord = start + res['data'].length;
-        this.collectionSize =
-          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
-
-        this.tableData = res['data'];
+  }
+  handleInputChange(e: any) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e: any) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+  }
+  submit() {
+    if (this.imageSrc == '') {
+      Swal.fire('Uplode Image');
+    } else if (this.type == '') {
+      Swal.fire('Select Type');
+    } else if (!(this.isCityWise || this.isGlobal)) {
+      Swal.fire('Select Global or city Wise');
+    } else if (this.isCityWise) {
+      if (this.country.length == 0) {
+        Swal.fire('Select Country');
+      } else if (this.state.length == 0) {
+        Swal.fire('Select State');
+      } else if (this.city.length == 0) {
+        Swal.fire('Select City');
       } else {
-        this.collectionSize = 1;
-        this.tableData = [];
-      }
-    });
-  }
-  update(data: any) {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-  });
-    this.ApiParameter.fetchdata('gotra', {
-      projection: ['*'],
-      whereConditions: { id: data },
-    }).subscribe((res: any) => {
-      if (res.success && res['data'].length > 0) {
-        // this.countryalldata = res['data'];
-        this.gotragroup.patchValue(res['data'][0]);
-        this.button = 'UPDATE';
-        this.editedcast = res['data'][0].name;
-
-      }
-    });
-  }
-
-  deleted(data: any) {
-    this.blockUI.start('Deleting...');
-    this.ApiParameter.deletedata('gotra', {
-      whereConditions: { id: data },
-    }).subscribe((res: any) => {
-      this.blockUI.stop();
-      if (res.success) {
-        Swal.fire('Success', res.message, 'success').then(() => {
-          this.ngOnInit();
+        let finalcity = this.city.map((els: any) => {
+          return els.city_name;
         });
-      } else {
-        Swal.fire('Error', res.message, 'error');
-      }
-    });
-  }
-  publish(id: any, status: any) {
-    if (status == 1) {
-      let updateData = {
-        data: {
-          status: 0,
-        },
-        whereConditions: { id: id },
-      };
-      this.ApiParameter.updatedata('gotra', updateData).subscribe(
-        (res: any) => {
-
+        this.CommonService.bannerAdv({
+          image: this.imageSrc,
+          date: moment().toISOString(),
+          type: this.type,
+          global: this.global,
+          country: this.country.length == 0 ? '' : this.country,
+          state: this.state.length == 0 ? '' : this.state,
+          city: finalcity,
+        }).subscribe((res: any) => {
           if (res.success) {
             Swal.fire({
               icon: 'success',
-              text: 'Unpublished',
+              text: res.message,
             }).then(() => {
               this.ngOnInit();
             });
           } else {
             Swal.fire({
-              icon: 'warning',
+              icon: 'error',
               text: res.message,
             });
           }
+        });
+      }
+    } else {
+      let finalcity: any[] = this.city.map((els: any) => {
+        return els.city_name;
+      });
+      finalcity.length == 0 ? [] : finalcity;
+      this.CommonService.bannerAdv({
+        image: this.imageSrc,
+        date: moment().toISOString(),
+        type: this.type,
+        global: this.global,
+        country:  '' ,
+        state:  '' ,
+        city: [],
+      }).subscribe((res: any) => {
+        if (res.success) {
+          Swal.fire({
+            icon: 'success',
+            text: res.message,
+          }).then(() => {
+            this.ngOnInit();
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            text: res.message,
+          });
         }
-      );
-    } else if (status == 0) {
-      let updateData = {
-        data: {
-          status: 1,
-        },
-        whereConditions: { id: id },
-      };
-      this.ApiParameter.updatedata('gotra', updateData).subscribe(
-        (res: any) => {
-
-          if (res.success) {
-            Swal.fire({
-              icon: 'success',
-              text: 'Published',
-            }).then(() => {
-              this.ngOnInit();
-            });
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              text: res.message,
-            });
-          }
-        }
-      );
+      });
     }
   }
   publishuser() {
@@ -274,7 +175,6 @@ export class GotraComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -284,7 +184,7 @@ export class GotraComponent implements OnInit {
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipulData(
-            'gotra',
+            'advertisement',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {
@@ -315,7 +215,6 @@ export class GotraComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -325,7 +224,7 @@ export class GotraComponent implements OnInit {
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipulData(
-            'gotra',
+            'advertisement',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {
@@ -355,14 +254,13 @@ export class GotraComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
             deleted: 'Delete',
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipuldeleteData(
-            'gotra',
+            'advertisement',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {
@@ -382,6 +280,74 @@ export class GotraComponent implements OnInit {
         }
       });
     }
+  }
+  checkAll(e: any) {
+    let check = document.querySelectorAll('.check');
+
+    this.allId = [];
+    if (e.target.checked) {
+      check.forEach((checkbox: any, key: any) => {
+        this.allId.push(parseInt(this.tableData[key].id));
+        checkbox.checked = true;
+      });
+    } else {
+      check.forEach((checkbox: any, key: any) => {
+        this.allId = [];
+        checkbox.checked = false;
+      });
+    }
+  }
+  getId(id: any, e: any) {
+    if (e.target.checked) {
+      this.allId.push(parseInt(id));
+    } else {
+      let index = this.allId.indexOf(parseInt(id));
+      this.allId.splice(index, 1);
+      let k = <any>document.getElementById('all');
+      k.checked = false;
+    }
+  }
+  showAdvertisement(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
+    this.pegination_required = true;
+    var quary = `SELECT *, COUNT(*) OVER () AS total_count
+        FROM advertisement
+        ORDER BY created_At ASC
+        LIMIT ${limit} OFFSET ${start}`;
+
+    if (loadSpecificData) {
+      quary = `SELECT *,
+      COUNT(*) OVER () AS total_count
+       FROM advertisement
+          WHERE name LIKE '%${search_text}%'
+          ORDER BY name ASC;
+         `;
+    }
+
+    this.blockUI.start('Loading...');
+
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      this.blockUI.stop();
+
+      if (res.success && res['data'].length > 0) {
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
+        this.tableData = res['data'];
+        console.log(this.tableData);
+      } else {
+        this.collectionSize = 1;
+        this.tableData = [];
+      }
+    });
+  }
+  getSearchText(event: any) {
+    this.filterText = event;
   }
   search(search_text: any) {
     //alert(this.currentFunction)
@@ -418,16 +384,12 @@ export class GotraComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
@@ -435,39 +397,6 @@ export class GotraComponent implements OnInit {
         this.tableData = [];
       }
     });
-  }
-  checkAll(e: any) {
-
-
-    let check = document.querySelectorAll('.check');
-
-
-    this.allId = [];
-    if (e.target.checked) {
-      check.forEach((checkbox: any, key: any) => {
-        this.allId.push(parseInt(this.tableData[key].id));
-        checkbox.checked = true;
-      });
-    } else {
-      check.forEach((checkbox: any, key: any) => {
-        this.allId = [];
-        checkbox.checked = false;
-      });
-    }
-
-  }
-  getId(id: any, e: any) {
-
-
-    if (e.target.checked) {
-      this.allId.push(parseInt(id));
-    } else {
-      let index = this.allId.indexOf(parseInt(id));
-      this.allId.splice(index, 1);
-      let k = <any>document.getElementById('all');
-      k.checked = false;
-    }
-
   }
   changepaginetdata(event: any) {
     this.page = 1;
@@ -485,5 +414,34 @@ export class GotraComponent implements OnInit {
     );
     this.offset =
       this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit;
+  }
+  getCountry() {
+    var quary = `SELECT name FROM country`;
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.countrydata = res['data'];
+      }
+    });
+  }
+  selectState(country: any) {
+    console.log(country);
+
+    var quary = `SELECT name FROM state where country_name = '${country}'`;
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.sataedata = res['data'];
+      }
+    });
+  }
+  selectCity(state: any) {
+    var quary = `SELECT city_name FROM city where state_name = '${state}'`;
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      console.log(res);
+      if (res.success && res['data'].length > 0) {
+        this.citydata = res['data'];
+      }
+    });
   }
 }

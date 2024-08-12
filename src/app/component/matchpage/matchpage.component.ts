@@ -151,6 +151,7 @@ export class MatchpageComponent implements OnInit {
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE a.user_gender != '${this.gender}' AND a.user_id != '${this.user_id}'
+      AND a.user_status = 'Approved'
       ORDER BY a.user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start}`;
 
@@ -160,6 +161,7 @@ export class MatchpageComponent implements OnInit {
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE
       WHERE a.user_gender != '${this.gender}'
+      AND a.user_status = 'Approved'
       AND a.user_id = '${search_text}'
          OR b.auth_ID = '${search_text}'
          OR a.user_fname = '${search_text}'

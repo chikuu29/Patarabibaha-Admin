@@ -25,29 +25,73 @@
                   <th style="cursor: pointer; width:1%">#SI</th>
                   <th style="cursor: pointer; width:25%" title="Profile ID">
                     Profile ID </th>
+                  <th style="cursor: pointer; width:25%" title="Profile ID">
+                    Name </th>
+
+                  <th style="cursor: pointer; width:25%" title="Profile ID">
+                    Email </th>
+                  <!-- <th style="cursor: pointer; width:25%" title="Created At">
+                      Image
+                    </th> -->
+                  <th style="cursor: pointer; width:25%" title="Profile ID">
+                    Phone No </th>
+                  <th style="cursor: pointer; width:25%" title="Profile ID">
+                    Gender </th>
                   <th style="cursor: pointer; width:25%" title="Created At">
-                    Image
+                    Created At
+                  </th>
+                  <th>
+                    Status
                   </th>
                   <th style="cursor: pointer; width:10%" title="Action">Action
                   </th>
-
                 </tr>
               </thead>
               <tbody>
                 <ng-container
-                  *ngFor="let data of tableData | fillter:['user_full_name','user_ID','user_email','user_phone_no']:filterText ; index as i">
+                  *ngFor="let data of tableData | fillter:['user_full_name','user_gender','user_ID','user_email','user_phone_no']:filterText ; index as i">
                   <tr>
                     <td>{{ i+1 }}</td>
-                    <td [title]="data?.user_id" >
+                    <!-- <td [title]="data?.user_id" >
                       <div> {{data?.user_ID}} </div>
                     </td>
 
                     <td>
                       {{ data?.user_profile_images }}
+                    </td>-->
+                    <td [title]="data?.user_id">
+                      <div> {{data?.user_id}} </div>
+                    </td>
+
+                    <td [title]="data?.user_full_name">
+                      <div> {{data?.user_full_name}} </div>
+                    </td>
+
+                    <td [title]="data?.user_email">
+                      <div> {{data?.user_email}} </div>
+                    </td>
+                    <td [title]="data?.user_phone_no">
+                      <div> {{data?.user_phone_no}} </div>
+                    </td>
+                    <td [title]="data?.user_gender">
+                      <div> {{data?.user_gender}} </div>
+                    </td>
+
+                    <td>
+                      {{ data?.user_creation_date_time }}
+                    </td>
+                    <td title="status">
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"
+                        *ngIf="data.user_all_table_complited == 1 "> Complited
+                      </div>
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
+                        *ngIf="data.user_all_table_complited == 0"> Not Complited
+                      </div>
                     </td>
                     <td>
 
-                      <button class="btn btn-outline-primary btn-sm me-2" title="View" (click)="update(data.user_ID,data.user_feature_images)">
+                      <button class="btn btn-outline-primary btn-sm me-2" title="View"
+                        (click)="update(data.user_ID,data.user_feature_images)">
                         <i class="fas fa-eye"></i> View
                       </button>
                     </td>
@@ -77,4 +121,3 @@
     </div>
   </div>
 </div>
-

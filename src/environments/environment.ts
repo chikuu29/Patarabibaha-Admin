@@ -9,7 +9,7 @@ export const environment = {
   // baseApiURL: 'https://choicemarriage.com/backend-api/public/',
   // filePath:"https://choicemarriage.com/",
   // application_url: "https://admin.choicemarriage.com/"
-  baseApiURL: 'http://localhost:8000/',
+  baseApiURL: 'http://localhost:8080/',
   filePath: 'http://localhost/',
   application_url: 'http://localhost:4200/'
 };

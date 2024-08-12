@@ -33,6 +33,7 @@ import { HomepageeventComponent } from './homepageevent/homepageevent.component'
 import { LogineventComponent } from './loginevent/loginevent.component';
 import { AdminComponent } from '../layout/admin/admin.component';
 import { LikedetailsComponent } from './likedetails/likedetails.component';
+import { BannerAdvComponent } from './banner-adv/banner-adv.component';
 
 
 
@@ -192,6 +193,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: LikedetailsComponent
       },
+      {
+        path: 'banner-adv',
+        canActivate: [AuthGuard],
+        component: BannerAdvComponent
+      },
+
 
 
 

@@ -287,6 +287,11 @@
           "text": "Country"
         },
         {
+          "routerLink": "/socialmedia-page",
+          "text": "Socialmedia"
+        },
+
+        {
           "routerLink": "/state-page",
           "text": "State"
         },
@@ -756,7 +761,12 @@
       "hidden": false,
       "submenuActive": false,
       "displayInSideNav":true,
-      "submenu": []
+      "submenu": [
+        {
+          "routerLink": "/banner-adv",
+          "text": "Banner Adv"
+        }
+      ]
     },
     {
       "order": 20,
@@ -855,6 +865,13 @@
       "requiredRouterLink": false,
       "routerLink": "/approve",
       "text": "Approval",
+      "displayInSideNav":false
+    },
+    {
+      "order": 31,
+      "requiredRouterLink": false,
+      "routerLink": "/auth",
+      "text": "Two Step Verification",
       "displayInSideNav":false
     }
 

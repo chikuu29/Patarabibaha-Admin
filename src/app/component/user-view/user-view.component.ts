@@ -41,7 +41,7 @@ export class UserViewComponent implements OnInit {
   address: string = '';
   showupload: boolean = false;
   uloadedImageFile: any = [];
-
+  urlofside: any = environment.application_url;
   profileCreatedBy: string[] = ['GUEST'];
   genderOptions: string[] = ['Male', 'Female'];
   profileOptions: string[] = [
@@ -291,131 +291,157 @@ export class UserViewComponent implements OnInit {
     { name: 144 },
   ];
 
-  mothersac: any[] = [
-    { name: 'Business Owner' },
-    { name: 'Retired Business Owner' },
-    { name: 'Entrepreneur' },
-    { name: 'Retired Entrepreneur' },
-    { name: 'Professional' },
-    { name: 'Retired Professional' },
-    { name: 'Doctor' },
-    { name: 'Retired Doctor' },
-    { name: 'Engineer' },
-    { name: 'Retired Engineer' },
-    { name: 'Employee' },
-    { name: 'Retired Employee' },
-    { name: 'Professor' },
-    { name: 'Retired Professor' },
-    { name: 'Accountant' },
-    { name: 'Retired Accountant' },
-    { name: 'Financial Advisor' },
-    { name: 'Retired Financial Advisor' },
-    { name: 'Architect' },
-    { name: 'Retired Architect' },
-    { name: 'Consultant' },
-    { name: 'Retired Consultant' },
-    { name: 'Artist' },
-    { name: 'Retired Artist' },
+  mothersac: any = [
+    { name: 'Govt employee [State]' },
+    { name: 'Govt employee [Central]' },
+    { name: 'Retired Govt employee [State]' },
+    { name: 'Retired Govt employee [Central]' },
+    { name: 'Business Man' },
     { name: 'Farmer' },
-    { name: 'Retired Farmer' },
-    { name: 'Pilot' },
-    { name: 'Retired Pilot' },
-    { name: 'Scientist' },
-    { name: 'Retired Scientist' },
-    { name: 'IT Professional' },
-    { name: 'Retired IT Professional' },
-    { name: 'Manager' },
-    { name: 'Retired Manager' },
-    { name: 'Salesperson' },
-    { name: 'Retired Salesperson' },
-    { name: 'Military Personnel' },
-    { name: 'Retired Military Personnel' },
-    { name: 'Police Officer' },
-    { name: 'Retired Police Officer' },
-    { name: 'Chef' },
-    { name: 'Retired Chef' },
-    { name: 'Musician' },
-    { name: 'Retired Musician' },
-    { name: 'Writer' },
-    { name: 'Retired Writer' },
-    { name: 'Actor' },
-    { name: 'Retired Actor' },
-    { name: 'Carpenter' },
-    { name: 'Retired Carpenter' },
-    { name: 'Electrician' },
-    { name: 'Retired Electrician' },
-    { name: 'Plumber' },
-    { name: 'Retired Plumber' },
-    { name: 'Mechanic' },
-    { name: 'Retired Mechanic' },
-    { name: 'Driver' },
-    { name: 'Lete' },
+    { name: 'Private Company Employee' },
+    { name: 'Retired Private Company Employee' },
+    { name: 'Late' },
+    { name: 'Other' },
     { name: 'House Wife' },
+  ];
+  fathersoc: any = [
+    { name: 'Govt employee [State]' },
+    { name: 'Govt employee [Central] ' },
+    { name: 'Retired Govt employee [State]' },
+    { name: 'Retired Govt employee [Central]' },
+    { name: 'Business Man' },
+    { name: 'Farmer' },
+    { name: 'Private Company Employee' },
+    { name: 'Retired Private Company Employee' },
+    { name: 'Late' },
     { name: 'Other' },
   ];
 
-  fathersoc: any[] = [
-    { name: 'Business Owner' },
-    { name: 'Retired Business Owner' },
-    { name: 'Entrepreneur' },
-    { name: 'Retired Entrepreneur' },
-    { name: 'Professional' },
-    { name: 'Retired Professional' },
-    { name: 'Doctor' },
-    { name: 'Retired Doctor' },
-    { name: 'Engineer' },
-    { name: 'Retired Engineer' },
-    { name: 'Employee' },
-    { name: 'Retired Employee' },
-    { name: 'Professor' },
-    { name: 'Retired Professor' },
-    { name: 'Accountant' },
-    { name: 'Retired Accountant' },
-    { name: 'Financial Advisor' },
-    { name: 'Retired Financial Advisor' },
-    { name: 'Architect' },
-    { name: 'Retired Architect' },
-    { name: 'Consultant' },
-    { name: 'Retired Consultant' },
-    { name: 'Artist' },
-    { name: 'Retired Artist' },
-    { name: 'Farmer' },
-    { name: 'Retired Farmer' },
-    { name: 'Pilot' },
-    { name: 'Retired Pilot' },
-    { name: 'Scientist' },
-    { name: 'Retired Scientist' },
-    { name: 'IT Professional' },
-    { name: 'Retired IT Professional' },
-    { name: 'Manager' },
-    { name: 'Retired Manager' },
-    { name: 'Salesperson' },
-    { name: 'Retired Salesperson' },
-    { name: 'Military Personnel' },
-    { name: 'Retired Military Personnel' },
-    { name: 'Police Officer' },
-    { name: 'Retired Police Officer' },
-    { name: 'Chef' },
-    { name: 'Retired Chef' },
-    { name: 'Musician' },
-    { name: 'Retired Musician' },
-    { name: 'Writer' },
-    { name: 'Retired Writer' },
-    { name: 'Actor' },
-    { name: 'Retired Actor' },
-    { name: 'Carpenter' },
-    { name: 'Retired Carpenter' },
-    { name: 'Electrician' },
-    { name: 'Retired Electrician' },
-    { name: 'Plumber' },
-    { name: 'Retired Plumber' },
-    { name: 'Mechanic' },
-    { name: 'Retired Mechanic' },
-    { name: 'Driver' },
-    { name: 'Retired Driver' },
-    { name: 'Lete' },
-    { name: 'Other' },
-  ];
+  // mothersac: any[] = [
+  //   { name: 'Business Owner' },
+  //   { name: 'Retired Business Owner' },
+  //   { name: 'Entrepreneur' },
+  //   { name: 'Retired Entrepreneur' },
+  //   { name: 'Professional' },
+  //   { name: 'Retired Professional' },
+  //   { name: 'Doctor' },
+  //   { name: 'Retired Doctor' },
+  //   { name: 'Engineer' },
+  //   { name: 'Retired Engineer' },
+  //   { name: 'Employee' },
+  //   { name: 'Retired Employee' },
+  //   { name: 'Professor' },
+  //   { name: 'Retired Professor' },
+  //   { name: 'Accountant' },
+  //   { name: 'Retired Accountant' },
+  //   { name: 'Financial Advisor' },
+  //   { name: 'Retired Financial Advisor' },
+  //   { name: 'Architect' },
+  //   { name: 'Retired Architect' },
+  //   { name: 'Consultant' },
+  //   { name: 'Retired Consultant' },
+  //   { name: 'Artist' },
+  //   { name: 'Retired Artist' },
+  //   { name: 'Farmer' },
+  //   { name: 'Retired Farmer' },
+  //   { name: 'Pilot' },
+  //   { name: 'Retired Pilot' },
+  //   { name: 'Scientist' },
+  //   { name: 'Retired Scientist' },
+  //   { name: 'IT Professional' },
+  //   { name: 'Retired IT Professional' },
+  //   { name: 'Manager' },
+  //   { name: 'Retired Manager' },
+  //   { name: 'Salesperson' },
+  //   { name: 'Retired Salesperson' },
+  //   { name: 'Military Personnel' },
+  //   { name: 'Retired Military Personnel' },
+  //   { name: 'Police Officer' },
+  //   { name: 'Retired Police Officer' },
+  //   { name: 'Chef' },
+  //   { name: 'Retired Chef' },
+  //   { name: 'Musician' },
+  //   { name: 'Retired Musician' },
+  //   { name: 'Writer' },
+  //   { name: 'Retired Writer' },
+  //   { name: 'Actor' },
+  //   { name: 'Retired Actor' },
+  //   { name: 'Carpenter' },
+  //   { name: 'Retired Carpenter' },
+  //   { name: 'Electrician' },
+  //   { name: 'Retired Electrician' },
+  //   { name: 'Plumber' },
+  //   { name: 'Retired Plumber' },
+  //   { name: 'Mechanic' },
+  //   { name: 'Retired Mechanic' },
+  //   { name: 'Driver' },
+  //   { name: 'Lete' },
+  //   { name: 'House Wife' },
+  //   { name: 'Other' },
+  // ];
+
+  // fathersoc: any[] = [
+  //   { name: 'Business Owner' },
+  //   { name: 'Retired Business Owner' },
+  //   { name: 'Entrepreneur' },
+  //   { name: 'Retired Entrepreneur' },
+  //   { name: 'Professional' },
+  //   { name: 'Retired Professional' },
+  //   { name: 'Doctor' },
+  //   { name: 'Retired Doctor' },
+  //   { name: 'Engineer' },
+  //   { name: 'Retired Engineer' },
+  //   { name: 'Employee' },
+  //   { name: 'Retired Employee' },
+  //   { name: 'Professor' },
+  //   { name: 'Retired Professor' },
+  //   { name: 'Accountant' },
+  //   { name: 'Retired Accountant' },
+  //   { name: 'Financial Advisor' },
+  //   { name: 'Retired Financial Advisor' },
+  //   { name: 'Architect' },
+  //   { name: 'Retired Architect' },
+  //   { name: 'Consultant' },
+  //   { name: 'Retired Consultant' },
+  //   { name: 'Artist' },
+  //   { name: 'Retired Artist' },
+  //   { name: 'Farmer' },
+  //   { name: 'Retired Farmer' },
+  //   { name: 'Pilot' },
+  //   { name: 'Retired Pilot' },
+  //   { name: 'Scientist' },
+  //   { name: 'Retired Scientist' },
+  //   { name: 'IT Professional' },
+  //   { name: 'Retired IT Professional' },
+  //   { name: 'Manager' },
+  //   { name: 'Retired Manager' },
+  //   { name: 'Salesperson' },
+  //   { name: 'Retired Salesperson' },
+  //   { name: 'Military Personnel' },
+  //   { name: 'Retired Military Personnel' },
+  //   { name: 'Police Officer' },
+  //   { name: 'Retired Police Officer' },
+  //   { name: 'Chef' },
+  //   { name: 'Retired Chef' },
+  //   { name: 'Musician' },
+  //   { name: 'Retired Musician' },
+  //   { name: 'Writer' },
+  //   { name: 'Retired Writer' },
+  //   { name: 'Actor' },
+  //   { name: 'Retired Actor' },
+  //   { name: 'Carpenter' },
+  //   { name: 'Retired Carpenter' },
+  //   { name: 'Electrician' },
+  //   { name: 'Retired Electrician' },
+  //   { name: 'Plumber' },
+  //   { name: 'Retired Plumber' },
+  //   { name: 'Mechanic' },
+  //   { name: 'Retired Mechanic' },
+  //   { name: 'Driver' },
+  //   { name: 'Retired Driver' },
+  //   { name: 'Lete' },
+  //   { name: 'Other' },
+  // ];
 
   bodyTpeOptions: any = [
     { name: 'Athletic' },
@@ -452,9 +478,7 @@ export class UserViewComponent implements OnInit {
   basicDetailsForm = new FormGroup({
     user_fname: new FormControl(''),
     user_lname: new FormControl(''),
-    user_email: new FormControl(this.appservices.authStatus.profile_email, [
-      Validators.required,
-    ]),
+    user_email: new FormControl(this.appservices.authStatus.profile_email),
     user_profileType: new FormControl(''),
     user_gender: new FormControl(''),
     user_mother_toungh: new FormControl(''),
@@ -473,7 +497,7 @@ export class UserViewComponent implements OnInit {
     user_subcaste: new FormControl(''),
   });
   education_occupationDetailsForm = new FormGroup({
-    user_ID: new FormControl('', []),
+    user_ID: new FormControl(''),
     user_occupation: new FormControl(''),
     user_employed_In: new FormControl(''),
     user_anual_income: new FormControl(''),
@@ -481,49 +505,47 @@ export class UserViewComponent implements OnInit {
     user_highest_education: new FormControl(''),
     user_occupation_details: new FormControl(''),
     user_occupation_location: new FormControl(''),
-    completed: new FormControl(1, []),
+    completed: new FormControl(1),
     user_deg: new FormControl(''),
   });
 
   userFamilyDetailsForm = new FormGroup({
-    user_ID: new FormControl('', []),
+    user_ID: new FormControl(''),
     user_family_type: new FormControl(''),
     user_family_value: new FormControl(''),
     user_family_status: new FormControl(''),
     user_father_name: new FormControl(''),
     user_mother_name: new FormControl(''),
     user_father_occupation: new FormControl(''),
-    user_mothers_occupation: new FormControl(''),
-    user_no_of_unmarried_brother: new FormControl(''),
-    user_no_of_unmarried_sister: new FormControl(''),
-    user_no_of_married_sister: new FormControl(''),
-    user_no_of_married_brother: new FormControl(''),
-    completed: new FormControl(1, []),
+    user_mothers_occupation: new FormControl(0),
+    user_no_of_unmarried_brother: new FormControl(0),
+    user_no_of_unmarried_sister: new FormControl(0),
+    user_no_of_married_sister: new FormControl(0),
+    user_no_of_married_brother: new FormControl(0),
+    completed: new FormControl(1),
   });
 
   locationDetailsForm = new FormGroup({
-    user_ID: new FormControl('', []),
+    user_ID: new FormControl(''),
     user_country: new FormControl(''),
     user_state: new FormControl(''),
     user_city: new FormControl(''),
     user_Address: new FormControl(''),
     user_Permanent_Address: new FormControl(''),
-    user_current_and_permanent_address_same: new FormControl('No', [
-      Validators.required,
-    ]),
+    user_current_and_permanent_address_same: new FormControl('No'),
     user_Permanent_city: new FormControl(''),
     user_Permanent_state: new FormControl(''),
     user_Permanent_country: new FormControl(''),
-    completed: new FormControl(1, []),
+    completed: new FormControl(1),
   });
   userAboutDetailsForm = new FormGroup({
-    user_ID: new FormControl('', []),
+    user_ID: new FormControl(''),
     user_about: new FormControl(''),
-    completed: new FormControl(1, []),
+    completed: new FormControl(1),
   });
 
   habitHobbiesForm = new FormGroup({
-    user_ID: new FormControl('', []),
+    user_ID: new FormControl(''),
     user_diet: new FormControl(''),
     user_smoking: new FormControl(''),
     user_drinking: new FormControl(''),
@@ -647,11 +669,14 @@ export class UserViewComponent implements OnInit {
 
             this.physicalDeatilsForm.patchValue(res['user_physical_details']);
             this.basicDetailsForm.patchValue(res['user_info']);
-           if(res['user_info'].whats_app_c_code == null || res['user_info'].whats_app_c_code == ''){
-            this.basicDetailsForm.patchValue({
-              whats_app_c_code:'91'
-            })
-           }
+            if (
+              res['user_info'].whats_app_c_code == null ||
+              res['user_info'].whats_app_c_code == ''
+            ) {
+              this.basicDetailsForm.patchValue({
+                whats_app_c_code: '91',
+              });
+            }
 
             this.getSubcaste(this.user_religionDetailsForm.value.user_caste);
             this.getstatefilter(this.locationDetailsForm.value.user_country);
@@ -1022,6 +1047,10 @@ export class UserViewComponent implements OnInit {
         user_email: this.basicDetailsForm.value.user_email,
         user_profileType: this.basicDetailsForm.value.user_profileType,
         user_gender: this.basicDetailsForm.value.user_gender,
+        user_full_name:
+          this.basicDetailsForm.value.user_fname +
+          ' ' +
+          this.basicDetailsForm.value.user_lname,
         user_mother_toungh: this.basicDetailsForm.value.user_mother_toungh,
         user_marital_status: this.basicDetailsForm.value.user_marital_status,
         user_dob: moment(this.basicDetailsForm.value.user_dob)
@@ -1032,7 +1061,7 @@ export class UserViewComponent implements OnInit {
         user_whatsapp_no: this.basicDetailsForm.value.user_whatsapp_no,
         country_code: this.basicDetailsForm.value.country_code,
         whats_app_c_code: this.basicDetailsForm.value.whats_app_c_code,
-        user_age:moment().diff(this.basicDetailsForm.value.user_dob, 'years')
+        user_age: moment().diff(this.basicDetailsForm.value.user_dob, 'years'),
       },
       whereConditions: {
         user_id: this.profile_id,
@@ -1041,9 +1070,9 @@ export class UserViewComponent implements OnInit {
     this.ApiParameterScript.updatedata('user_info', updateData).subscribe(
       (res: any) => {
         if (res.success) {
-          Swal.fire('', res.message, 'success').then(() => {
-            this.ngOnInit();
-          });
+          // Swal.fire('', res.message, 'success').then(() => {
+          //   this.ngOnInit();
+          // });
           var updateData1 = {
             data: {
               auth_name:
@@ -1592,133 +1621,172 @@ export class UserViewComponent implements OnInit {
     });
   }
   shareData() {
-    let type1 = this.finaldata.user_gender == 'female' ? 'Bride' : 'Groom';
-    let type2 = this.finaldata.user_gender == 'female' ? 'Groom' : 'Bride';
-    let link =
-      'https://choicemarriage.com/v1/member-profile/' + this.finaldata.auth_ID;
+    let query = `SELECT phone_no FROM social_media_links WHERE id = 1`;
+    this.ApiParameterScript.fetchDataFormQuery(query).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        let firstdob = _.split(this.finaldata.user_dob, '-');
+        let dob = firstdob[2] + '-' + firstdob[1] + '-' + firstdob[0];
+        console.log(this.finaldata);
+        console.log(this.cmToFeetInches(this.finaldata.user_height));
 
-    let details = `
+        let type1 = this.finaldata.user_gender == 'Female' ? 'Bride' : 'Groom';
+        let type2 = this.finaldata.user_gender == 'Female' ? 'Groom' : 'Bride';
+        let link =
+          'https://choicemarriage.com/v1/member-profile/' +
+          this.finaldata.auth_ID;
+
+        let details = `
 Required ${type2}
 <br><br>
 <i class="fa fa-arrow-down" aria-hidden="true"></i> Details Of ${type1} <i class="fa fa-arrow-down" aria-hidden="true"></i>
 <br>
-DOB:- ${
-      this.finaldata.user_dob == null ? 'NOT UPDATE' : this.finaldata.user_dob
-    }
+DOB:- ${this.finaldata.user_dob == null ? 'NOT UPDATE' : dob}
+<br>
+MOBILE NUMBER:- ${res['data'][0].phone_no}
 <br>
 HEIGHT:- ${
-      this.finaldata.user_height == null
-        ? 'NOT UPDATE'
-        : this.finaldata.user_height
-    }
+          this.finaldata.user_height == null
+            ? 'NOT UPDATE'
+            : this.cmToFeetInches(this.finaldata.user_height).feet +
+              ' ft ' +
+              this.cmToFeetInches(this.finaldata.user_height).inches +
+              ' in'
+        }
 <br>
 COLOUR:- ${
-      this.finaldata.user_complextion == null
-        ? 'NOT UPDATE'
-        : this.finaldata.user_complextion
-    }
+          this.finaldata.user_complextion == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_complextion
+        }
+<br>
+CAST:- ${
+          this.finaldata.user_caste == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_caste
+        }\n
 <br>
 RASI:- ${
-      this.finaldata.user_zodiacs == null
-        ? 'NOT UPDATE'
-        : this.finaldata.user_zodiacs
-    }
+          this.finaldata.user_zodiacs == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_zodiacs
+        }
 <br>
 QUALIFICATION:- ${
-      this.finaldata.user_highest_education == null
-        ? 'NOT UPDATE'
-        : this.finaldata.user_highest_education
-    }
+          this.finaldata.user_highest_education == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_highest_education
+        }
+<br>
+OCCUPATION:- ${
+          this.finaldata.user_occupation == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_occupation
+        }
 <br>
 JOB LOCATION:- ${
-      this.finaldata.user_occupation_location == null
-        ? 'NOT UPDATE'
-        : this.finaldata.user_occupation_location
-    }
+          this.finaldata.user_occupation_location == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_occupation_location
+        }
 <br>
 ANNUAL INCOME:- ${
-      this.finaldata.user_anual_income == null
-        ? 'NOT UPDATE'
-        : this.finaldata.user_anual_income * 100000
-    }
+          this.finaldata.user_anual_income == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_anual_income == 0
+            ? 'NO INCOME'
+            : this.formatIncome(this.finaldata.user_anual_income * 100000)
+        }
 <br>
 HOME TOWN:- ${
-      this.finaldata.user_Permanent_city == null
-        ? 'NOT UPDATE'
-        : this.finaldata.user_Permanent_city
-    }
+          this.finaldata.user_Permanent_city == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_Permanent_city
+        }
 <br><br>
 CLICK HERE FOR MORE INFORMATION WITH PHOTO
 <br>
 <a href="https://wa.me?text=${link}">${link}</a>
 `;
 
-    Swal.fire({
-      html: `<div>${details}</div>`,
-      showCancelButton: true,
-      confirmButtonText: 'Copy Details',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // let  textToCopy= details;
-        let textToCopy = `
+        Swal.fire({
+          html: `<div>${details}</div>`,
+          showCancelButton: true,
+          confirmButtonText: 'Copy Details',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // let  textToCopy= details;
+            let textToCopy = `
 Required ${type2}\n
 Details of ${type1}\n
-DOB:- ${
-          this.finaldata.user_dob == null
-            ? 'NOT UPDATE'
-            : this.finaldata.user_dob
-        }\n
+MOBILE NUMBER:- ${res['data'][0].phone_no}
+DOB:- ${this.finaldata.user_dob == null ? 'NOT UPDATE' : dob}
 HEIGHT:- ${
-          this.finaldata.user_height == null
-            ? 'NOT UPDATE'
-            : this.finaldata.user_height
-        }\n
-Colour:- ${
-          this.finaldata.user_complextion == null
-            ? 'NOT UPDATE'
-            : this.finaldata.user_complextion
-        }\n
+              this.finaldata.user_height == null
+                ? 'NOT UPDATE'
+                : this.cmToFeetInches(this.finaldata.user_height).feet +
+                  ' ft ' +
+                  this.cmToFeetInches(this.finaldata.user_height).inches +
+                  ' in'
+            }
+COLOUR:- ${
+              this.finaldata.user_complextion == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_complextion
+            }
+CAST:- ${
+              this.finaldata.user_caste == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_caste
+            }
 RASI:- ${
-          this.finaldata.user_zodiacs == null
-            ? 'NOT UPDATE'
-            : this.finaldata.user_zodiacs
-        }\n
-QUALIFICATION:- ${
-          this.finaldata.user_highest_education == null
-            ? 'NOT UPDATE'
-            : this.finaldata.user_highest_education
-        }\n
+              this.finaldata.user_zodiacs == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_zodiacs
+            }
+QUALIFICATION:-${
+              this.finaldata.user_highest_education == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_highest_education
+            }
+OCCUPATION:- ${
+              this.finaldata.user_occupation == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_occupation
+            }
 JOB LOCATION:- ${
-          this.finaldata.user_occupation_location == null
-            ? 'NOT UPDATE'
-            : this.finaldata.user_occupation_location
-        }\n
+              this.finaldata.user_occupation_location == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_occupation_location
+            }
 ANNUAL INCOME:- ${
-          this.finaldata.user_anual_income == null
-            ? 'NOT UPDATE'
-            : this.finaldata.user_anual_income * 100000
-        }\n
+              this.finaldata.user_anual_income == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_anual_income == 0
+                ? 'NO INCOME'
+                : this.formatIncome(this.finaldata.user_anual_income * 100000)
+            }
 HOME TOWN:- ${
-          this.finaldata.user_Permanent_city == null
-            ? 'NOT UPDATE'
-            : this.finaldata.user_Permanent_city
-        }\n
-CLICK HERE FOR MORE INFORMATION WITH PHOTO\n
+              this.finaldata.user_Permanent_city == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_Permanent_city
+            }
+CLICK HERE FOR MORE INFORMATION WITH PHOTO
 ${link}
     `;
-
-        navigator.clipboard
-          .writeText(textToCopy)
-          .then(() => {
-            Swal.fire(
-              'Copied!',
-              'Details have been copied to the clipboard',
-              'success'
-            );
-          })
-          .catch((err) => {
-            Swal.fire('Error', 'Failed to copy details', 'error');
-          });
+            navigator.clipboard
+              .writeText(textToCopy)
+              .then(() => {
+                Swal.fire(
+                  'Copied!',
+                  'Details have been copied to the clipboard',
+                  'success'
+                );
+              })
+              .catch((err) => {
+                Swal.fire('Error', 'Failed to copy details', 'error');
+              });
+          }
+        });
       }
     });
   }
@@ -1814,6 +1882,12 @@ ${link}
       disableClose: true,
     });
   }
+  cmToFeetInches(cm: any) {
+    const inches = cm / 2.54;
+    const feet = Math.floor(inches / 12);
+    const remainingInches = inches % 12;
+    return { feet: feet, inches: remainingInches.toFixed(0) };
+  }
   generateAboutUs(): void {
     // Generate the content for the "About Me" textarea (replace this with your actual content generation logic)
     let aboutMeContent =
@@ -1821,5 +1895,14 @@ ${link}
     this.userAboutDetailsForm.patchValue({
       user_about: aboutMeContent,
     });
+  }
+  formatIncome(income: any) {
+    const incomeInLakhs = income / 100000;
+    if (incomeInLakhs >= 1) {
+      return `${incomeInLakhs.toFixed(0)} lakh`;
+    } else {
+      const incomeInThousands = income / 1000;
+      return `${incomeInThousands.toFixed(0)} thousand`;
+    }
   }
 }

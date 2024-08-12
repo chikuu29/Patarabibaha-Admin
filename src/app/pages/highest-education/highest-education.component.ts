@@ -302,7 +302,7 @@ export class HighestEducationComponent implements OnInit {
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipulData(
-            'occupation',
+            'highest_education',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {
@@ -343,7 +343,7 @@ export class HighestEducationComponent implements OnInit {
             whereConditions: this.allId,
           };
           this.ApiParameter.makeActinForMultipulData(
-            'occupation',
+            'highest_education',
             updateData
           ).subscribe((res: any) => {
             if (res.success) {
@@ -373,7 +373,6 @@ export class HighestEducationComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
             deleted: 'Delete',

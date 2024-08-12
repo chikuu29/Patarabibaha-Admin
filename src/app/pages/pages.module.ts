@@ -40,6 +40,7 @@ import { HomepageeventComponent } from './homepageevent/homepageevent.component'
 import { SharedModule } from '../shared/shared.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { LikedetailsComponent } from './likedetails/likedetails.component';
+import { BannerAdvComponent } from './banner-adv/banner-adv.component';
 
 
 
@@ -77,7 +78,8 @@ import { LikedetailsComponent } from './likedetails/likedetails.component';
     HomeiconComponent,
     LogineventComponent,
     HomepageeventComponent,
-    LikedetailsComponent
+    LikedetailsComponent,
+    BannerAdvComponent
 
   ],
   imports: [

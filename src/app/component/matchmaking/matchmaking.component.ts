@@ -5,10 +5,10 @@ import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-matchmaking',
   templateUrl: './matchmaking.component.html',
-  styleUrls: ['./matchmaking.component.scss']
+  styleUrls: ['./matchmaking.component.scss'],
 })
 export class MatchmakingComponent implements OnInit {
-  filterText:any;
+  filterText: any;
   alldata: any;
   tableData: any = [];
   allId: any[] = [];
@@ -19,13 +19,13 @@ export class MatchmakingComponent implements OnInit {
   offset = 1;
   pegination_required: boolean = false;
   currentFunction: string = 'getAllData';
-  defultdata :any;
+  defultdata: any;
   totalDataCount: number = 0;
   totalFetchrecord: number = 0;
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.allId = [];
@@ -60,16 +60,14 @@ export class MatchmakingComponent implements OnInit {
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
+         OR a.user_full_name LIKE '%${search_text}%'
+         OR b.auth_phone_no LIKE '%${search_text}%'
+         OR a.user_email LIKE '%${search_text}%'
          ORDER BY a.user_creation_date_time DESC
        `;
     }
 
-
-
-
-
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
@@ -83,11 +81,14 @@ export class MatchmakingComponent implements OnInit {
       }
     });
   }
-  matchmaking(data:any,gender:any){
+  matchmaking(data: any, gender: any) {
     // alert(data+':'+gender);
     let kye = 'Lipun';
-    let encripted = CryptoJS.AES.encrypt(JSON.stringify(data+':'+gender),kye).toString();
-    this.router.navigate(['matches-page',encripted]);
+    let encripted = CryptoJS.AES.encrypt(
+      JSON.stringify(data + ':' + gender),
+      kye
+    ).toString();
+    this.router.navigate(['matches-page', encripted]);
   }
   getSearchText(event: any) {
     this.filterText = event;
@@ -126,8 +127,6 @@ export class MatchmakingComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
@@ -160,5 +159,4 @@ export class MatchmakingComponent implements OnInit {
     let _this: any = this;
     _this[this.currentFunction](0, Number(event.target.value));
   }
-
 }

@@ -7,11 +7,10 @@ import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 import { CommonService } from 'src/app/services/common.service';
 
-
 @Component({
   selector: 'app-city',
   templateUrl: './city.component.html',
-  styleUrls: ['./city.component.scss']
+  styleUrls: ['./city.component.scss'],
 })
 export class CityComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
@@ -21,7 +20,9 @@ export class CityComponent implements OnInit {
     id: new FormControl('', []),
     country_name: new FormControl('', [Validators.required]),
     state_name: new FormControl('', [Validators.required]),
-    city_name: new FormControl('', [Validators.required])
+    city_name: new FormControl('', [Validators.required]),
+    latitude: new FormControl('', [Validators.required]),
+    longitude: new FormControl('', [Validators.required]),
   });
   filterText: any;
   collectionSize: number = 0;
@@ -50,16 +51,18 @@ export class CityComponent implements OnInit {
     private api: ApiService,
     private ApiParameter: ApiParameterScript,
     private ApiParameterScript: ApiParameterScript,
-    private CommonService : CommonService
-  ) { }
+    private CommonService: CommonService
+  ) {}
 
   ngOnInit(): void {
     this.allId = [];
     this.citygroup = new FormGroup({
-      id: new FormControl('',),
+      id: new FormControl(''),
       country_name: new FormControl(''),
       state_name: new FormControl(''),
-      city_name: new FormControl('')
+      city_name: new FormControl(''),
+      latitude: new FormControl(''),
+      longitude: new FormControl(''),
     });
 
     this.button = 'ADD';
@@ -79,18 +82,19 @@ export class CityComponent implements OnInit {
     this.getcountryname();
     this.fatchdata();
     this.getcitydata(0, this.apiFetchRecordLimit);
-
-
   }
 
-  getcitydata(start: number,
+  getcitydata(
+    start: number,
     limit: number,
     loadSpecificData: boolean = false,
-    search_text?: any){
+    search_text?: any
+  ) {
     this.pegination_required = true;
     var quary = `SELECT *,
       COUNT(*) OVER () AS total_count
       FROM city
+      WHERE deleted = 0
       ORDER BY country_name ASC, state_name ASC , city_name ASC
       LIMIT ${limit} OFFSET ${start}`;
 
@@ -100,19 +104,18 @@ export class CityComponent implements OnInit {
       COUNT(*) OVER () AS total_count
       FROM city
       WHERE
-          city_name LIKE '%${search_text}%'
+         ( city_name LIKE '%${search_text}%'
          OR state_name LIKE '%${search_text}%'
-         OR country_name LIKE '%${search_text}%'
+         OR country_name LIKE '%${search_text}%')
+         AND deleted = 0
          ORDER BY country_name ASC, state_name ASC , city_name ASC
        `;
     }
-
+    console.log(quary);
 
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-
-
       this.blockUI.stop();
 
       if (res.success && res['data'].length > 0) {
@@ -122,7 +125,6 @@ export class CityComponent implements OnInit {
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
 
         this.tableData = res['data'];
-
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -130,12 +132,8 @@ export class CityComponent implements OnInit {
     });
   }
 
-
-
-  getSearchText(event:any){
-
-
-    this.filterText = event
+  getSearchText(event: any) {
+    this.filterText = event;
   }
 
   onpageChnage() {
@@ -150,175 +148,179 @@ export class CityComponent implements OnInit {
   }
 
   getstatefilter(country_name: any) {
-
-    this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { "country_name": country_name, "status": 1 } }).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('state', {
+      projection: ['*'],
+      whereConditions: { country_name: country_name, status: 1 },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
-
         this.stateOption = res['data'].map((obj: any) => {
-
           return { name: obj.name };
-
         });
-
-
       } else {
-        this.stateOption = []
+        this.stateOption = [];
       }
-
     });
-
   }
 
   getcountryname() {
-
-    this.ApiParameter.fetchdata('country', { "projection": ["*"] }, 0,250).subscribe((res: any) => {
+    this.ApiParameter.fetchdata(
+      'country',
+      { projection: ['*'] },
+      0,
+      250
+    ).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.countryalldata = res['data'];
-
       }
-    })
+    });
   }
   getstate() {
-    this.ApiParameter.fetchdata('state', { "projection": ["*"], "whereConditions": { country_name: this.citygroup.value.country_name } }).subscribe((res: any) => {
-
+    this.ApiParameter.fetchdata('state', {
+      projection: ['*'],
+      whereConditions: { country_name: this.citygroup.value.country_name },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         this.statealldatabycountry = res['data'];
-
-
       }
-
-
-    })
+    });
   }
 
   adddata() {
-    if (this.button == 'ADD') {
+    let quary = `SELECT 1 from city where country_name = '${this.citygroup.value.country_name}' AND state_name = '${this.citygroup.value.state_name}' AND city_name = '${this.citygroup.value.city_name}'`;
+    this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
+      if (!(res.success && res['data'].length > 0)) {
+        if (this.button == 'ADD') {
+          if (this.citygroup.valid) {
+            let updateData = {
+              data: {
+                country_name: this.citygroup.value.country_name,
+                state_name: this.citygroup.value.state_name,
+                city_name: this.citygroup.value.city_name,
+                latitude: this.citygroup.value.latitude,
+                longitude: this.citygroup.value.longitude,
+                created_At: moment().toISOString(),
+              },
+            };
 
-      if (this.citygroup.valid) {
-
-
-        let updateData = {
-          "data": {
-            "country_name": this.citygroup.value.country_name,
-            "state_name": this.citygroup.value.state_name,
-            "city_name": this.citygroup.value.city_name,
-            "created_At": moment().toISOString()
-          },
-        }
-
-        this.ApiParameter.savedata('city', updateData).subscribe((res: any) => {
-
-          if (res.success) {
-            Swal.fire({
-              icon: 'success',
-              text: res.message
-            }).then((ress: any) => {
-              this.ngOnInit()
-            });
+            this.ApiParameter.savedata('city', updateData).subscribe(
+              (res: any) => {
+                if (res.success) {
+                  Swal.fire({
+                    icon: 'success',
+                    text: res.message,
+                  }).then((ress: any) => {
+                    this.ngOnInit();
+                  });
+                } else {
+                  Swal.fire({
+                    icon: 'error',
+                    text: res.message,
+                  });
+                }
+              }
+            );
           } else {
             Swal.fire({
               icon: 'error',
-              text: res.message
+              text: 'Please Enter All Your Data',
             });
           }
-        })
-
-
-      } else {
-        Swal.fire({
-          icon: 'error',
-          text: 'Please Enter All Your Data'
-        })
-      }
-    } else if (this.button == 'Update') {
-      if (this.citygroup.valid) {
-        let updateData = {
-          "data": {
-            "country_name": this.citygroup.value.country_name,
-            "state_name": this.citygroup.value.state_name,
-            "city_name": this.citygroup.value.city_name,
-          },
-          "whereConditions": { id: this.citygroup.value.id }
-        }
-        this.ApiParameter.updatedata('city', updateData).subscribe((res: any) => {
-
-          if (res.success) {
-            Swal.fire({
-              icon: 'success',
-              text: res.message
-            }).then((ress: any) => {
-              let update = {
-                "oldcast": this.editedcast,
-                "newdata" : this.citygroup.value.city_name,
-                "tablename" : "user_religion",
-                "coulemnname" : "user_city"
+        } else if (this.button == 'Update') {
+          if (this.citygroup.valid) {
+            let updateData = {
+              data: {
+                country_name: this.citygroup.value.country_name,
+                state_name: this.citygroup.value.state_name,
+                city_name: this.citygroup.value.city_name,
+                latitude: this.citygroup.value.latitude,
+                longitude: this.citygroup.value.longitude,
+              },
+              whereConditions: { id: this.citygroup.value.id },
+            };
+            this.ApiParameter.updatedata('city', updateData).subscribe(
+              (res: any) => {
+                if (res.success) {
+                  Swal.fire({
+                    icon: 'success',
+                    text: res.message,
+                  }).then((ress: any) => {
+                    let update = {
+                      oldcast: this.editedcast,
+                      newdata: this.citygroup.value.city_name,
+                      tablename: 'user_religion',
+                      coulemnname: 'user_city',
+                    };
+                    // this.CommonService.coloumUpdated(update).subscribe((res:any)=>{});
+                    this.ngOnInit();
+                  });
+                } else {
+                  Swal.fire({
+                    icon: 'warning',
+                    text: res.message,
+                  });
+                }
               }
-              // this.CommonService.coloumUpdated(update).subscribe((res:any)=>{});
-              this.ngOnInit()
-            });
+            );
           } else {
             Swal.fire({
-              icon: 'warning',
-              text: res.message
+              icon: 'error',
+              text: 'Please Enter All Your Data',
             });
           }
-        })
-
-
+        }
       } else {
-        Swal.fire({
-          icon: 'error',
-          text: 'Please Enter All Your Data'
-        })
+        Swal.fire('City Name is Present');
       }
-    }
+    });
   }
   fatchdata() {
-    let offset = this.page * 10 - 10
-    this.ApiParameter.fetchdata('city', { "projection": ["*"] },offset, 10).subscribe((res: any) => {
-
-      this.totalFetchrecord = offset+res['count']
-      this.totalCount = res['totalCount']
-      this.collectionSize = res['totalCount']
+    let offset = this.page * 10 - 10;
+    this.ApiParameter.fetchdata(
+      'city',
+      { projection: ['*'] },
+      offset,
+      10
+    ).subscribe((res: any) => {
+      this.totalFetchrecord = offset + res['count'];
+      this.totalCount = res['totalCount'];
+      this.collectionSize = res['totalCount'];
       if (res.success && res['data'].length > 0) {
         this.allcitydata = res['data'];
         // console.log(this.privacypalicy.patchValue(res['data'][0]));
-
       }
-    })
+    });
   }
 
-
-
-
   edit(id: any) {
-    this.ApiParameter.fetchdata('city', { "projection": ["*"], "whereConditions": { id: id } }).subscribe((res: any) => {
+    this.ApiParameter.fetchdata('city', {
+      projection: ['*'],
+      whereConditions: { id: id },
+    }).subscribe((res: any) => {
       if (res.success && res['data'].length > 0) {
         // this.countryalldata = res['data'];
-        this.getstatefilter(res['data'][0]['country_name'])
+        this.getstatefilter(res['data'][0]['country_name']);
         this.citygroup.patchValue(res['data'][0]);
-        this.button = "Update";
+        this.button = 'Update';
         this.editedcast = this.citygroup.value.city_name;
-
-
       }
     });
   }
 
   delete(id: any) {
-    this.blockUI.start('Deleting...')
-    this.ApiParameter.deletedata('city', { "whereConditions": { id: id } }).subscribe((res: any) => {
+    this.blockUI.start('Deleting...');
+    this.ApiParameter.deletedata('city', {
+      whereConditions: { id: id },
+    }).subscribe((res: any) => {
       this.blockUI.stop();
       if (res.success) {
         Swal.fire('Success', res.message, 'success').then(() => {
-          this.ngOnInit()
+          this.ngOnInit();
         });
       } else {
-        Swal.fire('Error', res.message, 'error')
+        Swal.fire('Error', res.message, 'error');
       }
     });
   }
-
 
   publishuser() {
     if (this.allId.length == 0) {
@@ -329,7 +331,6 @@ export class CityComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -370,7 +371,6 @@ export class CityComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -410,11 +410,10 @@ export class CityComponent implements OnInit {
         text: 'Do you want to Delete',
         showCancelButton: true,
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
             data: {
-              deleted: 0,
+              deleted: 1,
             },
             type: 'Delete',
             whereConditions: this.allId,
@@ -444,12 +443,9 @@ export class CityComponent implements OnInit {
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
 
-
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-
-
         this.allId.push(parseInt(this.tableData[key].id));
         checkbox.checked = true;
       });
@@ -459,11 +455,8 @@ export class CityComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-
   }
   getId(id: any, e: any) {
-
-
     if (e.target.checked) {
       this.allId.push(parseInt(id));
     } else {
@@ -472,7 +465,6 @@ export class CityComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-
   }
   changepaginetdata(event: any) {
     this.page = 1;
@@ -507,16 +499,12 @@ export class CityComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;

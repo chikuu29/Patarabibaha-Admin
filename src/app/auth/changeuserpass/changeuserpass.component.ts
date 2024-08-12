@@ -42,6 +42,8 @@ export class ChangeuserpassComponent implements OnInit {
       JSON.stringify(alldata),
       kye
     ).toString();
+    console.log('auth/2wayverification', encripted);
+
     this.router.navigate(['auth/2wayverification', encripted]);
   }
 
@@ -56,20 +58,25 @@ export class ChangeuserpassComponent implements OnInit {
       LIMIT ${limit} OFFSET ${start};
       `;
     if (loadSpecificData) {
-      Quary = `select * ,COUNT(*) OVER () AS total_count from user_info as a inner join auth_user as b on a.user_id = b.auth_ID
+      Quary = `select * ,COUNT(*) OVER () AS total_count
+                from user_info as a inner
+                join auth_user as b on a.user_id = b.auth_ID
             WHERE
             user_id = '${search_text}'
-           OR a.user_full_name = '${search_text}'
-           OR a.user_email = '${search_text}'
-           OR b.auth_phone_no = '${search_text}'
-           OR a.user_gender = '${search_text}'
+           OR b.auth_ID = '${search_text}'
+         OR a.user_fname = '${search_text}'
+         OR a.user_lname = '${search_text}'
+         OR a.user_gender = '${search_text}'
+         OR a.user_full_name LIKE '%${search_text}%'
+         OR b.auth_phone_no LIKE '%${search_text}%'
+         OR a.user_email LIKE '%${search_text}%'
            ORDER BY user_creation_date_time DESC ;
             `;
     }
+    console.log(Quary);
 
 
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
 
@@ -95,7 +102,6 @@ export class ChangeuserpassComponent implements OnInit {
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-
     var query = `SELECT *
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -118,16 +124,12 @@ export class ChangeuserpassComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
 
-
         this.tableData = res['data'];
-
       }
     });
   }

@@ -99,6 +99,8 @@
                   </th>
                   <th style="cursor: pointer; width: 145px;" title="Profile Status"> Complit Status
                   </th>
+                  <th style="cursor: pointer; width: 145px;" title="Profile Status"> Origen
+                  </th>
                   <th style="cursor: pointer; width:10%" title="Action" class="fixed-column">Action
                   </th>
                   <!-- class="fixed-column" -->
@@ -107,7 +109,7 @@
               <tbody>
                 <ng-container
                   *ngFor="let data of tableData | fillter:['user_fname','user_id','user_email','user_gender','user_full_name','auth_phone_no']:filterText ; index as i">
-                  <tr   [ngClass]="data.online_status == 1 ? 'my_class1' : ''">
+                  <tr [ngClass]="data.online_status == 1 ? 'my_class1' : ''">
                     <td class="text-center">
                       <input type="checkbox" class="check" [value]="data?.user_id" (change)="getId(data?.Id,$event)"
                         name="" id="">
@@ -167,24 +169,33 @@
                       </div>
                     </td>
 
+                    <td title="Ready for Professional Open">
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"
+                        *ngIf="data.data_come_from == null "> Same
+                      </div>
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
+                        *ngIf="data.data_come_from != null"> {{ data.data_come_from }}
+                      </div>
+                    </td>
+
                     <td class="fixed-column">
                       <!-- class="fixed-column" -->
                       <!-- View Button with Outline Style -->
-                      <button class="btn btn-outline-primary btn-sm me-2" title="View"
-                        [routerLink]="'/user/'+data.user_id || data.auth_ID">
+                      <button class="btn btn-outline-primary btn-sm me-2" title="View" [title]="data.user_id"
+                      (click)="viewDeatilsPage(data?.user_id || data?.auth_ID || data?.user_ID)"
+                        >
                         <i class="fas fa-eye"></i> View
                       </button>
+                      <!-- [routerLink]="'/user/'+ " -->
                       <!-- Open in New Tab Button with Outline Style -->
                       <button class="btn btn-outline-primary btn-sm" title="Open in new tab"
-                        (click)="viwePlan(data.user_id || data.auth_ID)">
+                        (click)="viwePlan(data?.user_id || data?.auth_ID || data?.user_ID)">
                         <i class="fas fa-external-link-alt"></i> View Plan
                       </button>
 
                     </td>
                   </tr>
                 </ng-container>
-
-
               </tbody>
             </table>
           </div>
@@ -207,15 +218,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-

@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { offset } from '@popperjs/core';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-zodiacs',
@@ -35,21 +36,25 @@ export class ZodiacsComponent implements OnInit {
   totalDataCount: any;
   tableData: any;
   countryOption: any[] = [];
+  odiaZodiacs: any;
+  tempvar: any;
+  id: any;
   constructor(
     private api: ApiService,
-    private ApiParameter: ApiParameterScript
+    private ApiParameter: ApiParameterScript,
+    private CommonService: CommonService
   ) {}
 
   ngOnInit(): void {
+    this.button = 'ADD';
+    this.odiaZodiacs = '';
+    this.tempvar = '';
+    this.zodiacs = '';
     this.allId = [];
     this.getAllZodiacdata(0, this.apiFetchRecordLimit);
-
-
   }
 
   getSearchText(event: any) {
-
-
     this.filterText = event;
   }
   showFilterData() {
@@ -58,7 +63,6 @@ export class ZodiacsComponent implements OnInit {
       status: 24,
     };
     this.api.zodiacs(param).subscribe((res: any) => {
-
       if (res.status) {
         this.zodiacsalldata = res.message;
       }
@@ -98,13 +102,9 @@ export class ZodiacsComponent implements OnInit {
        `;
     }
 
-
-
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-
-
       this.blockUI.stop();
 
       if (res.success && res['data'].length > 0) {
@@ -114,7 +114,6 @@ export class ZodiacsComponent implements OnInit {
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
 
         this.tableData = res['data'];
-
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -147,12 +146,9 @@ export class ZodiacsComponent implements OnInit {
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
 
-
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-
-
         this.allId.push(parseInt(this.tableData[key].id));
         checkbox.checked = true;
       });
@@ -162,11 +158,8 @@ export class ZodiacsComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-
   }
   getId(id: any, e: any) {
-
-
     if (e.target.checked) {
       this.allId.push(parseInt(id));
     } else {
@@ -175,7 +168,6 @@ export class ZodiacsComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-
   }
 
   publishuser() {
@@ -187,7 +179,6 @@ export class ZodiacsComponent implements OnInit {
         text: 'Do you want to publish',
         showCancelButton: true,
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -228,7 +219,6 @@ export class ZodiacsComponent implements OnInit {
         text: 'Do you want to  Unpublish',
         showCancelButton: true,
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
             data: {
@@ -245,6 +235,43 @@ export class ZodiacsComponent implements OnInit {
               Swal.fire({
                 icon: 'success',
                 text: 'Unpublish',
+              }).then(() => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                text: res.message,
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+  deletedata() {
+    if (this.allId.length == 0) {
+      Swal.fire('Warning', 'Please select any record', 'warning');
+    } else {
+      Swal.fire({
+        icon: 'question',
+        text: 'Do you want to Delete',
+        showCancelButton: true,
+      }).then((r: any) => {
+
+        if (r.isConfirmed) {
+          let updateData = {
+            deleted: 'Delete',
+            whereConditions: this.allId,
+          };
+          this.ApiParameter.makeActinForMultipuldeleteData(
+            'zodiacs',
+            updateData
+          ).subscribe((res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: 'Deleted',
               }).then(() => {
                 this.ngOnInit();
               });
@@ -288,21 +315,122 @@ export class ZodiacsComponent implements OnInit {
     ${event.whereConditions}`;
     }
 
-
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         this.offset = 1;
         this.totalFetchrecord = this.collectionSize;
         this.tableData = res['data'];
-
       } else {
         this.offset = 0;
         this.totalFetchrecord = 0;
         this.collectionSize = 0;
         this.tableData = [];
+      }
+    });
+  }
+  submitRasi() {
+    if (this.button == 'ADD') {
+      if (this.zodiacs == '') {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please Enter Rasi',
+        });
+      } else if (this.odiaZodiacs == '') {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please Enter Rasi in odia',
+        });
+      } else {
+        var updateData = {
+          data: {
+            name: this.zodiacs,
+            odia_name: this.odiaZodiacs,
+            created_date_time: moment().format('YYYY-MM-DD HH:mm:ss'),
+          },
+        };
+        this.ApiParameter.savedata('zodiacs', updateData).subscribe(
+          (res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: res.message,
+              }).then((ress: any) => {
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'success',
+                text: res.message,
+              });
+            }
+          }
+        );
+      }
+    } else if (this.button == 'Update') {
+      if (this.zodiacs == '') {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please Enter Rasi',
+        });
+      } else if (this.odiaZodiacs == '') {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please Enter Rasi in odia',
+        });
+      } else {
+        let updateData = {
+          data: {
+            name: this.zodiacs,
+            odia_name: this.odiaZodiacs,
+          },
+          whereConditions: { id: this.id },
+        };
+        this.ApiParameter.updatedata('zodiacs', updateData).subscribe(
+          (res: any) => {
+            if (res.success) {
+              Swal.fire({
+                icon: 'success',
+                text: res.message,
+              }).then((ress: any) => {
+                let update = {
+                  oldcast: this.tempvar,
+                  newdata: this.zodiacs,
+                  tablename: 'user_horoscope',
+                  coulemnname: 'user_zodiacs',
+                };
+                this.CommonService.coloumUpdated(update).subscribe(
+                  (res: any) => {}
+                );
+                this.ngOnInit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'success',
+                text: res.message,
+              });
+            }
+          }
+        );
+      }
+    }
+  }
+  rasiView(data: any) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    this.ApiParameter.fetchdata('zodiacs', {
+      projection: ['*'],
+      whereConditions: { id: data },
+    }).subscribe((res: any) => {
+      console.log(res['data']);
+      this.button = 'Update';
+      if (res.success) {
+        this.tempvar = res['data'][0].name;
+        this.zodiacs = res['data'][0].name;
+        this.odiaZodiacs = res['data'][0].odia_name;
+        this.id = res['data'][0].id;
       }
     });
   }

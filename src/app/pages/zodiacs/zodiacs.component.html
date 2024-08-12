@@ -1,18 +1,24 @@
 <div class="col-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">RASI</h4>
-            <div class="form-inline">
-                <label class="sr-only" for="inlineFormInputName2">Name</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                    (keyup)="showFilterData()" [(ngModel)]="zodiacs" placeholder="Rasi name">
-                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-                <div class="form-check mx-sm-2">
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="card">
+      <div class="card-body">
+          <h4 class="card-title">RASI</h4>
+          <div class="form-inline">
+              <label class="sr-only" for="inlineFormInputName2">Name</label>
+              <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" [(ngModel)]="zodiacs" placeholder="ରାଶି ନାମ (Rasi name)">
+
+              <label class="sr-only" for="inlineFormInputOdiaName">Odia Name</label>
+              <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputOdiaName" [(ngModel)]="odiaZodiacs" placeholder="Odia Rasi name">
+
+              <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+              <div class="form-check mx-sm-2">
+              </div>
+          </div>
+          <button class="btn btn-primary mt-2" (click)="submitRasi()">{{ button }}</button>
+      </div>
+  </div>
 </div>
+
+
 
 
 <div class="outline">
@@ -28,12 +34,12 @@
       <i class="fas fa-download"></i> Unpublish
     </button>
   </div>
-  <!-- <div class="commen">
+  <div class="commen">
     <button [style]="{ 'background-color': '#FF1A0A', 'color': '#FFFFFF' }" type="button" class="btn"
       (click)="deletedata()">
       <i class="fas fa-trash-alt"></i> Delete
     </button>
-  </div> -->
+  </div>
 </div>
 <div class="row">
   <div class="col-xl-12 order-lg-1 order-xl-1">
@@ -70,7 +76,7 @@
                   <th style="cursor: pointer;width:25%">Rasi in Odia</th>
                   <th style="cursor: pointer;width:25%">Created in</th>
                   <th style="cursor: pointer;width:25%">Status</th>
-                  <!-- <th class="fixed-column" style="cursor: pointer; width:10%" title="Action">Action -->
+                  <th class="fixed-column" style="cursor: pointer; width:10%" title="Action">Action
                 </tr>
               </thead>
               <tbody>
@@ -78,8 +84,8 @@
                   <tr>
 
                     <td class="text-center">
-                      <input type="checkbox" class="check" [value]="data?.id" (change)="getId(data?.id,$event)"
-                        name="" id="">
+                      <input type="checkbox" class="check" [value]="data?.id" (change)="getId(data?.id,$event)" name=""
+                        id="">
                       <!-- <mat-checkbox class="check" (change)="getId(data?.Id,$event)"
                                                                   [value]="data?.user_id"></mat-checkbox> -->
                     </td>
@@ -105,12 +111,11 @@
                         NOT PUBLISHED
                       </div>
                     </td>
-                    <!-- <td class="fixed-column">
-                      View Button with Outline Style
-                      <button class="btn btn-outline-primary btn-sm me-2" title="Edit">
+                    <td class="fixed-column">
+                      <button class="btn btn-outline-primary btn-sm me-2" (click)="rasiView(data?.id)" title="Edit">
                         <i class="fas fa-edit"></i> Edit
                       </button>
-                    </td> -->
+                    </td>
                   </tr>
                 </ng-container>
               </tbody>

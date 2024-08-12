@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-twostepverification',
   templateUrl: './twostepverification.component.html',
-  styleUrls: ['./twostepverification.component.scss']
+  styleUrls: ['./twostepverification.component.scss'],
 })
 export class TwostepverificationComponent implements OnInit {
   user_id: any;
@@ -22,17 +22,19 @@ export class TwostepverificationComponent implements OnInit {
   firstdata: any;
   firsterror: string = '';
   seconderror: string = '';
+  countstape: number = 0;
   constructor(
     private router: Router,
     private activatedroute: ActivatedRoute,
     private CommonService: CommonService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.countstape = 0;
     this.first = false;
     this.second = true;
     this.third = true;
-    this.firstdata='';
+    this.firstdata = '';
     this.seconddata = '';
     this.password = '';
     this.activatedroute.params.subscribe((res: any) => {
@@ -43,55 +45,66 @@ export class TwostepverificationComponent implements OnInit {
         this.user_id = data.split(':');
         this.id = this.user_id[0];
         this.fname = this.user_id[1];
-        this.lname = this.user_id[2]
-        
+        this.lname = this.user_id[2];
       }
     });
   }
   firstPass() {
-    let data = {
-      'first': this.firstdata
+    if (this.countstape == 0) {
+      let data = {
+        first: this.firstdata,
+      };
+      this.CommonService.firstPass(data).subscribe((res: any) => {
+        if (res.status) {
+          this.first = true;
+          this.second = false;
+          this.third = true;
+          this.countstape = 1;
+        } else {
+          this.firsterror = 'Wrong password';
+        }
+      });
+    } else {
+      this.firsterror = 'Refress page';
     }
-    this.CommonService.firstPass(data).subscribe((res: any) => {
-      if (res.status) {
-        this.first = true;
-        this.second = false;
-        this.third = true;
-
-      } else {
-        this.firsterror = 'Wrong password'
-      }
-    })
   }
   secondPass() {
-    let data = {
-      'second': this.seconddata
+    if (this.countstape == 1) {
+      let data = {
+        second: this.seconddata,
+      };
+      this.CommonService.secondPass(data).subscribe((res: any) => {
+        if (res.status) {
+          this.first = true;
+          this.second = true;
+          this.third = false;
+          this.countstape = 2;
+        } else {
+          this.seconderror = 'Wrong password';
+        }
+      });
+    } else {
+      this.seconderror = 'Refresh page and Start From Beginning';
     }
-    this.CommonService.secondPass(data).subscribe((res: any) => {
-      if (res.status) {
-        this.first = true;
-        this.second = true;
-        this.third = false;
-
-      } else {
-        this.seconderror = 'Wrong password'
-      }
-    })
   }
   changepass() {
-    let data = {
-      'user_id': this.id,
-      'pass': this.password,
+    if (this.countstape == 2) {
+      let data = {
+        user_id: this.id,
+        pass: this.password,
+      };
+      this.CommonService.passwordresetbyadmin(data).subscribe((res: any) => {
+        if (res.status) {
+          Swal.fire({
+            icon: 'success',
+            text: 'password chaned',
+          }).then(() => {
+            this.router.navigate(['/pass']);
+          });
+        }
+      });
+    } else {
+      this.firsterror = ' Refresh page and Start From Beginning';
     }
-    this.CommonService.passwordresetbyadmin(data).subscribe((res: any) => {
-      if (res.status) {
-        Swal.fire({
-          icon:'success',
-          text:'password chaned'
-        }).then(()=>{
-          this.ngOnInit();
-        });
-      }
-    })
   }
 }

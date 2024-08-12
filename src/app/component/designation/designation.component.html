@@ -28,134 +28,7 @@
 
 
 
-<div class="row" *ngIf="false">
-    <div class="col-xl-12 order-lg-1 order-xl-1">
-        <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
-            <div class="table-caption-holder">
-                <!-- <div class="kt-portlet__head-label">
-                    <h3 class="kt-portlet__head-title">My Open Cases</h3>
-                </div> -->
-                <div class="dropdown-container">
-                    <!-- <select id="dropdown" (change)="changepaginetdata($event)">
-                        <option *ngFor="let option of options" [value]="option">{{ option }}</option>
-                    </select> -->
-                </div>
-                <div class="kt-portlet__head-toolbar">
-                    <app-search (getSerachText)="getSearchText($event)" [search_btn]="false"
-                        [fillter_btn]="false"></app-search>
-                </div>
-            </div>
-            <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y"
-                id="grid_scroll_body" style="max-height: 50vh; position: relative;">
-                <div class="inbox-body inbox-body-table">
-                    <div class="table-scroll">
-                        <table class="custom-table table  table-bordered table-striped">
-                            <thead class="flip-content">
-                                <tr>
 
-
-                                    <!-- <th style="cursor: pointer;width:10%" title=" Country Name ">
-                                        Country Name </th>
-                                    <th style="cursor: pointer; width:25%" title="Created At">
-                                        Created At </th>
-                                    <th style="cursor: pointer; width:25%" title="Status">
-                                        Status </th>
-                                    <th class="fixed-column" style="cursor: pointer; width:10%" title="Action">Action
-                                    </th> -->
-                                    <th>#SI</th>
-                                    <th>Designation</th>
-                                    <th>Created in</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <ng-container
-                                    *ngFor="let countryalldatahtml of tabledata | fillter:['designation']:filterText ; index as i">
-                                    <tr>
-
-                                        <td>{{i+1}}</td>
-                                        <td>{{countryalldatahtml.designation}}</td>
-                                        <td>{{ countryalldatahtml.created_At |date:'medium'}}</td>
-                                        <td>
-                                            <p class="badge badge-danger" *ngIf="countryalldatahtml.status == 0">
-                                                NOT PUBLISHED
-                                            </p>
-                                            <p class="badge badge-success" *ngIf="countryalldatahtml.status == 1">PUBLISHED</p>
-                                        </td>
-                                        <td>
-                                            <input type="button" class="btn btn-outline-warning btn-fw me-2 w-10" value="Edit" (click)="update(countryalldatahtml.id)">
-                                            <button type="submit"
-                                            class="btn btn-outline-danger btn-fw me-2 w-10" (click)="deleted(countryalldatahtml.id)">Delete</button>
-                                            <button type="submit"
-                                            class="btn btn-outline-success btn-fw w-10" (click)="publish(countryalldatahtml.id,countryalldatahtml.status)" >{{ countryalldatahtml.status == 1 ?'UNPUBLISHED': 'PUBLISHED' }}</button>
-                                        </td>
-
-                                        <!-- <td [title]="data?.name">
-                                            <div> {{data?.name |uppercase}} </div>
-                                        </td>
-                                        <td title="Due In 9 Days ">
-                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel">
-                                                {{data.created_At | date:'medium'}}
-                                            </div>
-                                        </td>
-
-
-                                        <td title="Ready for Professional Open">
-                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"
-                                                *ngIf="data.status == 1"> PUBLISHED
-                                            </div>
-                                            <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel"
-                                                *ngIf="data.status == 0"> NOT PUBLISHED
-                                            </div>
-
-                                        </td> -->
-
-                                        <td class="fixed-column">
-                                            <!-- View Button with Outline Style -->
-                                            <!-- <button class="btn btn-outline-primary btn-sm me-2" title="Edit"
-                                            (click)="update(data.id)">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </button>
-
-                                            <button class="btn btn-outline-danger btn-sm me-2" title="Delete"
-                                            (click)="delete(data.id,data.name)">
-                                                <i class="fas fa-trash-alt"></i> Delete
-                                            </button> -->
-
-
-
-                                            <!-- Open in New Tab Button with Outline Style -->
-
-
-                                        </td>
-                                    </tr>
-                                </ng-container>
-
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="table-footer-holder">
-                <div>
-                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
-                        [ellipses]="false" [boundaryLinks]="false" class=""
-                        (pageChange)="onpageChnage()"></ngb-pagination>
-                </div>
-                <div>
-                    <!-- <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
-                        {{offset}} to {{totalFetchrecord}} of
-                        {{totalCount}}</span> -->
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
 <div class="outline">
   <div class="commen">
     <button (click)="publishuser()" type="button" [style]="{ 'background-color': '#009788', 'color': '#FFFFFF' }"
@@ -226,7 +99,7 @@
                       <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel" *ngIf="data.status == 0">
                         NOT PUBLISHED
                       </div>
-                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel" *ngIf="data.status == 1">
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel" *ngIf="data.status == 1">
                         PUBLISHED
                       </div>
                     </td>

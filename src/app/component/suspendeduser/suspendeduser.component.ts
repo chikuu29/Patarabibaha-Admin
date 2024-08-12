@@ -11,10 +11,9 @@ import { CommonService } from 'src/app/services/common.service';
 @Component({
   selector: 'app-suspendeduser',
   templateUrl: './suspendeduser.component.html',
-  styleUrls: ['./suspendeduser.component.scss']
+  styleUrls: ['./suspendeduser.component.scss'],
 })
 export class SuspendeduserComponent implements OnInit {
-
   finaldata: any;
   @BlockUI() blockUI: NgBlockUI;
   // **************************
@@ -55,7 +54,6 @@ export class SuspendeduserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.allId = [];
     let _this: any = this;
     _this[this.currentFunction](0, this.collectionSize);
@@ -83,7 +81,6 @@ export class SuspendeduserComponent implements OnInit {
     // this.getAllData(0, 10, true, search_text)
   }
   fillter(event: any) {
-
     var query = `SELECT *
      FROM user_info
      LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -106,16 +103,12 @@ export class SuspendeduserComponent implements OnInit {
      ${event.whereConditions}`;
     }
 
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=
 
-
         this.tableData = res['data'];
-
       }
     });
   }
@@ -170,14 +163,12 @@ export class SuspendeduserComponent implements OnInit {
       `;
     }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-
       }
     });
   }
@@ -186,7 +177,7 @@ export class SuspendeduserComponent implements OnInit {
     limit: number,
     loadSpecificData: boolean = false,
     search_text?: any
-  ){
+  ) {
     this.currentFunction = 'getDeletdFemale';
     let Quary = `select * , COUNT(*) OVER () AS total_count
     from auth_user as a
@@ -208,15 +199,13 @@ export class SuspendeduserComponent implements OnInit {
       `;
     }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-
-      }else{
+      } else {
         this.finaldata = [];
       }
     });
@@ -226,7 +215,7 @@ export class SuspendeduserComponent implements OnInit {
     limit: number,
     loadSpecificData: boolean = false,
     search_text?: any
-  ){
+  ) {
     this.currentFunction = 'getDeletdMale';
     let Quary = `select * , COUNT(*) OVER () AS total_count
     from auth_user as a
@@ -248,71 +237,63 @@ export class SuspendeduserComponent implements OnInit {
       `;
     }
     this.ApiParameter.fetchDataFormQuery(Quary).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.totalDataCount = res['data'][0].total_count;
         this.totalFetchrecord = start + res['data'].length;
         this.collectionSize =
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         this.finaldata = res['data'];
-
-      }else{
+      } else {
         this.finaldata = [];
       }
     });
-
   }
-
 
   userpage(data: any) {
     this.router.navigate(['/user', data]);
   }
 
   recoverdata() {
-      Swal.fire({
-        icon: 'question',
-        text: 'Do you want to Recover',
-        showCancelButton: true,
-      }).then((r: any) => {
-        if (r.isConfirmed) {
-          let updateData = {
-            data: {
-              deleted: 1,
-            },
-            type: 'Recover',
-            whereConditions: this.allId,
-          };
-          this.ApiParameter.makeActinForMultipulData(
-            'user_info',
-            updateData
-          ).subscribe((res: any) => {
-            if (res.success) {
-              Swal.fire({
-                icon: 'success',
-                text: 'Recover',
-              }).then(() => {
-                this.ngOnInit();
-              });
-            } else {
-              Swal.fire({
-                icon: 'warning',
-                text: res.message,
-              });
-            }
-          });
-        }
-      });
-
+    Swal.fire({
+      icon: 'question',
+      text: 'Do you want to Recover',
+      showCancelButton: true,
+    }).then((r: any) => {
+      if (r.isConfirmed) {
+        let updateData = {
+          data: {
+            deleted: 1,
+          },
+          type: 'Recover',
+          whereConditions: this.allId,
+        };
+        this.ApiParameter.makeActinForMultipulData(
+          'user_info',
+          updateData
+        ).subscribe((res: any) => {
+          if (res.success) {
+            Swal.fire({
+              icon: 'success',
+              text: 'Recover',
+            }).then(() => {
+              this.ngOnInit();
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              text: res.message,
+            });
+          }
+        });
+      }
+    });
   }
   checkAll(e: any) {
     let check = document.querySelectorAll('.check');
 
-
     this.allId = [];
     if (e.target.checked) {
       check.forEach((checkbox: any, key: any) => {
-
-
         this.allId.push(parseInt(this.finaldata[key].Id));
         checkbox.checked = true;
       });
@@ -322,7 +303,6 @@ export class SuspendeduserComponent implements OnInit {
         checkbox.checked = false;
       });
     }
-
   }
   getId(id: any, e: any) {
     if (e.target.checked) {
@@ -333,7 +313,6 @@ export class SuspendeduserComponent implements OnInit {
       let k = <any>document.getElementById('all');
       k.checked = false;
     }
-
   }
   sendMail() {
     if (this.allId.length == 0) {
@@ -347,7 +326,6 @@ export class SuspendeduserComponent implements OnInit {
         filepath: environment.filePath,
       };
 
-
       this.CommonService.expiredMail(param).subscribe((res: any) => {});
       Swal.fire({
         icon: 'success',
@@ -357,10 +335,20 @@ export class SuspendeduserComponent implements OnInit {
       });
     }
   }
-  pernetdelete(data:any){
-    this.CommonService.deleteRequest({ id: data }).subscribe((res: any) => {
-      this.ngOnInit();
+  pernetdelete(data: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this item!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then((result) => {
+      if (result.value) {
+        this.CommonService.deleteRequest({ id: data }).subscribe((res: any) => {
+          this.ngOnInit();
+        });
+      }
     });
   }
-
 }

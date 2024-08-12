@@ -41,35 +41,44 @@ export class ProfileimagepproveComponent implements OnInit {
     search_text?: any
   ) {
     let query;
-if (loadSpecificData) {
-    query = `
-        SELECT user_profile_images.user_ID,
-               MAX(user_profile_images.user_profile_images) AS user_profile_images,
-               COUNT(*) OVER () AS total_count
-        FROM user_profile_images
-        JOIN user_info ON user_profile_images.user_ID = user_info.user_ID
-        WHERE user_profile_images.status = 'pending'
-          AND (user_info.user_id = '${search_text}'
-               OR user_info.user_full_name = '${search_text}'
-               OR user_info.user_email = '${search_text}'
-               OR user_info.user_phone_no = '${search_text}')
-        GROUP BY user_profile_images.user_ID
-        ORDER BY MAX(user_profile_images.created_At) DESC
-        LIMIT ${limit} OFFSET ${start};
+    if (loadSpecificData) {
+      query = `
+        SELECT *
+FROM (
+    SELECT *,
+           ROW_NUMBER() OVER (PARTITION BY user_ID ORDER BY created_At DESC) as row_num
+    FROM user_profile_images
+    WHERE status = 'pending'
+) subquery
+JOIN user_info ON subquery.user_ID = user_info.user_ID
+WHERE row_num = 1
+AND (
+        user_info.user_full_name = '${search_text}'
+        OR user_info.user_email = '${search_text}'
+        OR user_info.user_fname = '${search_text}'
+        OR user_info.user_lname = '${search_text}'
+        OR user_info.user_gender = '${search_text}'
+        OR user_info.user_full_name LIKE '%${search_text}%'
+        OR user_info.user_phone_no LIKE '%${search_text}%'
+      )
+ORDER BY subquery.created_At DESC
     `;
-} else {
-    query = `
-        SELECT user_profile_images.user_ID,
-               MAX(user_profile_images.user_profile_images) AS user_profile_images,
-               COUNT(*) OVER () AS total_count
-        FROM user_profile_images
-        WHERE status = 'pending'
-        GROUP BY user_ID
-        ORDER BY MAX(created_At) DESC
-        LIMIT ${limit} OFFSET ${start};
-    `;
-}
+    } else {
+      query = `
+     SELECT *,COUNT(*) OVER () AS total_count
+FROM (
+    SELECT *,
+           ROW_NUMBER() OVER (PARTITION BY user_ID ORDER BY created_At DESC) as row_num
+    FROM user_profile_images
+    WHERE status = 'pending'
+) subquery
+JOIN user_info ON subquery.user_ID = user_info.user_ID
+WHERE row_num = 1
+ORDER BY subquery.created_At DESC
+LIMIT ${limit} OFFSET ${start};
 
+    `;
+    }
 
     console.log(query);
 
@@ -89,15 +98,6 @@ if (loadSpecificData) {
         this.tableData = [];
       }
     });
-
-    // this.ApiParameter.fetchdata('user_profile_images', {
-    //   projection: ['*'],
-    //   whereConditions: { user_profile_images_for_approval: 0 },
-    // }).subscribe((res: any) => {
-    //   if (res.success && res['data'].length > 0) {
-    //     this.profilephotodata = res['data'];
-    //   }
-    // });
   }
   update(data: any, image: any) {
     const modalRef = this.modalService.open(ImageViewOperationComponent, {
@@ -172,7 +172,6 @@ if (loadSpecificData) {
     console.log(query);
 
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
         this.collectionSize = res['data'].length;
         // this.collectionSize=

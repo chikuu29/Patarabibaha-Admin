@@ -13,7 +13,7 @@ export class CommonService {
   headers: any;
   haderforpdf:any;
   constructor(private http: HttpClient,private appservices:AppService) {
-    
+
     var headers = new HttpHeaders()
       // .set("Authorization",this.appservices.authStatus._refreshkey)
       //.set("Access-Control-Allow-Origin", "http://localhost:4200")
@@ -71,6 +71,10 @@ export class CommonService {
   public waterMark(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'waterMark', apiData, { headers: this.headers });
   }
+  public bannerAdv(apiData:any){
+    return this.http.post(this.appservices.getApipath() + 'bannerAdv', apiData, { headers: this.headers });
+  }
+
   public barCode(apiData:any){
     return this.http.post(this.appservices.getApipath() + 'barCode', apiData, { headers: this.headers });
   }

@@ -47,25 +47,28 @@ export class UserapproveComponent implements OnInit {
     loadSpecificData: boolean = false,
     search_text?: any
   ) {
-    let quary = `SELECT user_id, user_all_table_complited ,user_creation_date_time, user_fname, user_email, user_phone_no ,
+    let quary = `SELECT user_id, user_all_table_complited ,user_creation_date_time, user_fname, user_email, user_phone_no ,user_gender,user_lname,user_full_name,
       COUNT(*) OVER () AS total_count
       FROM user_info
       WHERE user_status = 'Pending'
       ORDER BY user_creation_date_time DESC
       LIMIT ${limit} OFFSET ${start};`;
     if (loadSpecificData) {
-      quary = `SELECT user_id, user_all_table_complited ,user_creation_date_time, user_fname, user_email, user_phone_no ,
+      quary = `SELECT user_id, user_all_table_complited ,user_creation_date_time, user_fname, user_email, user_phone_no ,user_gender,user_lname,user_full_name,
           COUNT(*) OVER () AS total_count
           FROM user_info
           WHERE
           user_id = '${search_text}'
-         OR user_full_name = '${search_text}'
+         OR user_full_name LIKE '%${search_text}%'
          OR user_email = '${search_text}'
          OR user_phone_no = '${search_text}'
+         OR user_fname = '${search_text}'
+         OR user_lname = '${search_text}'
+         OR user_gender = '${search_text}'
          ORDER BY user_creation_date_time DESC ;
           `;
     }
-    console.log(quary);
+  //  console.log(quary);
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
       console.log(res);
@@ -78,6 +81,8 @@ export class UserapproveComponent implements OnInit {
           Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
         console.log(this.collectionSize);
         this.tableData = res['data'];
+        console.log(this.tableData);
+        ;
       } else {
         this.collectionSize = 1;
         this.tableData = [];

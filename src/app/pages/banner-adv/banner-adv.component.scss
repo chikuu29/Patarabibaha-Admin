@@ -1,0 +1,84 @@
+.card {
+  width: 100%;
+  margin: auto;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.text-muted.fw-bold {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-control, .form-select {
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  padding: 8px;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 0 0.2rem rgba(63, 81, 181, 0.25);
+}
+
+.form-check-label {
+  margin-left: 8px;
+}
+
+.img-thumbnail {
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  max-width: 100px;
+}
+
+.custom-select-wrapper {
+  margin-top: 16px;
+}
+
+.custom-select .mat-form-field-infix {
+  padding: 8px;
+}
+
+.custom-select .mat-select-trigger {
+  padding: 8px;
+}
+
+.custom-select-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 1em;
+  transform: translateY(-50%);
+  pointer-events: none;
+  border-top: 0.35em solid #555;
+  border-right: 0.35em solid transparent;
+  border-left: 0.35em solid transparent;
+}
+
+.btn-primary {
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #303f9f;
+  border-color: #303f9f;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 16px;
+  }
+
+  .form-control, .form-select {
+    font-size: 0.875rem;
+  }
+}
+

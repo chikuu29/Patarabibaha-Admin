@@ -66,7 +66,7 @@ export class SubcasteComponent implements OnInit {
     this.filterText = event;
   }
   getcast() {
-    this.ApiParameter.fetchdata('cast_table', { projection: ['*'] }).subscribe(
+    this.ApiParameter.fetchdata('cast_table', { projection: ['*'],whereConditions:{status:1} }).subscribe(
       (res: any) => {
         if (res.success) {
           // this.cast = res['data'];

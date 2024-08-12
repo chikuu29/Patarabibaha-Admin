@@ -1,0 +1,188 @@
+<div class="card p-3">
+  <label class="text-muted fw-bold">Upload Watermark Images</label>
+  <input type="file" (change)="handleInputChange($event)" #fileUpload class="form-control" id="customFile" />
+  <ng-container *ngIf="imageSrc">
+    <div class="p-3">
+      <img [src]="imageSrc" class="w-100" style="height: 200px;" alt="Uploaded Image">
+    </div>
+  </ng-container>
+
+  <label class="text-muted fw-bold mt-3">Select Type</label>
+  <select class="form-select" id="positionSelect" [(ngModel)]="type">
+    <option value="" hidden>Select</option>
+    <option value="1">Top on Success story</option>
+    <option value="2">Top on Footer</option>
+    <option value="3">After Login</option>
+  </select>
+
+  <div class="form-check mt-3">
+    <input class="form-check-input" type="checkbox" id="globalCheck" [(ngModel)]="isGlobal" (change)="onGlobalChange()">
+    <label class="form-check-label text-muted fw-bold" for="globalCheck">Global</label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="cityWiseCheck" [(ngModel)]="isCityWise"
+      (change)="onCityWiseChange()">
+    <label class="form-check-label text-muted fw-bold" for="cityWiseCheck">City-wise</label>
+  </div>
+  <div *ngIf="isCityWise">
+    <label class="text-muted fw-bold mt-3">Country</label>
+    <p-dropdown (onChange)="selectState($event.value)" [options]="countrydata" [showClear]="true" [(ngModel)]="country"
+      class="mb-2" optionLabel="name" [filter]="true" placeholder="Select Country" [style]="{ width: '100%' }"
+      optionValue="name">
+      <ng-template let-data pTemplate="item">
+        <div class="country-item">
+          <div>{{ data.name }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+    <label class="text-muted fw-bold mt-3">State</label>
+    <p-dropdown (onChange)="selectCity($event.value)" [options]="sataedata" [showClear]="true" [(ngModel)]="state"
+      class="mb-2" optionLabel="name" [filter]="true" placeholder="Select State" [style]="{ width: '100%' }"
+      optionValue="name">
+      <ng-template let-data pTemplate="item">
+        <div class="country-item">
+          <div>{{ data.name }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+    <label class="text-muted fw-bold mt-3">City</label>
+    <p-multiSelect (onChange)="selectCity($event.value)" [options]="citydata" [(ngModel)]="city" class="mb-2"
+      optionLabel="city_name" [filter]="true" placeholder="Select City" [style]="{ width: '100%' }">
+
+      <ng-template let-data pTemplate="item">
+        <div class="country-item">
+          <div>{{ data.city_name }}</div>
+        </div>
+      </ng-template>
+    </p-multiSelect>
+
+  </div>
+
+  <br>
+  <button type="button" (click)="submit()" class="btn btn-primary mt-3 w-100">Submit</button>
+</div>
+
+
+<div class="outline">
+  <div class="commen">
+    <button (click)="publishuser()" type="button" [style]="{ 'background-color': '#009788', 'color': '#FFFFFF' }"
+      class="btn">
+      <i class="fas fa-upload"></i> Publish
+    </button>
+  </div>
+  <div class="commen">
+    <button type="button" (click)="unpublishuser()" [style]="{ 'background-color': '#F47F16', 'color': '#FFFFFF' }"
+      class="btn">
+      <i class="fas fa-download"></i> Unpublish
+    </button>
+  </div>
+  <div class="commen">
+    <button (click)="deletedata()" [style]="{ 'background-color': '#FF1A0A', 'color': '#FFFFFF' }" type="button"
+      class="btn">
+      <i class="fas fa-trash-alt"></i> Delete
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-12 order-lg-1 order-xl-1">
+    <div class="table-holder kt-portlet kt-portlet--height-fluid  ">
+      <div class="table-caption-holder">
+        <div class="dropdown-container">
+          <select id="dropdown" (change)="changepaginetdata($event)">
+            <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+          <app-search (getSerachText)="getSearchText($event)" [search_btn]="false" [fillter_btn]="false"
+            (clickSearch)="search($event)" (clickFillter)="fillter($event)"></app-search>
+        </div>
+      </div>
+      <div class="table-content-holder kt-portlet__body kt-portlet__body--fit ps ps--active-y" id="grid_scroll_body"
+        style="max-height: 100vh; position: relative;">
+        <div class="inbox-body inbox-body-table">
+          <div class="table-scroll">
+            <table class="custom-table table  table-bordered table-striped">
+              <thead class="flip-content">
+                <tr>
+                  <th style="cursor: pointer; width:5%" title="Select Member">
+                    <input type="checkbox" name="" id="all" (change)="checkAll($event)">
+                  </th>
+                  <th style="cursor: pointer;width:1%">#SI</th>
+                  <th style="cursor: pointer; width:25%">Image</th>
+                  <th style="cursor: pointer; width:25%">feature in</th>
+                  <th style="cursor: pointer; width:25%">Created in</th>
+                  <th style="cursor: pointer; width:25%">Status</th>
+                  <th style="cursor: pointer; width:25%">City</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let data of tableData | fillter:['name']:filterText ; index as i">
+                  <tr>
+                    <td class="text-center">
+                      <input type="checkbox" class="check" [value]="data?.user_id" (change)="getId(data?.id,$event)"
+                        name="" id="">
+                    </td>
+                    <td>{{ i+1 }}</td>
+                    <td>
+                      <img [src]="filepath+data?.image" alt="" style="height: 100px;width: auto;">
+                    </td>
+                    <td>
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel" *ngIf="data.type == 1">
+                        Top on Success story
+                      </div>
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel" *ngIf="data.type == 2">
+                        Top on Footer
+                      </div>
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel" *ngIf="data.type == 3">
+                        After Login
+                      </div>
+                    </td>
+                    <td [title]="data?.created_At">
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"> {{data?.created_At |
+                        date:'medium' }} </div>
+                    </td>
+                    <td title="Due In 9 Days">
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel" *ngIf="data.status == 0">
+                        NOT PUBLISHED
+                      </div>
+                      <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel" *ngIf="data.status == 1">
+                        PUBLISHED
+                      </div>
+                    </td>
+                    <td title="Due In 9 Days">
+                      <ng-container *ngIf="data.global == 0">
+                        <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel">
+                          {{ data?.city }}
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="data.global == 1">
+                        <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel">
+                          {{ 'Global' }}
+                        </div>
+                      </ng-container>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="table-footer-holder">
+        <div>
+          <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="10" [rotate]="false"
+            [ellipses]="false" [boundaryLinks]="false" class="" (pageChange)="onpageChnage()"></ngb-pagination>
+        </div>
+        <div>
+          <span style="white-space: nowrap; padding-right: 20px;font-weight: bold;">Showing Record's
+            {{offset}} to {{totalFetchrecord}} of
+            {{totalDataCount}}</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

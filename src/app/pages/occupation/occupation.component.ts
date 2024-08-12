@@ -166,6 +166,9 @@ export class OccupationComponent implements OnInit {
          `;
     }
 
+    console.log(quary);
+
+
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {

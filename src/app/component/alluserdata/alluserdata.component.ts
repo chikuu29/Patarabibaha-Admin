@@ -451,15 +451,19 @@ export class AlluserdataComponent implements OnInit {
       quary = `SELECT a.*, b.*
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
-      WHERE a.user_id = '${search_text}'
-         OR b.auth_ID = '${search_text}'
+      WHERE a.user_id  LIKE '%${search_text}%'
+         OR b.auth_ID LIKE '%${search_text}%'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
          OR a.user_full_name LIKE '%${search_text}%'
+         OR b.auth_phone_no LIKE '%${search_text}%'
+         OR a.user_email LIKE '%${search_text}%'
          ORDER BY a.user_creation_date_time DESC
        `;
     }
+    console.log(quary);
+
     this.blockUI.start('Loading...');
 
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
@@ -475,6 +479,7 @@ export class AlluserdataComponent implements OnInit {
         this.collectionSize = 1;
         this.tableData = [];
       }
+      console.log(this.tableData);
     });
   }
 
@@ -495,12 +500,14 @@ export class AlluserdataComponent implements OnInit {
             FROM user_info AS a
             LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
             WHERE
-                a.user_id = '${search_text}'
-               OR b.auth_ID = '${search_text}'
+                a.user_id LIKE '%${search_text}%'
+               OR b.auth_ID LIKE '%${search_text}%'
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}'
                OR a.user_gender = '${search_text}'
                OR a.user_full_name LIKE '%${search_text}%'
+               OR b.auth_phone_no LIKE '%${search_text}%'
+               OR a.user_email LIKE '%${search_text}%'
                AND a.online_status=1
                ORDER BY a.user_creation_date_time DESC;
              `;
@@ -536,12 +543,14 @@ export class AlluserdataComponent implements OnInit {
             FROM user_info AS a
             LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
             WHERE
-                a.user_id = '${search_text}'
-               OR b.auth_ID = '${search_text}'
+                a.user_id LIKE '%${search_text}%'
+               OR b.auth_ID LIKE '%${search_text}%'
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}'
                OR a.user_gender = '${search_text}'
                 OR a.user_full_name LIKE '%${search_text}%'
+                OR b.auth_phone_no LIKE '%${search_text}%'
+                OR a.user_email LIKE '%${search_text}%'
                AND a.status=0
                ORDER BY a.user_creation_date_time DESC;
              `;
@@ -585,12 +594,14 @@ export class AlluserdataComponent implements OnInit {
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE
 
-          AND a.user_id = '${search_text}'
-         OR b.auth_ID = '${search_text}'
+          AND a.user_id LIKE '%${search_text}%'
+         OR b.auth_ID LIKE '%${search_text}%'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
           OR a.user_full_name LIKE '%${search_text}%'
+          OR b.auth_phone_no LIKE '%${search_text}%'
+          OR a.user_email LIKE '%${search_text}%'
          AND  a.deleted=0
          ORDER BY a.user_creation_date_time DESC;
        `;
@@ -628,12 +639,14 @@ export class AlluserdataComponent implements OnInit {
             FROM user_info AS a
             LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
             WHERE
-                 a.user_id = '${search_text}'
-               OR b.auth_ID = '${search_text}'
+                 a.user_id LIKE '%${search_text}%'
+               OR b.auth_ID LIKE '%${search_text}%'
                OR a.user_fname = '${search_text}'
                OR a.user_lname = '${search_text}'
                OR a.user_gender = '${search_text}'
                OR a.user_full_name LIKE '%${search_text}%'
+               OR b.auth_phone_no LIKE '%${search_text}%'
+               OR a.user_email LIKE '%${search_text}%'
                AND a.status=1
                ORDER BY a.user_creation_date_time DESC;
              `;
@@ -718,12 +731,14 @@ export class AlluserdataComponent implements OnInit {
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE
-          a.user_id = '${search_text}'
-         OR b.auth_ID = '${search_text}'
+          a.user_id LIKE '%${search_text}%'
+         OR b.auth_ID LIKE '%${search_text}%'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
          OR a.user_full_name LIKE '%${search_text}%'
+         OR b.auth_phone_no LIKE '%${search_text}%'
+         OR a.user_email LIKE '%${search_text}%'
          AND a.user_status="Approved"
          ORDER BY a.user_creation_date_time DESC
          ;
@@ -762,12 +777,14 @@ export class AlluserdataComponent implements OnInit {
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE
-          a.user_id = '${search_text}'
-         OR b.auth_ID = '${search_text}'
+          a.user_id LIKE '%${search_text}%'
+         OR b.auth_ID LIKE '%${search_text}%'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
          OR a.user_full_name LIKE '%${search_text}%'
+         OR b.auth_phone_no LIKE '%${search_text}%'
+         OR a.user_email LIKE '%${search_text}%'
          AND a.user_status="Pending"
          ORDER BY a.user_creation_date_time DESC;
        `;
@@ -803,12 +820,14 @@ export class AlluserdataComponent implements OnInit {
       FROM user_info AS a
       LEFT JOIN auth_user AS b ON a.user_id = b.auth_ID
       WHERE
-         a.user_id = '${search_text}'
-         OR b.auth_ID = '${search_text}'
+         a.user_id LIKE '%${search_text}%'
+         OR b.auth_ID LIKE '%${search_text}%'
          OR a.user_fname = '${search_text}'
          OR a.user_lname = '${search_text}'
          OR a.user_gender = '${search_text}'
          OR a.user_full_name LIKE '%${search_text}%'
+         OR b.auth_phone_no LIKE '%${search_text}%'
+         OR a.user_email LIKE '%${search_text}%'
          AND a.user_status = "Approved"
          AND a.deleted = 1
          AND a.status = 1
@@ -862,5 +881,8 @@ export class AlluserdataComponent implements OnInit {
   }
   openNewTab(user_id: any) {
     window.open('/user/' + user_id, '_blank');
+  }
+  viewDeatilsPage(data:any){
+    this.router.navigate(['/user', data]);
   }
 }
