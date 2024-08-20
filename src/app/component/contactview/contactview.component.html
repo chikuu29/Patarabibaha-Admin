@@ -31,6 +31,9 @@
                   <th style="cursor: pointer; width:25%" title="Created At">
                     Created At
                   </th>
+                  <th style="cursor: pointer; width:25%" title="Created At">
+                    Action
+                  </th>
                   <th style="cursor: pointer; width: 145px;" title="Profile Status"> Profile Status
                   </th>
 
@@ -53,6 +56,16 @@
                         {{data?.created_At | date:'medium'}}
                       </div>
                     </td>
+                    <td title="Due In 9 Days">
+                      <button *ngIf="data?.viewed_contact == 0" (click)="takeContact(data?.profile_view_by_profile_id,data?.viewed_profile_id)" class="btn btn-outline-primary btn-sm">
+                            Give Contact
+                      </button>
+                      <button *ngIf="data?.viewed_contact == 1" class="btn btn-bold btn-sm btn-font-sm btn-label-primary anotherLabel">
+                          Contact Taken
+                      </button>
+                    </td>
+
+
                     <td [title]="data?.user_dob | age">
                       <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel">
                         {{ data?.contact_view_reason }}

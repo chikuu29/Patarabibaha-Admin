@@ -9,23 +9,23 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-barcode',
   templateUrl: './barcode.component.html',
-  styleUrls: ['./barcode.component.scss']
+  styleUrls: ['./barcode.component.scss'],
 })
 export class BarcodeComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   // **************************
   img: any;
   image: any[] = [];
-  filterText: any
-  accountholdername:any;
-  upiid:any;
-  phonenumber:any;
+  filterText: any;
+  accountholdername: any;
+  upiid: any;
+  phonenumber: any;
   url: any = environment.filePath + 'storage/barcode/';
   public imageSrc: string = '';
   constructor(
     private CommonService: CommonService,
     private ApiParameter: ApiParameterScript
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.fatchdata();
@@ -44,63 +44,63 @@ export class BarcodeComponent implements OnInit {
   _handleReaderLoaded(e: any) {
     let reader = e.target;
     this.imageSrc = reader.result;
-
   }
 
   submit() {
     let param = {
-      'image': this.imageSrc,
-      'upi' :this.upiid,
-      'phoneno' : this.phonenumber,
-      'name' : this.accountholdername,
-      'date': moment().toISOString()
-    }
-
+      image: this.imageSrc,
+      upi: this.upiid,
+      phoneno: this.phonenumber,
+      name: this.accountholdername,
+      date: moment().toISOString(),
+    };
 
     this.CommonService.barCode(param).subscribe((res: any) => {
       if (res.success) {
         Swal.fire({
           icon: 'success',
-          text: res.message
+          text: res.message,
         }).then(() => {
           this.ngOnInit();
-        })
+        });
       } else {
         Swal.fire({
           icon: 'error',
-          text: res.message
-        })
+          text: res.message,
+        });
       }
-    })
+    });
   }
 
   fatchdata() {
-    this.ApiParameter.fetchdata('barcode', { "projection": ["*"] }).subscribe((res: any) => {
-      if (res.success && res['data'].length > 0) {
-        this.image = res['data'];
-      }else{
-        this.image =  [];
+    this.ApiParameter.fetchdata('barcode', { projection: ['*'] }).subscribe(
+      (res: any) => {
+        if (res.success && res['data'].length > 0) {
+          this.image = res['data'];
+        } else {
+          this.image = [];
+        }
       }
-    })
+    );
   }
 
   delete(id: any) {
-
     Swal.fire({
       icon: 'question',
-      text: 'Do You Want to Delete'
+      text: 'Do You Want to Delete',
     }).then((r: any) => {
-
       if (r.isConfirmed) {
-        this.blockUI.start('Deleting...')
-        this.ApiParameter.deletedata('barcode', { "whereConditions": { id: id } }).subscribe((res: any) => {
+        this.blockUI.start('Deleting...');
+        this.ApiParameter.deletedata('barcode', {
+          whereConditions: { id: id },
+        }).subscribe((res: any) => {
           this.blockUI.stop();
           if (res.success) {
             Swal.fire('Success', res.message, 'success').then(() => {
-              this.ngOnInit()
+              this.ngOnInit();
             });
           } else {
-            Swal.fire('Error', res.message, 'error')
+            Swal.fire('Error', res.message, 'error');
           }
         });
       }
@@ -108,75 +108,67 @@ export class BarcodeComponent implements OnInit {
   }
   publish(id: any, status: any) {
     if (status == 1) {
-
       Swal.fire({
         icon: 'question',
-        text: 'Do You Want to Unpublish'
+        text: 'Do You Want to Unpublish',
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
-            "data": {
-              "status": 0,
+            data: {
+              status: 0,
             },
-            "whereConditions": { id: id }
-          }
-          this.ApiParameter.updatedata('barcode', updateData).subscribe((res: any) => {
-
-            if (res.success) {
-              Swal.fire({
-                icon: 'success',
-                text: "Unpublished"
-              }).then(() => {
-                this.ngOnInit()
-              });
-            } else {
-              Swal.fire({
-                icon: 'warning',
-                text: res.message
-              });
+            whereConditions: { id: id },
+          };
+          this.ApiParameter.updatedata('barcode', updateData).subscribe(
+            (res: any) => {
+              if (res.success) {
+                Swal.fire({
+                  icon: 'success',
+                  text: 'Unpublished',
+                }).then(() => {
+                  this.ngOnInit();
+                });
+              } else {
+                Swal.fire({
+                  icon: 'warning',
+                  text: res.message,
+                });
+              }
             }
-          })
-
+          );
         }
       });
-
     } else if (status == 0) {
       Swal.fire({
         icon: 'question',
-        text: 'Do You Want to Publish'
+        text: 'Do You Want to Publish',
       }).then((r: any) => {
-
         if (r.isConfirmed) {
           let updateData = {
-            "data": {
-              "status": 1,
+            data: {
+              status: 1,
             },
-            "whereConditions": { id: id }
-          }
-          this.ApiParameter.updatedata('barcode', updateData).subscribe((res: any) => {
-
-            if (res.success) {
-              Swal.fire({
-                icon: 'success',
-                text: "Published"
-              }).then(() => {
-                this.ngOnInit()
-              });
-            } else {
-              Swal.fire({
-                icon: 'warning',
-                text: res.message
-              });
+            whereConditions: { id: id },
+          };
+          this.ApiParameter.updatedata('barcode', updateData).subscribe(
+            (res: any) => {
+              if (res.success) {
+                Swal.fire({
+                  icon: 'success',
+                  text: 'Published',
+                }).then(() => {
+                  this.ngOnInit();
+                });
+              } else {
+                Swal.fire({
+                  icon: 'warning',
+                  text: res.message,
+                });
+              }
             }
-          })
+          );
         }
       });
-
-
     }
-
   }
-
-
 }

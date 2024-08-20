@@ -50,12 +50,16 @@ export class BannerAdvComponent implements OnInit {
   sataedata: any[] = [];
   citydata: any[] = [];
   global: any = 0;
+  expierDate = Date();
+  minDate: string;
   constructor(
     private CommonService: CommonService,
     private ApiParameter: ApiParameterScript
   ) {}
 
   ngOnInit(): void {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
     this.image = '';
     this.imageSrc = '';
     this.type = '';
@@ -120,6 +124,7 @@ export class BannerAdvComponent implements OnInit {
           country: this.country.length == 0 ? '' : this.country,
           state: this.state.length == 0 ? '' : this.state,
           city: finalcity,
+          expirydate:this.expierDate
         }).subscribe((res: any) => {
           if (res.success) {
             Swal.fire({
@@ -149,6 +154,7 @@ export class BannerAdvComponent implements OnInit {
         country:  '' ,
         state:  '' ,
         city: [],
+        expirydate:this.expierDate
       }).subscribe((res: any) => {
         if (res.success) {
           Swal.fire({
@@ -443,5 +449,12 @@ export class BannerAdvComponent implements OnInit {
         this.citydata = res['data'];
       }
     });
+  }
+  getDaysLeft(expirydate: string): number {
+    const today = new Date();
+    const expDate = new Date(expirydate);
+    const timeDiff = expDate.getTime() - today.getTime();
+    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return daysLeft;
   }
 }

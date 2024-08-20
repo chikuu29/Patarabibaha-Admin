@@ -15,6 +15,10 @@
     <option value="3">After Login</option>
   </select>
 
+  <label class="text-muted fw-bold mt-3">Select Expiry Date</label>
+  <input type="date" [(ngModel)]="expierDate" class="form-control" [min]="minDate" />
+
+
   <div class="form-check mt-3">
     <input class="form-check-input" type="checkbox" id="globalCheck" [(ngModel)]="isGlobal" (change)="onGlobalChange()">
     <label class="form-check-label text-muted fw-bold" for="globalCheck">Global</label>
@@ -112,6 +116,7 @@
                   <th style="cursor: pointer; width:25%">Image</th>
                   <th style="cursor: pointer; width:25%">feature in</th>
                   <th style="cursor: pointer; width:25%">Created in</th>
+                  <th style="cursor: pointer; width:25%">Expiered in</th>
                   <th style="cursor: pointer; width:25%">Status</th>
                   <th style="cursor: pointer; width:25%">City</th>
                 </tr>
@@ -142,6 +147,24 @@
                       <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel"> {{data?.created_At |
                         date:'medium' }} </div>
                     </td>
+                    <td [title]="data?.expirydate">
+                      <div [ngClass]="{
+                        'btn-label-success': getDaysLeft( data?.expirydate) > 0,
+                        'btn-label-danger': getDaysLeft( data?.expirydate) < 0
+                      }" class="btn btn-bold btn-sm btn-font-sm dueLabel">
+                        {{ data?.expirydate | date:'MMM dd, YYYY' }}
+                      </div><ng-container *ngIf="getDaysLeft( data?.expirydate) > 0">
+                        <div class="btn btn-bold btn-sm btn-font-sm btn-label-success dueLabel">
+                          {{ getDaysLeft( data?.expirydate) + ' Days Left' }}
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="getDaysLeft( data?.expirydate) < 0">
+                        <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel">
+                          {{ 'expired' }}
+                        </div>
+                      </ng-container>
+                    </td>
+
                     <td title="Due In 9 Days">
                       <div class="btn btn-bold btn-sm btn-font-sm btn-label-danger dueLabel" *ngIf="data.status == 0">
                         NOT PUBLISHED
@@ -167,7 +190,6 @@
               </tbody>
             </table>
           </div>
-
         </div>
 
       </div>

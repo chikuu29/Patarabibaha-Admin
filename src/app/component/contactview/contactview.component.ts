@@ -1,19 +1,22 @@
-import { Component, OnInit,AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ApiParameterScript } from 'src/app/script/api-parameter';
 import Swal from 'sweetalert2';
 import { MatCheckbox } from '@angular/material/checkbox';
 
-
 @Component({
   selector: 'app-contactview',
   templateUrl: './contactview.component.html',
-  styleUrls: ['./contactview.component.scss']
+  styleUrls: ['./contactview.component.scss'],
 })
 export class ContactviewComponent implements OnInit {
-
-
   @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
   @BlockUI() blockUI: NgBlockUI;
   // **************************
@@ -22,27 +25,32 @@ export class ContactviewComponent implements OnInit {
   tableData: any = [];
   filterText: string;
   allId: any[] = [];
-  apiFetchRecordLimit=10
-  options = [10,15,50,100,500,1000];
+  apiFetchRecordLimit = 10;
+  options = [10, 15, 50, 100, 500, 1000];
   page: any = 1;
-  collectionSize: any = 10
-  offset=1;
-  pegination_required: boolean = false
+  collectionSize: any = 10;
+  offset = 1;
+  pegination_required: boolean = false;
   currentFunction: string = 'getAllData';
-  totalDataCount: number = 0
-  totalFetchrecord:number=0
+  totalDataCount: number = 0;
+  totalFetchrecord: number = 0;
   constructor(
     private ApiParameter: ApiParameterScript,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.allId = [];
     this.getAllData(0, this.apiFetchRecordLimit);
   }
 
-  getAllData(start: number, limit: number, loadSpecificData: boolean = false, search_text?: any) {
-    this.pegination_required = true
+  getAllData(
+    start: number,
+    limit: number,
+    loadSpecificData: boolean = false,
+    search_text?: any
+  ) {
+    this.pegination_required = true;
     var quary = `SELECT *, COUNT(*) OVER () AS total_count
       FROM user_activities_for_contact_details
       ORDER BY created_At DESC
@@ -58,23 +66,19 @@ export class ContactviewComponent implements OnInit {
        `;
     }
 
-
-
-    this.blockUI.start('Loading...')
+    this.blockUI.start('Loading...');
     this.ApiParameter.fetchDataFormQuery(quary).subscribe((res: any) => {
-      this.blockUI.stop()
-     // console.log(res);
-
+      this.blockUI.stop();
+      // console.log(res);
 
       if (res.success && res['data'].length > 0) {
-
-        this.totalDataCount=res['data'][0].total_count;
-        this.totalFetchrecord =start+res['data'].length
-        this.collectionSize = Math.ceil(res['data'][0].total_count/this.apiFetchRecordLimit)*10;
+        this.totalDataCount = res['data'][0].total_count;
+        this.totalFetchrecord = start + res['data'].length;
+        this.collectionSize =
+          Math.ceil(res['data'][0].total_count / this.apiFetchRecordLimit) * 10;
 
         this.tableData = res['data'];
         console.log(this.tableData);
-
       } else {
         this.collectionSize = 1;
         this.tableData = [];
@@ -82,27 +86,24 @@ export class ContactviewComponent implements OnInit {
     });
   }
 
-
   getSearchText(event: any) {
-    this.filterText = event
+    this.filterText = event;
   }
-  changepaginetdata(event:any){
+  changepaginetdata(event: any) {
     this.page = 1;
-    this.offset=1;
+    this.offset = 1;
     this.pegination_required = true;
     this.apiFetchRecordLimit = Number(event.target.value);
-    let _this: any = this
+    let _this: any = this;
     _this[this.currentFunction](0, Number(event.target.value));
-   }
-   search(search_text: any) {
+  }
+  search(search_text: any) {
     let _this: any = this;
     _this[this.currentFunction](0, 10, true, search_text);
 
     // this.getAllData(0, 10, true, search_text)
-
   }
   fillter(event: any) {
-
     var query = `SELECT *
     FROM user_info
     LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
@@ -111,7 +112,7 @@ export class ContactviewComponent implements OnInit {
     LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
     LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
     LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
-    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`
+    LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID`;
     if (event.isqueryGenerated) {
       query = `SELECT *
     FROM user_info
@@ -122,28 +123,139 @@ export class ContactviewComponent implements OnInit {
     LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
     LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
     LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
-    ${event.whereConditions}`
+    ${event.whereConditions}`;
     }
 
-
     this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
-
       if (res.success && res['data'].length > 0) {
-        this.collectionSize = res['data'].length
+        this.collectionSize = res['data'].length;
         // this.collectionSize=
 
-
         this.tableData = res['data'];
-
       }
-
-    })
-
+    });
   }
   onpageChnage() {
     let _this: any = this;
-    _this[this.currentFunction](this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit, this.apiFetchRecordLimit);
-    this.offset=this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit
+    _this[this.currentFunction](
+      this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit,
+      this.apiFetchRecordLimit
+    );
+    this.offset =
+      this.page * this.apiFetchRecordLimit - this.apiFetchRecordLimit;
   }
+  takeContact(loginid: any, contactviedid: any) {
+    let query = `SELECT *
+      FROM user_activities_for_contact_details AS a
+      INNER JOIN user_info AS b ON a.viewed_profile_id = b.user_id
+      INNER JOIN user_locations AS c ON a.viewed_profile_id = c.user_id
+      WHERE a.profile_view_by_profile_id = '${loginid}'
+      AND a.viewed_profile_id = '${contactviedid}';
+`;
 
+    this.ApiParameter.fetchDataFormQuery(query).subscribe((res: any) => {
+      if (res.success && res['data'].length > 0) {
+        console.log(res['data'][0]);
+
+        let data = res['data'][0];
+
+        Swal.fire({
+          title: 'Member Profile',
+          html: `
+            <p class="text-muted"><span class="fw-600 fw-bold hading">Gmail :</span>
+              <span class="detail fw-bold">${
+                data?.user_email || 'NA'
+              }</span></p>
+            <p class="text-muted"><span class="fw-600 fw-bold hading">Whatsapp Number :</span>
+              <span class="detail fw-bold">${
+                data?.user_whatsapp_no || 'NA'
+              }</span></p>
+            <p class="text-muted"><span class="fw-600 fw-bold hading">Permanent Address :</span>
+              <span class="detail fw-bold">${
+                data?.user_Permanent_Address || 'NA'
+              }</span></p>
+            <p class="text-muted"><span class="fw-600 fw-bold hading">Phone Number :</span>
+              <span class="detail fw-bold">${
+                data?.user_whatsapp_no || 'NA'
+              }</span></p>
+            <p class="text-muted"><span class="fw-600 fw-bold hading">Name :</span>
+              <span class="detail fw-bold">${
+                data?.user_full_name || 'NA'
+              }</span></p>
+            <p class="text-muted"><span class="fw-600 fw-bold hading">Current Address :</span>
+              <span class="detail fw-bold">${
+                data?.user_Address || 'NA'
+              }</span></p>
+          `,
+          showCloseButton: true,
+          showConfirmButton: true,
+          confirmButtonText: 'Copy & Send to WhatsApp',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Construct the message to send via WhatsApp
+            const message = `
+              Name: ${data?.user_full_name || 'NA'}
+              Gmail: ${data?.user_email || 'NA'}
+              WhatsApp Number: ${data?.user_whatsapp_no || 'NA'}
+              Phone Number: ${data?.user_whatsapp_no || 'NA'}
+              Permanent Address: ${data?.user_Permanent_Address || 'NA'}
+              Current Address: ${data?.user_Address || 'NA'}
+            `;
+
+            let query1 = `SELECT whats_app_c_code,user_whatsapp_no FROM  user_info WHERE user_id = '${loginid}';`;
+
+            this.ApiParameter.fetchDataFormQuery(query1).subscribe(
+              (res: any) => {
+                if (res.success && res['data'].length > 0) {
+                  let updateData = {
+                    data: {
+                      viewed_contact: 1,
+                      contact_view_reason: 'Given By Admin',
+                    },
+                    whereConditions: {
+                      profile_view_by_profile_id: loginid,
+                      viewed_profile_id: contactviedid,
+                    },
+                  };
+                  this.ApiParameter.updatedata(
+                    'user_activities_for_contact_details',
+                    updateData
+                  ).subscribe((res: any) => {
+                    if (res.success) {
+                      // Copy the message to the clipboard
+                      navigator.clipboard
+                        .writeText(message)
+                        .then(() => {
+                          if (res['data'][0].user_whatsapp_no == '') {
+                            Swal.fire('what app no empty');
+                          } else {
+                            const whatsappNumber =
+                              '+' + res['data'][0].whats_app_c_code ||
+                              '' + res['data'][0].user_whatsapp_no ||
+                              '';
+
+                            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                              message
+                            )}`;
+                            console.log(whatsappLink);
+                            window.open(whatsappLink, '_blank');
+                          }
+                          // Redirect to WhatsApp with the message
+                        })
+                        .catch((err) => {
+                          console.error(
+                            'Failed to copy text to clipboard: ',
+                            err
+                          );
+                        });
+                    }
+                  });
+                }
+              }
+            );
+          }
+        });
+      }
+    });
+  }
 }

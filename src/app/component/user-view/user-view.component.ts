@@ -1636,22 +1636,22 @@ export class UserViewComponent implements OnInit {
           this.finaldata.auth_ID;
 
         let details = `
-Required ${type2}
-<br><br>
-<i class="fa fa-arrow-down" aria-hidden="true"></i> Details Of ${type1} <i class="fa fa-arrow-down" aria-hidden="true"></i>
-<br>
-DOB:- ${this.finaldata.user_dob == null ? 'NOT UPDATE' : dob}
-<br>
-MOBILE NUMBER:- ${res['data'][0].phone_no}
-<br>
-HEIGHT:- ${
-          this.finaldata.user_height == null
-            ? 'NOT UPDATE'
-            : this.cmToFeetInches(this.finaldata.user_height).feet +
-              ' ft ' +
-              this.cmToFeetInches(this.finaldata.user_height).inches +
-              ' in'
-        }
+           Required ${type2}
+                <br><br>
+             <i class="fa fa-arrow-down" aria-hidden="true"></i> Details Of ${type1} <i class="fa fa-arrow-down" aria-hidden="true"></i>
+             <br>
+               DOB:- ${this.finaldata.user_dob == null ? 'NOT UPDATE' : dob}
+            <br>
+            MOBILE NO:- ${res['data'][0].phone_no}
+            <br>
+            HEIGHT:- ${
+              this.finaldata.user_height == null
+                ? 'NOT UPDATE'
+                : this.cmToFeetInches(this.finaldata.user_height).feet +
+                  ' ft ' +
+                  this.cmToFeetInches(this.finaldata.user_height).inches +
+                  ' in'
+            }
 <br>
 COLOUR:- ${
           this.finaldata.user_complextion == null
@@ -1683,6 +1683,12 @@ OCCUPATION:- ${
             : this.finaldata.user_occupation
         }
 <br>
+DESIGNATION:- ${
+              this.finaldata.user_deg == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_deg
+            }
+<br>
 JOB LOCATION:- ${
           this.finaldata.user_occupation_location == null
             ? 'NOT UPDATE'
@@ -1700,9 +1706,45 @@ ANNUAL INCOME:- ${
 HOME TOWN:- ${
           this.finaldata.user_Permanent_city == null
             ? 'NOT UPDATE'
-            : this.finaldata.user_Permanent_city
+            : this.finaldata?.user_Permanent_city
         }
-<br><br>
+<br>
+FATHER OCCUPATION:-${
+          this.finaldata.user_father_occupation == null
+            ? 'NOT UPDATE'
+            : this.finaldata?.user_father_occupation
+        }
+<br>
+MOTHER OCCUPATION:-${
+          this.finaldata.user_mothers_occupation == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_mothers_occupation
+        }
+<br>
+UNMARRIED BROTHER:-${
+          this.finaldata.user_no_of_unmarried_brother == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_no_of_unmarried_brother
+        }
+<br>
+MARRIED BROTHER:-${
+          this.finaldata.user_no_of_married_brother == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_no_of_married_brother
+        }
+<br>
+UNMARRIED SISTER:-${
+          this.finaldata.user_no_of_unmarried_sister == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_no_of_unmarried_sister
+        }
+<br>
+MARRIED SISTER:-${
+          this.finaldata.user_no_of_married_sister == null
+            ? 'NOT UPDATE'
+            : this.finaldata.user_no_of_married_sister
+        }
+<br>
 CLICK HERE FOR MORE INFORMATION WITH PHOTO
 <br>
 <a href="https://wa.me?text=${link}">${link}</a>
@@ -1718,7 +1760,7 @@ CLICK HERE FOR MORE INFORMATION WITH PHOTO
             let textToCopy = `
 Required ${type2}\n
 Details of ${type1}\n
-MOBILE NUMBER:- ${res['data'][0].phone_no}
+MOBILE NO:- ${res['data'][0].phone_no}
 DOB:- ${this.finaldata.user_dob == null ? 'NOT UPDATE' : dob}
 HEIGHT:- ${
               this.finaldata.user_height == null
@@ -1753,6 +1795,11 @@ OCCUPATION:- ${
                 ? 'NOT UPDATE'
                 : this.finaldata.user_occupation
             }
+DESIGNATION :- ${
+              this.finaldata.user_deg == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_deg
+            }
 JOB LOCATION:- ${
               this.finaldata.user_occupation_location == null
                 ? 'NOT UPDATE'
@@ -1769,6 +1816,36 @@ HOME TOWN:- ${
               this.finaldata.user_Permanent_city == null
                 ? 'NOT UPDATE'
                 : this.finaldata.user_Permanent_city
+            }
+FATHER OCCUPATION:-${
+              this.finaldata.user_father_occupation == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_father_occupation
+            }
+MOTHER OCCUPATION:-${
+              this.finaldata.user_mothers_occupation == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_mothers_occupation
+            }
+UNMARRIED BROTHER:-${
+              this.finaldata.user_no_of_unmarried_brother == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_no_of_unmarried_brother
+            }
+MARRIED BROTHER:-${
+              this.finaldata.user_no_of_married_brother == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_no_of_married_brother
+            }
+UNMARRIED SISTER:-${
+              this.finaldata.user_no_of_unmarried_sister == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_no_of_unmarried_sister
+            }
+MARRIED SISTER:-${
+              this.finaldata.user_no_of_married_sister == null
+                ? 'NOT UPDATE'
+                : this.finaldata.user_no_of_married_sister
             }
 CLICK HERE FOR MORE INFORMATION WITH PHOTO
 ${link}

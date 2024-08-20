@@ -411,7 +411,7 @@ export class PartnerPreferenceComponent implements OnInit {
           }
         });
         this.employeeInOptions.sort((a: any, b: any) =>
-          a.name.localeCompare(b.name)
+          a?.name.localeCompare(b?.name)
         );
       }
     });
@@ -479,8 +479,8 @@ export class PartnerPreferenceComponent implements OnInit {
             return null;
           }
         });
-        this.religionCasteOptions.sort((a: any, b: any) =>
-          a.name.localeCompare(b.name)
+        this.religionCasteOptions?.sort((a: any, b: any) =>
+          a?.name.localeCompare(b?.name)
         );
       }
     });
@@ -496,8 +496,8 @@ export class PartnerPreferenceComponent implements OnInit {
             return null;
           }
         });
-        this.nakshatraOptions.sort((a: any, b: any) =>
-          a.name.localeCompare(b.name)
+        this.nakshatraOptions?.sort((a: any, b: any) =>
+          a?.name.localeCompare(b?.name)
         );
       }
     });

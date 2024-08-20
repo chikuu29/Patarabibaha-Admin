@@ -7,13 +7,14 @@
       <p-button label="Share Data" icon="pi pi-user" (click)="shareData()" severity="danger"></p-button>
     </div>
     <div class="caption-item margin">
-      <p-button [label]="userAllData?.user_info?.data_come_from == null ? urlofside : userAllData?.user_info?.data_come_from" icon="pi pi-search" (click)="shareData()" severity="danger"></p-button>
+      <p-button
+        [label]="userAllData?.user_info?.data_come_from == null ? urlofside : userAllData?.user_info?.data_come_from"
+        icon="pi pi-search" (click)="shareData()" severity="danger"></p-button>
     </div>
   </div>
   <div class="main-body">
     <ng-container
-      *ngIf="userAllData && (userAllData?.user_profile_status == 'Completed' && !userAllData?.user_info?.user_membership_plan_active)">
-
+      *ngIf="userAllData && (userAllData?.user_profile_status == 'Completed' && userAllData?.user_info?.user_membership_plan_active=='0')">
       <div class="alert alert-warning">
         <h4 class="fw-bold text-success">
           <i class="fa-solid fa-star me-2"></i>Congratulations
@@ -30,7 +31,7 @@
 
       </div>
     </ng-container>
-    <ng-container *ngIf="userAllData && userAllData?.user_info?.user_membership_plan_active">
+    <ng-container *ngIf="userAllData && userAllData?.user_info?.user_membership_plan_active == '1'">
       <div class="alert alert-warning">
         <h4 class="fw-bold text-success">
           <i class="fa-solid fa-star me-2"></i>Congratulations
