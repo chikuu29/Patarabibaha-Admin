@@ -338,6 +338,8 @@ export class PartnerPreferenceComponent implements OnInit {
         this.partnerPreferenceForm.patchValue(
           JSON.parse(res['data'][0]['json_data'])
         );
+        console.log(this.partnerPreferenceForm.value);
+
         this.getstatefilter(this.partnerPreferenceForm.value.user_country);
         this.getcityfilter(this.partnerPreferenceForm.value.user_state);
       }

@@ -1008,15 +1008,14 @@
                             {{
                             userFamilyDetailsForm.value
                             .user_no_of_unmarried_brother +
-                            "
-                            Brothers"
+                            " Unmarried Brothers"
                             }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-no pTemplate="item">
                         <div class="country-item">
-                          <div>{{ no.name + " Brothers" }}</div>
+                          <div>{{ no.name + " Unmarried Brothers" }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -1039,8 +1038,7 @@
                             {{
                             userFamilyDetailsForm.value
                             .user_no_of_married_brother +
-                            "
-                            Married Brothers"
+                            " Married Brothers"
                             }}
                           </div>
                         </div>
@@ -1066,16 +1064,13 @@
                           <div>
                             {{
                             userFamilyDetailsForm.value
-                            .user_no_of_unmarried_sister +
-                            "
-                            Married Sisters"
-                            }}
+                            .user_no_of_unmarried_sister | formatannual:noofbrothersisterOptins }} {{" Unmarried Sisters"}}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-no pTemplate="item">
                         <div class="country-item">
-                          <div>{{ no.name + " Married Sisters" }}</div>
+                          <div>{{ no.name + " Unmarried Sisters" }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -1097,10 +1092,8 @@
                           <div>
                             {{
                             userFamilyDetailsForm.value
-                            .user_no_of_married_sister +
-                            "
-                            Married Sisters"
-                            }}
+                            .user_no_of_married_sister | formatannual:noofbrothersisterOptins }}{{" Married Sisters" }}
+
                           </div>
                         </div>
                       </ng-template>
@@ -1735,9 +1728,9 @@
                           </div>
                         </div>
                       </ng-template>
-                      <ng-template let-item pTemplate="item">
+                      <ng-template let-height pTemplate="item">
                         <div class="country-item">
-                          <div>{{ item | formatdropdown }}</div>
+                          <div>{{ height.name }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
